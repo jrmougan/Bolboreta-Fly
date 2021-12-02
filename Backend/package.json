@@ -1,0 +1,12 @@
+{
+  "name": "bolboreta",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Eduardo Sancho Foreman, Marta Padín Gómez, Jesús Romeo Mougán",
+  "license": "ISC"
+}
