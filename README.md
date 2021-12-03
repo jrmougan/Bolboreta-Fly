@@ -11,14 +11,29 @@
 
 
 ### BBDD
-- [ ] Definir que datos queremos guardar
-- [ ] Definir las Entidades
-- [ ] Definir los campos de cada entidad
-- [ ] Definir las relaciones de las entidades
+- [X] Definir que datos queremos guardar
+- [X] Definir las Entidades
+- [X] Definir los campos de cada entidad
+- [X] Definir las relaciones de las entidades
 - [ ] Diseñar las tablas en SQL
 - [ ] Crear el Script SQL para generar la BBDD
 - [ ] Definir los datos maestros (Provincias, Localidades, ...)
 - [ ] Generar datos aleatorios con Faker mediante NodeJS
+
+### Reparto de tablas
+
+#### Edu
+- [ ] Usuario
+- [ ] Itinerario
+
+#### Marta
+- [ ] Pasajero
+- [ ] Vuelo_Pasajero
+
+#### Jesús
+- [ ] Vuelo
+- [ ] Reserva
+- [ ] Itinerario_Vuelo
 
 ### Base del proyecto Backend
 - [ ] Inicializar el proyecto npm
