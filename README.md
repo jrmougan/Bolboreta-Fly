@@ -27,8 +27,8 @@
 - [ ] Itinerario
 
 #### Marta
-- [ ] Pasajero
-- [ ] Vuelo_Pasajero
+- [x] Pasajero
+- [x] Vuelo_Pasajero
 
 #### Jesús
 - [ ] Vuelo
