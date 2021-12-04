@@ -1,7 +1,6 @@
 require('dotenv').config();
 const express = require('express');
 
-
 const app = express();
 
 const { PORT } = process.env;
@@ -12,13 +11,11 @@ const { PORT } = process.env;
  * #################
  */
 
-
 /**
  * ###############################
  * ## Controladores de usuarios ##
  * ###############################
  */
-
 
 /**
  * ###############################
@@ -26,18 +23,14 @@ const { PORT } = process.env;
  * ###############################
  */
 
-
-
 /**
  * ###############################
  * ##  Controladores pasajeros  ##
  * ###############################
  */
 
-
 // Middleware que deserializa un body en formato "raw".
 app.use(express.json());
-
 
 /**
  * ########################
@@ -45,13 +38,11 @@ app.use(express.json());
  * ########################
  */
 
-
 /**
  * ########################
  * ## Endpoints reservas ##
  * ########################
  */
-
 
 /**
  * #########################
@@ -59,14 +50,12 @@ app.use(express.json());
  * #########################
  */
 
-
-
 /**
  * ######################
  * ## Middleware Error ##
  * ######################
  */
- app.use((error, req, res, next) => {
+app.use((error, req, res, next) => {
     console.error(error);
     res.status(error.httpStatus || 500).send({
         status: 'error',
@@ -74,13 +63,12 @@ app.use(express.json());
     });
 });
 
-
 /**
  * ##########################
  * ## Middleware Not Found ##
  * ##########################
  */
- app.use((req, res) => {
+app.use((req, res) => {
     res.status(404).send({
         status: 'error',
         message: 'Not found',
