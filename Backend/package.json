@@ -4,13 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "db": "node database/initDB.js"
+    "db": "node database/initDB.js",
+    "dev": "node server.js"
   },
   "keywords": [],
   "author": "Eduardo Sancho Foreman, Marta Padín Gómez, Jesús Romeo Mougán",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^10.0.0",
+    "express": "^4.17.1",
     "mysql2": "^2.3.3"
   }
 }
