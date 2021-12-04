@@ -4,6 +4,7 @@ const newPassenger = async (req, res, next) => {
   let connection;
 
   try {
+<<<<<<< HEAD
     connection = await getDB();
 
     // Sacamos información para posteriormente utilizarla para buscar/rellenar en la base datos
@@ -46,6 +47,8 @@ const newPassenger = async (req, res, next) => {
       [name, lastname, lastname2, documentype, document, email, phone]
     );
 
+=======
+>>>>>>> Estructura básica de newPassenger y deletePassenger
     res.send(`
             status: 'ok',
             message: 'El pasajero ha sido creado con éxito'
