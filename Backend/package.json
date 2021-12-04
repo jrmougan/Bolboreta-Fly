@@ -1,22 +1,23 @@
 {
-  "name": "bolboreta",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "db": "node database/initDB.js",
-    "dev": "node server.js"
-  },
-  "keywords": [],
-  "author": "Eduardo Sancho Foreman, Marta Padín Gómez, Jesús Romeo Mougán",
-  "license": "ISC",
-  "dependencies": {
-    "dotenv": "^10.0.0",
-    "express": "^4.17.1",
-    "mysql2": "^2.3.3"
-  },
-  "devDependencies": {
-    "eslint": "^8.4.0",
-    "prettier": "^2.5.1"
-  }
+    "name": "bolboreta",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "db": "node database/initDB.js",
+        "dev": "nodemon server.js"
+    },
+    "keywords": [],
+    "author": "Eduardo Sancho Foreman, Marta Padín Gómez, Jesús Romeo Mougán",
+    "license": "ISC",
+    "dependencies": {
+        "dotenv": "^10.0.0",
+        "express": "^4.17.1",
+        "mysql2": "^2.3.3"
+    },
+    "devDependencies": {
+        "eslint": "^8.4.0",
+        "nodemon": "^2.0.15",
+        "prettier": "^2.5.1"
+    }
 }
