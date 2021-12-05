@@ -11,12 +11,8 @@ const newUser = async (req, res, next) => {
     try {
         connection = await getDB();
 
-<<<<<<< HEAD
         const { name_user, lastname, lastname2, email, password, bio, avatar } =
             req.body;
-=======
-        const { name_user, email, password } = req.body;
->>>>>>> Configuracion controller usuario
 
         const [user] = await connection.query(
             `
@@ -59,7 +55,7 @@ const newUser = async (req, res, next) => {
     } catch (error) {
         next(error);
     } finally {
-        if (connection) connection.release();
+        if (connection) connection.relase();
     }
 };
 
