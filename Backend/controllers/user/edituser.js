@@ -1,17 +1,17 @@
 const getDB = require('../../database/getDB');
 
 const editUser = async (req, res, next) => {
-  let connection;
+    let connection;
 
-  try {
-    connection = await getDB();
+    try {
+        connection = await getDB();
 
-    const { id_user } = req.params;
-  } catch (error) {
-    next(error);
-  } finally {
-    if (connection) connection.release();
-  }
+        const { iduser } = req.params;
+    } catch (error) {
+        next(error);
+    } finally {
+        if (connection) connection.release();
+    }
 };
 
 module.exports = editUser;
