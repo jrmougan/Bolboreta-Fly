@@ -15,9 +15,6 @@ async function main() {
         await connection.query('DROP TABLE IF EXISTS booking');
         await connection.query('DROP TABLE IF EXISTS user');
 
-    await connection.query('DROP TABLE IF EXISTS flight');
-    await connection.query('DROP TABLE IF EXISTS passenger_rel_flight');
-    await connection.query('DROP TABLE IF EXISTS itinerary_flight');
 
         await connection.query(`CREATE TABLE user(
             id INT PRIMARY KEY AUTO_INCREMENT,

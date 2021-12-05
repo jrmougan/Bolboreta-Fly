@@ -11,11 +11,15 @@ const { PORT } = process.env;
  * #################
  */
 
+const { userExists } = require('./middlewares/index');
+
 /**
  * ###############################
  * ## Controladores de usuarios ##
  * ###############################
  */
+
+const { newUser } = require('./controllers/user/index');
 
 /**
  * ###############################
@@ -37,6 +41,10 @@ app.use(express.json());
  * ## Endpoints usuarios ##
  * ########################
  */
+
+//Crear nuevo usuario
+
+app.post('/register', newUser);
 
 /**
  * ########################
