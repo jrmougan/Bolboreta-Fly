@@ -19,6 +19,8 @@ const { userExists } = require('./middlewares/index');
  * ###############################
  */
 
+const { newUser } = require('./controllers/user/index');
+
 /**
  * ###############################
  * ## Controladores de reservas ##
@@ -39,6 +41,10 @@ app.use(express.json());
  * ## Endpoints usuarios ##
  * ########################
  */
+
+//Crear nuevo usuario
+
+app.post('/register', newUser);
 
 /**
  * ########################
