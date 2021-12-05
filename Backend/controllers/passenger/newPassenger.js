@@ -1,69 +1,69 @@
 const getDB = require('../database/getDB.js');
 
 const newPassenger = async (req, res, next) => {
-  let connection;
+    let connection;
 
-  try {
-     // newPassenger controller added
-    connection = await getDB();
+    try {
+        // newPassenger controller added
+        connection = await getDB();
 
-    // Sacamos información para posteriormente utilizarla para buscar/rellenar en la base datos
-    const { id_booking } = req.query;
+        // Sacamos información para posteriormente utilizarla para buscar/rellenar en la base datos
+        const { id_booking } = req.query;
 
-    const {
-      name,
-      lastname,
-      lastname2,
-      phone,
-      email,
-      birthdate,
-      documentype,
-      document,
-    } = req.body;
+        const {
+            name_passenger,
+            lastname,
+            lastname2,
+            phone,
+            email,
+            birthdate,
+            documentype,
+            document,
+        } = req.body;
 
-    const dateOfCreation = new Date();
+        const dateOfCreation = new Date();
 
-    // Encontramos el id del pasajero en cuestión
-    const [idPassenger] = await connection.query(
-      `
+        // Encontramos el id del pasajero en cuestión
+        const [idPassenger] = await connection.query(
+            `
       SELECT id FROM passenger WHERE  id_booking = ? AND document = ?;`,
-      [id_booking, document]
-    );
+            [id_booking, document]
+        );
 
-    // Si este pasajero ya existe, presentamos error 409
-    if (idPassenger > 0) {
-      const error =
-        new Error(`El pasajero ${name} ${lastname} ya existe en la reserva
+        // Si este pasajero ya existe, presentamos error 409
+        if (idPassenger > 0) {
+            const error =
+                new Error(`El pasajero ${name_passenger} ${lastname} ya existe en la reserva
       ${id_booking}`);
-      error.httpStatus = 418;
-      throw error;
-    }
+            error.httpStatus = 418;
+            throw error;
+        }
 
-    // Tras comprobar que el usuario no exite previamente, procedemos a insertar
-    // sus datos en nuestgra BBDD
-    await connection.query(
-      `INSERT INTO passenger(name, lastname,lastname2,documentype,document,email,phone)
+        // Tras comprobar que el usuario no exite previamente, procedemos a insertar
+        // sus datos en nuestgra BBDD
+        await connection.query(
+            `INSERT INTO passenger(name, lastname,lastname2,documentype,document,email,phone)
       VALUES(?,?,?,?,?,?,?)`,
-      [name, lastname, lastname2, documentype, document, email, phone]
-    );
+            [
+                name_passenger,
+                lastname,
+                lastname2,
+                documentype,
+                document,
+                email,
+                phone,
+            ]
+        );
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Estructura básica de newPassenger y deletePassenger
-=======
->>>>>>> newPassenger controller added
-=======
->>>>>>> 10ed13b4e7eaf276c7aa140aebd2a6e8b384b7d0
-    res.send(`
+        res.send(`
             status: 'ok',
             message: 'El pasajero ha sido creado con éxito'
         `);
-  } catch (error) {
-    next(error);
-  } finally {
-    if (connection) connection.release();
-  }
+    } catch (error) {
+        next(error);
+    } finally {
+        if (connection) connection.release();
+    }
 };
 
 module.exports = newPassenger;
