@@ -22,7 +22,7 @@ async function main() {
             name_user VARCHAR(60) NOT NULL,
             lastname VARCHAR(60) NOT NULL,
             lastname2 VARCHAR(60),
-            bio VARCHAR(MAX),
+            bio VARCHAR(5000),
             address VARCHAR(255),
             email VARCHAR(70) NOT NULL,
             password VARCHAR(255) NOT NULL,
