@@ -5,7 +5,6 @@ async function main() {
   try {
     connection = await getDB();
 
-<<<<<<< HEAD
         // Borramos las tablas si existen
 
         await connection.query('DROP TABLE IF EXISTS itinerary_rel_flight');
@@ -15,25 +14,12 @@ async function main() {
         await connection.query('DROP TABLE IF EXISTS passenger');
         await connection.query('DROP TABLE IF EXISTS booking');
         await connection.query('DROP TABLE IF EXISTS user');
-=======
-    // Borramos las tablas si existen
-    await connection.query('DROP TABLE IF EXISTS itinerary');
-    await connection.query('DROP TABLE IF EXISTS passenger');
-    await connection.query('DROP TABLE IF EXISTS booking');
-    await connection.query('DROP TABLE IF EXISTS user');
->>>>>>> cd1f2fe2fc3b78ebe7edd295f33409f5bb0fdee8
 
     await connection.query('DROP TABLE IF EXISTS flight');
     await connection.query('DROP TABLE IF EXISTS passenger_rel_flight');
     await connection.query('DROP TABLE IF EXISTS itinerary_flight');
 
-<<<<<<< HEAD
         await connection.query(`CREATE TABLE user(
-=======
-    console.log('Tablas eliminadas');
-
-    await connection.query(`CREATE TABLE user(
->>>>>>> cd1f2fe2fc3b78ebe7edd295f33409f5bb0fdee8
             id INT PRIMARY KEY AUTO_INCREMENT,
             name_user VARCHAR(60) NOT NULL,
             lastname VARCHAR(60) NOT NULL,
@@ -50,11 +36,8 @@ async function main() {
             recover_code VARCHAR(100),
             deleted BOOLEAN default false
             )`);
-<<<<<<< HEAD
 
         console.log('Tabla de usuarios creada');
-=======
->>>>>>> cd1f2fe2fc3b78ebe7edd295f33409f5bb0fdee8
 
     console.log('Tabla de usuarios creada');
 
@@ -133,17 +116,10 @@ async function main() {
             seat VARCHAR(3) NOT NULL,
             PRIMARY KEY (idpassenger, idflight)
             );`);
-<<<<<<< HEAD
 
         console.log('Tabla passenger_rel_flight creada');
 
         await connection.query(`CREATE TABLE itinerary_rel_flight (
-=======
-
-    console.log('Tabla passenger_rel_flight creada');
-
-    await connection.query(`CREATE TABLE itinerary_rel_fight (
->>>>>>> cd1f2fe2fc3b78ebe7edd295f33409f5bb0fdee8
             flight_id int NOT NULL,
             itinerary_id int NOT NULL,
             foreign key(flight_id) references flight(id),
@@ -151,7 +127,6 @@ async function main() {
             PRIMARY KEY (flight_id, itinerary_id)
         );`);
 
-<<<<<<< HEAD
         console.log('Tabla itinerary_rel_flight creada');
     } catch (error) {
         console.error(error);
@@ -161,18 +136,6 @@ async function main() {
         // Cerramos el proceso actual.
         process.exit(0);
     }
-=======
-    console.log('Tabla itinerary_rel_flight creada');
-  } catch (error) {
-    console.error(error);
-  } finally {
-    // Si existe una conexión con la base de datos la liberamos.
-    if (connection) connection.release();
-
-    // Cerramos el proceso actual.
-    process.exit(0);
-  }
->>>>>>> cd1f2fe2fc3b78ebe7edd295f33409f5bb0fdee8
 }
 
 main();
