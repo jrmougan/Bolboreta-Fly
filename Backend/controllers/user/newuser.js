@@ -7,7 +7,7 @@ const newUser = async (req, res, next) => {
     try {
         connection = await getDB();
 
-        const { name_user, email, password } = req.body;
+        const { email, password } = req.body;
 
         const [user] = await connection.query(
             `
@@ -45,7 +45,7 @@ const newUser = async (req, res, next) => {
     } catch (error) {
         next(error);
     } finally {
-        if (connection) connection.release();
+        if (connection) connection.relase();
     }
 };
 
