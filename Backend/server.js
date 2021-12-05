@@ -11,6 +11,8 @@ const { PORT } = process.env;
  * #################
  */
 
+const { userExists } = require('./middlewares/index');
+
 /**
  * ###############################
  * ## Controladores de usuarios ##
