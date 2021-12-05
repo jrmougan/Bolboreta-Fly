@@ -55,7 +55,7 @@ const newUser = async (req, res, next) => {
     } catch (error) {
         next(error);
     } finally {
-        if (connection) connection.relase();
+        if (connection) connection.release();
     }
 };
 
