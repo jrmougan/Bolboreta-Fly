@@ -48,10 +48,13 @@ const newPassenger = async (req, res, next) => {
     );
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Estructura básica de newPassenger y deletePassenger
 =======
 >>>>>>> newPassenger controller added
+=======
+>>>>>>> 10ed13b4e7eaf276c7aa140aebd2a6e8b384b7d0
     res.send(`
             status: 'ok',
             message: 'El pasajero ha sido creado con éxito'
