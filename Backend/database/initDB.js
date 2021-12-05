@@ -1,9 +1,9 @@
 const getDB = require('./getDB');
 
 async function main() {
-  let connection;
-  try {
-    connection = await getDB();
+    let connection;
+    try {
+        connection = await getDB();
 
         // Borramos las tablas si existen
 
@@ -14,7 +14,6 @@ async function main() {
         await connection.query('DROP TABLE IF EXISTS passenger');
         await connection.query('DROP TABLE IF EXISTS booking');
         await connection.query('DROP TABLE IF EXISTS user');
-
 
         await connection.query(`CREATE TABLE user(
             id INT PRIMARY KEY AUTO_INCREMENT,
@@ -36,9 +35,9 @@ async function main() {
 
         console.log('Tabla de usuarios creada');
 
-    console.log('Tabla de usuarios creada');
+        console.log('Tabla de usuarios creada');
 
-    await connection.query(`CREATE TABLE booking (
+        await connection.query(`CREATE TABLE booking (
             id INT PRIMARY KEY AUTO_INCREMENT,
             booking_code VARCHAR(50) NOT NULL,
             creation_date DATETIME NOT NULL,
@@ -51,14 +50,15 @@ async function main() {
             FOREIGN KEY (id_user) REFERENCES user(id)
             );`);
 
-    console.log('Tabla Booking Creada');
+        console.log('Tabla Booking Creada');
 
-    await connection.query(`CREATE TABLE passenger (
+        await connection.query(`CREATE TABLE passenger (
             id INT PRIMARY KEY auto_increment,
             name_passenger VARCHAR (50) NOT NULL ,
             lastname VARCHAR (255) NOT NULL ,
             lastname2 VARCHAR (255) NOT NULL ,
             typephone VARCHAR (50) ,
+            address VARCHAR(255) NOT NULL,
             phone VARCHAR (50) NOT NULL ,
             code_phone VARCHAR (10) NOT NULL,
             email VARCHAR (10) NOT NULL ,
@@ -77,9 +77,9 @@ async function main() {
             FOREIGN KEY (id_booking) REFERENCES booking(id)
             );`);
 
-    console.log('Tabla Passenger creada');
+        console.log('Tabla Passenger creada');
 
-    await connection.query(`CREATE TABLE itinerary(
+        await connection.query(`CREATE TABLE itinerary(
             id INT PRIMARY KEY AUTO_INCREMENT,
             duration VARCHAR(50) NOT NULL,
             code_origin CHAR(5) NOT NULL,
@@ -89,9 +89,9 @@ async function main() {
             FOREIGN KEY (id_booking) REFERENCES booking(id)
             )`);
 
-    console.log('Tabla itinerary creada');
+        console.log('Tabla itinerary creada');
 
-    await connection.query(`CREATE TABLE flight (
+        await connection.query(`CREATE TABLE flight (
             id int PRIMARY KEY AUTO_INCREMENT,
             cod_aerolinea varchar(50) NOT NULL,
             codigo_origen varchar(10) NOT NULL,
@@ -103,9 +103,9 @@ async function main() {
             num_vuelo char(10) NOT NULL
             );`);
 
-    console.log('Tabla flight creada');
+        console.log('Tabla flight creada');
 
-    await connection.query(`CREATE TABLE passenger_rel_flight (
+        await connection.query(`CREATE TABLE passenger_rel_flight (
             idpassenger INT NOT NULL,
             FOREIGN KEY (idpassenger) REFERENCES passenger(id),
             idflight INT NOT NULL,

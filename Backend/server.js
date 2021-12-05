@@ -33,6 +33,8 @@ const { newUser } = require('./controllers/user/index');
  * ###############################
  */
 
+const { newBookingPassenger } = require('./controllers/passenger/index');
+
 // Middleware que deserializa un body en formato "raw".
 app.use(express.json());
 
@@ -57,6 +59,8 @@ app.post('/register', newUser);
  * ## Endpoints pasajeros ##
  * #########################
  */
+
+app.post('/booking/newPassenger', newBookingPassenger);
 
 /**
  * ######################
