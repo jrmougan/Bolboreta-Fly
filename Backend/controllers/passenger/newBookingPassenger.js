@@ -1,6 +1,6 @@
-const getDB = require('../database/getDB.js');
+const getDB = require('../../database/getDB');
 
-const newPassenger = async (req, res, next) => {
+const newBookingPassenger = async (req, res, next) => {
     let connection;
 
     try {
@@ -66,4 +66,4 @@ const newPassenger = async (req, res, next) => {
     }
 };
 
-module.exports = newPassenger;
+module.exports = newBookingPassenger;
