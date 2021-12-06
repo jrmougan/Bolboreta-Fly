@@ -48,7 +48,7 @@ async function mailVerify(email, registration_code) {
     const bodyemail = `
         Para activar tu registro en Bolboreta Flight, 
         pulsa el link siguiente para verificar tu email:
-        ${PUBLIC_HOST}/register/validate/${registration_code}`;
+        <a href="${PUBLIC_HOST}/register/validate/${registration_code}"> Pulsa aqui </a>`;
     await sendMail({
         to: email,
         subject: 'Activación registro de Bolboreta Flight',
