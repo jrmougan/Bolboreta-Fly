@@ -67,5 +67,8 @@ module.exports = {
     hashedPassword,
     generateRandomString,
     formatDate,
+<<<<<<< HEAD
     mailVerify,
+=======
+>>>>>>> Cambio exports
 };
