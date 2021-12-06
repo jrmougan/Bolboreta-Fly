@@ -15,10 +15,18 @@ const newBookingPassenger = async (req, res, next) => {
             lastname,
             lastname2,
             phone,
+            typephone,
+            gender,
+            address,
             email,
             birthdate,
+            birthplace,
             documentype,
             document,
+            issuancedate,
+            expiredate,
+            issuancecountry,
+            validitycountry,
         } = req.body;
 
         const dateOfCreation = new Date();
@@ -48,10 +56,19 @@ const newBookingPassenger = async (req, res, next) => {
                 name_passenger,
                 lastname,
                 lastname2,
+                phone,
+                typephone,
+                gender,
+                address,
+                email,
+                birthdate,
+                birthplace,
                 documentype,
                 document,
-                email,
-                phone,
+                issuancedate,
+                expiredate,
+                issuancecountry,
+                validitycountry,
             ]
         );
 
