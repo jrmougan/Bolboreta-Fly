@@ -50,26 +50,29 @@ const newBookingPassenger = async (req, res, next) => {
         // Tras comprobar que el usuario no exite previamente, procedemos a insertar
         // sus datos en nuestgra BBDD
         await connection.query(
-            `INSERT INTO passenger(name, lastname,lastname2,documentype,document,email,phone)
-      VALUES(?,?,?,?,?,?,?)`,
-            [
+            `INSERT INTO bolboreta.passenger(name_passenger, lastname,lastname2,documentype,typephone, gender,address,email,birthdate,birthplace,document,issuancedate,expiredate,issuancecountry,validitycountry, phone,code_phone,namecontact,emailcontact)
+            VALUES('Edu',1,2,3,4,'male',6,7,'1994/02/28',7,7,'1990/09/23','1990/09/23',7,7,7,2,1,1)`
+            /* [
                 name_passenger,
                 lastname,
                 lastname2,
-                phone,
+                documentype,
                 typephone,
                 gender,
                 address,
                 email,
                 birthdate,
                 birthplace,
-                documentype,
                 document,
                 issuancedate,
                 expiredate,
                 issuancecountry,
                 validitycountry,
-            ]
+                phone,
+                code_phone,
+                namecontact,
+                emailcontact
+            ] */
         );
 
         res.send(`
