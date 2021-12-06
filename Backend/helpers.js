@@ -20,4 +20,8 @@ function formatDate(date) {
     return format(date, 'yyy-MM-dd HH:mm:ss');
 }
 
-module.exports = { hashedPassword, generateRandomString, formatDate };
+module.exports = {
+    hashedPassword,
+    generateRandomString,
+    formatDate,
+};
