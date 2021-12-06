@@ -6,10 +6,10 @@ const activeUser = async (req, res, next) => {
         connection = await getDB();
 
         const { registration_code } = req.params;
-        
+
         //comprobación de usuarios pendientes de activar
         const [user] = await connection.query(
-            `SELECT id FROM users WHERE registration_code= ?`,
+            `SELECT id FROM user WHERE registration_code= ?`,
             [registration_code]
         );
 
@@ -22,7 +22,7 @@ const activeUser = async (req, res, next) => {
         }
         //activación de usuario. y borrado de codigo de registro
         await connection.query(
-            `UPDATE users SET active = true, registration_code = NULL WHERE registrationCode = ?`,
+            `UPDATE user SET active = true, registration_code = NULL WHERE registration_code = ?`,
             [registration_code]
         );
 

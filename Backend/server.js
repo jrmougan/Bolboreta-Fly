@@ -19,7 +19,7 @@ const { userExists } = require('./middlewares/index');
  * ###############################
  */
 
-const { newUser } = require('./controllers/user/index');
+const { newUser, activeUser } = require('./controllers/user/index');
 
 /**
  * ###############################
@@ -50,7 +50,7 @@ app.post('/register', newUser);
 app.put('/user/:userId/edit');
 app.delete('/user/:userId/delete');
 app.put('/user/:userId/recover');
-app.get('/user/activate/:userId/:activationCode');
+app.get('/register/validate/:registration_code', activeUser);
 app.post('/login');
 
 /**
