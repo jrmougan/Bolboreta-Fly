@@ -5,6 +5,7 @@ const sgMail = require('@sendgrid/mail');
 const { SENDGRID_API_KEY, SENDGRID_FROM, PUBLIC_HOST } = process.env;
 
 sgMail.setApiKey(SENDGRID_API_KEY);
+const format = require('date-fns');
 
 //Encriptación de la contraseña
 
@@ -56,4 +57,15 @@ async function mailVerify(email, registration_code) {
     });
 }
 
-module.exports = { hashedPassword, generateRandomString, mailVerify };
+// Estructura de la fecha
+
+function formatDate(date) {
+    return format(date, 'yyy-MM-dd HH:mm:ss');
+}
+
+module.exports = {
+    hashedPassword,
+    generateRandomString,
+    formatDate,
+    mailVerify,
+};
