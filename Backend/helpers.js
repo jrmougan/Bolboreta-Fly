@@ -1,6 +1,5 @@
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
-const format = require('date-fns');
 
 //Encriptación de la contraseña
 
@@ -13,15 +12,4 @@ async function hashedPassword(password, saltRounds) {
 function generateRandomString(length) {
     return crypto.randomBytes(length).toString('hex');
 }
-
-// Estructura de la fecha
-
-function formatDate(date) {
-    return format(date, 'yyy-MM-dd HH:mm:ss');
-}
-
-module.exports = {
-    hashedPassword,
-    generateRandomString,
-    formatDate,
-};
+module.exports = { hashedPassword, generateRandomString };
