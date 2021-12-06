@@ -1,5 +1,9 @@
 const getDB = require('../../database/getDB');
-const { hashedPassword, generateRandomString } = require('../../helpers');
+const {
+    hashedPassword,
+    generateRandomString,
+    mailVerify,
+} = require('../../helpers');
 
 const newUser = async (req, res, next) => {
     let connection;
@@ -7,7 +11,8 @@ const newUser = async (req, res, next) => {
     try {
         connection = await getDB();
 
-        const { name_user, email, password } = req.body;
+        const { name_user, lastname, lastname2, email, password, bio, avatar } =
+            req.body;
 
         const [user] = await connection.query(
             `
@@ -23,19 +28,24 @@ const newUser = async (req, res, next) => {
             throw error;
         }
 
+        const registration_code = generateRandomString(40);
+
         await connection.query(
-            `
-        INSERT INTO user(name_user, lastname, lastname2, email, password, bio, avatar) VALUES (?,?,?,?,?,?,?)`,
+            `INSERT INTO user(name_user, lastname, lastname2, email, password, bio, avatar,rol,registration_code) VALUES (?,?,?,?,?,?,?,?,?)`,
             [
                 name_user,
                 lastname,
                 lastname2,
                 email,
-                hashedPassword(password, 10),
+                await hashedPassword(password, 10),
                 bio,
                 avatar,
+                1,
+                registration_code,
             ]
         );
+
+        await mailVerify(email, registration_code);
 
         res.send({
             status: 'ok',
