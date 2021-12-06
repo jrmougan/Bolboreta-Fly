@@ -47,12 +47,21 @@ app.use(express.json());
 //Crear nuevo usuario
 
 app.post('/register', newUser);
+app.put('/user/:userId/edit');
+app.delete('/user/:userId/delete');
+app.put('/user/:userId/recover');
+app.get('/user/activate/:userId/:activationCode');
+app.post('/login');
 
 /**
  * ########################
  * ## Endpoints reservas ##
  * ########################
  */
+
+app.post('/booking/newBooking/itinerary/:idItinerary');
+app.get('/booking/:bookingId/getBookings');
+app.get('/booking/:bookingId/getBooking');
 
 /**
  * #########################
@@ -61,6 +70,10 @@ app.post('/register', newUser);
  */
 
 app.post('/booking/newPassenger', newBookingPassenger);
+app.get('/booking/:bookingId/getAllPassanger');
+app.put('/booking/:bookingId/passenger/:idPassenger/edit');
+app.get('/booking/:boookingId/passenger/:idPassenger/getPassengerData');
+app.delete('/booking/:bookingId/passenger/:idPassenger/delete');
 
 /**
  * ######################
