@@ -14,19 +14,22 @@ const newBookingPassenger = async (req, res, next) => {
             name_passenger,
             lastname,
             lastname2,
-            phone,
+            documentype,
             typephone,
             gender,
             address,
             email,
             birthdate,
             birthplace,
-            documentype,
             document,
             issuancedate,
             expiredate,
             issuancecountry,
             validitycountry,
+            phone,
+            code_phone,
+            namecontact,
+            emailcontact,
         } = req.body;
 
         const dateOfCreation = new Date();
@@ -51,9 +54,8 @@ const newBookingPassenger = async (req, res, next) => {
         // sus datos en nuestgra BBDD
         await connection.query(
             `INSERT INTO bolboreta.passenger(name_passenger, lastname,lastname2,documentype,typephone, gender,address,email,birthdate,birthplace,document,issuancedate,expiredate,issuancecountry,validitycountry, phone,code_phone,namecontact,emailcontact)
-            VALUES('Edu',1,2,3,4,'male',6,7,'1994/02/28',7,7,'1990/09/23','1990/09/23',7,7,7,2,1,1)`
-            /* [
-                name_passenger,
+            VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`[
+                (name_passenger,
                 lastname,
                 lastname2,
                 documentype,
@@ -71,8 +73,8 @@ const newBookingPassenger = async (req, res, next) => {
                 phone,
                 code_phone,
                 namecontact,
-                emailcontact
-            ] */
+                emailcontact)
+            ]
         );
 
         res.send(`

@@ -89,4 +89,3 @@ const editPassenger = async (req, res, next) => {
 };
 
 module.exports = editPassenger;
-console.log(getDB);

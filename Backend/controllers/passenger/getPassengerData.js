@@ -26,8 +26,8 @@ const getPassengerData = async (req, res, next) => {
                     gender,
                     namecontact,
                     emailcontact,
-            FROM passenger WHERE id=?`,
-            [idPassenger]
+            FROM passenger WHERE id=? AND id_booking=?`,
+            [idPassenger, bookingId]
         );
 
         const allPassengerData = {
@@ -50,7 +50,7 @@ const getPassengerData = async (req, res, next) => {
         };
         res.send({
             status: 'ok',
-            message: allDataPasenger,
+            message: allPassengerData,
         });
     } catch (error) {
         next(error);
