@@ -69,7 +69,7 @@ app.get('/booking/:bookingId/getBooking');
  * #########################
  */
 
-app.post('/booking/newPassenger', newBookingPassenger);
+app.post('/booking/:bookingId/newPassenger', newBookingPassenger);
 app.get('/booking/:bookingId/getAllPassanger');
 app.put('/booking/:bookingId/passenger/:idPassenger/edit');
 app.get('/booking/:boookingId/passenger/:idPassenger/getPassengerData');
