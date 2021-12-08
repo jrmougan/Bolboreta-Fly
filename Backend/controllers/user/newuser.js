@@ -1,9 +1,12 @@
+const { hash } = require('bcrypt');
 const getDB = require('../../database/getDB');
 const {
     hashedPassword,
     generateRandomString,
-    mailVerify,
+    mailVerify
+    
 } = require('../../helpers');
+
 
 const newUser = async (req, res, next) => {
     let connection;
@@ -29,7 +32,7 @@ const newUser = async (req, res, next) => {
         }
 
         const registration_code = generateRandomString(40);
-
+         
         await connection.query(
             `INSERT INTO user(name_user, lastname, lastname2, email, password, bio, avatar,rol,registration_code) VALUES (?,?,?,?,?,?,?,?,?)`,
             [
@@ -37,7 +40,7 @@ const newUser = async (req, res, next) => {
                 lastname,
                 lastname2,
                 email,
-                await hashedPassword(password, 10),
+                await hashedPassword(password,10),
                 bio,
                 avatar,
                 1,
