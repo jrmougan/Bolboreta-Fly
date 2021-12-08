@@ -94,12 +94,7 @@ async function main() {
             carrier_code varchar(50) NOT NULL,
             departure_code varchar(10) NOT NULL,
             arrival_code varchar(10) NOT NULL,
-            departure_terminal char(5),
-            arrival_terminal char(5),
             duration VARCHAR(50) NOT NULL,
-            departure_time datetime NOT NULL,
-            arrival_time datetime NOT NULL,
-            aircraft_code char(10) NOT NULL,
             flight_num char(10) NOT NULL
             );`);
 
@@ -111,10 +106,15 @@ async function main() {
             passenger_id int NOT NULL,
             FOREIGN KEY (passenger_id) REFERENCES passenger(id),
             booking_id int NOT NULL,
+            departure_terminal char(5),
+            arrival_terminal char(5),
+            departure_time datetime NOT NULL,
+            arrival_time datetime NOT NULL,
             FOREIGN KEY (booking_id) REFERENCES booking(id),
+            aircraft_code char(10) NOT NULL,
             bags int,
             seat VARCHAR(10),
-            PRIMARY KEY (booking_id, passenger_id)
+            PRIMARY KEY (flight_id, passenger_id, booking_id)
             )`);
 
         console.log('Tabla passenger_rel_flight_rel_booking');
@@ -236,13 +236,11 @@ async function main() {
 
         for (let i = 0; i < num_vuelos; i++) {
             await connection.query(
-                `INSERT INTO flight (carrier_code, departure_code, arrival_code, departure_terminal, arrival_terminal, duration, departure_time, arrival_time, aircraft_code, flight_num) 
+                `INSERT INTO flight (carrier_code, departure_code, arrival_code, duration, flight_num) 
                 VALUES ("AF2",
                  "${airports[faker.datatype.number(airports.length)].iata}", "${
                     airports[faker.datatype.number(airports.length)].iata
-                }", "${faker.datatype.number(
-                    10
-                )}", "2E", "PT11H15M", "2020-03-01T21:05:00", "2020-03-02T12:20:00", "772", 2410)`
+                }", "PT11H15M", "772")`
             );
         }
         console.log('Vuelos falsos insertados');
