@@ -11,12 +11,8 @@ const newUser = async (req, res, next) => {
     try {
         connection = await getDB();
 
-<<<<<<< HEAD
         const { name_user, lastname, lastname2, email, password, bio, avatar } =
             req.body;
-=======
-        const { name_user, email, password } = req.body;
->>>>>>> Configuracion controller usuario
 
         const [user] = await connection.query(
             `
