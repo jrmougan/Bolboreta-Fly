@@ -40,6 +40,8 @@ async function main() {
             active BOOLEAN NOT NULL default false,
             registration_code VARCHAR(100),
             recover_code VARCHAR(100),
+            createDate DATE,
+            modifyDate DATE,
             deleted BOOLEAN default false
             )`);
 

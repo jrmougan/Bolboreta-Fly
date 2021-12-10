@@ -1,8 +1,17 @@
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const sgMail = require('@sendgrid/mail');
+const path = require('path');
+const sharp = require ('sharp');
+const {ensureDir , unlink } = require('fs-extra');
+const uuid = require ('uuid');
 
-const { SENDGRID_API_KEY, SENDGRID_FROM, PUBLIC_HOST } = process.env;
+const { SENDGRID_API_KEY, SENDGRID_FROM, PUBLIC_HOST, UPLOAD_DIRECTORY } = process.env;
+
+ // ruta directorio donde guardar avatar
+
+ const uploadDir = path.join(__dirname , UPLOAD_DIRECTORY);
+
 
 sgMail.setApiKey(SENDGRID_API_KEY);
 
@@ -36,7 +45,7 @@ async function sendMail({ to, subject, body }) {
 
         await sgMail.send(msg);
     } catch (_) {
-        throw new Error(
+       throw new Error(
             'No se ha podido enviar el Email, compruebe que está todo bien'
         );
     }
@@ -56,4 +65,54 @@ async function mailVerify(email, registration_code) {
     });
 }
 
-module.exports = { hashedPassword, generateRandomString, mailVerify };
+//guardar foto/avatar
+
+async function savePhoto(image, maxwidth){
+    try {
+
+        await ensureDir(uploadDir);
+
+        const sharpImage = sharp(image.data);
+
+        const infoImage = await sharpImage.metadata();
+
+        // Todas las fotos/avatares van a tener un tamaño máximo.
+       if(infoImage.width > maxwidth){
+        sharpImage.resize(maxwidth);
+       }
+
+       //Nombre único para cada foto/avatar.
+       const imgName = uuid.v4() + '.jpg';
+
+       //ruta absoluta foto/avatar
+       const imagePath = path.join(uploadDir, imgName);
+
+       //Guardamos foto/avatar
+       await sharpImage.toFile(imagePath);
+
+       return imgName ;
+
+
+       
+
+    } catch (_) {
+        throw new Error ('Error al procesar la imagen');
+        
+    }
+}
+
+//Borrar foto/Avatar
+
+async function deletePhoto(photoname) {
+    try {
+        const photoPath = path.join(uploadDir, photoname);
+        await unlink(photoPath);
+        
+    } catch (_) {
+        throw new Error ('No se ha podido eliminar la foto/avatar del servidor.');
+        
+    }
+}
+
+
+module.exports = { hashedPassword, generateRandomString, mailVerify, savePhoto, deletePhoto };

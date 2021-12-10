@@ -11,7 +11,7 @@ const { PORT } = process.env;
  * #################
  */
 
-const { userExists } = require('./middlewares/index');
+const { userExists, isAuth, caneditUser } = require('./middlewares/index');
 
 /**
  * ###############################
@@ -19,7 +19,7 @@ const { userExists } = require('./middlewares/index');
  * ###############################
  */
 
-const { newUser, activeUser, loginUser } = require('./controllers/user/index');
+const { newUser, activeUser, loginUser, editUser, editAvatar } = require('./controllers/user/index');
 
 /**
  * ###############################
@@ -47,11 +47,12 @@ app.use(express.json());
 //Crear nuevo usuario
 
 app.post('/register', newUser);
-app.put('/user/:userId/edit');
-app.delete('/user/:userId/delete');
-app.put('/user/:userId/recover');
+app.put('/user/:iduser/edit', userExists, isAuth, caneditUser, editUser);
+app.delete('/user/:iduser/delete');
+app.put('/user/:iduser/recover');
 app.get('/register/validate/:registration_code', activeUser);
 app.post('/login', loginUser);
+app.put('/user/:iduser/avatar', userExists, isAuth, caneditUser, editAvatar);
 
 /**
  * ########################
@@ -72,7 +73,7 @@ app.get('/booking/:bookingId/getBooking');
 app.post('/booking/newPassenger', newBookingPassenger);
 app.get('/booking/:bookingId/getAllPassanger');
 app.put('/booking/:bookingId/passenger/:idPassenger/edit');
-app.get('/booking/:boookingId/passenger/:idPassenger/getPassengerData');
+app.get('/booking/:bookingId/passenger/:idPassenger/getPassengerData');
 app.delete('/booking/:bookingId/passenger/:idPassenger/delete');
 
 /**
