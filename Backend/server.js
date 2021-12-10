@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const fileUpload = require('express-fileupload');
 
 const app = express();
 
@@ -19,7 +20,13 @@ const { userExists, isAuth, caneditUser } = require('./middlewares/index');
  * ###############################
  */
 
-const { newUser, activeUser, loginUser, editUser, editAvatar } = require('./controllers/user/index');
+const {
+    newUser,
+    activeUser,
+    loginUser,
+    editUser,
+    editAvatar,
+} = require('./controllers/user/index');
 
 /**
  * ###############################
@@ -37,6 +44,9 @@ const { newBookingPassenger } = require('./controllers/passenger/index');
 
 // Middleware que deserializa un body en formato "raw".
 app.use(express.json());
+
+// Middleware que deserializa un body en formato "form-data".
+app.use(fileUpload());
 
 /**
  * ########################
