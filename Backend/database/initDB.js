@@ -52,8 +52,8 @@ async function main() {
             creation_date DATETIME NOT NULL,
             payment_method TINYINT,
             complete BOOLEAN NOT NULL default(false),
-            final_price INT unsigned,
-            currency TINYINT,
+            final_price FLOAT unsigned,
+            currency CHAR(10),
             canceled BOOLEAN NOT NULL default(false),
             oneway BOOLEAN NOT NULL,
             id_user int NOT NULL,
@@ -159,6 +159,7 @@ async function main() {
         }
 
         // Generar reservas
+        /*
         const num_reservas = 10;
 
         for (let i = 0; i < num_reservas; i++) {
@@ -244,6 +245,7 @@ async function main() {
             );
         }
         console.log('Vuelos falsos insertados');
+        */
     } catch (error) {
         console.error(error);
     } finally {

@@ -25,12 +25,27 @@ const newBooking = async (req, res, next) => {
         connection = await getDB();
         // Guardamos en la base de datos los datos de la reserva
         const bookingId = data.id;
+        const creation_date = data.associatedRecords[0].creationDate;
         const finalPrice = data.flightOffers[0].price.total;
         const currency = data.flightOffers[0].price.currency;
 
+        // Comprobamos si la reserva ya existe
+
+        const [bookingExists] = await connection.query(
+            'SELECT id FROM booking WHERE booking_code = ?',
+            [bookingId]
+        );
+
+        // Insertamos la reserva en caso de que no exista
+        if (bookingExists.lenght === 0) {
+            await connection.query(
+                'INSERT INTO booking (booking_code, creation_date, payment_method, complete, final_price, currency, canceled, oneway, id_user) VALUES (?,?,?,?,?,?,?,?,?)',
+                [bookingId, creation_date, 0, 0, finalPrice, currency, 0, 0, 2]
+            );
+        }
         //Datos de vuelos
         const itineraries = data.flightOffers[0].itineraries;
-        console.log(itineraries.lenght);
+
         //Bucle para los itinerarios
         for (const itinerary of itineraries) {
             //Bucle para los vuelos
@@ -45,13 +60,15 @@ const newBooking = async (req, res, next) => {
                 const flight_num = flight.number;
 
                 // Consulta para comprobar si ya existe ese vuelo en base de datos
-                const [flight_exists] = await connection.query(
+                let [flightExists] = await connection.query(
                     'SELECT id FROM flight WHERE flight_num = ? AND carrier_code = ?',
                     [flight_num, carrier_code]
                 );
 
+                const flightExistsLenght = Object.keys(flightExists).length;
+
                 // En caso de que no exista lo insertamos
-                if (flight_exists.lenght === 0) {
+                if (flightExistsLenght === 0) {
                     await connection.query(
                         'INSERT INTO flight (carrier_code, departure_code, arrival_code, duration, flight_num) VALUES (?,?,?,?,?)',
                         [
@@ -62,7 +79,11 @@ const newBooking = async (req, res, next) => {
                             flight_num,
                         ]
                     );
+                    //console.log(flight_insert);
                 }
+                //console.log(flight_exists);
+
+                //Insertamos Pasajeros y con sus relaciones reserva y vuelo
             }
         }
 
