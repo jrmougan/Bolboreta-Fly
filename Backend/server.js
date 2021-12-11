@@ -1,9 +1,9 @@
 require('dotenv').config();
 const express = require('express');
 
-const app = express();
-
 const { PORT } = process.env;
+
+const app = express();
 
 /**
  * #################
@@ -26,6 +26,8 @@ const { newUser, activeUser } = require('./controllers/user/index');
  * ## Controladores de reservas ##
  * ###############################
  */
+
+const { newBooking } = require('./controllers/booking/index');
 
 /**
  * ###############################
@@ -59,7 +61,7 @@ app.post('/login');
  * ########################
  */
 
-app.post('/booking/newBooking/itinerary/:idItinerary');
+app.post('/booking/newBooking', newBooking);
 app.get('/booking/:bookingId/getBookings');
 app.get('/booking/:bookingId/getBooking');
 
