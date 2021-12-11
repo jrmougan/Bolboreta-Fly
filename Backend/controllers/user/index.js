@@ -5,6 +5,7 @@ const editUser = require('./edituser');
 const editAvatar = require('./editAvatar');
 const getUser = require('./getUser');
 const recoveyPass = require('./recorveyPass');
+const resetPass = require('./resetPass');
 
 module.exports = {
     newUser,
@@ -13,5 +14,6 @@ module.exports = {
     editUser,
     editAvatar,
     getUser,
-    recoveyPass
+    recoveyPass,
+    resetPass
 };
