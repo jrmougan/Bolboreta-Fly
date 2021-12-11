@@ -1,9 +1,9 @@
 require('dotenv').config();
 const express = require('express');
 
-const app = express();
-
 const { PORT } = process.env;
+
+const app = express();
 
 /**
  * #################
@@ -19,13 +19,15 @@ const { userExists } = require('./middlewares/index');
  * ###############################
  */
 
-const { newUser } = require('./controllers/user/index');
+const { newUser, activeUser } = require('./controllers/user/index');
 
 /**
  * ###############################
  * ## Controladores de reservas ##
  * ###############################
  */
+
+const { newBooking } = require('./controllers/booking/index');
 
 /**
  * ###############################
@@ -47,6 +49,11 @@ app.use(express.json());
 //Crear nuevo usuario
 
 app.post('/register', newUser);
+app.put('/user/:userId/edit');
+app.delete('/user/:userId/delete');
+app.put('/user/:userId/recover');
+app.get('/register/validate/:registration_code', activeUser);
+app.post('/login');
 
 /**
  * ########################
@@ -54,13 +61,21 @@ app.post('/register', newUser);
  * ########################
  */
 
+app.post('/booking/newBooking', newBooking);
+app.get('/booking/:bookingId/getBookings');
+app.get('/booking/:bookingId/getBooking');
+
 /**
  * #########################
  * ## Endpoints pasajeros ##
  * #########################
  */
 
-app.post('/booking/newPassenger', newBookingPassenger);
+app.post('/booking/:bookingId/newPassenger', newBookingPassenger);
+app.get('/booking/:bookingId/getAllPassanger');
+app.put('/booking/:bookingId/passenger/:idPassenger/edit');
+app.get('/booking/:boookingId/passenger/:idPassenger/getPassengerData');
+app.delete('/booking/:bookingId/passenger/:idPassenger/delete');
 
 /**
  * ######################

@@ -1,4 +1,15 @@
 const getDB = require('./getDB');
+const faker = require('faker/locale/es');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+const airports = require('./airports.json');
+
+const { format } = require('date-fns');
+
+// Función para formatear una fecha.
+function formatDate(date) {
+    return format(date, 'yyyy-MM-dd HH:mm:ss');
+}
 
 async function main() {
     let connection;
@@ -7,10 +18,10 @@ async function main() {
 
         // Borramos las tablas si existen
 
-        await connection.query('DROP TABLE IF EXISTS itinerary_rel_flight');
-        await connection.query('DROP TABLE IF EXISTS passenger_rel_flight');
+        await connection.query(
+            'DROP TABLE IF EXISTS passenger_rel_flight_rel_booking'
+        );
         await connection.query('DROP TABLE IF EXISTS flight');
-        await connection.query('DROP TABLE IF EXISTS itinerary');
         await connection.query('DROP TABLE IF EXISTS passenger');
         await connection.query('DROP TABLE IF EXISTS booking');
         await connection.query('DROP TABLE IF EXISTS user');
@@ -24,7 +35,7 @@ async function main() {
             address VARCHAR(255),
             email VARCHAR(70) NOT NULL,
             password VARCHAR(255) NOT NULL,
-            rol TINYINT NOT NULL,
+            rol TINYINT NOT NULL DEFAULT 1,
             avatar VARCHAR(255),
             birthdate DATE,
             active BOOLEAN NOT NULL default false,
@@ -35,15 +46,14 @@ async function main() {
 
         console.log('Tabla de usuarios creada');
 
-        console.log('Tabla de usuarios creada');
-
         await connection.query(`CREATE TABLE booking (
             id INT PRIMARY KEY AUTO_INCREMENT,
             booking_code VARCHAR(50) NOT NULL,
             creation_date DATETIME NOT NULL,
-            payment_method TINYINT NOT NULL,
-            final_price INT unsigned,
-            currency TINYINT,
+            payment_method TINYINT,
+            complete BOOLEAN NOT NULL default(false),
+            final_price FLOAT unsigned,
+            currency CHAR(10),
             canceled BOOLEAN NOT NULL default(false),
             oneway BOOLEAN NOT NULL,
             id_user int NOT NULL,
@@ -61,14 +71,14 @@ async function main() {
             address VARCHAR(255) NOT NULL,
             phone VARCHAR (50) NOT NULL ,
             code_phone VARCHAR (10) NOT NULL,
-            email VARCHAR (10) NOT NULL ,
+            email VARCHAR (100) NOT NULL ,
             birthdate VARCHAR (250) NOT NULL ,
             documentype VARCHAR(25) NOT NULL,
             document VARCHAR(50) NOT NULL ,
             issuancedate DATETIME NOT NULL,
             expiredate DATETIME NOT NULL,
             issuancecountry VARCHAR(50) NOT NULL,
-            validitycountry VARCHAR (50) NOT NULL,
+            validitycountry VARCHAR(50) NOT NULL,
             birthplace VARCHAR(50) NOT NULL,
             gender ENUM('MALE', 'FEMALE', 'UNSPECIFIED', 'UNDISCLOSED') NOT NULL,
             namecontact VARCHAR(50) NOT NULL,
@@ -79,52 +89,163 @@ async function main() {
 
         console.log('Tabla Passenger creada');
 
-        await connection.query(`CREATE TABLE itinerary(
-            id INT PRIMARY KEY AUTO_INCREMENT,
-            duration VARCHAR(50) NOT NULL,
-            code_origin CHAR(5) NOT NULL,
-            code_destiny CHAR(5) NOT NULL,
-            stops TINYINT,
-            id_booking INT NOT NULL,
-            FOREIGN KEY (id_booking) REFERENCES booking(id)
-            )`);
-
-        console.log('Tabla itinerary creada');
-
         await connection.query(`CREATE TABLE flight (
             id int PRIMARY KEY AUTO_INCREMENT,
-            cod_aerolinea varchar(50) NOT NULL,
-            codigo_origen varchar(10) NOT NULL,
-            codigo_destino varchar(10) NOT NULL,
-            terminal_origen char(5),
-            fecha_salida datetime NOT NULL,
-            fecha_llegada datetime NOT NULL,
-            codigo_avion char(10) NOT NULL,
-            num_vuelo char(10) NOT NULL
+            carrier_code varchar(50) NOT NULL,
+            departure_code varchar(10) NOT NULL,
+            arrival_code varchar(10) NOT NULL,
+            duration VARCHAR(50) NOT NULL,
+            flight_num char(10) NOT NULL
             );`);
 
         console.log('Tabla flight creada');
 
-        await connection.query(`CREATE TABLE passenger_rel_flight (
-            idpassenger INT NOT NULL,
-            FOREIGN KEY (idpassenger) REFERENCES passenger(id),
-            idflight INT NOT NULL,
-            FOREIGN KEY (idflight) REFERENCES flight(id),
-            seat VARCHAR(3) NOT NULL,
-            PRIMARY KEY (idpassenger, idflight)
-            );`);
-
-        console.log('Tabla passenger_rel_flight creada');
-
-        await connection.query(`CREATE TABLE itinerary_rel_flight (
+        await connection.query(`CREATE TABLE passenger_rel_flight_rel_booking (
             flight_id int NOT NULL,
-            itinerary_id int NOT NULL,
-            foreign key(flight_id) references flight(id),
-            foreign key(itinerary_id) references itinerary(id),
-            PRIMARY KEY (flight_id, itinerary_id)
-        );`);
+            FOREIGN KEY (flight_id) REFERENCES flight(id), 
+            passenger_id int NOT NULL,
+            FOREIGN KEY (passenger_id) REFERENCES passenger(id),
+            booking_id int NOT NULL,
+            departure_terminal char(5),
+            arrival_terminal char(5),
+            departure_time datetime NOT NULL,
+            arrival_time datetime NOT NULL,
+            FOREIGN KEY (booking_id) REFERENCES booking(id),
+            aircraft_code char(10) NOT NULL,
+            bags int,
+            seat VARCHAR(10),
+            PRIMARY KEY (flight_id, passenger_id, booking_id)
+            )`);
 
-        console.log('Tabla itinerary_rel_flight creada');
+        console.log('Tabla passenger_rel_flight_rel_booking');
+
+        // Inserciones de datos
+
+        //usuario admin
+
+        // Datos de faker.
+        const email = faker.internet.email();
+        const name_user = faker.name.firstName();
+        const password = await bcrypt.hash('123456', saltRounds);
+        const bio = faker.lorem.words(12);
+        const avatar = faker.lorem.word(1);
+        const lastname = faker.name.lastName();
+        const lastname2 = faker.name.lastName();
+
+        await connection.query(
+            `
+                    INSERT INTO user(name_user, lastname, lastname2, email, password, bio, avatar, rol) VALUES (?,?,?,?,?,?,?,?)`,
+            [name_user, lastname, lastname2, email, password, bio, avatar, 0]
+        );
+
+        //usuarios
+        const num_usuarios = 10;
+
+        for (let index = 0; index < num_usuarios; index++) {
+            // Datos de faker.
+            const email = faker.internet.email();
+            const name_user = faker.name.firstName();
+            const password = await bcrypt.hash('123456', saltRounds);
+            const bio = faker.lorem.words(12);
+            const avatar = faker.lorem.word(1);
+            const lastname = faker.name.lastName();
+            const lastname2 = faker.name.lastName();
+
+            await connection.query(
+                `
+            INSERT INTO user(name_user, lastname, lastname2, email, password, bio, avatar) VALUES (?,?,?,?,?,?,?)`,
+                [name_user, lastname, lastname2, email, password, bio, avatar]
+            );
+        }
+
+        // Generar reservas
+        /*
+        const num_reservas = 10;
+
+        for (let i = 0; i < num_reservas; i++) {
+            const booking_code = faker.datatype.number(10);
+            const creation_date = formatDate(
+                new Date(faker.datatype.datetime())
+            );
+            const payment_method = faker.datatype.number({
+                min: 0,
+                max: 2,
+            });
+            const final_price = faker.datatype.number(8);
+            const currency = faker.datatype.number({
+                min: 0,
+                max: 2,
+            });
+            const id_user = faker.datatype.number({
+                min: 1,
+                max: num_usuarios,
+            });
+
+            await connection.query(`
+            INSERT INTO booking (booking_code, creation_date, payment_method, final_price, currency, oneway,id_user) 
+            VALUES (${booking_code},"${creation_date}",${payment_method},${final_price},${currency},false,${id_user});`);
+        }
+
+        console.log('Reservas falsas insertadas');
+
+        const num_passengers = 10;
+
+        for (let i = 0; i < num_passengers; i++) {
+            const name_passenger = faker.name.firstName();
+            const lastname = faker.name.lastName();
+            const lastname2 = faker.name.lastName();
+            const typephone = faker.helpers.randomize(['home', 'mobile']);
+            const address = faker.address.streetAddress(true);
+            const code_phone = '34';
+            const phone = faker.phone.phoneNumber();
+            const email = faker.internet.email();
+            const birthdate = formatDate(new Date(faker.date.past(100)));
+            const documentype = 'DNI';
+            const document = faker.datatype.number({
+                min: 10000,
+                max: 99999999,
+            });
+            const inssuancedate = formatDate(new Date(faker.date.past(10)));
+            const expiredate = formatDate(new Date(faker.date.future(10)));
+            const inssuancecountry = faker.address.country();
+            const validitycountry = inssuancecountry;
+            const birthplace = faker.address.city();
+            const gender = faker.helpers.randomize([
+                'MALE',
+                'FEMALE',
+                'UNSPECIFIED',
+                'UNDISCLOSED',
+            ]);
+            const namecontact = faker.name.firstName() + faker.name.lastName();
+            const emailcontact = faker.internet.email();
+            const id_booking = faker.datatype.number({
+                min: 1,
+                max: num_reservas,
+            });
+
+            await connection.query(`INSERT INTO
+            passenger (name_passenger, lastname, lastname2, typephone, address, code_phone, phone, email, birthdate, documentype, document, issuancedate, expiredate, issuancecountry, validitycountry, birthplace, gender, namecontact, emailcontact, id_booking) 
+            VALUES
+            ("${name_passenger}","${lastname}","${lastname2}","${typephone}","${address}","${code_phone}","${phone}","${email}","${birthdate}","${documentype}",${document},"${inssuancedate}","${expiredate}","${inssuancecountry}","${validitycountry}","${birthplace}","${gender}","${namecontact}","${emailcontact}", ${id_booking})`);
+        }
+
+        console.log('Pasajeros falsos insertados');
+
+        // Insertamos vuelos
+
+        const num_vuelos = 10;
+
+        for (let i = 0; i < num_vuelos; i++) {
+            await connection.query(
+                `INSERT INTO flight (carrier_code, departure_code, arrival_code, duration, flight_num) 
+                VALUES ("AF2",
+                 "${airports[faker.datatype.number(airports.length)].iata}", "${
+                    airports[faker.datatype.number(airports.length)].iata
+                }", "PT11H15M", "772")`
+            );
+        }
+        console.log('Vuelos falsos insertados');
+        */
     } catch (error) {
         console.error(error);
     } finally {
