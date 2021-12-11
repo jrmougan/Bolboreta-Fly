@@ -33,10 +33,10 @@ const getUser = async (req, res, next) => {
             userInfo.address = user[0].address;
             userInfo.email = user[0].email;
             userInfo.password = user[0].password;
-           userInfo.avatar = user[0].avatar;
-           userInfo.birthdate = user[0].birthdate;
-           userInfo.createDate = user[0].createDate;
-           userInfo.modifyDate = user[0].modifyDate;
+            userInfo.avatar = user[0].avatar;
+            userInfo.birthdate = user[0].birthdate;
+            userInfo.createDate = user[0].createDate;
+            userInfo.modifyDate = user[0].modifyDate;
 
         }
 
