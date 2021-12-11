@@ -39,7 +39,7 @@ const recoveyPass = async (req, res, next) => {
         });
 
         await connection.query( `
-        UPDATE user SET recoverCode = ? , modifiedAt = ? , WHERE email = ?        
+        UPDATE user SET recover_Code = ? , modifyDate = ?  WHERE email = ?        
         `,
         [recoverCode , new Date(), email]);
     }
