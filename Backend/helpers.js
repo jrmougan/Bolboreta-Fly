@@ -115,4 +115,4 @@ async function deletePhoto(photoname) {
 }
 
 
-module.exports = { hashedPassword, generateRandomString, mailVerify, savePhoto, deletePhoto };
+module.exports = { hashedPassword, generateRandomString, mailVerify, savePhoto, deletePhoto, sendMail};

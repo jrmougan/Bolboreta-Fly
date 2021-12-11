@@ -27,6 +27,7 @@ const {
     editUser,
     editAvatar,
     getUser,
+    recoveyPass
 } = require('./controllers/user/index');
 
 /**
@@ -60,7 +61,7 @@ app.use(fileUpload());
 app.post('/register', newUser);
 app.put('/user/:iduser/edit', userExists, isAuth, caneditUser, editUser);
 app.delete('/user/:iduser/delete');
-app.put('/user/:iduser/recover');
+app.put('/user/:iduser/recover', userExists , isAuth, caneditUser, recoveyPass);
 app.get('/register/validate/:registration_code', activeUser);
 app.post('/login', loginUser);
 app.put('/user/:iduser/avatar', userExists, isAuth, caneditUser, editAvatar);
