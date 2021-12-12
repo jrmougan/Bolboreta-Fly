@@ -66,9 +66,7 @@ async function main() {
             id INT PRIMARY KEY auto_increment,
             name_passenger VARCHAR (50) NOT NULL ,
             lastname VARCHAR (255) NOT NULL ,
-            lastname2 VARCHAR (255) NOT NULL ,
             typephone VARCHAR (50) ,
-            address VARCHAR(255) NOT NULL,
             phone VARCHAR (50) NOT NULL ,
             code_phone VARCHAR (10) NOT NULL,
             email VARCHAR (100) NOT NULL ,
@@ -81,10 +79,8 @@ async function main() {
             validitycountry VARCHAR(50) NOT NULL,
             birthplace VARCHAR(50) NOT NULL,
             gender ENUM('MALE', 'FEMALE', 'UNSPECIFIED', 'UNDISCLOSED') NOT NULL,
-            namecontact VARCHAR(50) NOT NULL,
-            emailcontact VARCHAR(50) NOT NULL,
-            id_booking INT NOT NULL ,
-            FOREIGN KEY (id_booking) REFERENCES booking(id)
+            namecontact VARCHAR(50),
+            emailcontact VARCHAR(50)
             );`);
 
         console.log('Tabla Passenger creada');
@@ -94,7 +90,7 @@ async function main() {
             carrier_code varchar(50) NOT NULL,
             departure_code varchar(10) NOT NULL,
             arrival_code varchar(10) NOT NULL,
-            duration VARCHAR(50) NOT NULL,
+            duration VARCHAR(50),
             flight_num char(10) NOT NULL
             );`);
 

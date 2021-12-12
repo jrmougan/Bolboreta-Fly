@@ -10,6 +10,12 @@ const newBooking = async (req, res, next) => {
     try {
         const { itinerary, travelers } = req.body;
 
+        if (!itinerary || !travelers){
+            const error = new Error('Faltan campos');
+            error.httpStatus = 400;
+            throw error;
+        }
+
         //Enviamos la petición a amadeus y almacenamos en result la respuesta con los datos de la reserva
         const { result } = await amadeus.booking.flightOrders.post(
             JSON.stringify({
@@ -29,22 +35,22 @@ const newBooking = async (req, res, next) => {
         const finalPrice = data.flightOffers[0].price.total;
         const currency = data.flightOffers[0].price.currency;
 
-        // Comprobamos si la reserva ya existe
 
-        const [bookingExists] = await connection.query(
-            'SELECT id FROM booking WHERE booking_code = ?',
-            [bookingId]
-        );
-
+            
+        //insertIdBooking = bookingExists[0].id;
         // Insertamos la reserva en caso de que no exista
-        if (bookingExists.lenght === 0) {
-            await connection.query(
+
+            const [booking] = await connection.query(
                 'INSERT INTO booking (booking_code, creation_date, payment_method, complete, final_price, currency, canceled, oneway, id_user) VALUES (?,?,?,?,?,?,?,?,?)',
                 [bookingId, creation_date, 0, 0, finalPrice, currency, 0, 0, 2]
             );
-        }
+            //Guardamos el id de insercción de la reserva
+            const insertIdBooking = booking.insertId;
+
+        
         //Datos de vuelos
         const itineraries = data.flightOffers[0].itineraries;
+        
 
         //Bucle para los itinerarios
         for (const itinerary of itineraries) {
@@ -58,34 +64,89 @@ const newBooking = async (req, res, next) => {
                 const carrier_code = flight.carrierCode;
                 const duration = flight.duration;
                 const flight_num = flight.number;
+                console.log(flight);
 
+                
                 // Consulta para comprobar si ya existe ese vuelo en base de datos
                 let [flightExists] = await connection.query(
                     'SELECT id FROM flight WHERE flight_num = ? AND carrier_code = ?',
                     [flight_num, carrier_code]
                 );
 
+                
+                
+                    
                 const flightExistsLenght = Object.keys(flightExists).length;
 
                 // En caso de que no exista lo insertamos
                 if (flightExistsLenght === 0) {
-                    await connection.query(
-                        'INSERT INTO flight (carrier_code, departure_code, arrival_code, duration, flight_num) VALUES (?,?,?,?,?)',
+                    const [insertFlight] = await connection.query(
+                        'INSERT INTO flight (carrier_code, departure_code, arrival_code, flight_num) VALUES (?,?,?,?)',
                         [
                             carrier_code,
                             departure_code,
                             arrival_code,
-                            'duration',
                             flight_num,
                         ]
-                    );
-                    //console.log(flight_insert);
+                    ); 
                 }
-                //console.log(flight_exists);
 
-                //Insertamos Pasajeros y con sus relaciones reserva y vuelo
+                // insertamos los pasajeros de cada vuelo
+
+        for (const traveler of travelers) {
+            const name = traveler.name.firstName;
+            const lastname = traveler.name.lastName;
+            const document_number = traveler.documents[0].number;
+            const type_document = traveler.documents[0].documentType;
+            const birthdate = traveler.dateOfBirth;
+            const gender = traveler.gender;
+            const phone = traveler.contact.phones[0].number;
+            const code_phone = traveler.contact.phones[0].countryCallingCode;
+            const type_phone = traveler.contact.phones[0].deviceType;
+            const email = traveler.contact.emailAddress;
+            const inssuancedate = traveler.documents[0].issuanceDate;
+            const expiryDate = traveler.documents[0].expiryDate;
+            const nationality = traveler.documents[0].nationality;
+            const issuanceCountry = traveler.documents[0].issuanceCountry;
+            const validityCountry = traveler.documents[0].validityCountry;
+            const birthplace = traveler.documents[0].birthPlace;
+            const [insertPassenger] = await connection.query(`INSERT INTO passenger 
+            (name_passenger, lastname, typephone, phone, code_phone, email,birthdate,documentype,document,issuancedate, expiredate, issuancecountry, validitycountry,birthplace,gender) VALUES
+            (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+            `,[
+                name,
+                lastname,
+                type_phone,
+                phone,
+                code_phone,
+                email,
+                birthdate,
+                type_document,
+                document_number,
+                inssuancedate,
+                expiryDate,
+                issuanceCountry,
+                validityCountry,
+                birthplace,
+                gender
+
+            ]);
+            // Guardamos id de insercción del pasajero
+            const idPassenger = insertPassenger.insertId;
+
+            // Creamos la relación de los pasajeros con la reserva y el vuelo
+
+            await connection.query(`INSERT INTO passenger_rel_flight_rel_booking (flight_id, passenger_id, booking_id, departure_terminal, arrival_terminal, departure_time, arrival_time, aircraft_code, bags, seat)
+             VALUES (?,?,?,?,?,?,?,?,?,?)`, [])
+
+                
+                
             }
+
         }
+    }
+
+
 
         res.send({
             status: 'ok',
