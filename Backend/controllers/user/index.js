@@ -1,10 +1,10 @@
 const newUser = require('./newUser');
 const activeUser = require('./activeUser');
 const loginUser = require('./loginUser');
-const editUser = require('./edituser');
+const editUser = require('./editUser');
 const editAvatar = require('./editAvatar');
 const getUser = require('./getUser');
-const recoveyPass = require('./recorveyPass');
+const recoveryPass = require('./recoveryPass');
 const resetPass = require('./resetPass');
 const editPass = require ('./editPass');
 const deleteUser = require('./deleteUser');
@@ -16,7 +16,7 @@ module.exports = {
     editUser,
     editAvatar,
     getUser,
-    recoveyPass,
+    recoveryPass,
     resetPass,
     editPass,
     deleteUser

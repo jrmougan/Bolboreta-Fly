@@ -3,7 +3,7 @@ const getDB = require ('../../database/getDB');
 
 const { generateRandomString, sendMail} = require ('../../helpers');
 
-const recoveyPass = async (req, res, next) => {
+const recoveryPass = async (req, res, next) => {
 
     let connection;
 
@@ -57,4 +57,4 @@ const recoveyPass = async (req, res, next) => {
     }
 };
 
-module.exports = recoveyPass ;
+module.exports = recoveryPass ;
