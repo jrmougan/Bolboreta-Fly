@@ -1,4 +1,5 @@
 const getDB = require('../../database/getDB');
+const { formatDate } = require('../../helpers');
 
 const newBookingPassenger = async (req, res, next) => {
     let connection;
@@ -8,17 +9,29 @@ const newBookingPassenger = async (req, res, next) => {
         connection = await getDB();
 
         // Sacamos información para posteriormente utilizarla para buscar/rellenar en la base datos
-        const { id_booking } = req.query;
+        /*   const { id_booking } = req.query; */
+        const id_booking = 1;
 
         const {
             name_passenger,
             lastname,
             lastname2,
-            phone,
+            documentype,
+            typephone,
+            gender,
+            address,
             email,
             birthdate,
-            documentype,
+            birthplace,
             document,
+            issuancedate,
+            expiredate,
+            issuancecountry,
+            validitycountry,
+            phone,
+            code_phone,
+            namecontact,
+            emailcontact,
         } = req.body;
 
         const dateOfCreation = new Date();
@@ -42,16 +55,29 @@ const newBookingPassenger = async (req, res, next) => {
         // Tras comprobar que el usuario no exite previamente, procedemos a insertar
         // sus datos en nuestgra BBDD
         await connection.query(
-            `INSERT INTO passenger(name, lastname,lastname2,documentype,document,email,phone)
-      VALUES(?,?,?,?,?,?,?)`,
+            `INSERT INTO bolboreta.passenger(name_passenger, lastname,lastname2,documentype,typephone, gender,address,email,birthdate,birthplace,document,issuancedate,expiredate,issuancecountry,validitycountry, phone,code_phone,namecontact,emailcontact,id_booking)
+            VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
             [
                 name_passenger,
                 lastname,
                 lastname2,
                 documentype,
-                document,
+                typephone,
+                gender,
+                address,
                 email,
+                birthdate,
+                birthplace,
+                document,
+                issuancedate,
+                expiredate,
+                issuancecountry,
+                validitycountry,
                 phone,
+                code_phone,
+                namecontact,
+                emailcontact,
+                id_booking,
             ]
         );
 

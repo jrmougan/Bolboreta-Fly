@@ -1,13 +1,12 @@
-
 const getDB = require('../../database/getDB');
 
-const deletePassenger = async (req, res, next) => {
+const getAllPassanger = async (req, res, next) => {
     let connection;
 
     try {
         connection = await getDB();
 
-        const { boookingId, idPassenger } = req.params;
+        const { bookingId } = req.params;
     } catch (error) {
         next(error);
     } finally {
@@ -15,4 +14,4 @@ const deletePassenger = async (req, res, next) => {
     }
 };
 
-module.exports = deletePassenger;
+module.exports = getAllPassanger;

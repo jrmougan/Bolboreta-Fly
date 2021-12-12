@@ -14,6 +14,7 @@ const { SENDGRID_API_KEY, SENDGRID_FROM, PUBLIC_HOST, UPLOAD_DIRECTORY } = proce
 
 
 sgMail.setApiKey(SENDGRID_API_KEY);
+const format = require('date-fns');
 
 //Encriptación de la contraseña
 
@@ -114,5 +115,15 @@ async function deletePhoto(photoname) {
     }
 }
 
+// Estructura de la fecha
+/*
+function formatDate(date) {
+    return format(date, 'yyy-MM-dd HH:mm:ss');
+}
+*/
+
 
 module.exports = { hashedPassword, generateRandomString, mailVerify, savePhoto, deletePhoto, sendMail};
+
+
+
