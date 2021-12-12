@@ -27,7 +27,7 @@ const {
     editUser,
     editAvatar,
     getUser,
-    recoveyPass,
+    recoveryPass,
     resetPass,
     editPass,
     deleteUser
@@ -65,7 +65,7 @@ app.use(fileUpload());
 app.post('/register', newUser);
 app.put('/user/:iduser/edit', userExists, isAuth, caneditUser, editUser);
 app.delete('/user/:iduser/delete', userExists , isAuth, caneditUser, deleteUser);
-app.put('/user/:iduser/recover', userExists , isAuth, caneditUser, recoveyPass);
+app.put('/user/:iduser/recover', userExists , isAuth, caneditUser, recoveryPass);
 app.get('/register/validate/:registration_code', activeUser);
 app.post('/login', loginUser);
 app.put('/user/:iduser/avatar', userExists, isAuth, caneditUser, editAvatar);
