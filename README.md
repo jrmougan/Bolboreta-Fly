@@ -37,11 +37,11 @@
 #### Usuario (Marta)
 
 - [x] Crear un usuario ('post', /register)
-- [ ] Modificar usuario ('put', /user/:userId/edit)
-- [ ] Borrar usuario ('delete', /user/:userId/delete)
-- [ ] Recuperar contraseña ('put', /user/:userID/recover)
-- [ ] Activar usuario ('get', /user/activate/:userID/:activationCode)
-- [ ] Login usuario ('post', /user/login)
+- [x] Modificar usuario ('put', /user/:userId/edit)
+- [x] Borrar usuario ('delete', /user/:userId/delete)
+- [x] Recuperar contraseña ('put', /user/:userID/recover)
+- [x] Activar usuario ('get', /user/activate/:userID/:activationCode)
+- [x] Login usuario ('post', /user/login)
 
 #### Pasajero (Eduardo)
 
