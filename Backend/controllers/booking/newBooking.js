@@ -135,7 +135,7 @@ const newBooking = async (req, res, next) => {
             const idPassenger = insertPassenger.insertId;
 
             // Creamos la relación de los pasajeros con la reserva y el vuelo
-
+            /*
             await connection.query(`INSERT INTO passenger_rel_flight_rel_booking (flight_id, passenger_id, booking_id, departure_terminal, arrival_terminal, departure_time, arrival_time, aircraft_code, bags, seat)
              VALUES (?,?,?,?,?,?,?,?,?,?)`, [
                  
@@ -144,6 +144,8 @@ const newBooking = async (req, res, next) => {
                 
                 
             }
+
+            */
 
         }
     }
