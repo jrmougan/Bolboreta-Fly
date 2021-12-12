@@ -28,7 +28,8 @@ const {
     editAvatar,
     getUser,
     recoveyPass,
-    resetPass
+    resetPass,
+    editPass
 } = require('./controllers/user/index');
 
 /**
@@ -68,6 +69,7 @@ app.post('/login', loginUser);
 app.put('/user/:iduser/avatar', userExists, isAuth, caneditUser, editAvatar);
 app.get('/user/:iduser', userExists , isAuth, getUser);
 app.post('/user/:iduser/resetpass', userExists, isAuth, caneditUser, resetPass);
+app.post('/user/:iduser/editpass', userExists , isAuth , caneditUser, editPass);
 /**
  * ########################
  * ## Endpoints reservas ##
