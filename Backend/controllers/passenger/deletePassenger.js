@@ -1,3 +1,4 @@
+
 const getDB = require('../../database/getDB');
 
 const deletePassenger = async (req, res, next) => {

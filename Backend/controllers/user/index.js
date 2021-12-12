@@ -1,7 +1,23 @@
-const newUser = require('./newuser');
-const activeUser = require('./activeuser');
+const newUser = require('./newUser');
+const activeUser = require('./activeUser');
+const loginUser = require('./loginUser');
+const editUser = require('./edituser');
+const editAvatar = require('./editAvatar');
+const getUser = require('./getUser');
+const recoveyPass = require('./recorveyPass');
+const resetPass = require('./resetPass');
+const editPass = require ('./editPass');
+const deleteUser = require('./deleteUser');
 
 module.exports = {
     newUser,
     activeUser,
+    loginUser,
+    editUser,
+    editAvatar,
+    getUser,
+    recoveyPass,
+    resetPass,
+    editPass,
+    deleteUser
 };

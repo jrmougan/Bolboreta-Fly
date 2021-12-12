@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const fileUpload = require('express-fileupload');
 
 const app = express();
 
@@ -11,7 +12,7 @@ const { PORT } = process.env;
  * #################
  */
 
-const { userExists } = require('./middlewares/index');
+const { userExists, isAuth, caneditUser } = require('./middlewares/index');
 
 /**
  * ###############################
@@ -19,7 +20,18 @@ const { userExists } = require('./middlewares/index');
  * ###############################
  */
 
-const { newUser, activeUser } = require('./controllers/user/index');
+const {
+    newUser,
+    activeUser,
+    loginUser,
+    editUser,
+    editAvatar,
+    getUser,
+    recoveyPass,
+    resetPass,
+    editPass,
+    deleteUser
+} = require('./controllers/user/index');
 
 /**
  * ###############################
@@ -34,9 +46,13 @@ const { newUser, activeUser } = require('./controllers/user/index');
  */
 
 const { newBookingPassenger } = require('./controllers/passenger/index');
+const { is } = require('express/lib/request');
 
 // Middleware que deserializa un body en formato "raw".
 app.use(express.json());
+
+// Middleware que deserializa un body en formato "form-data".
+app.use(fileUpload());
 
 /**
  * ########################
@@ -47,12 +63,15 @@ app.use(express.json());
 //Crear nuevo usuario
 
 app.post('/register', newUser);
-app.put('/user/:userId/edit');
-app.delete('/user/:userId/delete');
-app.put('/user/:userId/recover');
+app.put('/user/:iduser/edit', userExists, isAuth, caneditUser, editUser);
+app.delete('/user/:iduser/delete', userExists , isAuth, caneditUser, deleteUser);
+app.put('/user/:iduser/recover', userExists , isAuth, caneditUser, recoveyPass);
 app.get('/register/validate/:registration_code', activeUser);
-app.post('/login');
-
+app.post('/login', loginUser);
+app.put('/user/:iduser/avatar', userExists, isAuth, caneditUser, editAvatar);
+app.get('/user/:iduser', userExists , isAuth, getUser);
+app.post('/user/:iduser/resetpass', userExists, isAuth, caneditUser, resetPass);
+app.post('/user/:iduser/editpass', userExists , isAuth , caneditUser, editPass);
 /**
  * ########################
  * ## Endpoints reservas ##
@@ -72,7 +91,7 @@ app.get('/booking/:bookingId/getBooking');
 app.post('/booking/:bookingId/newPassenger', newBookingPassenger);
 app.get('/booking/:bookingId/getAllPassanger');
 app.put('/booking/:bookingId/passenger/:idPassenger/edit');
-app.get('/booking/:boookingId/passenger/:idPassenger/getPassengerData');
+app.get('/booking/:bookingId/passenger/:idPassenger/getPassengerData');
 app.delete('/booking/:bookingId/passenger/:idPassenger/delete');
 
 /**
