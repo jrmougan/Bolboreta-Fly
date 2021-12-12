@@ -26,9 +26,9 @@ const newBooking = async (req, res, next) => {
                 },
             })
         );
-        console.log(itinerary);
+        
         const { data } = result;
-        connection = await getDB();
+        
         // Guardamos en la base de datos los datos de la reserva
         const bookingId = data.id;
         const creation_date = data.associatedRecords[0].creationDate;
@@ -36,8 +36,8 @@ const newBooking = async (req, res, next) => {
         const currency = data.flightOffers[0].price.currency;
 
 
-            
-        //insertIdBooking = bookingExists[0].id;
+        connection = await getDB();
+        
         // Insertamos la reserva en caso de que no exista
 
             const [booking] = await connection.query(
@@ -47,52 +47,10 @@ const newBooking = async (req, res, next) => {
             //Guardamos el id de insercción de la reserva
             const insertIdBooking = booking.insertId;
 
+
+        // Recorremos los pasajeros e insertamos los vuelos y sus relaciones
         
-        //Datos de vuelos
-        const itineraries = data.flightOffers[0].itineraries;
-        
-
-        //Bucle para los itinerarios
-        for (const itinerary of itineraries) {
-            //Bucle para los vuelos
-            for (const flight of itinerary.segments) {
-                //Guardamos los datos para insertar posteriormente
-                const departure_code = flight.departure.iataCode;
-                const arrival_code = flight.arrival.iataCode;
-                const departure_date = flight.departure.at;
-                const arrival_date = flight.arrival.at;
-                const carrier_code = flight.carrierCode;
-                const duration = flight.duration;
-                const flight_num = flight.number;
-                console.log(flight);
-
-                
-                // Consulta para comprobar si ya existe ese vuelo en base de datos
-                let [flightExists] = await connection.query(
-                    'SELECT id FROM flight WHERE flight_num = ? AND carrier_code = ?',
-                    [flight_num, carrier_code]
-                );
-
-                
-                
-                    
-                const flightExistsLenght = Object.keys(flightExists).length;
-
-                // En caso de que no exista lo insertamos
-                if (flightExistsLenght === 0) {
-                    const [insertFlight] = await connection.query(
-                        'INSERT INTO flight (carrier_code, departure_code, arrival_code, flight_num) VALUES (?,?,?,?)',
-                        [
-                            carrier_code,
-                            departure_code,
-                            arrival_code,
-                            flight_num,
-                        ]
-                    ); 
-                }
-
-        // insertamos los pasajeros de cada vuelo
-
+        const arrayInsertTraveler = [];
         for (const traveler of travelers) {
             const name = traveler.name.firstName;
             const lastname = traveler.name.lastName;
@@ -132,20 +90,55 @@ const newBooking = async (req, res, next) => {
 
             ]);
             // Guardamos id de insercción del pasajero
-            const idPassenger = insertPassenger.insertId;
+            arrayInsertTraveler.push(insertPassenger.insertId);
+        }
+
+        
+        //Datos de vuelos
+        const itineraries = data.flightOffers[0].itineraries;
+        
+
+        //Bucle para los itinerarios
+        for (const itinerary of itineraries) {
+            //Bucle para los vuelos
+            for (const flight of itinerary.segments) {
+                //Guardamos los datos para insertar posteriormente
+                const departure_code = flight.departure.iataCode;
+                const arrival_code = flight.arrival.iataCode;
+                const carrier_code = flight.carrierCode;
+                const flight_num = flight.number;
+
+                
+                // Consulta para comprobar si ya existe ese vuelo en base de datos
+                let [flightExists] = await connection.query(
+                    'SELECT id FROM flight WHERE flight_num = ? AND carrier_code = ?',
+                    [flight_num, carrier_code]
+                );
+                let flightId ;
+                if (flightExists.length > 0) {
+                    flightId = flightExists[0].id;
+                }
+                
+                const flightExistsLenght = Object.keys(flightExists).length;
+
+                // En caso de que no exista lo insertamos
+                if (flightExistsLenght === 0) {
+                    const [insertFlight] = await connection.query(
+                        'INSERT INTO flight (carrier_code, departure_code, arrival_code, flight_num) VALUES (?,?,?,?)',
+                        [
+                            carrier_code,
+                            departure_code,
+                            arrival_code,
+                            flight_num,
+                        ]
+                    ); 
+                    flightId = insertFlight.insertId;
+                }
+
+
 
             // Creamos la relación de los pasajeros con la reserva y el vuelo
-            /*
-            await connection.query(`INSERT INTO passenger_rel_flight_rel_booking (flight_id, passenger_id, booking_id, departure_terminal, arrival_terminal, departure_time, arrival_time, aircraft_code, bags, seat)
-             VALUES (?,?,?,?,?,?,?,?,?,?)`, [
-                 
-             ])
-
-                
-                
-            }
-
-            */
+            await createRelation(connection, arrayInsertTraveler, insertIdBooking, flight, flightId);
 
         }
     }
@@ -163,4 +156,25 @@ const newBooking = async (req, res, next) => {
     }
 };
 
+async function createRelation(connection, travelers, bookingId, flightObject, flightId) {
+    //console.log(travelers);
+    for (const traveler of travelers) {
+        await connection.query(`INSERT INTO passenger_rel_flight_rel_booking 
+        (flight_id, passenger_id, booking_id, departure_terminal, arrival_terminal, departure_time, arrival_time, aircraft_code, bags, seat)
+                 VALUES (?,?,?,?,?,?,?,?,?,?)`, [
+                     flightId,
+                     traveler,
+                     bookingId,
+                     flightObject.departure.terminal,
+                     flightObject.arrival.terminal,
+                     flightObject.departure.at,
+                     flightObject.arrival.at,
+                     flightObject.aircraft.code,
+                     null,
+                     null
+                 ])
+    }
+
+
+}
 module.exports = newBooking;
