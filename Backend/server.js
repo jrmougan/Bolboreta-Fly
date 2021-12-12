@@ -29,7 +29,8 @@ const {
     getUser,
     recoveyPass,
     resetPass,
-    editPass
+    editPass,
+    deleteUser
 } = require('./controllers/user/index');
 
 /**
@@ -45,6 +46,7 @@ const {
  */
 
 const { newBookingPassenger } = require('./controllers/passenger/index');
+const { is } = require('express/lib/request');
 
 // Middleware que deserializa un body en formato "raw".
 app.use(express.json());
@@ -62,7 +64,7 @@ app.use(fileUpload());
 
 app.post('/register', newUser);
 app.put('/user/:iduser/edit', userExists, isAuth, caneditUser, editUser);
-app.delete('/user/:iduser/delete');
+app.delete('/user/:iduser/delete', userExists , isAuth, caneditUser, deleteUser);
 app.put('/user/:iduser/recover', userExists , isAuth, caneditUser, recoveyPass);
 app.get('/register/validate/:registration_code', activeUser);
 app.post('/login', loginUser);
