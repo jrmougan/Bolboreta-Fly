@@ -13,13 +13,14 @@ const newSearch = async (req, res, next) => {
 
         connection = await getDB();
 
-        const {origin , destination, departuredate , returndate , adults } = req.body;
+        const {origin , destination, departuredate , returndate , adults } = req.params;
         let result ;
+
         //vuelos sólo ida
 
         if(!returndate){
         
-       result = amadeus.shopping.flightOffersSearch.get ({
+       result = await amadeus.shopping.flightOffersSearch.get ({
         
             originLocationCode: [origin],
             destinationLocationCode: [destination],
@@ -35,7 +36,7 @@ const newSearch = async (req, res, next) => {
      if (!destination){
 
         
-       result = amadeus.shopping.flightDestinationsSearch.get ({
+       result = await amadeus.shopping.flightDestinationsSearch.get ({
 
             originLocationCode: [origin],
             
@@ -48,7 +49,7 @@ const newSearch = async (req, res, next) => {
 
     //Vuelos ida y vuelta
 
-     { result = amadeus.shopping.flightOffersSearch.get({
+     { result = await amadeus.shopping.flightOffersSearch.get({
 
         originLocationCode: [origin],
         destinationLocationCode: [destination],
