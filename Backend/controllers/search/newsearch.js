@@ -13,19 +13,19 @@ const newSearch = async (req, res, next) => {
 
         connection = await getDB();
 
-        const {origin , destination, departuredate , returndate , adults } = req.params;
+        const {origin , destination, departuredate , returndate , adults} = req.query;
         let result ;
 
         //vuelos sólo ida
 
         if(!returndate){
-        
+       
        result = await amadeus.shopping.flightOffersSearch.get ({
         
-            originLocationCode: [origin],
-            destinationLocationCode: [destination],
-            departureDate: [departuredate],
-            adults: [adults]
+            originLocationCode: origin,
+            destinationLocationCode: destination,
+            departureDate: departuredate,
+            adults: adults
                        
         });
        
@@ -38,9 +38,9 @@ const newSearch = async (req, res, next) => {
         
        result = await amadeus.shopping.flightDestinationsSearch.get ({
 
-            originLocationCode: [origin],
+            originLocationCode: origin,
             
-            departureDate: [departuredate],
+            departureDate: departuredate,
           
             
         });
@@ -51,11 +51,11 @@ const newSearch = async (req, res, next) => {
 
      { result = await amadeus.shopping.flightOffersSearch.get({
 
-        originLocationCode: [origin],
-        destinationLocationCode: [destination],
-        departureDate: [departuredate],
-        returnDate: [returndate],
-        adults:[adults]
+        originLocationCode: origin,
+        destinationLocationCode: destination,
+        departureDate:departuredate,
+        returnDate: returndate,
+        adults:adults
        });
        
     }
