@@ -30,22 +30,20 @@ const newSearch = async (req, res, next) => {
         });
        
     
-    }else 
-        //vuelos multiples destinos
+    } else {
 
-     if (!destination){
+        // Destinos baratos desde un aeropuerto(múltiples destinos)
+
+     if (!destination  && !departuredate && !returndate && !adults){
 
         
-       result = await amadeus.shopping.flightDestinationsSearch.get ({
+       result = await amadeus.shopping.flightDestinations.get ({
 
-            originLocationCode: origin,
-            
-            departureDate: departuredate,
-          
-            
+            origin: origin,
+                                  
         });
 
-    }else 
+    } else 
 
     //Vuelos ida y vuelta
 
@@ -58,7 +56,7 @@ const newSearch = async (req, res, next) => {
         adults:adults
        });
        
-    }
+    }}
        res.send({
            status:'ok',
            data: result
