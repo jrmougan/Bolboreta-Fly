@@ -30,7 +30,7 @@ const {
     recoveryPass,
     resetPass,
     editPass,
-    deleteUser
+    deleteUser,
 } = require('./controllers/user/index');
 
 /**
@@ -38,6 +38,8 @@ const {
  * ## Controladores de reservas ##
  * ###############################
  */
+
+const { offerPrice } = require('./controllers/search/index');
 
 /**
  * ###############################
@@ -64,14 +66,14 @@ app.use(fileUpload());
 
 app.post('/register', newUser);
 app.put('/user/:iduser/edit', userExists, isAuth, caneditUser, editUser);
-app.delete('/user/:iduser/delete', userExists , isAuth, caneditUser, deleteUser);
-app.put('/user/:iduser/recover', userExists , isAuth, caneditUser, recoveryPass);
+app.delete('/user/:iduser/delete', userExists, isAuth, caneditUser, deleteUser);
+app.put('/user/:iduser/recover', userExists, isAuth, caneditUser, recoveryPass);
 app.get('/register/validate/:registration_code', activeUser);
 app.post('/login', loginUser);
 app.put('/user/:iduser/avatar', userExists, isAuth, caneditUser, editAvatar);
-app.get('/user/:iduser', userExists , isAuth, getUser);
+app.get('/user/:iduser', userExists, isAuth, getUser);
 app.post('/user/:iduser/resetpass', userExists, isAuth, caneditUser, resetPass);
-app.post('/user/:iduser/editpass', userExists , isAuth , caneditUser, editPass);
+app.post('/user/:iduser/editpass', userExists, isAuth, caneditUser, editPass);
 /**
  * ########################
  * ## Endpoints reservas ##
@@ -81,6 +83,7 @@ app.post('/user/:iduser/editpass', userExists , isAuth , caneditUser, editPass);
 app.post('/booking/newBooking/itinerary/:idItinerary');
 app.get('/booking/:bookingId/getBookings');
 app.get('/booking/:bookingId/getBooking');
+app.post('/pricing', offerPrice);
 
 /**
  * #########################
