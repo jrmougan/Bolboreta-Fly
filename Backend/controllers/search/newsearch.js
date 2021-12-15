@@ -46,7 +46,7 @@ const newSearch = async (req, res, next) => {
             destinationLocationCode: destination,
             departureDate: departuredate,
             returnDate: returndate,
-            adults: adults
+            adults,
                        
         });
        

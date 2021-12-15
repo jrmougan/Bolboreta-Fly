@@ -82,14 +82,14 @@ const advanceSearch = async (req, res, next) => {
         let searchCriteria = {
             maxPrice: maxprice ,
              PriceOptins:{
-             incluidoCheckedBagsOnly:incluidoCheckedBagsOnly,   
+             incluidoCheckedBagsOnly,   
             },
             flightFilters:
-            { maxFlightTime:  maxFlightTime,
+            { maxFlightTime,
              carrierRestrictions:
-            {blacklistedInEUAllowed: blacklistedInEUAllowed,},
+            {blacklistedInEUAllowed,},
             cabinRestriction:
-            {travelClass: travelClass,},
+            {travelClass,},
             connectionRestiction:
            {maxNumberofConnections: connections ,
             },

@@ -15,8 +15,15 @@ const newUser = async (req, res, next) => {
     try {
         connection = await getDB();
 
-        const { name_user, lastname, lastname2, email, password, bio, birthdate} =
+        const { name_user, lastname, lastname2, email, password, confirmpassword,  bio, birthdate} =
             req.body;
+            
+        //confirmamos que la contraseña se aigual las dos veces
+            if(password !== confirmpassword ) {
+                const error = new Error ('Las contraseñas tienen que ser igual');
+                error.httpStatus = 400
+                throw error;
+            }
 
         const [user] = await connection.query(
             `
