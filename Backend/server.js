@@ -38,7 +38,9 @@ const {
  * ## Controladores de reservas ##
  * ###############################
  */
-const {newSearch} = require ('./controllers/search/index');
+const {
+    newSearch,
+    advanceSearch} = require ('./controllers/search/index');
 /**
  * ###############################
  * ##  Controladores pasajeros  ##
@@ -82,6 +84,7 @@ app.post('/booking/newBooking/itinerary/:idItinerary');
 app.get('/booking/:bookingId/getBookings');
 app.get('/booking/:bookingId/getBooking');
 app.get('/search', newSearch);
+ app.post('/advancesearch', advanceSearch);
 
 /**
  * #########################

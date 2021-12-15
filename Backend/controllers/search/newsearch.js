@@ -14,49 +14,46 @@ const newSearch = async (req, res, next) => {
         connection = await getDB();
 
         const {origin , destination, departuredate , returndate , adults} = req.query;
-        let result ;
-
-        //vuelos sólo ida
-
-        if(!returndate){
        
-       result = await amadeus.shopping.flightOffersSearch.get ({
+        const {iduser} = req.body ;
+
+        if(Number(adults) > 9 ){
+
+            const error = new Error ('No puedes insertar mas de 9 pasajeros');
+            error.httpStatus = 416;
+            throw error;
+        }
+        
+
+        if(iduser !== undefined){
+            await connection.query(`
+            INSERT INTO search (searchDate , origin , destination , departureDate , id user)
+            VALUES (? ,? , ? , ? , ?)
+            `,
+            [
+                new Date(),
+                origin ,
+                destination ,
+                departuredate,
+                iduser,
+            ]);
+        }
+    
+         
+      const  result = await amadeus.shopping.flightOffersSearch.get ({
         
             originLocationCode: origin,
             destinationLocationCode: destination,
             departureDate: departuredate,
+            returnDate: returndate,
             adults: adults
                        
         });
        
     
-    } else {
-
-        // Destinos baratos desde un aeropuerto(múltiples destinos)
-
-     if (!destination  && !departuredate && !returndate && !adults){
-
-        
-       result = await amadeus.shopping.flightDestinations.get ({
-
-            origin: origin,
-                                  
-        });
-
-    } else 
-
-    //Vuelos ida y vuelta
-
-     { result = await amadeus.shopping.flightOffersSearch.get({
-
-        originLocationCode: origin,
-        destinationLocationCode: destination,
-        departureDate:departuredate,
-        returnDate: returndate,
-        adults:adults
-       });
        
-    }}
+        
+    
        res.send({
            status:'ok',
            data: result
