@@ -151,7 +151,14 @@ const newBooking = async (req, res, next) => {
             }
         }
         //Enviamos mail de confirmación de reserva
-        sendMail();
+        const confirmbody = `
+        Tu reserva con id <b>${bookingId}</b> ha sido confirmada
+        `;
+        await sendMail({
+            to: 'jrmougan@gmail.com',
+            subject: 'RESERVA CONFIRMADA',
+            body: confirmbody,
+        });
 
         res.send({
             status: 'ok',
