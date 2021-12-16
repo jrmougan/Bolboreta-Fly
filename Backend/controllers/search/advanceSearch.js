@@ -26,7 +26,7 @@ const advanceSearch = async (req, res, next) => {
             maxprice,
             incluiedCheckedBagsOnly,
             maxFlightTime,
-           
+            oneway,
         } = req.body;
 
         //comprobamos que los viajeros mayores de 2 años no son mas de 9
@@ -37,48 +37,77 @@ const advanceSearch = async (req, res, next) => {
         }
 
         // Guardamos en la base de datos la busqueda( por si se ha logueado en esta pagina)
-      /*  if (iduser !== undefined) {
-            await connection.query(
-                `
-                INSERT INTO search (searchDate , origin , destination , departureDate , id user)
-                VALUES (? ,? , ? , ? , ?)
-                `,
-                [
-                    new Date(),
-                    origin,
-                    destinationLocationCode,
-                    departureDate,
-                    iduser,
-                ]
-            );
-        }*/
+        /*  if (iduser !== undefined) {
+              await connection.query(
+                  `
+                  INSERT INTO search (searchDate , origin , destination , departureDate , id user)
+                  VALUES (? ,? , ? , ? , ?)
+                  `,
+                  [
+                      new Date(),
+                      origin,
+                      destinationLocationCode,
+                      departureDate,
+                      iduser,
+                  ]
+              );
+          }*/
 
         //Creamos array de oiginDestination
 
         let originDestination = [];
-        
-        if(destinationLocationCode > 0){
-            for(let i = 1; i <= destinationLocationCode ; i++){
-                destinationLocationCode.push({
-                    id:i,
+
+console.log(destinationLocationCode);
+
+        if (!oneway ) {
+          
+                const array = {
+                    id: 1,
                     originLocationCode,
                     destinationLocationCode,
-                    departureDateTimeRange:{
-                    dateTimeRange:{date:departureDate},},
-                    arrivalDateTimeRange:{
-                    dateTimeRange:{
-                        date:returnDate,},
+                    departureDateTimeRange: {
+                        dateTimeRange: { date: departureDate },
                     },
-                    });
-                }
-            }
-        
-         
+                    arrivalDateTimeRange: {
+                        dateTimeRange: {
+                            date: returnDate,
+                        },
+                    },
+                }; 
+                originDestination.push(array);
+                
+                console.log(originDestination);
+           
+        } else {
+            originDestination.push ({
+                id: 1,
+                originLocationCode,
+                destinationLocationCode,
+                departureDateTimeRange: {
+                    dateTimeRange: { date: departureDate },
+                },
+                arrivalDateTimeRange: {
+                    dateTimeRange: {
+                        date: returnDate,
+                    },
+                },
+
+            },
+            {
+                id: 2 ,
+                originLocationCode:destinationLocationCode,
+                destinationLocationCode:originLocationCode,
+                departureDateTimeRange: {
+                    dateTimeRange: { date: returnDate },
+                },
+               
+            },)
+        }
 
         //creamos array travels para mandarle a Amadeus
 
         let travelers = [];
-       
+
         //adultos
         if (numAdults > 0) {
             for (let j = 1; j <= numAdults; j++) {
@@ -86,9 +115,9 @@ const advanceSearch = async (req, res, next) => {
                     id: j,
                     travelerType: 'ADULT',
                 });
-               
+
+            }
         }
-    }
         //niños
         if (numChilds > 0) {
             for (let i = 1; i <= numChilds; i++) {
@@ -96,7 +125,7 @@ const advanceSearch = async (req, res, next) => {
                     id: i,
                     travelerType: 'CHILD',
                 });
-                
+
             }
         }
 
@@ -118,7 +147,7 @@ const advanceSearch = async (req, res, next) => {
         //Creamos body para mandaserlo a amadeus:
 
         let searchAdvancebody = {
-           originDestination,
+            originDestination,
             travelers,
             searchCriteria,
         };
