@@ -66,11 +66,13 @@ const advanceSearch = async (req, res, next) => {
                     departureDateTimeRange:{
                     dateTimeRange:{date:departureDate},},
                     arrivalDateTimeRange:{
-                    dateTimeRA
-                    }
-                })
+                    dateTimeRange:{
+                        date:returnDate,},
+                    },
+                    });
+                }
             }
-        }
+        
          
 
         //creamos array travels para mandarle a Amadeus
@@ -116,10 +118,7 @@ const advanceSearch = async (req, res, next) => {
         //Creamos body para mandaserlo a amadeus:
 
         let searchAdvancebody = {
-            originLocationCode,
-            destinationLocationCode,
-            departureDate,
-            returnDate,
+           originDestination,
             travelers,
             searchCriteria,
         };
