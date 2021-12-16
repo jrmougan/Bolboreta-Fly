@@ -80,7 +80,7 @@ app.post('/user/:iduser/editpass', userExists, isAuth, caneditUser, editPass);
  * ########################
  */
 
-app.post('/booking/newBooking', newBooking);
+app.post('/booking/newBooking', isAuth, newBooking);
 app.get('/booking/:userId/getBookings', getBookings);
 app.get('/booking/:bookingId/getBooking');
 
