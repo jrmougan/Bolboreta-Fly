@@ -18,22 +18,21 @@ const getBookings = async (req, res, next) => {
             ;`,
             [userId]
         );
-        let bookingData = [];
-        for (let i = 0; i < bookings.length; i++) {
-            if (i === 0) {
-                bookingData.push(bookings[i]);
-            }
 
-            if (i !== 0 && !bookingData[0]) {
-                if (
-                    bookingData[bookingData.length - 1].bookingid ===
-                    bookings[i].bookingid
-                ) {
-                    bookingData.push(bookings[i]);
-                    console.log('Cualquier cosa');
-                }
+        // Estructuramos las reservas en un array de objetos
+        let bookingData = [];
+        for (const booking of bookings) {
+            const findIndex = bookingData.findIndex(
+                (e) => e.bookingId === booking.bookingid
+            );
+            if (findIndex === -1) {
+                bookingData.push({
+                    bookingId: booking.bookingid,
+                    bookingObject: [booking],
+                });
+            } else {
+                bookingData[findIndex].bookingObject.push(booking);
             }
-            console.log(bookingData);
         }
         res.send({
             status: 'ok',
