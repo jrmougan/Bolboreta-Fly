@@ -10,18 +10,34 @@ const getBookings = async (req, res, next) => {
 
         const [bookings] = await connection.query(
             `
-            SELECT u.id AS ID_USUARIO, b.id AS ID_RESERVA,departure_terminal AS 'Desde',arrival_terminal AS 'A', booking_code AS 'Código de reserva', creation_date AS 'Fecha de creación', final_price AS 'Precio Final', departure_time AS 'Fecha de salida', arrival_time AS 'Fecha de llegada' 
-            FROM user AS u INNER JOIN booking AS b 
-            ON u.id= b.id_user
-            INNER JOIN passenger_rel_flight_rel_booking AS ternario ON ternario.booking_id=b.id 
-            WHERE u.id=2
+            SELECT DISTINCT b.id_user as userid,f.id as flightid, b.id as bookingid, f.departure_code, f.arrival_code, b.booking_code, ternaria.departure_time, ternaria.arrival_time 
+            FROM booking b 
+            LEFT JOIN passenger_rel_flight_rel_booking ternaria ON ternaria.booking_id = b.id 
+            LEFT JOIN flight f ON f.id = ternaria.flight_id 
+            WHERE b.id_user=?
             ;`,
             [userId]
         );
+        let bookingData = [];
+        for (let i = 0; i < bookings.length; i++) {
+            if (i === 0) {
+                bookingData.push(bookings[i]);
+            }
 
+            if (i !== 0 && !bookingData[0]) {
+                if (
+                    bookingData[bookingData.length - 1].bookingid ===
+                    bookings[i].bookingid
+                ) {
+                    bookingData.push(bookings[i]);
+                    console.log('Cualquier cosa');
+                }
+            }
+            console.log(bookingData);
+        }
         res.send({
             status: 'ok',
-            data: bookings,
+            data: bookingData,
         });
     } catch (error) {
         next(error);
