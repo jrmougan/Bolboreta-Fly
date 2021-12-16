@@ -13,9 +13,8 @@ const newSearch = async (req, res, next) => {
 
         connection = await getDB();
 
-        const {origin , destination, departuredate , returndate , adults} = req.query;
-       
-        const {iduser} = req.body ;
+        const {origin , destination, departuredate , returndate , adults,} = req.query;
+      
 
         if(Number(adults) > 9 ){
 
@@ -25,21 +24,7 @@ const newSearch = async (req, res, next) => {
         }
         
 
-        if(iduser !== undefined){
-            await connection.query(`
-            INSERT INTO search (searchDate , origin , destination , departureDate , id user)
-            VALUES (? ,? , ? , ? , ?)
-            `,
-            [
-                new Date(),
-                origin ,
-                destination ,
-                departuredate,
-                iduser,
-            ]);
-        }
-    
-         
+        
       const  result = await amadeus.shopping.flightOffersSearch.get ({
         
             originLocationCode: origin,
