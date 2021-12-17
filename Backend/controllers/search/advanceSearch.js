@@ -80,7 +80,7 @@ const advanceSearch = async (req, res, next) => {
                 originLocationCode,
                 destinationLocationCode,
                 departureDateTimeRange: {
-                    dateTimeRange: { date: departureDate },
+                   date: departureDate
                 },
             },
 
@@ -89,7 +89,7 @@ const advanceSearch = async (req, res, next) => {
                 originLocationCode:destinationLocationCode,
                 destinationLocationCode:originLocationCode,
                 departureDateTimeRange: {
-                    dateTimeRange: { date: returnDate },
+                  date: returnDate
                 },
                
             },)
@@ -124,14 +124,14 @@ const advanceSearch = async (req, res, next) => {
 
         let SearchCriteria = {
             maxPrice: maxprice,
-           pricingOptions: {
+           pircingOptions: {
                 includedCheckedBagsOnly,
             },
             FlightFilters: {
                 maxFlightTime,
                 CarrierRestrictions: { blacklistedInEUAllowed },
-                CabinRestriction: { cabin:travelClass },
-                ConnectionRestiction: { maxNumberofConnections: connections },
+                CabinRestriction: [{ cabin:travelClass }],
+                ConnectionRestiction: { maxNumberOfConnections: connections },
             },
         };
 
