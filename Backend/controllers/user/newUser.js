@@ -17,6 +17,13 @@ const newUser = async (req, res, next) => {
 
         const { name_user, lastname, lastname2, email, password, confirmpassword,  bio, birthdate} =
             req.body;
+
+        // Comprobamos que no faltan ningun dato
+        if(!name_user || !lastname || !lastname2 || !email || !password || !confirmpassword || !bio || !birthdate ){
+            const error = new Error ('Faltan campos por rellenar') ;
+            error.httpStatus = 400 ;
+            throw error;
+        }
             
         //confirmamos que la contraseña se aigual las dos veces
             if(password !== confirmpassword ) {
