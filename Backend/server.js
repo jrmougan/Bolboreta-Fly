@@ -39,7 +39,11 @@ const {
  * ###############################
  */
 
-const { newBooking, getBookings } = require('./controllers/booking/index');
+const {
+    newBooking,
+    getBookings,
+    getBooking,
+} = require('./controllers/booking/index');
 
 /**
  * ###############################
@@ -82,7 +86,7 @@ app.post('/user/:iduser/editpass', userExists, isAuth, caneditUser, editPass);
 
 app.post('/booking/newBooking', newBooking);
 app.get('/booking/:userId/getBookings', getBookings);
-app.get('/booking/:bookingId/getBooking');
+app.get('/booking/:bookingId/getBooking', getBooking);
 
 /**
  * #########################
