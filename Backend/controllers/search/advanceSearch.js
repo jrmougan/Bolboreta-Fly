@@ -14,6 +14,7 @@ const advanceSearch = async (req, res, next) => {
         connection = await getDB();
 
         const {
+            courrencyCode,
             originLocationCode,
             destinationLocationCode,
             departureDate,
@@ -24,9 +25,10 @@ const advanceSearch = async (req, res, next) => {
             connections,
             blacklistedInEUAllowed,
             maxprice,
-            incluiedCheckedBagsOnly,
+            includedCheckedBagsOnly,
             maxFlightTime,
             oneway,
+            sources,
         } = req.body;
 
         //comprobamos que los viajeros mayores de 2 años no son mas de 9
@@ -55,46 +57,35 @@ const advanceSearch = async (req, res, next) => {
 
         //Creamos array de oiginDestination
 
-        let originDestination = [];
+        let originDestinations = [];
 
-console.log(destinationLocationCode);
 
-        if (!oneway ) {
+        if (!oneway ) {//solo ida
           
-                const array = {
-                    id: 1,
+                const oneWay = {
+                    id: "1",
                     originLocationCode,
                     destinationLocationCode,
                     departureDateTimeRange: {
                         dateTimeRange: { date: departureDate },
                     },
-                    arrivalDateTimeRange: {
-                        dateTimeRange: {
-                            date: returnDate,
-                        },
-                    },
+                    
                 }; 
-                originDestination.push(array);
+                originDestinations.push(oneWay);
                 
-                console.log(originDestination);
            
-        } else {
-            originDestination.push ({
-                id: 1,
+        } else { // ida y vuelta
+            originDestinations.push ({
+                id: "1",
                 originLocationCode,
                 destinationLocationCode,
                 departureDateTimeRange: {
                     dateTimeRange: { date: departureDate },
                 },
-                arrivalDateTimeRange: {
-                    dateTimeRange: {
-                        date: returnDate,
-                    },
-                },
-
             },
+
             {
-                id: 2 ,
+                id: "2" ,
                 originLocationCode:destinationLocationCode,
                 destinationLocationCode:originLocationCode,
                 departureDateTimeRange: {
@@ -112,7 +103,7 @@ console.log(destinationLocationCode);
         if (numAdults > 0) {
             for (let j = 1; j <= numAdults; j++) {
                 travelers.push({
-                    id: j,
+                    id: j.toString(),
                     travelerType: 'ADULT',
                 });
 
@@ -122,7 +113,7 @@ console.log(destinationLocationCode);
         if (numChilds > 0) {
             for (let i = 1; i <= numChilds; i++) {
                 travelers.push({
-                    id: i,
+                    id: i.toString(),
                     travelerType: 'CHILD',
                 });
 
@@ -131,25 +122,27 @@ console.log(destinationLocationCode);
 
         //creamos objeto de searchCriteria
 
-        let searchCriteria = {
+        let SearchCriteria = {
             maxPrice: maxprice,
-            PriceOptins: {
-                incluiedCheckedBagsOnly,
+           pricingOptions: {
+                includedCheckedBagsOnly,
             },
-            flightFilters: {
+            FlightFilters: {
                 maxFlightTime,
-                carrierRestrictions: { blacklistedInEUAllowed },
-                cabinRestriction: { travelClass },
-                connectionRestiction: { maxNumberofConnections: connections },
+                CarrierRestrictions: { blacklistedInEUAllowed },
+                CabinRestriction: { cabin:travelClass },
+                ConnectionRestiction: { maxNumberofConnections: connections },
             },
         };
 
         //Creamos body para mandaserlo a amadeus:
 
         let searchAdvancebody = {
-            originDestination,
+            courrencyCode,
+            originDestinations,
             travelers,
-            searchCriteria,
+            sources:[sources],
+            SearchCriteria,
         };
 
         //lo pasamos a json
