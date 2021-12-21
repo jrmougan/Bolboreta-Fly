@@ -8,13 +8,21 @@ const editPass = async (req, res, next) => {
     try {
         connection = await getDB();
         const {iduser} = req.params ;
-        const {oldpassword , newpassword} = req.body ;
+        const {oldpassword , newpassword , confirmnewpassword} = req.body ;
 
         if(!oldpassword || !newpassword) {
             const error = new Error ('Faltan campos');
             error.httpStatus = 404;
             throw error;
         }
+        //comprobamos que la contraseñanueva sea la misma en password y confirmpassword
+        if(newpassword !== confirmnewpassword ) {
+            const error = new Error ('Las contraseñas tienen que ser igual');
+            error.httpStatus = 400
+            throw error;
+        }
+
+      
         
         const [user] = await connection.query(`
         SELECT password FROM user WHERE id = ?

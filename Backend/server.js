@@ -30,7 +30,7 @@ const {
     recoveryPass,
     resetPass,
     editPass,
-    deleteUser
+    deleteUser,
 } = require('./controllers/user/index');
 
 /**
@@ -39,7 +39,20 @@ const {
  * ###############################
  */
 
-const { newBooking } = require('./controllers/booking/index');
+
+const {
+    offerPrice,
+    newSearch,
+    advanceSearch} = require ('./controllers/search/index');
+
+
+const {
+    newBooking,
+    getBookings,
+    getBooking,
+} = require('./controllers/booking/index');
+
+
 
 /**
  * ###############################
@@ -66,23 +79,28 @@ app.use(fileUpload());
 
 app.post('/register', newUser);
 app.put('/user/:iduser/edit', userExists, isAuth, caneditUser, editUser);
-app.delete('/user/:iduser/delete', userExists , isAuth, caneditUser, deleteUser);
-app.put('/user/:iduser/recover', userExists , isAuth, caneditUser, recoveryPass);
+app.delete('/user/:iduser/delete', userExists, isAuth, caneditUser, deleteUser);
+app.put('/user/:iduser/recover', userExists, isAuth, caneditUser, recoveryPass);
 app.get('/register/validate/:registration_code', activeUser);
 app.post('/login', loginUser);
 app.put('/user/:iduser/avatar', userExists, isAuth, caneditUser, editAvatar);
-app.get('/user/:iduser', userExists , isAuth, getUser);
+app.get('/user/:iduser', userExists, isAuth, getUser);
 app.post('/user/:iduser/resetpass', userExists, isAuth, caneditUser, resetPass);
-app.post('/user/:iduser/editpass', userExists , isAuth , caneditUser, editPass);
+app.post('/user/:iduser/editpass', userExists, isAuth, caneditUser, editPass);
 /**
  * ########################
  * ## Endpoints reservas ##
  * ########################
  */
 
-app.post('/booking/newBooking', newBooking);
-app.get('/booking/:bookingId/getBookings');
-app.get('/booking/:bookingId/getBooking');
+
+app.get('/search', newSearch);
+app.post('/advancesearch', advanceSearch);
+app.post('/booking/newBooking', isAuth, newBooking);
+app.get('/booking/:userId/getBookings', getBookings);
+app.get('/booking/:bookingId/getBooking', getBooking);
+app.post('/pricing', offerPrice);
+
 
 /**
  * #########################

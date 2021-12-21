@@ -38,7 +38,7 @@
           const newAvatar = await savePhoto(req.files.avatar, 100);
 
           await connection.query(`
-          UPDATE user SET avatar = ?, modifiedAt = ? WHERE id = ?
+          UPDATE user SET avatar = ?, modifyDate = ? WHERE id = ?
           `,
           [newAvatar, new Date(), iduser]);
 
