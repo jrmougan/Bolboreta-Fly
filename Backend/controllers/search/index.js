@@ -1,4 +1,4 @@
-const { offerPrice } = require('./offerPrice');
+const offerPrice = require('./offerPrice');
 const newSearch = require('./newSearch');
 const advanceSearch = require ('./advanceSearch');
 
