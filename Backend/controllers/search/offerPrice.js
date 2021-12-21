@@ -6,24 +6,16 @@ const amadeus = new Amadeus({
     clientSecret: AMADEUS_SECRET,
 });
 
-console.log(a);
+
 const offerPrice = async (req, res, next) => {
     try {
-        // Recogemos los datos de la petición
-        const data = req.body;
+        let { flightOffers } = req.body;
 
-        // Los insertamos en la búsqueda
-        const { result } = await amadeus.shopping.flightOffers.princing.post(
-            JSON.stringify(data)
-        );
-
-        // DE OTRA MANERA POR PROBAR
-        let [flightOffers] = req.body;
 
         const { result } = await amadeus.booking.flightOffers.pricing.post(
             JSON.stringify({
                 data: {
-                    type: 'flight-offers',
+                    type: 'flight-offers-pricing',
                     flightOffers: [flightOffers],
                 },
             })
@@ -39,4 +31,6 @@ const offerPrice = async (req, res, next) => {
     }
 };
 
+
 module.exports = offerPrice;
+
