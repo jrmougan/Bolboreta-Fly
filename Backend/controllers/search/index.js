@@ -1,3 +1,7 @@
 const { offerPrice } = require('./offerPrice');
+const newSearch = require('./newSearch');
+const advanceSearch = require ('./advanceSearch');
 
-module.exports = { offerPrice };
+
+module.exports = {newSearch,advanceSearch, offerPrice};
+

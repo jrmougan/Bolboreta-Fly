@@ -6,9 +6,11 @@ const amadeus = new Amadeus({
     clientSecret: AMADEUS_SECRET,
 });
 
+
 const offerPrice = async (req, res, next) => {
     try {
         let { flightOffers } = req.body;
+
 
         const { result } = await amadeus.booking.flightOffers.pricing.post(
             JSON.stringify({
@@ -29,4 +31,6 @@ const offerPrice = async (req, res, next) => {
     }
 };
 
-module.exports = { offerPrice };
+
+module.exports = offerPrice;
+

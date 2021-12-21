@@ -24,7 +24,9 @@ async function main() {
         await connection.query('DROP TABLE IF EXISTS flight');
         await connection.query('DROP TABLE IF EXISTS passenger');
         await connection.query('DROP TABLE IF EXISTS booking');
+        await connection.query('DROP TABLE IF EXISTS search');
         await connection.query('DROP TABLE IF EXISTS user');
+
 
         await connection.query(`CREATE TABLE user(
             id INT PRIMARY KEY AUTO_INCREMENT,
@@ -48,14 +50,27 @@ async function main() {
 
         console.log('Tabla de usuarios creada');
 
+        await connection.query(`CREATE TABLE search(
+            id INT PRIMARY KEY AUTO_INCREMENT,
+            searchDate DATE NOT NULL,
+            origin VARCHAR(100) NOT NULL,
+            destination VARCHAR(100) ,
+            departureDate DATE ,
+            id_user INT NOT NULL,
+            FOREIGN KEY (id_user) REFERENCES user(id)
+        );`
+
+        );
+        console.log('tabla search creada');
+
         await connection.query(`CREATE TABLE booking (
             id INT PRIMARY KEY AUTO_INCREMENT,
             booking_code VARCHAR(50) NOT NULL,
-            creation_date DATETIME NOT NULL,
+            creation_date DATE NOT NULL,
             payment_method TINYINT,
             complete BOOLEAN NOT NULL default(false),
-            final_price INT unsigned,
-            currency TINYINT,
+            final_price FLOAT unsigned,
+            currency CHAR(10),
             canceled BOOLEAN NOT NULL default(false),
             oneway BOOLEAN NOT NULL,
             id_user int NOT NULL,
@@ -68,9 +83,7 @@ async function main() {
             id INT PRIMARY KEY auto_increment,
             name_passenger VARCHAR (50) NOT NULL ,
             lastname VARCHAR (255) NOT NULL ,
-            lastname2 VARCHAR (255) NOT NULL ,
             typephone VARCHAR (50) ,
-            address VARCHAR(255) NOT NULL,
             phone VARCHAR (50) NOT NULL ,
             code_phone VARCHAR (10) NOT NULL,
             email VARCHAR (100) NOT NULL ,
@@ -83,10 +96,8 @@ async function main() {
             validitycountry VARCHAR(50) NOT NULL,
             birthplace VARCHAR(50) NOT NULL,
             gender ENUM('MALE', 'FEMALE', 'UNSPECIFIED', 'UNDISCLOSED') NOT NULL,
-            namecontact VARCHAR(50) NOT NULL,
-            emailcontact VARCHAR(50) NOT NULL,
-            id_booking INT NOT NULL ,
-            FOREIGN KEY (id_booking) REFERENCES booking(id)
+            namecontact VARCHAR(50),
+            emailcontact VARCHAR(50)
             );`);
 
         console.log('Tabla Passenger creada');
@@ -96,7 +107,7 @@ async function main() {
             carrier_code varchar(50) NOT NULL,
             departure_code varchar(10) NOT NULL,
             arrival_code varchar(10) NOT NULL,
-            duration VARCHAR(50) NOT NULL,
+            duration VARCHAR(50),
             flight_num char(10) NOT NULL
             );`);
 
@@ -161,6 +172,7 @@ async function main() {
         }
 
         // Generar reservas
+        /*
         const num_reservas = 10;
 
         for (let i = 0; i < num_reservas; i++) {
@@ -246,6 +258,7 @@ async function main() {
             );
         }
         console.log('Vuelos falsos insertados');
+        */
     } catch (error) {
         console.error(error);
     } finally {
