@@ -25,7 +25,7 @@ const resetPass = async (req, res, next) => {
         `,
         [recovercode]);
 
-        if(!user.length < 1) {
+        if(user.length < 1) {
             const error = new Error ('Código de recuperación incorrecto');
             error.httpStatus = 404;
             throw error;

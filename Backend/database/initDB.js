@@ -24,7 +24,9 @@ async function main() {
         await connection.query('DROP TABLE IF EXISTS flight');
         await connection.query('DROP TABLE IF EXISTS passenger');
         await connection.query('DROP TABLE IF EXISTS booking');
+        await connection.query('DROP TABLE IF EXISTS search');
         await connection.query('DROP TABLE IF EXISTS user');
+
 
         await connection.query(`CREATE TABLE user(
             id INT PRIMARY KEY AUTO_INCREMENT,
@@ -48,10 +50,23 @@ async function main() {
 
         console.log('Tabla de usuarios creada');
 
+        await connection.query(`CREATE TABLE search(
+            id INT PRIMARY KEY AUTO_INCREMENT,
+            searchDate DATE NOT NULL,
+            origin VARCHAR(100) NOT NULL,
+            destination VARCHAR(100) ,
+            departureDate DATE ,
+            id_user INT NOT NULL,
+            FOREIGN KEY (id_user) REFERENCES user(id)
+        );`
+
+        );
+        console.log('tabla search creada');
+
         await connection.query(`CREATE TABLE booking (
             id INT PRIMARY KEY AUTO_INCREMENT,
             booking_code VARCHAR(50) NOT NULL,
-            creation_date DATETIME NOT NULL,
+            creation_date DATE NOT NULL,
             payment_method TINYINT,
             complete BOOLEAN NOT NULL default(false),
             final_price FLOAT unsigned,

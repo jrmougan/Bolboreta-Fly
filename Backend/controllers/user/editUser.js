@@ -10,8 +10,8 @@ const editUser = async (req, res, next) => {
         connection = await getDB();
 
         const { iduser } = req.params;
-       
-        const { newname, newlastname, newlastname2, newbirthdate, newbio, newaddress, newemail} = req.body;
+
+        const { newname, newlastname, newlastname2, newbirthdate, newbio, newaddress, newemail } = req.body;
 
         const [user] = await connection.query(
             `SELECT name_user, lastname, lastname2, birthdate, bio, address, email, avatar FROM user WHERE id = ?`,
@@ -29,31 +29,36 @@ const editUser = async (req, res, next) => {
                 [newemail])
                 ;
 
-            if (email.lenght > 0) {
+            if (email.length > 0) {
                 const error = new Error('Ese email ya existe en nuestra base de datos');
                 error.httpStatus = 409;
                 throw error;
             }
+
         }
 
-        const registration_code = generateRandomString(40);
+        //mandar codigo de registro si ha cambiado el email
+        if (newemail) {
+            const registration_code = generateRandomString(40);
 
-        await connection.query(`
+            await connection.query(`
+
         UPDATE user SET email = ?, registration_code = ? , active = false WHERE id = ?
         `,
-            [newemail, registration_code, iduser]);
+                [newemail, registration_code, iduser]);
 
-        await mailVerify(newemail, registration_code);
+            await mailVerify(newemail, registration_code);
 
-        message += ' Le hemos enviado un código a su nuevo email para validar el cambio de email.';
+            message += ' Le hemos enviado un código a su nuevo email para validar el cambio de email.';
+        }
 
-      
-         // Actualizamos todo lo que ha podido guardar el usuario
 
-         await connection.query(`
+        // Actualizamos todo lo que ha podido guardar el usuario
+
+        await connection.query(`
          UPDATE user SET name_user = ?, lastname = ?, lastname2 = ?, bio = ?, address = ?, birthdate = ? , modifyDate = ? WHERE id = ?
          `,
-         [newname, newlastname, newlastname2, newbio, newaddress, newbirthdate , new Date(), iduser]);
+            [newname || user[0].name_user, newlastname || user[0].lastname, newlastname2 || user[0].lastname2, newbio || user[0].bio, newaddress || user[0].address, newbirthdate || user[0].birthdate, new Date(), iduser]);
 
         res.send({
             status: 'ok',
