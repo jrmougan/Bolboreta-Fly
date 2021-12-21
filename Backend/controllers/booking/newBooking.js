@@ -1,4 +1,5 @@
 const getDB = require('../../database/getDB');
+const { sendMail } = require('../../helpers');
 const { AMADEUS_ID, AMADEUS_SECRET } = process.env;
 const Amadeus = require('amadeus');
 const amadeus = new Amadeus({
@@ -7,7 +8,9 @@ const amadeus = new Amadeus({
 });
 const newBooking = async (req, res, next) => {
     let connection;
+
     try {
+        const id_user = req.userAuth.id;
         const { itinerary, travelers } = req.body;
 
         if (!itinerary || !travelers) {
@@ -41,7 +44,17 @@ const newBooking = async (req, res, next) => {
 
         const [booking] = await connection.query(
             'INSERT INTO booking (booking_code, creation_date, payment_method, complete, final_price, currency, canceled, oneway, id_user) VALUES (?,?,?,?,?,?,?,?,?)',
-            [bookingId, creation_date, 0, 0, finalPrice, currency, 0, 0, 2]
+            [
+                bookingId,
+                creation_date,
+                0,
+                0,
+                finalPrice,
+                currency,
+                0,
+                0,
+                id_user,
+            ]
         );
         //Guardamos el id de insercción de la reserva
         const insertIdBooking = booking.insertId;
@@ -137,6 +150,15 @@ const newBooking = async (req, res, next) => {
                 );
             }
         }
+        //Enviamos mail de confirmación de reserva
+        const confirmbody = `
+        Tu reserva con id <b>${bookingId}</b> ha sido confirmada
+        `;
+        await sendMail({
+            to: 'jrmougan@gmail.com',
+            subject: 'RESERVA CONFIRMADA',
+            body: confirmbody,
+        });
 
         res.send({
             status: 'ok',
