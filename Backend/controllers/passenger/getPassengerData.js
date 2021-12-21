@@ -9,8 +9,7 @@ const getPassengerData = async (req, res, next) => {
         const { idPassenger, bookingId } = req.params;
 
         const [passengerData] = await connection.query(
-            `
-            SELECT  name_passenger,
+            `SELECT  name_passenger,
                     lastname,
                     lastname2,
                     address,
@@ -25,10 +24,12 @@ const getPassengerData = async (req, res, next) => {
                     birthplace,
                     gender,
                     namecontact,
-                    emailcontact,
+                    emailcontact
             FROM passenger WHERE id=? AND id_booking=?`,
             [idPassenger, bookingId]
         );
+        console.log(idPassenger, bookingId);
+        console.log(passengerData);
 
         const allPassengerData = {
             name_passenger: passengerData[0].name_passenger,
@@ -50,7 +51,8 @@ const getPassengerData = async (req, res, next) => {
         };
         res.send({
             status: 'ok',
-            message: allPassengerData,
+            message: 'Aquí tiene los datos',
+            data: { allPassengerData },
         });
     } catch (error) {
         next(error);
