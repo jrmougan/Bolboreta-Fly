@@ -7,6 +7,7 @@ import { TextField } from '@mui/material';
 const PORT = 4000;
 
 const MainForm = () => {
+  const [token, setToken] = useLocalStorage('jwtToken', '');
   const [nombre, setNombre] = useLocalStorage('nombre', '');
   const [primerApellido, setPrimerApellido] = useLocalStorage(
     'primerApellido',
@@ -18,12 +19,12 @@ const MainForm = () => {
   );
   const [email, setEmail] = useLocalStorage('email', '');
   const [password, setPassword] = useLocalStorage('password', '');
+  console.log(password);
   const [passwordRepeat, setPasswordRepeat] = useLocalStorage(
     'passwordRepeat',
     ''
   );
-  const [birthdate, setBirthdate] = useLocalStorage('birthday', '');
-  const [token, setToken] = useLocalStorage('jwtToken', '');
+  const [birthdate, setBirthdate] = useLocalStorage('birthdate', '1995/10/31');
   const [bio, setBio] = useLocalStorage('bio', '');
 
   const handleSubmit = (setter) => (e) => {
@@ -50,11 +51,13 @@ const MainForm = () => {
           'Content-type': 'application/json',
         },
       });
+      const bodyResponse = await response.json();
+      console.log(bodyResponse.message);
       if (response.ok) {
-        const bodyResponse = await response.json();
-        console.log(bodyResponse.message);
         console.log('Te has registrado satisfactoriamente');
-        setToken(bodyResponse.accessToken);
+        const tokenJWT = bodyResponse.accessToken;
+        console.log(tokenJWT);
+        setToken(tokenJWT);
         console.log(token);
       }
     } catch (error) {
@@ -63,9 +66,9 @@ const MainForm = () => {
   };
   return (
     <main>
-      <div className='mainForm' onSubmit={register}>
-        <h1>Formulario de registro den Bolboreta Fly</h1>
-        <form>
+      <h1>Formulario de registro den Bolboreta Fly</h1>
+      <div className='mainForm'>
+        <form onSubmit={register}>
           <div className='input_container'>
             <label htmlFor='nombre_input'>Nombre</label>
             <TextField
@@ -89,56 +92,61 @@ const MainForm = () => {
           </div>
           <div className='input_container'>
             <label htmlFor='segundoApellido'>Segundo Apellido</label>
-            <input
-              type='text'
+            <TextField
               id='segundoApellido'
               value={segundoApellido}
               className='inputForm'
               onChange={handleSubmit(setSegundoApellido)}
-            ></input>
+              margin='dense'
+            ></TextField>
           </div>
+
           <div className='input_container'>
             <label htmlFor='email'> Ponga aquí su email</label>
-            <input
+            <TextField
               type='text'
               id='email'
               value={email}
               className='inputForm'
               onChange={handleSubmit(setEmail)}
-            ></input>
+              margin='dense'
+            ></TextField>
           </div>
           <div className='input_container'>
             <label htmlFor='password'> Ponga aquí su contraseña</label>
-            <input
+            <TextField
               type='password'
               id='password'
               value={password}
               className='inputForm'
               onChange={handleSubmit(setPassword)}
-            ></input>
+              margin='dense'
+            ></TextField>
           </div>
           <div className='input_container'>
             <label className='label-input' htmlFor='passwordRepeat'>
               {' '}
               Repita su contraseña
             </label>
-            <input
+            <TextField
               type='password'
               id='passwordRepeat'
               value={passwordRepeat}
               className='inputForm'
               onChange={handleSubmit(setPasswordRepeat)}
-            ></input>
+              margin='dense'
+            ></TextField>
           </div>
           <div className='input_container'>
             <label htmlFor='birthday'> Cumpleaños</label>
-            <input
+            <TextField
               type='date'
               id='birthday'
               value={birthdate}
               className='inputForm'
               onChange={handleSubmit(setBirthdate)}
-            ></input>
+              margin='dense'
+            ></TextField>
           </div>
           <div>
             <label htmlFor='bio'>Bio</label>

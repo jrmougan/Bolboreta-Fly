@@ -1,0 +1,28 @@
+*,
+*:after,
+*:before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+main {
+  background-color: #c3cfe3;
+}
+h1 {
+  text-align: center;
+}
+.mainForm {
+  max-width: 80%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+.input_container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.inputForm {
+  margin-left: 10rem;
+}
