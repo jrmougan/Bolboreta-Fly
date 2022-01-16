@@ -22,7 +22,7 @@ const MainForm = () => {
     'passwordRepeat',
     ''
   );
-  const [birthday, setBirthday] = useState('');
+  const [birthdate, setBirthdate] = useLocalStorage('birthday', '');
   const [token, setToken] = useLocalStorage('jwtToken', '');
   const [bio, setBio] = useLocalStorage('bio', '');
 
@@ -44,7 +44,7 @@ const MainForm = () => {
           password,
           confirmpassword: passwordRepeat,
           bio,
-          birthday,
+          birthdate: birthdate,
         }),
         headers: {
           'Content-type': 'application/json',
@@ -135,9 +135,9 @@ const MainForm = () => {
             <input
               type='date'
               id='birthday'
-              value={birthday}
+              value={birthdate}
               className='inputForm'
-              onChange={handleSubmit(setBirthday)}
+              onChange={handleSubmit(setBirthdate)}
             ></input>
           </div>
           <div>
