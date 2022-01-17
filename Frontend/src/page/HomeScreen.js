@@ -1,10 +1,93 @@
-import './search.css';
 import { cardActionAreaClasses } from '@mui/material';
+import '../css/homescreen.css';
 import React, { useState, useEffect } from 'react';
 import useLocalStorage from '../hooks/useLocalStorage';
+import { ListFlights } from '../components/ListFlights';
 const PORT = 4000;
 
-const Search = () => {
+const HomeScreen = () => {
+  const [origin, setOrigin] = useLocalStorage('origin', '');
+  const [destination, setDestination] = useLocalStorage('password', '');
+  const [departureDate, setDepartureDate] = useLocalStorage(
+    'departureDate',
+    ''
+  );
+  const [returndate, setReturndate] = useState('');
+  const [adults, setAdults] = useLocalStorage('adult', '');
+  const [data, setData] = useState('');
+
+  const [duration, setDuration] = useState('');
+  const [price, setPrice] = useState('');
+  const [departuretime, setDepartureTime] = useState('');
+  const [idFlight, setIdFlight] = useState('');
+
+  const handleSubmit = (setter) => (e) => {
+    e.preventDefault();
+    setter(e.target.value);
+  };
+
+  const search = async (e) => {
+    e.preventDefault();
+    console.log(origin);
+    console.log(destination);
+    console.log(departureDate);
+    console.log(adults);
+    try {
+      const response = await fetch(
+        `http://localhost:4000/search?origin=${origin}&destination=${destination}&departuredate=${departureDate}&adults=${adults}`
+      );
+      const body = await response.json();
+      const flights = body.data.data;
+      console.log(flights);
+      /*       if (response.httpStatus === 400) {
+        console.log('Edu es por aquí');
+      } */
+      if (response.ok) {
+        console.log('Los itinerarios son => ', flights[0].itineraries);
+
+        console.log(
+          'Su vuelo despegará a las => ',
+          flights[0].itineraries[0].segments[0].departure.at
+        );
+
+        console.log(
+          'A elegido  => ',
+          flights[0].travelerPricings[0].fareOption
+        );
+
+        setPrice(body.data.data[15].price.grandTotal);
+        setData(body.data.data);
+        console.log('Aquí es data:', data);
+      }
+    } catch (error) {
+      console.error('Error de comunicación', error);
+    }
+  };
+  /*   try {
+    const response = await fetch(
+      `http://localhost:4000/search?origin=${origin}&destination=${destination}&departuredate=${departureDate}&returndate=${returndate}&adults=${adults}`
+    );
+    const body = await response.json();
+    const flights = body.data.data;
+    console.log(flights);
+    if (response.httpStatus === 400) {
+      console.log('Edu es por aquí');
+    }
+    if (response.ok) {
+      console.log(body.data.data);
+      console.log(
+        'Precio del segundo vuelo => ',
+        body.data.data[10].price.grandTotal
+      );
+      setPrice(body.data.data[15].price.grandTotal);
+      setData(body);
+    }
+  } catch (error) {
+    console.error('Error de comunicación', error);
+  }
+};
+ */
+
   return (
     <main className='searchEnvironment'>
       <section className='searchFlight'>
@@ -13,43 +96,71 @@ const Search = () => {
           <button className='tab tab-2'>Ida y vuelta</button>
           <button className='tab tab-3'> Múltiples destinos</button>
         </div>
-        <form>
+        <form onSubmit={search}>
           <div className='inputsFlight'>
             <input
               type='text'
               className='searchInput searchInput-1'
-              placeholder='Origen'
+              id='origin'
+              value={origin}
+              onChange={handleSubmit(setOrigin)}
             ></input>
             <input
               type='text'
               className='searchInput searchInput-2'
               placeholder='Destino'
+              value={destination}
+              onChange={handleSubmit(setDestination)}
             ></input>
             <input
-              type='month'
+              type='date'
               className='searchInput searchInput-2'
               placeholder='Fechas'
+              value={departureDate}
+              onChange={handleSubmit(setDepartureDate)}
             ></input>
-            <select className='searchInput'>
+            {/*             <input
+              type='date'
+              className='searchInput searchInput-2'
+              placeholder='Fechas'
+              value={returndate}
+              onChange={handleSubmit(setReturndate)}
+            ></input> */}
+            {/* <select
+              value={adults}
+              onChange={handleSubmit(setAdults)}
+              className='searchInput'
+            >
               <option value='1'>1 adulto</option>
               <option value='2'>2 adultos</option>
               <option value='3'>3 adultos</option>
               <option value='4'>4 adultos</option>
               <option value='5'>5 adultos</option>
-            </select>
+            </select> */}
+            <input
+              type='text'
+              value={adults}
+              onChange={handleSubmit(setAdults)}
+              className='searchInput searchInput-1'
+            ></input>
           </div>
-          <button className='btn btn-search'>Buscar</button>
+          <button className='btn btn-search' type='submit'>
+            Buscar
+          </button>
         </form>
       </section>
+
+      {/* <ResultCard /> */}
+      <ListFlights data={data} />
     </main>
   );
 };
 
-export const HomeScreen = () => {
-  const [origin, setOrigin] = useLocalStorage('email', '');
+/* const HomeScreen = () => {
+  const [origin, setOrigin] = useLocalStorage('origin', '');
   const [destination, setDestination] = useLocalStorage('password', '');
   const [departureDate, setDepartureDate] = useLocalStorage(
-    'passwordRepeat',
+    'departureDate',
     ''
   );
   const [returndate, setReturndate] = useState('');
@@ -58,39 +169,11 @@ export const HomeScreen = () => {
   const [price, setPrice] = useState('');
   const [data, setData] = useState('');
   console.log([data]);
-  /*   const listaDeVuelos = data.map((elem) => (
+    const listaDeVuelos = data.map((elem) => (
     <li key={data.id}>
       <span>{data.type}</span>
     </li>
-  )); */
-  const handleSubmit = (setter) => (e) => {
-    e.preventDefault();
-    setter(e.target.value);
-  };
-
-  const search = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await fetch(
-        `http://localhost:4000/search?origin=AGP&destination=MAD&departuredate=2022-02-02&adults=1`
-      );
-      const body = await response.json();
-
-      if (response.httpStatus === 400) {
-        console.log('Edu es por aquí');
-      }
-      if (response.ok) {
-        console.log(
-          'Precio del segundo vuelo => ',
-          body.data.data[10].price.grandTotal
-        );
-        setPrice(body.data.data[15].price.grandTotal);
-        setData(body);
-      }
-    } catch (error) {
-      console.error('Error de comunicación', error);
-    }
-  };
+  ));
 
   return (
     <main>
@@ -163,5 +246,5 @@ export const HomeScreen = () => {
     </main>
   );
 };
-
+ */
 export default HomeScreen;

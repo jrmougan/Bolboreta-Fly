@@ -1,0 +1,87 @@
+.searchEnvironment {
+  background-color: #f7f6ff;
+  padding: 10rem 3rem;
+}
+
+.searchFlight {
+  position: relative;
+  background-color: #023859;
+  padding: 3rem 1rem 2rem;
+  max-width: 1100px;
+}
+.searchInput {
+  width: 40rem;
+}
+
+.searchTabs {
+  position: absolute;
+  top: -3rem;
+  left: 0;
+}
+.tab {
+  border-radius: 0%;
+  border: none;
+  padding: 1rem 1.5rem;
+  color: white;
+  background-color: #5d7ca6;
+}
+.tab-1 {
+  border-radius: 15px 0 0 0;
+}
+.tab-2 {
+  background-color: #023859;
+}
+.tab-3 {
+  border-radius: 0 15px 0 0;
+}
+.searchInput {
+  margin-right: 1rem;
+  margin-left: 1rem;
+  width: 15rem;
+  height: 2.5rem;
+}
+.btn-search {
+  display: block;
+  margin: 1rem;
+  margin-left: auto;
+}
+.btnFlight {
+  border-radius: 20px;
+  display: block;
+  margin-inline: auto;
+}
+
+.hidden {
+  display: none;
+}
+.btn {
+  background: #5d7ca6;
+  color: #eee;
+  padding: 1rem 1.5rem;
+  border: none;
+}
+.inputsFlight {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.resultCard {
+  padding: 2rem 1rem;
+  width: 500px;
+
+  background-color: #c3cfe3;
+  display: flex;
+  margin-inline: auto;
+  margin-top: 2rem;
+  border-radius: 10px;
+}
+.left-card {
+  flex-grow: 3;
+}
+.right-card {
+  flex-grow: 1;
+}
+.right-card p {
+  text-align: center;
+  font-size: 2rem;
+}
