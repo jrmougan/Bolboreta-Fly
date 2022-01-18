@@ -4,12 +4,12 @@ import './mainForm.css';
 import ReactDOM from 'react-dom';
 import { TextField } from '@mui/material';
 import { FaArrowRight } from 'react-icons/fa';
-import ValidationForm from '../ValidationForm/ValidationForm';
+import { useUserTokenContext } from '../../contexts/UserTokenContext';
 
 const PORT_BACKEND = 4000;
 
 const MainForm = () => {
-  const [token, setToken] = useLocalStorage('jwtToken', '');
+  const [token, setToken] = useUserTokenContext();
   const [respuesta, setRespuesta] = useState('');
   const [nombre, setNombre] = useLocalStorage('nombre', '');
   const [primerApellido, setPrimerApellido] = useLocalStorage(
