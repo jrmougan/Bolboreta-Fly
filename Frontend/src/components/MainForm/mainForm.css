@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,500;1,400&family=Roboto:wght@400;500&display=swap');
 
-html {
+main {
   font-family: 'Roboto', sans-serif;
 }
 *,
@@ -42,6 +42,12 @@ nav li {
 }
 .form {
   position: relative;
+}
+.form-title-container {
+  display: block;
+  max-width: 80%;
+  width: 60%;
+  margin: 0 auto;
 }
 .form-title {
   margin: 4rem 5rem;

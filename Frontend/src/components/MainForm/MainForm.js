@@ -77,7 +77,9 @@ const MainForm = () => {
 
   return (
     <main>
-      <h1 className='form-title'>Formulario de registro en Bolboreta Fly</h1>
+      <div className='form-title-container'>
+        <h1 className='form-title'>Formulario de registro en Bolboreta Fly</h1>
+      </div>
       <div className='mainForm'>
         <form onSubmit={register} className='form'>
           <div className='input_container'>
