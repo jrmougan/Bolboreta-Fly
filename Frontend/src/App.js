@@ -1,8 +1,27 @@
-import logo from "./logo.svg";
-import "./App.css";
-import Routing from "./routes/Routing";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link,
+  Outlet,
+} from 'react-router-dom';
+import logo from './logo.svg';
+import './App.css';
+import Routing from './routes/Routing';
+import { HomeScreen } from './page';
+import HomeRound from './page/HomeRound';
+import HomeMultiple from './page/HomeMultiple';
+
 function App() {
-  return <Routing />;
+  return (
+    <Router>
+      <Routes>
+        <Route path='/' element={<HomeScreen />} />
+        <Route path='/vuelta' element={<HomeRound />} />
+        <Route path='/multiples' element={<HomeMultiple />} />
+      </Routes>
+    </Router>
+  );
 }
 
 export default App;

@@ -8,6 +8,8 @@
   background-color: #023859;
   padding: 3rem 1rem 2rem;
   max-width: 1100px;
+  display: block;
+  margin-inline: auto;
 }
 .searchInput {
   width: 40rem;
@@ -15,7 +17,7 @@
 
 .searchTabs {
   position: absolute;
-  top: -3rem;
+  top: -2.1rem;
   left: 0;
 }
 .tab {
@@ -24,7 +26,9 @@
   padding: 1rem 1.5rem;
   color: white;
   background-color: #5d7ca6;
+  text-decoration: none;
 }
+
 .tab-1 {
   border-radius: 15px 0 0 0;
 }
@@ -35,8 +39,7 @@
   border-radius: 0 15px 0 0;
 }
 .searchInput {
-  margin-right: 1rem;
-  margin-left: 1rem;
+  margin: 0.5rem 1rem;
   width: 15rem;
   height: 2.5rem;
 }

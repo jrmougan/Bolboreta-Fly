@@ -2,14 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { Link, Outlet, Route, Routes, Router } from 'react-router-dom';
 import useLocalStorage from '../hooks/useLocalStorage';
 import '../css/homescreen.css';
-import { BasicSearch } from '../components/Search/BasicSearch/BasicSearch';
+import {
+  RoundTrip,
+  BasicSearch,
+  MultipleSearches,
+} from '../components/Search/BasicSearch/BasicSearch';
 import { ListFlights } from '../components/Search/ListFlights/ListFlights';
-
 const { PUBLIC_HOST_BACKEND } = process.env;
 
 const PORT = 4000;
 
-const HomeScreen = () => {
+const HomeMultiple = () => {
   const [origin, setOrigin] = useLocalStorage('origin', '');
   const [destination, setDestination] = useLocalStorage('password', '');
   const [departureDate, setDepartureDate] = useLocalStorage(
@@ -46,24 +49,24 @@ const HomeScreen = () => {
 
   return (
     <main className='searchEnvironment'>
-      <BasicSearch
-        destination={destination}
-        search={search}
-        origin={origin}
-        setOrigin={setOrigin}
-        setDestination={setDestination}
-        s
-        setDepartureDate={setDepartureDate}
-        returnDate={returnDate}
-        setAdults={setAdults}
-        handleSubmit={handleSubmit}
-        adults={adults}
-        setReturndate={setReturndate}
-      />
+      {
+        <MultipleSearches
+          destination={destination}
+          search={search}
+          origin={origin}
+          setOrigin={setOrigin}
+          setDestination={setDestination}
+          z
+          setAdults={setAdults}
+          handleSubmit={handleSubmit}
+          adults={adults}
+          setReturndate={setReturndate}
+        />
+      }
 
       <ListFlights data={data} />
     </main>
   );
 };
 
-export default HomeScreen;
+export default HomeMultiple;
