@@ -1,12 +1,6 @@
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import routes from "./routes";
-import {
-  AdvancedSearchScreen,
-  HomeScreen,
-  LoginScreen,
-  ProfileScreen,
-  RegisterScreen,
-} from "../page";
+//import App from "../App";
 
 const Routing = () => {
   return (
@@ -36,7 +30,6 @@ const Routing = () => {
               ></Route>
             );
           })}
-          <Route path=""></Route>
         </Routes>
       </div>
     </Router>
