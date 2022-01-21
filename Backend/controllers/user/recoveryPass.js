@@ -1,62 +1,62 @@
 
-const getDB = require ('../../database/getDB');
+const getDB = require('../../database/getDB');
 
-const { generateRandomString, sendMail} = require ('../../helpers');
+const { generateRandomString, sendMail } = require('../../helpers');
 
-const {PUBLIC_HOST } = process.env;
+const { PUBLIC_HOST } = process.env;
 
 const recoveryPass = async (req, res, next) => {
 
     let connection;
 
     try {
-        
+
         connection = await getDB();
 
-        const {email} = req.body ;
+        const { email } = req.body;
 
-        if(!email){
-            const error = new Error ('No has introducido ningun email')
-            error.httpStatus = 400 ;
+        if (!email) {
+            const error = new Error('No has introducido ningun email')
+            error.httpStatus = 400;
             throw error;
         }
 
-        const [user] = await connection.query (`
+        const [user] = await connection.query(`
         SELECT id FROM user WHERE email = ?
         `,
-        [email]
+            [email]
         );
 
-        if(user.length > 0) {
+        if (user.length > 0) {
             const recoverCode = generateRandomString(40);
             const emailBody = `Se ha solicitado la recuperación de su contraseña en Bolboreta Flight
-            Este es el código de recuperacion de contraseña : <a href="${PUBLIC_HOST}register/validate/${recoverCode}"> Pulsa aqui </a>.
+            Este es el código de recuperacion de contraseña : ${recoverCode}.
             Si no has sido tu, ignora este email`;
-        
-        await sendMail({
-            to:email,
-            subject:'Recuperación de contraseña',
-            body: emailBody,
 
-        });
+            await sendMail({
+                to: email,
+                subject: 'Recuperación de contraseña',
+                body: emailBody,
 
-        await connection.query( `
+            });
+
+            await connection.query(`
         UPDATE user SET recover_Code = ? , modifyDate = ?  WHERE email = ?        
         `,
-        [recoverCode , new Date(), email]);
-    }
+                [recoverCode, new Date(), email]);
+        }
 
         res.send({
-            status:'ok',
-            message: ' Si el email existe, se enviará un email para la recuperación de la contraseña, sino está en bandeja de entrada, pruebe en spam'
+            status: 'ok',
+            message: ' Si el email existe, se enviará un email para la recuperación de la contraseña, si no está en bandeja de entrada, pruebe en spam'
         });
 
     } catch (error) {
         next(error)
-        
-    }finally {
-        if(connection) connection.release();
+
+    } finally {
+        if (connection) connection.release();
     }
 };
 
-module.exports = recoveryPass ;
+module.exports = recoveryPass;

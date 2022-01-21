@@ -1,10 +1,10 @@
-const getDB = require ('../../database/getDB');
-const Amadeus = require ('amadeus');
-const {AMADEUS_ID, AMADEUS_SECRET} = process.env ;
+const getDB = require('../../database/getDB');
+const Amadeus = require('amadeus');
+const { AMADEUS_ID, AMADEUS_SECRET } = process.env;
 
-const amadeus = new Amadeus ({
-clientId: AMADEUS_ID,
-clientSecret: AMADEUS_SECRET
+const amadeus = new Amadeus({
+    clientId: AMADEUS_ID,
+    clientSecret: AMADEUS_SECRET
 });
 
 const newSearch = async (req, res, next) => {
@@ -13,46 +13,46 @@ const newSearch = async (req, res, next) => {
 
         connection = await getDB();
 
-        const {origin , destination, departuredate , returndate , adults,} = req.query;
-      
+        const { origin, destination, departuredate, returndate, adults, } = req.query;
 
-        if(Number(adults) > 9 ){
 
-            const error = new Error ('No puedes insertar mas de 9 pasajeros');
+        if (Number(adults) > 9) {
+
+            const error = new Error('No puedes insertar mas de 9 pasajeros');
             error.httpStatus = 416;
             throw error;
         }
-        
 
-        
-      const  result = await amadeus.shopping.flightOffersSearch.get ({
-        
+
+
+        const { result } = await amadeus.shopping.flightOffersSearch.get({
+
             originLocationCode: origin,
             destinationLocationCode: destination,
             departureDate: departuredate,
             returnDate: returndate,
             adults,
-                       
-        });
-       
-    
-       
-        
-    
-       res.send({
-           status:'ok',
-           data: result
-       });
 
-    
+        });
+
+
+
+
+
+        res.send({
+            status: 'ok',
+            data: result
+        });
+
+
     } catch (error) {
 
         next(error);
-        
-    }finally {
-        if(connection) connection.release();
+
+    } finally {
+        if (connection) connection.release();
     }
 
 };
 
-module.exports = newSearch ;
+module.exports = newSearch;

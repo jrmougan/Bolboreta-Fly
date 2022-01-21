@@ -1,0 +1,20 @@
+#popup_background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #c3cfe3;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#popup_foreground {
+  background-color: #f7f6ff;
+  width: 50%;
+  height: 50%;
+  border-radius: 1rem;
+  box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+}

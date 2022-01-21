@@ -1,0 +1,28 @@
+.App-logo {
+  display: flex;
+  height: 45px;
+
+  margin: 10px;
+  align-items: center;
+}
+
+.iniciosesion {
+  border: 1px solid;
+  background: #5d7ca6;
+  font-size: medium;
+  font-weight: bolder;
+  align-items: center;
+  width: 170px;
+  height: 40px;
+  color: white;
+  margin-top: 10px;
+}
+
+.App-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.avatar {
+  margin-right: 10px;
+}

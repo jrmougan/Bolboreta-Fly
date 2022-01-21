@@ -1,0 +1,11 @@
+#getuser {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.fotousuario {
+  width: 200px;
+  border-radius: 100%;
+}
