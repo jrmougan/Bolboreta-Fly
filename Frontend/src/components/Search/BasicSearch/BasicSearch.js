@@ -1,6 +1,10 @@
 import { Link, Outlet } from 'react-router-dom';
 import { InputLabel, Select, MenuItem } from '@mui/material';
-import { FaPlaneDeparture, FaPlaneArrival } from 'react-icons/fa';
+import {
+  FaPlaneDeparture,
+  FaPlaneArrival,
+  AiOutlineUser,
+} from 'react-icons/fa';
 
 export const BasicSearch = ({
   search,
@@ -40,7 +44,7 @@ export const BasicSearch = ({
             onChange={handleSubmit(setOrigin)}
             placeholder='Elija una ciudad'
           ></input>
-          <FaPlaneDeparture style={{ fontSize: '15rem' }} />
+
           <input
             type='text'
             className='searchInput searchInput-2'

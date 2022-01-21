@@ -71,22 +71,23 @@
 .inputsFlight input {
   font-family: FontAwesome;
 }
-
 .resultCard {
   padding: 2rem 1rem;
   width: 500px;
-
-  background-color: #c3cfe3;
+  background-color: #f7f6ff;
   display: flex;
   margin-inline: auto;
   margin-top: 2rem;
-  border-radius: 10px;
+  border-radius: 5px;
+  border: 1px solid black;
 }
+
 .left-card {
   flex-grow: 3;
 }
 .right-card {
   flex-grow: 1;
+  border-left: 1px solid black;
 }
 .right-card p {
   text-align: center;
