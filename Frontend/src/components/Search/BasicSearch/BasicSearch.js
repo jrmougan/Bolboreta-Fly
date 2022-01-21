@@ -1,4 +1,6 @@
 import { Link, Outlet } from 'react-router-dom';
+import { InputLabel, Select, MenuItem } from '@mui/material';
+import { FaPlaneDeparture, FaPlaneArrival } from 'react-icons/fa';
 
 export const BasicSearch = ({
   search,
@@ -36,7 +38,9 @@ export const BasicSearch = ({
             id='origin'
             value={origin}
             onChange={handleSubmit(setOrigin)}
+            placeholder='Elija una ciudad'
           ></input>
+          <FaPlaneDeparture style={{ fontSize: '15rem' }} />
           <input
             type='text'
             className='searchInput searchInput-2'
@@ -52,12 +56,21 @@ export const BasicSearch = ({
             onChange={handleSubmit(setDepartureDate)}
           ></input>
 
-          <input
-            type='text'
+          <Select
+            labelId='demo-simple-select-label'
+            id='demo-simple-select'
+            className='searchInput searchInput-2 adultsInput'
             value={adults}
+            label='Age'
             onChange={handleSubmit(setAdults)}
-            className='searchInput searchInput-1'
-          ></input>
+          >
+            <MenuItem value={1}>1 adulto</MenuItem>
+            <MenuItem value={2}>2 adultos</MenuItem>
+            <MenuItem value={3}>3 adultos</MenuItem>
+            <MenuItem value={4}>4 adultos</MenuItem>
+            <MenuItem value={5}>5 adultos</MenuItem>
+            <MenuItem value={6}>6 adultos</MenuItem>
+          </Select>
         </div>
         <button className='btn btn-search' type='submit'>
           Buscar
@@ -126,14 +139,23 @@ export const RoundTrip = ({
               value={returnDate}
               onChange={handleSubmit(setReturndate)}
             ></input>
-
-            <input
-              type='text'
+            <Select
+              labelId='demo-simple-select-label'
+              id='demo-simple-select'
+              className='searchInput searchInput-2 adultsInput'
               value={adults}
+              label='Age'
               onChange={handleSubmit(setAdults)}
-              className='searchInput searchInput-1'
-            ></input>
+            >
+              <MenuItem value={1}>1 adulto</MenuItem>
+              <MenuItem value={2}>2 adultos</MenuItem>
+              <MenuItem value={3}>3 adultos</MenuItem>
+              <MenuItem value={4}>4 adultos</MenuItem>
+              <MenuItem value={5}>5 adultos</MenuItem>
+              <MenuItem value={6}>6 adultos</MenuItem>
+            </Select>
           </div>
+
           <button className='btn btn-search' type='submit'>
             Buscar
           </button>
@@ -202,12 +224,21 @@ export const MultipleSearches = ({
               onChange={handleSubmit(setReturndate)}
             ></input>
           }
-          <input
-            type='text'
+          <Select
+            labelId='demo-simple-select-label'
+            id='demo-simple-select'
+            className='searchInput searchInput-2 adultsInput'
             value={adults}
+            label='Age'
             onChange={handleSubmit(setAdults)}
-            className='searchInput searchInput-1'
-          ></input>
+          >
+            <MenuItem value={1}>1 adulto</MenuItem>
+            <MenuItem value={2}>2 adultos</MenuItem>
+            <MenuItem value={3}>3 adultos</MenuItem>
+            <MenuItem value={4}>4 adultos</MenuItem>
+            <MenuItem value={5}>5 adultos</MenuItem>
+            <MenuItem value={6}>6 adultos</MenuItem>
+          </Select>
         </div>
         <div className='inputsFlight'>
           <input
@@ -240,12 +271,21 @@ export const MultipleSearches = ({
               onChange={handleSubmit(setReturndate)}
             ></input>
           }
-          <input
-            type='text'
+          <Select
+            labelId='demo-simple-select-label'
+            id='demo-simple-select'
+            className='searchInput searchInput-2 adultsInput'
             value={adults}
+            label='Age'
             onChange={handleSubmit(setAdults)}
-            className='searchInput searchInput-1'
-          ></input>
+          >
+            <MenuItem value={1}>1 adulto</MenuItem>
+            <MenuItem value={2}>2 adultos</MenuItem>
+            <MenuItem value={3}>3 adultos</MenuItem>
+            <MenuItem value={4}>4 adultos</MenuItem>
+            <MenuItem value={5}>5 adultos</MenuItem>
+            <MenuItem value={6}>6 adultos</MenuItem>
+          </Select>
         </div>
         <div className='inputsFlight'>
           <input
@@ -278,12 +318,21 @@ export const MultipleSearches = ({
               onChange={handleSubmit(setReturndate)}
             ></input>
           }
-          <input
-            type='text'
+          <Select
+            labelId='demo-simple-select-label'
+            id='demo-simple-select'
+            className='searchInput searchInput-2 adultsInput'
             value={adults}
+            label='Age'
             onChange={handleSubmit(setAdults)}
-            className='searchInput searchInput-1'
-          ></input>
+          >
+            <MenuItem value={1}>1 adulto</MenuItem>
+            <MenuItem value={2}>2 adultos</MenuItem>
+            <MenuItem value={3}>3 adultos</MenuItem>
+            <MenuItem value={4}>4 adultos</MenuItem>
+            <MenuItem value={5}>5 adultos</MenuItem>
+            <MenuItem value={6}>6 adultos</MenuItem>
+          </Select>
         </div>
         <button className='btn btn-search' type='submit'>
           Buscar
