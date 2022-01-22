@@ -1,11 +1,10 @@
-.icon {
-  width: 30px;
+.googleboton {
+  display: flex;
+  height: 50px;
   align-items: center;
 }
-.googleboton {
-  width: 250px;
-  display: flex;
-  justify-content: space-around;
+.icon {
+  width: 30px;
 }
 
 .logo {
@@ -39,13 +38,14 @@
   width: 100px;
   font-size: x-small;
   margin-right: 50px;
-
+  margin-top: 10px;
   background: #5d7ca6;
   color: white;
 }
 .pregunta {
   font-size: small;
-  width: 100px;
+  width: 150px;
+  margin-top: 10px;
 }
 .show {
   display: flex;
@@ -61,7 +61,7 @@
 .registerlogin {
   width: 170px;
   height: 40px;
-  margin-top: 100px;
+  margin-top: 40px;
   background-color: orange;
   color: black;
   font-size: medium;

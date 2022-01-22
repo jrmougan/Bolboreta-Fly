@@ -1,5 +1,6 @@
-import { React, useContext, useEffect, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 import swal from 'sweetalert';
+import './style.css';
 
 const ResetPass = () => {
 
@@ -39,7 +40,7 @@ const ResetPass = () => {
     return (
         <div>
             <form className='reset_pass' onSubmit={fetchresetpass}>
-                <div className='input_conainer'>
+                <div className='input_container'>
                     <label htmlFor='recovercode'> Introduzca aqui el código que le hemos mandado a su email </label>
                     <input
                         id='recovercode'

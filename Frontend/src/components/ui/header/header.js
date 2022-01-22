@@ -11,7 +11,7 @@ import Avatar from "../Avatar/Avatar";
 
 
 function Header() {
-    const [token, setToken] = useContext(TokenContext);
+    const [token] = useContext(TokenContext);
     const [showPopUp, setShowPopUp] = useState(false);
 
 
@@ -42,14 +42,13 @@ function Header() {
                 </section>
 
                 <section className="avatar">
-                    <Link to='/login'>
-                        <button className='iniciosesion' onClick={(e) => setShowPopUp(true)} className="sesion">👤 Inicio de Sesión</button>
-                    </Link>
+
+                    <button className='iniciosesion' onClick={(e) => setShowPopUp(true)}>👤 Inicio de Sesión</button>
 
 
                 </section>
 
-                {showPopUp && (<PopUp setShowPopUp={setShowPopUp}> <PopUpLogin /> </PopUp>)
+                {showPopUp && (<PopUp setShowPopUp={setShowPopUp}> <PopUpLogin setShowPopUp={setShowPopUp} /> </PopUp>)
                 }
             </header>
         );

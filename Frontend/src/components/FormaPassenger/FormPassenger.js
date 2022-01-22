@@ -133,7 +133,7 @@ const FormPassenger = () => {
                         options={countries}
                         sx={{ width: 300 }}
                         onChange={(e, newinputvalue) => setPais(newinputvalue)}
-                        Value={pais.code}
+                        value={pais.label}
                         renderInput={(params) => (
                             <TextField {...params} label="Pais" />
                         )}

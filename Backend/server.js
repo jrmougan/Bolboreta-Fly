@@ -95,6 +95,7 @@ app.put('/user/:iduser/avatar', userExists, isAuth, caneditUser, editAvatar);
 app.get('/user/:iduser', userExists, isAuth, getUser);
 app.post('/resetpass', resetPass);
 app.post('/user/:iduser/editpass', userExists, isAuth, caneditUser, editPass);
+app.post('/login_google', loginGoogle);
 /**
  * ########################
  * ## Endpoints reservas ##
