@@ -60,6 +60,11 @@ function PopUpLogin({ setShowPopUp }) {
         return <Navigate to={"/recover"} />;
     };
 
+    const handleregister = (e) => {
+        setShowPopUp(false);
+        return <Navigate to={'/register'} />;
+    }
+
     return (
         <div className="formulario">
             <section className="logo">
@@ -103,7 +108,7 @@ function PopUpLogin({ setShowPopUp }) {
                 </section>
                 <section className="registro">
                     <Link to="/register">
-                        <button className="registerlogin" type="button">
+                        <button onClick={handleregister} className="registerlogin" type="button">
                             {" "}
                             REGISTRATE{" "}
                         </button>
