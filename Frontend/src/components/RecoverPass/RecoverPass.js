@@ -49,8 +49,10 @@ const RecoverPass = () => {
 
                 <label htmlFor='email'> ¿No recuerdas tu contraseña? Introduce tu correo electrónico y te indicaremos cómo conseguir una nueva </label>
                 <input id='email' name='email' type='email' value={email} onChange={(e) => { setEmail(e.target.value) }} />
+                <Link to='/resetpass'>
+                    <button type='submit' className='envioemail'> Enviar email </button>
+                </Link>
 
-                <button type='submit' className='envioemail'> Enviar email </button>
 
 
 
