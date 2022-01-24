@@ -23,7 +23,7 @@ const PerfilUsuario = (e) => {
             <div id='perfilusuario'>
                 <h2 className='saludo'> Bienvenido a casa {`${user.userInfo?.name_user} ${user.userInfo?.lastname}!!`
                 } </h2>
-                <Link to={`/user/${decodedToken?.id}`}>
+                <Link to={`/user/${decodedToken?.id}/edit`}>
                     <button className='datosusuario'> Datos de Usuario </button>
 
                 </Link>
