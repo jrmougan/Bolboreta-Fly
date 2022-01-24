@@ -13,7 +13,7 @@ const loginGoogle = async (req, res, next) => {
         idToken: token,
         audience: process.env.APP_GOOGLE_CLIENTE_ID
     });
-    const { name, email } = ticket.getPayload();
+    const { given_name, email, family_name } = ticket.getPayload();
 
 
     const [user] = await connection.query(
@@ -23,16 +23,16 @@ const loginGoogle = async (req, res, next) => {
 
     if (user.length > 0) {
         await connection.query(
-            `UPDATE user SET name_user='${name}' WHERE email = ?`,
+            `UPDATE user SET name_user='${given_name}' WHERE email = ?`,
             [email]
         );
     }
     if (user.length < 1) {
         await connection.query(
-            `INSERT INTO  user (name_user, email , password, createDate  ) VALUES(?,?,?,?)`,
+            `INSERT INTO  user (name_user, lastname, email , password, createDate  ) VALUES(?,?,?,?,?)`,
             [
-                name,
-
+                given_name,
+                family_name,
                 email,
                 email,
                 new Date(),

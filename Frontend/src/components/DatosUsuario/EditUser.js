@@ -4,11 +4,11 @@ import React, { useState, useEffect, useContext } from "react";
 import decodeTokenData from "../../helpers/decodeTokenData";
 import useUserProfile from "../../hooks/useUserProfile";
 import { TokenContext } from "../../context/TokenContext";
-import swal from 'sweetalert';
-
+import swal from "sweetalert";
+import avataranonimo from "../../logos/photo.svg";
+import { TextField } from "@mui/material";
 
 const EditUser = () => {
-
     const [token, setToken] = useContext(TokenContext);
     const [user] = useUserProfile(token);
     const decodedToken = decodeTokenData(token);
@@ -22,11 +22,10 @@ const EditUser = () => {
 
     console.log(decodedToken.id);
 
-
     useEffect(() => {
         const fetchUser = async () => {
             const res = await fetch(
-                `${process.env.REACT_APP_PUBLIC_HOST_BACKEND}user/${decodedToken?.id}/edit}`,
+                `${process.env.REACT_APP_PUBLIC_HOST_BACKEND}user/${decodedToken?.id}/edit`,
                 {
                     method: "PUT",
                     headers: {
@@ -51,81 +50,95 @@ const EditUser = () => {
 
     return (
         <div>
-            <form type='submit' id="getuser" >
-                <img className="fotousuario" src={`${process.env.REACT_APP_PUBLIC_HOST_BACKEND}uploads/${user.userInfo?.avatar}`} alt={`Avatar de `} />
+            <form type="submit" id="getuser">
+                <img
+                    className="fotousuario"
+                    src={user.userInfo?.avatar}
+                    alt={`Avatar de ${user.userInfo?.name_user}`}
+                />
                 <div className="input_container">
-                    <label htmlFor='name'> Nombre </label>
+
+                    <label htmlFor="name"> Nombre </label>
                     <input
-                        id='name'
+                        id="name"
                         name="name"
-                        type='text'
+                        type="text"
                         value={newname}
-                        onChange={(e) => { setNewname(e.target.value); }}
-                        placeholder={user.userInfo?.name_user} />
+                        onChange={(e) => {
+                            setNewname(e.target.value);
+                        }}
+                        placeholder={user.userInfo?.name_user}
+                    />
                 </div>
                 <div className="input_container">
-                    <label htmlFor='lastname'> Apellido </label>
+                    <label htmlFor="lastname"> Apellido </label>
                     <input
-                        id='lastname'
+                        id="lastname"
                         name="lastname"
-                        type='text'
+                        type="text"
                         value={newlastname}
-                        onChange={(e) => { setLastname(e.target.value); }}
-                        placeholder={user.userInfo?.lastname} />
+                        onChange={(e) => {
+                            setLastname(e.target.value);
+                        }}
+                        placeholder={user.userInfo?.lastname}
+                    />
                 </div>
 
                 <div className="input_container">
-                    <label htmlFor='email'> Email </label>
+                    <label htmlFor="email"> Email </label>
                     <input
-                        id='email'
+                        id="email"
                         name="email"
-                        type='email'
+                        type="email"
                         value={newemail}
-                        onChange={(e) => { setNewemail(e.target.value); }}
-                        placeholder={user.userInfo?.email} />
+                        onChange={(e) => {
+                            setNewemail(e.target.value);
+                        }}
+                        placeholder={user.userInfo?.email}
+                    />
                 </div>
                 <div className="input_container">
-                    <label htmlFor='birthdate'> Fecha de Nacimiento </label>
+                    <label htmlFor="birthdate"> Fecha de Nacimiento </label>
                     <input placeholder={user.userInfo?.birthdate} />
                     <input
-                        id='birthdate'
+                        id="birthdate"
                         name="birthdate"
-                        type='date'
+                        type="date"
                         value={newbirthdate}
-                        onChange={(e) => { setNewbirthdate(e.target.value); }}
+                        onChange={(e) => {
+                            setNewbirthdate(e.target.value);
+                        }}
                     />
                 </div>
                 <div className="input_container">
-                    <label htmlFor='address'> Dirección </label>
+                    <label htmlFor="address"> Dirección </label>
                     <input
-                        id='address'
+                        id="address"
                         name="address"
-                        type='text'
+                        type="text"
                         value={newaddress}
-                        onChange={(e) => { setNewaddress(e.target.value); }}
-                        placeholder={user.userInfo?.address ? user.userInfo?.address : 'dirección'} />
+                        onChange={(e) => {
+                            setNewaddress(e.target.value);
+                        }}
+                        placeholder={
+                            user.userInfo?.address ? user.userInfo?.address : "dirección"
+                        }
+                    />
                 </div>
 
                 <div className="input_container">
-                    <label htmlFor='bio'> Biografía </label>
+                    <label htmlFor="bio"> Biografía </label>
                     <textarea
-                        id='bio'
+                        id="bio"
                         name="bio"
-                        type='text'
+                        type="text"
                         value={newbio}
-                        onChange={(e) => { setNewbio(e.target.value); }}
-                        placeholder={user.userInfo?.bio ? user.userInfo?.bio : 'Cuentanos algo de ti'}
-                    />
-                </div>
-                <div className="input_container">
-                    <label htmlFor='avatar'> Cambiar Avatar </label>
-                    <textarea
-                        id='avatar'
-                        name="avatar"
-                        type='file'
-                        value={newbio}
-                        onChange={(e) => { setNewbio(e.target.value); }}
-                        placeholder={user.userInfo?.bio ? user.userInfo?.bio : 'Cuentanos algo de ti'}
+                        onChange={(e) => {
+                            setNewbio(e.target.value);
+                        }}
+                        placeholder={
+                            user.userInfo?.bio ? user.userInfo?.bio : "Cuentanos algo de ti"
+                        }
                     />
                 </div>
 
