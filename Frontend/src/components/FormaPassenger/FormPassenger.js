@@ -16,14 +16,16 @@ const FormPassenger = () => {
     const [genero, setGenero] = useState("");
     const [pais, setPais] = useState("");
     const [phone, setPhone] = useState("");
-    console.log(pais);
+    const [name_contact, setnamecontact] = useState(name_passenger);
+    const [lastname_contact, setLastnamecontact] = useState(lastName);
+    const [email_contact, setEmailcontact] = useState(email);
+    const [phone_contact, setPhonecontact] = useState(phone);
+
     const handleSubmit = (setter) => (e) => {
         // e.preventDefault();
-        setter(e.target.value);
-        console.log(e);
-        console.log(e.target.value);
-
+        setter(e.target.value)
     };
+
 
     return (
         <div>
@@ -156,16 +158,44 @@ const FormPassenger = () => {
 
                     <MuiPhoneNumber
                         defaultCountry={"es"}
-                        onChange={handleSubmit(setPhone)}
                         value={phone}
+                        onChange={(phone) => setPhone(phone)}
+
                     />
 
-                    <button className="enviardatos" type="submit"> Enviar Datos Pasajero </button>
+
                 </form>
             </section>
             <section>
                 <h3> Persona de Contacto </h3>
-                <p> En caso de que los datos sean distintos a los de pasajero </p>
+                <p> En caso de que los datos sean distintos a los del pasajero </p>
+                <form >
+                    <TextField
+                        id='name_contact'
+                        label='Nombre'
+                        value={name_passenger || name_contact}
+
+                        onChange={handleSubmit(setnamecontact)} />
+                    <TextField
+                        id='lastname_contact'
+                        label='Apellido'
+                        value={lastname_contact || lastName}
+                        onChange={handleSubmit(setLastnamecontact)} />
+                    <TextField
+                        id='email'
+                        label=' Email de contacto'
+                        value={email_contact || email}
+                        onChange={handleSubmit(setEmailcontact)} />
+                    <MuiPhoneNumber
+                        defaultCountry={"es"}
+                        value={phone_contact || phone}
+                        onChange={(phone_contact) => setPhonecontact(phone_contact)}
+
+                    />
+                    <button className="enviardatos" type="submit"> Enviar Datos Pasajero </button>
+
+                </form>
+
             </section>
         </div>
     );
