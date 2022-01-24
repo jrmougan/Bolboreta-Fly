@@ -15,6 +15,10 @@ const EditPassForm = () => {
     const decodedToken = decodeTokenData(token);
     const [doPassMatch, setDoPassMatch] = useState(false);
 
+    //checkbox para mostrar contraseña
+    const [shown, setShown] = useState(false);
+    const switchShown = () => setShown(!shown);
+
     useEffect(() => {
         if (newpassword === confirmnewpassword) {
             setDoPassMatch(true);
@@ -25,6 +29,7 @@ const EditPassForm = () => {
 
     const fetchEditPass = async (e) => {
         e.preventDefault();
+
 
 
         const res = await fetch(`${process.env.REACT_APP_PUBLIC_HOST_BACKEND}user/${decodedToken?.id}/editpass`,
@@ -50,21 +55,24 @@ const EditPassForm = () => {
     if (!token) {
         return <Link to='/login' />
     }
+
+
     return (
         <div >
             <form className='edit_pass_form' onSubmit={fetchEditPass}>
                 <div className='input_container'>
                     <label className='label_pass' htmlFor='oldpass'> Contraseña actual </label>
-                    <input id='oldpass' name='olpass' type='password' value={oldpassword} onChange={(e) => { setOldPass(e.target.value); }} />
+                    <input id='oldpass' name='olpass' type={shown ? 'text' : 'password'} value={oldpassword} onChange={(e) => { setOldPass(e.target.value); }} />
                 </div>
                 <div className='input_container'>
                     <label className='label_pass' htmlFor='newpass'> Escriba contraseña nueva </label>
-                    <input id='newpass' name='newpass' type='password' value={newpassword} onChange={(e) => { setNewPass(e.target.value); }} />
+                    <input id='newpass' name='newpass' type={shown ? 'text' : 'password'} value={newpassword} onChange={(e) => { setNewPass(e.target.value); }} />
                 </div>
                 <div className='input_container'>
                     <label className='label_pass' htmlFor='repetpass'> Repite contraseña nueva </label>
-                    <input id='repetpass' name='repetpass' type='password' value={confirmnewpassword} onChange={(e) => { setRepetPass(e.target.value); }} />
+                    <input id='repetpass' name='repetpass' type={shown ? 'text' : 'password'} value={confirmnewpassword} onChange={(e) => { setRepetPass(e.target.value); }} />
                 </div>
+                <label className='showpass'> <input type='checkbox' name='newpassword' onClick={switchShown} /> Mostrar contraseña </label>
                 <button type='onsubmit' className='cambiarpass'> Cambiar contraseña </button>
             </form>
         </div>

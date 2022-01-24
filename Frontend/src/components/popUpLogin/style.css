@@ -43,9 +43,11 @@
   color: white;
 }
 .pregunta {
-  font-size: small;
+  font-size: x-small;
   width: 150px;
   margin-top: 10px;
+  background: #5d7ca6;
+  color: white;
 }
 .show {
   display: flex;

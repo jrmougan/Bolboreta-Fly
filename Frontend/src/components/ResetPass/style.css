@@ -13,7 +13,13 @@
   display: flex;
   flex-direction: column;
   margin: 5px;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
 }
 input {
   margin-top: 10px;
+}
+.showpass {
+  font-size: x-small;
 }

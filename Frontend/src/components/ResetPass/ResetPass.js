@@ -1,3 +1,4 @@
+import { Checkbox } from '@mui/material';
 import { React, useEffect, useState } from 'react';
 import swal from 'sweetalert';
 import './style.css';
@@ -37,6 +38,10 @@ const ResetPass = () => {
             swal(error.message, '', 'error');
         }
     }
+
+    //checkbox para mostrar contraseña
+    const [shown, setShown] = useState(false);
+    const switchShown = () => setShown(!shown);
     return (
         <div>
             <form className='reset_pass' onSubmit={fetchresetpass}>
@@ -55,11 +60,12 @@ const ResetPass = () => {
                     <input
                         id='newpassword'
                         name='newpassword'
-                        type='password'
+                        type={shown ? 'text' : 'password'}
                         value={newpassword}
                         onChange={(e) => { setNewpassword(e.target.value); }} />
+                    <label className='showpass'> <input type='checkbox' name='newpassword' onClick={switchShown} /> Mostrar contraseña </label>
+                    <button className='resetpass' type='submit'> Resetear contraseña </button>
                 </div>
-                <button className='resetpass' type='submit'> Resetear contraseña </button>
             </form>
         </div>
     )
