@@ -41,8 +41,7 @@ function PopUpLogin({ setShowPopUp }) {
                 swal(error.message);
             }
         } catch (message) {
-            console.error("algo fallo");
-            console.error(message);
+            swal(message, '', 'error')
         }
     };
 
@@ -54,16 +53,18 @@ function PopUpLogin({ setShowPopUp }) {
         return <Navigate to={`/`} />;
     }
 
-    const handlenavigate = (e) => {
-        setShowPopUp(false);
-        console.log("envento", e);
-        return <Navigate to={"/recover"} />;
-    };
+
 
     const handleregister = (e) => {
         setShowPopUp(false);
-        return <Navigate to={'/register'} />;
+        return <Navigate to='/register' />;
     }
+
+    const handlerecover = (e) => {
+        setShowPopUp(false);
+        console.log("envento", e);
+        return <Navigate to='/recover' />;
+    };
 
     return (
         <div className="formulario">
@@ -101,11 +102,16 @@ function PopUpLogin({ setShowPopUp }) {
                         {" "}
                         {shown ? "Ocultar contraseña" : "Mostrar contraseña"}{" "}
                     </button>
+                    <Link to='/recover'>
+                        <button onClick={handlerecover} className="pregunta" type='button'>
+                            ¿Has olvidado la contraseña?{" "}
+                        </button>
+                    </Link>
 
-                    <button onClick={handlenavigate} className="pregunta">
-                        ¿Has olvidado la contraseña?{" "}
-                    </button>
                 </section>
+
+
+
                 <section className="registro">
                     <Link to="/register">
                         <button onClick={handleregister} className="registerlogin" type="button">
