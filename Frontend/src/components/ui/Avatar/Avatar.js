@@ -15,17 +15,18 @@ const Avatar = () => {
 
 
 
+
     return (<section className='Avatar'>
         <Link to='/user'>
             <img
                 className="user_avatar"
-                src={user.userInfo?.avatar ? `${process.env.REACT_APP_PUBLIC_HOST_BACKEND}/uploads/${user.userInfo?.avatar}` : avataranonimo}
-                alt={`Avatar de ${user.userInfo?.name_user}`}
+                src={user.userInfo?.avatar && `${process.env.REACT_APP_PUBLIC_HOST_BACKEND}/uploads/${user.userInfo?.avatar}` && avataranonimo}
+                alt={`Avatar de ${user.userInfo?.name_user} ${user.userInfo?.lastname}`}
             />
         </Link>
 
 
-        <p className='nombreusuario'> {`${user.userInfo?.name_user} ${user.userInfo?.lastname}`} </p>
+        <p className='nombreusuario'> {`${user.userInfo?.name_user}  ${user.userInfo?.lastname}`} </p>
     </section>);
 
 }
