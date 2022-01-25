@@ -1,13 +1,14 @@
-import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
-import routes from "./routes";
+import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
+import routes from './routes';
 import {
   AdvancedSearchScreen,
   HomeScreen,
   LoginScreen,
   ProfileScreen,
   RegisterScreen,
-} from "../page";
-
+} from '../page';
+import StepperForm from '../components/StepperForm/StepperForm';
+import StepForm from '../components/StepForm/StepForm';
 const Routing = () => {
   return (
     <Router>
@@ -23,7 +24,8 @@ const Routing = () => {
             })}
           </ul>
         </nav>
-
+        <StepForm />
+        {/* <StepperForm /> */}
         {/* A <Switch> looks through its children <Route>s and
               renders the first one that matches the current URL. */}
         <Routes>
@@ -36,7 +38,7 @@ const Routing = () => {
               ></Route>
             );
           })}
-          <Route path=""></Route>
+          <Route path=''></Route>
         </Routes>
       </div>
     </Router>
