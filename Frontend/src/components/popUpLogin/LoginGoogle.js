@@ -4,6 +4,7 @@ import logogoogle from "../../logos/google.svg";
 import { TokenContext } from "../../context/TokenContext";
 
 
+
 import "./style.css";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
@@ -14,10 +15,14 @@ const clientId =
 
 function GoogleLoginButton() {
 
+    const [token, setToken] = useContext(TokenContext);
+
 
 
     const onSuccess = async (googleRes) => {
+
         console.log(googleRes)
+        console.log(googleRes.tokenId);
 
         const res = await fetch(
             `${process.env.REACT_APP_PUBLIC_HOST_BACKEND}login_google`,
@@ -26,9 +31,11 @@ function GoogleLoginButton() {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ token: googleRes.tokenId }),
+                body: JSON.stringify(googleRes.tokenId),
+
             }
         );
+
 
 
     };
@@ -46,6 +53,8 @@ function GoogleLoginButton() {
         isSignedIn: true,
         accessType: "offline",
     });
+
+
 
 
     return (

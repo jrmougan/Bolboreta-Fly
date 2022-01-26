@@ -38,7 +38,7 @@ const editUser = async (req, res, next) => {
         }
 
         //mandar codigo de registro si ha cambiado el email
-        if (newemail) {
+        if (newemail !== user[0].email) {
             const registration_code = generateRandomString(40);
 
             await connection.query(`

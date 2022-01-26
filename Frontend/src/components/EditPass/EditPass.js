@@ -73,7 +73,7 @@ const EditPassForm = () => {
                     <input id='repetpass' name='repetpass' type={shown ? 'text' : 'password'} value={confirmnewpassword} onChange={(e) => { setRepetPass(e.target.value); }} />
                 </div>
                 <label className='showpass'> <input type='checkbox' name='newpassword' onClick={switchShown} /> Mostrar contraseña </label>
-                <button type='onsubmit' className='cambiarpass'> Cambiar contraseña </button>
+                <button type='submit' className='cambiarpass'> Cambiar contraseña </button>
             </form>
         </div>
     )
