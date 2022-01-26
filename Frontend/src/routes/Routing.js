@@ -1,44 +1,27 @@
-import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
-import routes from "./routes";
+import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
+import routes from './routes';
 import {
   AdvancedSearchScreen,
   HomeScreen,
   LoginScreen,
   ProfileScreen,
   RegisterScreen,
-} from "../page";
+} from '../page';
+import HomeRound from '../page/HomeRound';
+import HomeMultiple from '../page/HomeMultiple';
 
 const Routing = () => {
   return (
     <Router>
-      <div>
-        <nav>
-          <ul>
-            {routes.map((route) => {
-              return (
-                <li key={route.path}>
-                  <Link to={route.path}>{route.name}</Link>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
+      {/* <TokencontextProvider> */}
+      {/* <Header></Header> */}
 
-        {/* A <Switch> looks through its children <Route>s and
-              renders the first one that matches the current URL. */}
-        <Routes>
-          {routes.map((route) => {
-            return (
-              <Route
-                key={route.path}
-                path={route.path}
-                element={route.component}
-              ></Route>
-            );
-          })}
-          <Route path=""></Route>
-        </Routes>
-      </div>
+      <Routes>
+        <Route path='/' element={<HomeScreen />} />
+        <Route path='/return' element={<HomeRound />} />
+        <Route path='/multiple' element={<HomeMultiple />} />
+      </Routes>
+      {/* </TokencontextProvider> */}
     </Router>
   );
 };

@@ -13,15 +13,7 @@ import HomeRound from './page/HomeRound';
 import HomeMultiple from './page/HomeMultiple';
 
 function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route path='/' element={<HomeScreen />} />
-        <Route path='/vuelta' element={<HomeRound />} />
-        <Route path='/multiples' element={<HomeMultiple />} />
-      </Routes>
-    </Router>
-  );
+  return <Routing />;
 }
 
 export default App;

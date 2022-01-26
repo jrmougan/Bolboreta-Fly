@@ -5,6 +5,7 @@ import {
   FaPlaneArrival,
   AiOutlineUser,
 } from 'react-icons/fa';
+import NavLinks from '../../NavLinks/NavLinks';
 
 export const BasicSearch = ({
   search,
@@ -21,19 +22,7 @@ export const BasicSearch = ({
 }) => {
   return (
     <section className='searchFlight'>
-      <div className='searchTabs'>
-        <Link to='/' className='tab tab-1'>
-          Ida
-        </Link>
-        <Link to='/vuelta' className='tab tab-2'>
-          Ida y vuelta
-        </Link>
-        <Link to='/multiples' className='tab tab-3'>
-          {' '}
-          Múltiples destinos
-        </Link>
-        <Outlet />
-      </div>
+      <NavLinks />
       <form onSubmit={search}>
         <div className='inputsFlight'>
           <input
@@ -99,18 +88,7 @@ export const RoundTrip = ({
 }) => {
   return (
     <section className='searchFlight'>
-      <div className='searchTabs'>
-        <Link to='/' className='tab tab-1'>
-          Ida
-        </Link>
-        <Link to='/vuelta' className='tab tab-2'>
-          Ida y vuelta
-        </Link>
-        <Link to='/multiples' className='tab tab-3'>
-          {' '}
-          Múltiples destinos
-        </Link>
-      </div>
+      <NavLinks />
       {
         <form onSubmit={search}>
           <div className='inputsFlight'>
@@ -184,18 +162,7 @@ export const MultipleSearches = ({
 }) => {
   return (
     <section className='searchFlight'>
-      <div className='searchTabs'>
-        <Link to='/' className='tab tab-1'>
-          Ida
-        </Link>
-        <Link to='/vuelta' className='tab tab-2'>
-          Ida y vuelta
-        </Link>
-        <Link to='/multiples' className='tab tab-3'>
-          {' '}
-          Múltiples destinos
-        </Link>
-      </div>
+      <NavLinks />
       <form onSubmit={search}>
         <div className='inputsFlight'>
           <input

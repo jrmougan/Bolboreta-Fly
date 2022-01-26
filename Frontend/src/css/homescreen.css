@@ -1,3 +1,7 @@
+input {
+  font-family: FontAwesome, 'Open Sans', Verdana, sans-serif;
+}
+
 .searchEnvironment {
   background-color: #f7f6ff;
   padding: 10rem 3rem;
@@ -12,7 +16,7 @@
   margin-inline: auto;
 }
 .searchInput {
-  width: 40rem;
+  width: 100%;
 }
 
 .searchTabs {
@@ -20,6 +24,12 @@
   top: -2.1rem;
   left: 0;
 }
+
+/* 
+##############
+## PESTAÑAS ##
+##############
+*/
 .tab {
   border-radius: 0%;
   border: none;
@@ -32,15 +42,18 @@
 .tab-1 {
   border-radius: 15px 0 0 0;
 }
-.tab-2 {
-  background-color: #023859;
-}
+
 .tab-3 {
   border-radius: 0 15px 0 0;
 }
+
+.active {
+  background-color: #023859;
+}
+
 .searchInput {
   margin: 0.5rem 1rem;
-  width: 15rem;
+  width: 100%;
   height: 2.5rem;
   background-color: white;
 }
