@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useParams } from 'react-router-dom';
 
 const AdvancedSearchScreen = () => {
@@ -17,6 +18,14 @@ const AdvancedSearchScreen = () => {
       <p>Día de llegada : {diaLlegada}</p>
       <p>adultos : {adultos} </p>
     </div>
+=======
+import { AdvancedSearch } from "../components/Search/AdvancedSearch/AdvancedSearch";
+const AdvancedSearchScreen = (props) => {
+  return (
+    <main>
+      <AdvancedSearch />
+    </main>
+>>>>>>> Buscador avanzado (Filtro)
   );
 };
 
