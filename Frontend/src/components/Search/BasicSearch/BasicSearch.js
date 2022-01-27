@@ -15,7 +15,6 @@ export const BasicSearch = ({
   destination,
   departureDate,
   setDepartureDate,
-
   adults,
   setAdults,
   handleSubmit,

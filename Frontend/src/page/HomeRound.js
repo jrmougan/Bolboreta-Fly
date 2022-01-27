@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Link, Outlet, Route, Routes, Router } from 'react-router-dom';
 import useLocalStorage from '../hooks/useLocalStorage';
 import '../css/homescreen.css';
-import {
-  RoundTrip,
-  MultipleSearches,
-} from '../components/Search/BasicSearch/BasicSearch';
+import { RoundTrip } from '../components/Search/BasicSearch/BasicSearch';
 import { ListFlights } from '../components/Search/ListFlights/ListFlights';
-const { PUBLIC_HOST_BACKEND } = process.env;
-
-const PORT = 4000;
+import useSearch from '../hooks/useSearch';
 
 const HomeRound = () => {
+  // Obtenemos los datos de los input y los guardamos en el localStorage
+  // para mantenerlos si recarga la página
+
   const [origin, setOrigin] = useLocalStorage('origin', '');
   const [destination, setDestination] = useLocalStorage('password', '');
   const [departureDate, setDepartureDate] = useLocalStorage(
@@ -20,31 +17,30 @@ const HomeRound = () => {
   );
   const [returnDate, setReturndate] = useState('');
   const [adults, setAdults] = useLocalStorage('adult', '');
-  const [data, setData] = useState('');
+
+  // Función para modificar el valor de cada variable
+  // a través del onChange de cada input
 
   const handleSubmit = (setter) => (e) => {
     e.preventDefault();
     setter(e.target.value);
   };
 
-  const search = async (e) => {
-    e.preventDefault();
+  // Objeto que aglutina los parámetros de búsqueda que usará
+  // el Custom Hook useSearch
 
-    try {
-      let fetchUrl = `http://localhost:4000/search?origin=${origin}&destination=${destination}&departuredate=${departureDate}&adults=${adults}`;
-      if (returnDate) {
-        fetchUrl += `&returndate=${returnDate}`;
-      }
-      const response = await fetch(fetchUrl);
-      const body = await response.json();
-
-      if (response.ok) {
-        setData(body.data.data);
-      }
-    } catch (error) {
-      console.error('Error de comunicación', error);
-    }
+  const searching = {
+    origin,
+    destination,
+    departureDate,
+    returnDate,
+    adults,
   };
+
+  // Obtenemos el resultado (vuelos) a través de data
+  // y la función search para pasarla a través de las props a ListFlights
+
+  const [data, search] = useSearch(searching);
 
   return (
     <main className='searchEnvironment'>
@@ -55,6 +51,7 @@ const HomeRound = () => {
           origin={origin}
           setOrigin={setOrigin}
           setDestination={setDestination}
+          setDepartureDate={setDepartureDate}
           returnDate={returnDate}
           setAdults={setAdults}
           handleSubmit={handleSubmit}
