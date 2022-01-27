@@ -5,6 +5,13 @@ import '../css/homescreen.css';
 import { BasicSearch } from '../components/Search/BasicSearch/BasicSearch';
 import { ListFlights } from '../components/Search/ListFlights/ListFlights';
 import useSearch from '../hooks/useSearch';
+import { MoonLoader } from 'react-spinners';
+
+const override = `
+  display: block;
+  margin: 10rem auto;
+  border-color: red;
+`;
 
 const HomeScreen = () => {
   // Obtenemos los datos de los input y los guardamos en el localStorage
@@ -32,7 +39,7 @@ const HomeScreen = () => {
 
   // Obtenemos el resultado (vuelos) a través de data
   // y la función search para pasarla a través de las props a ListFlights
-  const [data, search] = useSearch(searching);
+  const [data, search, loading] = useSearch(searching);
 
   // Función para modificar el valor de cada variable
   // a través del onChange de cada input
@@ -56,9 +63,9 @@ const HomeScreen = () => {
         handleSubmit={handleSubmit}
         adults={adults}
         setReturndate={setReturndate}
+        loading={loading}
       />
-
-      <ListFlights data={data} />
+      {loading ? <MoonLoader css={override} /> : <ListFlights data={data} />}
     </main>
   );
 };
