@@ -6,8 +6,8 @@ import { useLocalStorage } from '../../hooks/useLocalStorage';
 const PORT_BACKEND = 4000;
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useLocalStorage('email', '')
+  const [password, setPassword] = useLocalStorage('password','');
   const [token, setToken] = useUserTokenContext();
 
   console.log('token', token);
