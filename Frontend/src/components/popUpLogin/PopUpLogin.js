@@ -92,7 +92,7 @@ function PopUpLogin({ setShowPopUp }) {
 
                     <button className="sesion"> Inicio de Sesión </button>
 
-                    <GoogleLoginButton />
+
                 </form>
 
 

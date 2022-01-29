@@ -10,7 +10,7 @@ const editUser = async (req, res, next) => {
         connection = await getDB();
 
         const { iduser } = req.params;
-
+        console.log(req.body);
         const { newname, newlastname, newlastname2, newbirthdate, newbio, newaddress, newemail } = req.body;
 
         const [user] = await connection.query(
@@ -38,13 +38,10 @@ const editUser = async (req, res, next) => {
         }
 
         //mandar codigo de registro si ha cambiado el email
-        if (newemail !== user[0].email) {
+        if (newemail && newemail !== user[0].email) {
             const registration_code = generateRandomString(40);
 
-            await connection.query(`
-
-        UPDATE user SET email = ?, registration_code = ? , active = false WHERE id = ?
-        `,
+            await connection.query(`UPDATE user SET email = ?, registration_code = ? , active = false WHERE id = ?`,
                 [newemail, registration_code, iduser]);
 
             await mailVerify(newemail, registration_code);

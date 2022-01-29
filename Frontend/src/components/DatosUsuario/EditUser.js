@@ -5,6 +5,8 @@ import decodeTokenData from "../../helpers/decodeTokenData";
 import useUserProfile from "../../hooks/useUserProfile";
 import { TokenContext } from "../../context/TokenContext";
 import swal from "sweetalert";
+import EditAvatar from "../EditAvatar/EditAvatar";
+import avataranonimo from '../../logos/photo.svg'
 
 
 const EditUser = () => {
@@ -23,16 +25,16 @@ const EditUser = () => {
     const updateUser = async (e) => {
         e.preventDefault();
 
-        const newUser = new FormData();
-        newUser.append('name_user', newname || user.userInfo?.name_user);
-        newUser.append('lastname', newlastname || user.userInfo?.lastname);
-        newUser.append('newemail', newemail || user.userInfo?.email);
-        newUser.append('newbirthdate', newbirthdate || user.userInfo?.birthdate);
-        newUser.append('newaddres', newaddress || user.userInfo?.address);
-        newUser.append('newbio', newbio || user.userInfo?.bio);
+        const newUser = {
+            newname: newname || user.userInfo?.name_user,
+            newlastname: newlastname || user.userInfo?.lastname,
+            newemail: newemail || user.userInfo?.email,
+            newbirthdate: newbirthdate || user.userInfo?.birthdate,
+            newaddress: newaddress || user.userInfo?.address,
+            newbio: newbio || user.userInfo?.bio,
+        }
 
-
-
+        console.log(JSON.stringify(newUser));
 
 
         const res = await fetch(
@@ -41,9 +43,10 @@ const EditUser = () => {
                 method: "PUT",
                 headers: {
                     Authorization: token,
+                    "Content-type": "application/json",
 
                 },
-                body: newUser,
+                body: JSON.stringify(newUser),
 
             }
         );
@@ -51,12 +54,8 @@ const EditUser = () => {
 
         if (res.ok) {
 
-
             const body = await res.json();
             swal(body.message);
-
-
-
 
         } else {
             const error = await res.json();
@@ -72,9 +71,10 @@ const EditUser = () => {
                 {" "}
                 <img
                     className="fotousuario"
-                    src={user.userInfo?.avatar}
+                    src={user.userInfo?.avatar ? `${process.env.REACT_APP_PUBLIC_HOST_BACKEND}/uploads/${user.userInfo?.avatar}` : avataranonimo}
                     alt={`Avatar de ${user.userInfo?.name_user}`}
                 />
+                <EditAvatar />
 
                 <label htmlFor="name"> Nombre </label>
                 <input
@@ -158,7 +158,7 @@ const EditUser = () => {
                     }
                 />
 
-                <input type='submit' value='Guardar Cambios' />
+                <button type="submit" className="guardarcambios"> Guardar Cambios  </button>
             </form>
         </div>
     );
