@@ -19,7 +19,7 @@
 
 .ultimasreservas {
   border: solid 1px black;
-  border-radius: 40%;
+  border-radius: 80%;
   background-color: #5d7ca6;
   font-weight: bolder;
   color: white;
@@ -30,7 +30,7 @@
 }
 .datosusuario {
   border: solid 1px black;
-  border-radius: 40%;
+  border-radius: 80%;
   background-color: #5d7ca6;
   font-weight: bolder;
   color: white;
