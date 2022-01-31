@@ -1,8 +1,9 @@
-import { React, useState, useEffect, useContext } from 'react';
+import { React, useState, useContext } from 'react';
 import swal from 'sweetalert';
 import decodeTokenData from '../../helpers/decodeTokenData';
 import useUserProfile from '../../hooks/useUserProfile';
 import { TokenContext } from '../../context/TokenContext';
+import './style.css'
 
 
 
@@ -50,7 +51,7 @@ const EditAvatar = () => {
     }
 
     return (
-        <div>
+        <div className='editavatarcontainer'>
 
             <label htmlFor='avatar'> Sube tu avatar</label>
             <input
@@ -59,7 +60,7 @@ const EditAvatar = () => {
                 type='file'
                 onChange={handleAvatar}
             />
-            <button onClick={fetchAvatar} className="guardarcambios"> Subir Avatar  </button>
+            <button onClick={fetchAvatar} className="guardaravatar"> Subir Avatar  </button>
 
 
         </div>

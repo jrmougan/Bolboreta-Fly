@@ -6,8 +6,10 @@ label {
 }
 
 .fotousuario {
-  width: 200px;
+  width: 100%;
+  height: 100%;
   border-radius: 100%;
+  transform: rotate(65deg);
 }
 
 .guardarcambios {
@@ -20,4 +22,9 @@ label {
   height: 40px;
   color: white;
   margin-top: 10px;
+}
+.fotocontainer {
+  width: 300px;
+  height: 300px;
+  margin-bottom: 10px;
 }

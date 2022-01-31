@@ -102,7 +102,7 @@ async function deletePhoto(photoname) {
     try {
         if (!photoname.includes("http")) {
             const photoPath = path.join(uploadDir, photoname);
-            console.log(photoPath);
+
             await unlink(photoPath);
         }
     } catch (_) {

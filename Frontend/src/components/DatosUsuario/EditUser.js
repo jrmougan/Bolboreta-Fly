@@ -69,13 +69,17 @@ const EditUser = () => {
         <div>
             <form type="submit" id="getuser" onSubmit={updateUser}>
                 {" "}
-                <img
-                    className="fotousuario"
-                    src={user.userInfo?.avatar ? `${process.env.REACT_APP_PUBLIC_HOST_BACKEND}/uploads/${user.userInfo?.avatar}` : avataranonimo}
-                    alt={`Avatar de ${user.userInfo?.name_user}`}
-                />
+                <div className="fotocontainer">
+                    <img
+                        className="fotousuario"
+                        src={user.userInfo?.avatar ? `${process.env.REACT_APP_PUBLIC_HOST_BACKEND}/uploads/${user.userInfo?.avatar}` : avataranonimo}
+                        alt={`Avatar de ${user.userInfo?.name_user}`}
+                    />
+                </div>
+
                 <EditAvatar />
 
+                <h2> Datos de Usuario </h2>
                 <label htmlFor="name"> Nombre </label>
                 <input
                     id="name"
