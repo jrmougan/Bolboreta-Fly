@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
+import '../App.css';
 import routes from './routes';
 import {
   AdvancedSearchScreen,
@@ -9,26 +10,17 @@ import {
 } from '../page';
 import StepperForm from '../components/StepperForm/StepperForm';
 import StepForm from '../components/StepForm/StepForm';
+import Itinerary from '../components/StepperForm/Itinerary';
 const Routing = () => {
   return (
     <Router>
       <div>
-        <nav>
-          <ul>
-            {routes.map((route) => {
-              return (
-                <li key={route.path}>
-                  <Link to={route.path}>{route.name}</Link>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
+        {/* <Itinerary /> */}
         <StepForm />
-        {/* <StepperForm /> */}
+        {/*         {<StepperForm />} */}
         {/* A <Switch> looks through its children <Route>s and
               renders the first one that matches the current URL. */}
-        <Routes>
+        {/*         <Routes>
           {routes.map((route) => {
             return (
               <Route
@@ -39,7 +31,7 @@ const Routing = () => {
             );
           })}
           <Route path=''></Route>
-        </Routes>
+        </Routes> */}
       </div>
     </Router>
   );

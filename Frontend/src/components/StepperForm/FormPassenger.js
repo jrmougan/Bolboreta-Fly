@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { TextField, Autocomplete, MenuItem } from '@mui/material';
+
 import MuiPhoneNumber from 'material-ui-phone-number';
 import './style.css';
 
@@ -16,53 +17,70 @@ const FormPassenger = () => {
   const [genero, setGenero] = useState('');
   const [pais, setPais] = useState('');
   const [phone, setPhone] = useState('');
-  console.log(pais);
+
+  // Estados del contacto de emergencia
+  const [emergencyName, setEmergencyName] = useState('');
+  const [emergencyLastname, setEmergencyLastname] = useState('');
+  const [emergencyEmail, setEmegencyEmail] = useState('');
+  const [emergencyPhone, setEmergencyPhone] = useState('');
+
+  // Función para controlar los inputs
   const handleSubmit = (setter) => (e) => {
     // e.preventDefault();
     setter(e.target.value);
-    console.log(e);
-    console.log(e.target.value);
   };
 
   return (
-    <div>
+    <div className='FormularioPasajero'>
       <section className='Titulo'>
-        <h3> Información de los pasajeros </h3>
-        <p> Introduce la información de los pasajeros </p>
+        <h3 className='sec-clr'> Información de los pasajeros </h3>
+        <p className='ter-clr'> Introduce la información de los pasajeros </p>
       </section>
-      <section className='FormularioPasajero'>
+      <section>
         <h3> Pasajero 1 </h3>
         <form className='passengerForm'>
           <TextField
+            sx={{ marginInline: '1rem', width: '30%', marginTop: '2rem' }}
             required
             id='Nombre-required'
-            label='Nombre'
+            placeholder='Nombre'
             value={name_passenger}
             onChange={handleSubmit(setNamepassenger)}
+            className='passengerInput'
+            margin='dense'
           />
 
           <TextField
+            sx={{ marginInline: '1rem', width: '30%', marginTop: '2rem' }}
             required
             id='Apellido-required'
-            label=' Primer Apellido'
+            placeholder=' Primer Apellido'
             value={lastName}
             onChange={handleSubmit(setLastName)}
+            className='passenger-input'
+            margin='dense'
           />
 
           <TextField
+            sx={{ marginInline: '1rem', width: '30%', marginTop: '2rem' }}
             required
             id='birthdate'
-            label='Fecha Nacimiento'
+            placeholder='Fecha Nacimiento'
             type='date'
             value={birthdate}
             onChange={handleSubmit(setBirhdate)}
+            className='passenger-input'
+            margin='dense'
           />
           <TextField
+            sx={{ marginInline: '1rem', width: '30%', marginTop: '2rem' }}
             id='document'
             select
             label='Tipo de Documento'
             value={typedocument}
             onChange={handleSubmit(setTypeDocument)}
+            className='passenger-input'
+            margin='dense'
           >
             {documents.map((option) => (
               <MenuItem key={option.value} value={option.value}>
@@ -73,42 +91,57 @@ const FormPassenger = () => {
           </TextField>
 
           <TextField
+            sx={{ marginInline: '1rem', width: '30%', marginTop: '2rem' }}
             required
             id='Dni'
-            label='DNI /  NIE'
+            placeholder='DNI /  NIE'
             value={document}
             onChange={handleSubmit(setDocument)}
+            margin='dense'
+            className='passenger-input'
           />
           <TextField
+            sx={{ marginInline: '1rem', width: '30%', marginTop: '2rem' }}
             required
             id='inssuancedate'
             label='Fecha de expedición'
             type='date'
             value={inssuancedate}
             onChange={handleSubmit(setInssuancedate)}
+            className='passenger-input'
+            margin='dense'
           />
 
           <TextField
+            sx={{ marginInline: '1rem', width: '30%', marginTop: '2rem' }}
             required
             id='expiredate'
             label='Fecha de expiración'
             type='date'
             value={expiredate}
             onChange={handleSubmit(setExpiredate)}
+            className='passenger-input'
+            margin='dense'
           />
 
           <TextField
+            sx={{ marginInline: '1rem', width: '30%', marginTop: '2rem' }}
             required
             id='issuancecountry'
-            label='Lugar de Expedicion'
+            placeholder='Lugar de Expedicion'
+            className='passenger-input'
+            margin='dense'
           />
 
           <TextField
+            sx={{ marginInline: '1rem', width: '30%', marginTop: '2rem' }}
             id='gender'
             select
-            label='Genero'
+            placeholder='Genero'
             value={genero}
             onChange={handleSubmit(setGenero)}
+            className='passenger-input'
+            margin='dense'
           >
             {gender.map((option) => (
               <MenuItem key={option.value} value={option.value}>
@@ -119,15 +152,18 @@ const FormPassenger = () => {
           </TextField>
 
           <TextField
+            sx={{ marginInline: '1rem', width: '30%', marginTop: '2rem' }}
             required
             id='email'
             label='E-mail'
             type='email'
             value={email}
             onChange={handleSubmit(setEmail)}
+            className='passenger-input'
+            margin='dense'
           />
 
-          <Autocomplete
+          {/*           <Autocomplete
             id='pais'
             options={countries}
             sx={{ width: 300 }}
@@ -160,17 +196,46 @@ const FormPassenger = () => {
           <button className='enviardatos' type='submit'>
             {' '}
             Enviar Datos Pasajero{' '}
-          </button>
+          </button> */}
         </form>
       </section>
       <section>
-        <h3> Persona de Contacto </h3>
-        <p> En caso de que los datos sean distintos a los de pasajero </p>
+        <h3 className='ter-clr'>Información contacto de emergencia </h3>
+        <div className='emergency-inputs'>
+          <TextField
+            value={emergencyName}
+            onChange={(e) => handleSubmit(setEmergencyName)}
+            sx={emergencyInputStyle}
+            placeholder='Nombre'
+          ></TextField>
+          <TextField
+            value={emergencyLastname}
+            onChange={(e) => handleSubmit(setEmergencyLastname)}
+            sx={emergencyInputStyle}
+            placeholder='Apellidos'
+          ></TextField>
+          <TextField
+            value={emergencyEmail}
+            onChange={(e) => handleSubmit(setEmegencyEmail)}
+            sx={emergencyInputStyle}
+            placeholder='Email'
+          ></TextField>
+          <TextField
+            value={emergencyPhone}
+            onChange={(e) => handleSubmit(setEmergencyPhone)}
+            sx={emergencyInputStyle}
+            placeholder='Numero de teléfono'
+          ></TextField>
+        </div>
       </section>
     </div>
   );
 };
 
+const emergencyInputStyle = {
+  width: '40%',
+  margin: '2rem 1rem',
+};
 //Selección Genero
 const gender = [
   { label: 'Mujer', value: 'FEMALE' },

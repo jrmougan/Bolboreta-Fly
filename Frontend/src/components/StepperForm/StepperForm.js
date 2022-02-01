@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import FormPassenger from './PassengerInfo';
+import FormPassenger from './FormPassenger';
 import RateChoice from './RateChoice';
 import BookingData from './BookingData.';
-import SeatChoice from './SeatChoice';
-import ResumeAndPay from './ResumeAndPay';
+import SeatChoice from './SeatChoice/SeatChoice';
+import ResumeandPay from './ResumeAndPay';
+import Itinerary from './Itinerary';
 
 const StepperForm = () => {
   const [page, setPage] = useState(0);
@@ -14,6 +15,7 @@ const StepperForm = () => {
     'Elección de tarifa',
     'Elección de asiento',
     'Resumen y Pago',
+    'Itinerario',
   ];
 
   const pageDisplay = () => {
@@ -25,8 +27,10 @@ const StepperForm = () => {
       return <RateChoice />;
     } else if (page === 3) {
       return <SeatChoice />;
+    } else if (page === 4) {
+      return <ResumeandPay />;
     } else {
-      return <ResumeAndPay />;
+      return <Itinerary />;
     }
   };
 

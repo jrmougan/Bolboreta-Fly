@@ -1,10 +1,10 @@
 import React from 'react';
 import { Stepper, Step, StepLabel, Button, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import FormPassenger from '../StepperForm/PassengerInfo';
+import FormPassenger from '../StepperForm/FormPassenger';
 import BookingData from '../StepperForm/BookingData.';
 import RateChoice from '../StepperForm/RateChoice';
-import SeatChoice from '../StepperForm/SeatChoice';
+import SeatChoice from '../StepperForm/SeatChoice/SeatChoice';
 import ResumeAndPay from '../StepperForm/ResumeAndPay';
 import { Container } from '@mui/material';
 
