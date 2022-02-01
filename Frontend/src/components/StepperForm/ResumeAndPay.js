@@ -1,15 +1,29 @@
 import React, { useState } from 'react';
 
+const LogoAirline = () => {
+  return (
+    <img
+      alt='Airline company logo'
+      src='https://images.kiwi.com/airlines/64/IB.png'
+    />
+  );
+};
+
 const ResumeandPay = () => {
   const [payerName, setPayerName] = useState('');
   const [payerCreditNumber, setPayerCreditNumber] = useState('');
+  const [escale, setEscale] = useState('Sin escala');
+  const seatPrice = 100;
+  const subtotal = 150;
+  const taxes = 50;
+  const totalPrice = 300;
 
   return (
     <div className='paymentConfirmationContainer'>
       <div className='paymentElection'>
-        <h1>Método de Pago</h1>
+        <h1 className='title_payment'>Método de Pago</h1>
         <p>Selecciona un método de pago</p>
-        <button> Tarjeta de crédito </button>
+        <button className='card_selection'> Tarjeta de crédito </button>
         <span> Datos de la tarjeta de crédito </span>
 
         <label htmlFor='facturation_address'>
@@ -49,9 +63,11 @@ const ResumeandPay = () => {
       </div>
       <div className='paymentConfirmation'>
         <div className='flight_resume'>
-          <div className='flight_resume flight_resume_going'>
+          <div className='flight_resume_way flight_resume_going'>
             <div className='airline_container'>
-              <div className='airline_logo'>LOGO</div>
+              <div className='airline_logo'>
+                <LogoAirline />
+              </div>
               <div className='airline_name'>
                 <h4>Iberia</h4>
                 <p>FIG4312</p>
@@ -60,12 +76,14 @@ const ResumeandPay = () => {
             <div className='schedule_container'>
               <p>1h 10 min</p>
               <p>9:50 - 11:00 PM</p>
-              <p> Sin escala</p>
+              <p> {escale}</p>
             </div>
           </div>
-          <div className='flight_resume flight_resume_return'>
+          <div className='flight_resume_way flight_resume_return'>
             <div className='airline_container'>
-              <div className='airline_logo'>LOGO</div>
+              <div className='airline_logo'>
+                <LogoAirline />
+              </div>
               <div className='airline_name'>
                 <h4>Iberia</h4>
                 <p>FIG4312</p>
@@ -74,15 +92,17 @@ const ResumeandPay = () => {
             <div className='schedule_container'>
               <p>1h 10 min</p>
               <p>9:50 - 11:00 PM</p>
-              <p> Sin escala</p>
+              <p> {escale}</p>
             </div>
           </div>
         </div>
-        <p>Actualización de asiento 100€</p>
-        <p>Subtotal 150€</p>
-        <p>Impuestos 50€</p>
-        <p>Total</p>
-        <button>Confirmar y pagar</button>
+        <div className='finalCounting'>
+          <p>Actualización de asiento {seatPrice}€</p>
+          <p>Subtotal {subtotal}€</p>
+          <p>Impuestos {taxes}€</p>
+          <p>Total {totalPrice}€</p>
+          <button>Confirmar y pagar</button>
+        </div>
       </div>
     </div>
   );
