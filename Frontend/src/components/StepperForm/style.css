@@ -14,6 +14,21 @@ body {
   color: #7c8db0;
 }
 
+/* 
+#############
+## STEPPER ##
+#############
+*/
+.button_steps {
+  display: flex;
+  justify-content: center;
+}
+
+/*
+####################
+## PASSENGER INFO ##
+####################
+*/
 form {
   display: flex;
   flex-direction: row;
@@ -24,13 +39,17 @@ form {
 .FormularioPasajero {
   padding: 2rem 2rem;
 }
-
-/*
-####################
-## PASSENGER INFO ##
-####################
-*/
-
+.enviardatos {
+  border: 1px solid;
+  background: #5d7ca6;
+  font-size: medium;
+  font-weight: bolder;
+  align-items: center;
+  width: 170px;
+  height: 40px;
+  color: white;
+  margin-top: 10px;
+}
 /* .MuiFormControl-root {
   margin-top: 15px !important;
 }
@@ -54,17 +73,7 @@ form {
 Muiinput-root {
   margin-bottom: 15px;
 }
-.enviardatos {
-  border: 1px solid;
-  background: #5d7ca6;
-  font-size: medium;
-  font-weight: bolder;
-  align-items: center;
-  width: 170px;
-  height: 40px;
-  color: white;
-  margin-top: 10px;
-}
+
 
 .country {
   width: 200px !important;
@@ -191,7 +200,15 @@ Muiinput-root {
   color: var(--confirmed-flight);
   font-weight: bold;
 }
-
+.date_flight {
+  font-size: 0.7rem;
+}
+.date_flight p {
+  margin: 1rem 0 0 0;
+}
+.airline_info {
+  display: flex;
+}
 /* 
 
 ####################################
@@ -342,4 +359,46 @@ Muiinput-root {
   border: none;
 
   padding: 0.7rem 1rem;
+}
+
+/* 
+#########################
+## ELECCIÓN DE ASIENTO ##
+#########################
+*/
+.boxMaker {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10rem 25rem;
+}
+.box {
+  border: 1px solid black;
+  padding: 0.5rem 1rem;
+}
+.available {
+  background-color: rgba(0, 128, 0, 0.329);
+}
+.nonAvailable {
+  background-color: rgba(255, 0, 0, 0.452);
+}
+
+.columns_6 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+.columns_5 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+.columns_4 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+.columns_3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.columns_2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }

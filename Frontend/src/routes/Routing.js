@@ -10,28 +10,15 @@ import {
 } from '../page';
 import StepperForm from '../components/StepperForm/StepperForm';
 import StepForm from '../components/StepForm/StepForm';
-import Itinerary from '../components/StepperForm/Itinerary';
+import Itinerary from '../components/StepperForm/Itinerary/Itinerary';
+import SeatChoice from '../components/StepperForm/SeatChoice/SeatChoice';
 const Routing = () => {
   return (
     <Router>
       <div>
         {/* <Itinerary /> */}
+        {/* <SeatChoice /> */}
         <StepForm />
-        {/*         {<StepperForm />} */}
-        {/* A <Switch> looks through its children <Route>s and
-              renders the first one that matches the current URL. */}
-        {/*         <Routes>
-          {routes.map((route) => {
-            return (
-              <Route
-                key={route.path}
-                path={route.path}
-                element={route.component}
-              ></Route>
-            );
-          })}
-          <Route path=''></Route>
-        </Routes> */}
       </div>
     </Router>
   );

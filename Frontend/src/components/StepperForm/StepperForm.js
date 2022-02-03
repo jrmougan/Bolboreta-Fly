@@ -4,7 +4,7 @@ import RateChoice from './RateChoice';
 import BookingData from './BookingData.';
 import SeatChoice from './SeatChoice/SeatChoice';
 import ResumeandPay from './ResumeAndPay';
-import Itinerary from './Itinerary';
+import Itinerary from './Itinerary/Itinerary';
 
 const StepperForm = () => {
   const [page, setPage] = useState(0);

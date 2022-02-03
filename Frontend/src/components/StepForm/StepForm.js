@@ -1,25 +1,12 @@
 import React from 'react';
 import { Stepper, Step, StepLabel, Button, Typography } from '@mui/material';
-import { makeStyles } from '@mui/styles';
 import FormPassenger from '../StepperForm/FormPassenger';
 import BookingData from '../StepperForm/BookingData.';
 import RateChoice from '../StepperForm/RateChoice';
 import SeatChoice from '../StepperForm/SeatChoice/SeatChoice';
 import ResumeAndPay from '../StepperForm/ResumeAndPay';
 import { Container } from '@mui/material';
-
-/* const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100%',
-  },
-  button: {
-    marginRight: theme.spacing(1),
-  },
-  instructions: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
-  },
-})); */
+import Itinerary from '../StepperForm/Itinerary/Itinerary';
 
 function getSteps() {
   return [
@@ -28,6 +15,7 @@ function getSteps() {
     'Elección de tarifa',
     'Elección de asiento',
     'Resumen y Pago',
+    'Itinerario',
   ];
 }
 function getStepContent(step) {
@@ -42,25 +30,29 @@ function getStepContent(step) {
       return <SeatChoice />;
     case 4:
       return <ResumeAndPay />;
+    case 5:
+      return <Itinerary />;
     default:
-      return 'Unknown step';
+      return 'No hay pasos por aquí';
   }
 }
 
 const StepForm = () => {
-  // const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
   const steps = getSteps();
 
+  // Aquí elegimos la elección de asiento como un paso opcional
+
   const isStepOptional = (step) => {
-    return step === 2;
+    return step === 3;
   };
 
   const isStepSkipped = (step) => {
     return skipped.has(step);
   };
 
+  // Avanza un paso hacia delante
   const handleNext = () => {
     let newSkipped = skipped;
     if (isStepSkipped(activeStep)) {
@@ -72,14 +64,13 @@ const StepForm = () => {
     setSkipped(newSkipped);
   };
 
+  // Retrocede un paso
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
-
+  //  Salta al siguiente paso
   const handleSkip = () => {
     if (!isStepOptional(activeStep)) {
-      // You probably want to guard against something like this,
-      // it should never occur unless someone's actively trying to break something.
       throw new Error('No puedes ir al paso siguiente sin completar el actual');
     }
 
@@ -90,21 +81,21 @@ const StepForm = () => {
       return newSkipped;
     });
   };
-
+  // Esto solo para tenerlo mientras probamos,
   const handleReset = () => {
     setActiveStep(0);
   };
 
   return (
     <Container>
-      <div /* className={classes.root} */>
+      <div>
         <Stepper activeStep={activeStep}>
           {steps.map((label, index) => {
             const stepProps = {};
             const labelProps = {};
             if (isStepOptional(index)) {
               labelProps.optional = (
-                <Typography variant='caption'>Optional</Typography>
+                <Typography variant='caption'>Opcional</Typography>
               );
             }
             if (isStepSkipped(index)) {
@@ -120,23 +111,19 @@ const StepForm = () => {
         <div>
           {activeStep === steps.length ? (
             <div>
-              <Typography /* className={classes.instructions} */>
-                All steps completed - you&apos;re finished
+              <Typography>
+                Felicidades, la reserva de su vuelo ha sido un éxito
               </Typography>
-              <Button onClick={handleReset} /* className={classes.button} */>
-                Volver a comenzar
-              </Button>
+              <Button onClick={handleReset}>Volver a comenzar</Button>
             </div>
           ) : (
             <div>
-              <Typography /* className={classes.instructions} */>
-                {getStepContent(activeStep)}
-              </Typography>
-              <div>
+              <Typography>{getStepContent(activeStep)}</Typography>
+              <div className='button_steps'>
                 <Button
                   disabled={activeStep === 0}
                   onClick={handleBack}
-                  // className={classes.button}
+                  color='primary'
                 >
                   Atrás
                 </Button>
@@ -145,7 +132,6 @@ const StepForm = () => {
                     variant='contained'
                     color='primary'
                     onClick={handleSkip}
-                    //   className={classes.button}
                   >
                     Saltar
                   </Button>
@@ -155,7 +141,6 @@ const StepForm = () => {
                   variant='contained'
                   color='primary'
                   onClick={handleNext}
-                  // className={classes.button}
                 >
                   {activeStep === steps.length - 1 ? 'Finalizar' : 'Siguiente'}
                 </Button>

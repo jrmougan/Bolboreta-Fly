@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import useLocalStorage from '../../hooks/useLocalStorage';
 
 const LogoAirline = () => {
   return (
@@ -10,9 +11,12 @@ const LogoAirline = () => {
 };
 
 const ResumeandPay = () => {
-  const [payerName, setPayerName] = useState('');
-  const [payerCreditNumber, setPayerCreditNumber] = useState('');
-  const [escale, setEscale] = useState('Sin escala');
+  const [payerName, setPayerName] = useLocalStorage('payerName', '');
+  const [payerCreditNumber, setPayerCreditNumber] = useLocalStorage(
+    'payerCreditNumber',
+    ''
+  );
+  const [escale, setEscale] = useLocalStorage('escales', '');
   const seatPrice = 100;
   const subtotal = 150;
   const taxes = 50;
