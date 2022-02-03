@@ -17,6 +17,7 @@ input {
 }
 .searchInput {
   width: 100%;
+  padding-left: 2rem;
 }
 
 .searchTabs {
@@ -81,9 +82,11 @@ input {
   display: flex;
   justify-content: flex-end;
 }
+
 .inputsFlight input {
   font-family: FontAwesome;
 }
+
 .resultCard {
   padding: 2rem 1rem;
   width: 500px;
