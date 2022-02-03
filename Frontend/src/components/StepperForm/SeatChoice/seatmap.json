@@ -228,7 +228,7 @@
               "travelerPricing": [
                 {
                   "id": "1",
-                  "seatAvailabilityStatus": "BLOCKED"
+                  "seatAvailabilityStatus": "AVAILABLE"
                 }
               ],
               "coordinates": {
