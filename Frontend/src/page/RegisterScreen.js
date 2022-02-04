@@ -1,5 +1,7 @@
+import MainForm from '../components/MainForm/MainForm';
+
 const RegisterScreen = () => {
-  return <div>Register</div>;
+  return <MainForm />;
 };
 
 export default RegisterScreen;

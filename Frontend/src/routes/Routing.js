@@ -1,5 +1,5 @@
-import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
-import routes from "./routes";
+import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
+import routes from './routes';
 import {
   AdvancedSearchScreen,
   HomeScreen,
@@ -30,13 +30,8 @@ const Routing = () => {
                 );
               })}
             </ul>
-
           </nav>
-
-          {/* A <Switch> looks through its children <Route>s and
-              renders the first one that matches the current URL. */}
           <Routes>
-
             {routes.map((route) => {
               return (
                 <Route
@@ -51,7 +46,6 @@ const Routing = () => {
         </main>
         <Footer />
       </TokencontextProvider>
-
     </Router>
   );
 };

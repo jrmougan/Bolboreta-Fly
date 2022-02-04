@@ -6,8 +6,7 @@ const cors = require('cors');
 const { PORT } = process.env;
 
 const app = express();
-
-
+app.use(cors());
 
 /**
  * #################
@@ -45,11 +44,11 @@ app.use(cors());
  * ###############################
  */
 
-
 const {
     offerPrice,
     newSearch,
-    advanceSearch } = require('./controllers/search/index');
+    advanceSearch,
+} = require('./controllers/search/index');
 
 
 const {
@@ -57,8 +56,6 @@ const {
     getBookings,
     getBooking,
 } = require('./controllers/booking/index');
-
-
 
 /**
  * ###############################
@@ -102,14 +99,12 @@ app.post('/login_google', loginGoogle);
  * ########################
  */
 
-
 app.get('/search', newSearch);
 app.post('/advancesearch', advanceSearch);
 app.post('/booking/newBooking', isAuth, newBooking);
 app.get('/booking/:userId/getBookings', getBookings);
 app.get('/booking/:bookingId/getBooking', getBooking);
 app.post('/pricing', offerPrice);
-
 
 /**
  * #########################
