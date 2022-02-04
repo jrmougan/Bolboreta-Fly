@@ -34,7 +34,7 @@ function PopUpLogin({ setShowPopUp }) {
             });
             if (res.ok) {
                 const body = await res.json();
-
+                console.log(body)
                 setToken(body.data.token);
             } else {
                 const error = await res.json();
@@ -95,7 +95,7 @@ function PopUpLogin({ setShowPopUp }) {
 
                 </form>
 
-
+                <GoogleLoginButton />
 
                 <section className="show">
                     <button className="passshow" onClick={switchShown}>

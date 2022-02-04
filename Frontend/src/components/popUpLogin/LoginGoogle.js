@@ -15,7 +15,7 @@ const clientId =
 
 function GoogleLoginButton() {
 
-    const [token, setToken] = useContext(TokenContext);
+    // const [token, setToken] = useContext(TokenContext);
 
 
 
@@ -31,17 +31,20 @@ function GoogleLoginButton() {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(googleRes.tokenId),
+                body: JSON.stringify({ token: googleRes.tokenId }),
 
             }
         );
+        if (res.ok) {
+            console.log(res)
+        }
 
 
 
     };
 
     const onFailure = (res) => {
-        swal(res, ' ', 'error');
+        swal(res, '', 'error');
     };
 
 
@@ -58,7 +61,7 @@ function GoogleLoginButton() {
 
 
     return (
-        <Link to="/user">
+        <Link to="/">
             <button onClick={signIn} className="googleboton">
                 <img src={logogoogle} alt="google login" className="icon"></img>
                 <span className="googleboton"> Google</span>

@@ -1,4 +1,4 @@
-
+import Paypal from './../components/PayPal/PayPal';
 
 const HomeScreen = () => {
 
@@ -8,6 +8,7 @@ const HomeScreen = () => {
 
     <div>
       <p> HomeScreen </p>
+      <Paypal />
 
 
     </div>
