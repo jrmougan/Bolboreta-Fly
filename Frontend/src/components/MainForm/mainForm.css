@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,500;1,400&family=Roboto:wght@400;500&display=swap');
+
+main {
+  font-family: 'Roboto', sans-serif;
+}
+*,
+*:after,
+*:before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+main {
+  background-color: #f7f6ff;
+  padding: 5rem 1rem;
+}
+nav {
+  background-color: #f7f6ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+nav li {
+  list-style: none;
+}
+
+.mainForm {
+  max-width: 80%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+.input_container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.inputForm {
+  background: #fff;
+}
+.form {
+  position: relative;
+}
+.form-title-container {
+  display: block;
+  max-width: 80%;
+  width: 60%;
+  margin: 0 auto;
+}
+.form-title {
+  margin: 4rem 5rem;
+  font-family: Roboto, sans-serif;
+  font-weight: 500;
+}
+.register-btn {
+  background-color: #eb5757;
+  color: #fff;
+  padding: 1rem 2rem;
+  border-radius: 5px;
+  border: none;
+  display: block;
+  margin: 3rem 0 5rem auto;
+  margin-left: auto;
+
+  transform: translate(25%, 25%);
+}
+.textarea {
+  width: 15.2rem;
+  height: 4rem;
+}
+.input_birthday {
+  width: 15.2rem;
+}
+/* REGISTRATION CODE */
+
+.validate_btn {
+  background-color: #eb5757;
+  color: #fff;
+  padding: 1rem 2rem;
+  border-radius: 5px;
+  border: none;
+  display: block;
+  margin-left: 2rem;
+}
+.label-input {
+  margin-right: 2rem;
+}
+
+.validation_form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

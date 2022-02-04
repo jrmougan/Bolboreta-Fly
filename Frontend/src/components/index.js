@@ -1,3 +1,6 @@
 import { ListFlights } from './ListFlights';
+import MainForm from './MainForm/MainForm';
+import ValidationForm from './ValidationForm/ValidationForm';
 
-export { ListFlights };
+export { MainForm, ValidationForm, ListFlights };
+

@@ -1,21 +1,21 @@
-const getDB = require ('../../database/getDB');
-const bcrypt = require('bcrypt') ;
+const getDB = require('../../database/getDB');
+const bcrypt = require('bcrypt');
 
-const saltRounds = 10 ;
+const saltRounds = 10;
 
 const resetPass = async (req, res, next) => {
 
-    let connection ;
+    let connection;
 
     try {
-        connection = await getDB ();
-        const {iduser} = req.params ;
-
-        const {recovercode , newpassword} = req.body ;
+        connection = await getDB();
 
 
-        if(!recovercode || !newpassword){
-            const error = new Error (' Falta el código de repuperación o la contraseña');
+        const { recovercode, newpassword } = req.body;
+
+
+        if (!recovercode || !newpassword) {
+            const error = new Error(' Falta el código de repuperación o la contraseña');
             error.httpStatus = 404;
             throw error;
         }
@@ -23,36 +23,37 @@ const resetPass = async (req, res, next) => {
         const [user] = await connection.query(`
         SELECT id FROM user WHERE recover_code = ?
         `,
-        [recovercode]);
+            [recovercode]);
 
-        if(user.length < 1) {
-            const error = new Error ('Código de recuperación incorrecto');
+        if (user.length < 1) {
+            const error = new Error('Código de recuperación incorrecto');
             error.httpStatus = 404;
             throw error;
         }
 
-        const hashedPassword = await bcrypt.hash(newpassword , saltRounds);
+        const hashedPassword = await bcrypt.hash(newpassword, saltRounds);
 
         await connection.query(`
         UPDATE user SET password = ? , recover_code = NULL, modifyDate = ?  WHERE id = ?
         `,
-        [hashedPassword, new Date() , iduser]
+            [hashedPassword, new Date(), user[0].id
+            ]
         );
 
         res.send({
-            status:'ok',
-            message:'Contraseña actualizada'
+            status: 'ok',
+            message: 'Contraseña actualizada'
         });
 
 
-          
-        } catch (error) {
-            next(error);
 
-        
-    }finally {
-        if(connection) connection.release();
+    } catch (error) {
+        next(error);
+
+
+    } finally {
+        if (connection) connection.release();
     }
 };
 
-module.exports = resetPass ;
+module.exports = resetPass;

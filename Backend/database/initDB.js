@@ -31,7 +31,7 @@ async function main() {
         await connection.query(`CREATE TABLE user(
             id INT PRIMARY KEY AUTO_INCREMENT,
             name_user VARCHAR(60) NOT NULL,
-            lastname VARCHAR(60) NOT NULL,
+            lastname VARCHAR(60),
             lastname2 VARCHAR(60),
             bio VARCHAR(5000),
             address VARCHAR(255),

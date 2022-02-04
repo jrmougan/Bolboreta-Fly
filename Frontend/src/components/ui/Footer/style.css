@@ -1,0 +1,19 @@
+#App-footer {
+  width: 100%;
+
+  background-color: #d2dff8;
+  color: black;
+  font-weight: 300;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  position: relative;
+  flex-wrap: wrap;
+  bottom: 0;
+}
+#App-footer > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

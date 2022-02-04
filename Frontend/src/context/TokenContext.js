@@ -1,17 +1,16 @@
-import { useState, createContext } from 'react';
-import useLocalStorage from '../hooks/UseLocalStorage';
+
+import { useState, createContext } from "react";
+import useLocalStorage from "../hooks/UseLocalStorage";
+
 
 const TokenContext = createContext();
-
 const TokencontextProvider = ({ children }) => {
-  const [token, setToken] = useLocalStorage('token', '');
-
-  return (
-    <TokenContext.Provider value={[token, setToken]}>
-      {' '}
-      {children}{' '}
-    </TokenContext.Provider>
-  );
+    const [token, setToken] = useLocalStorage('token', '');
+    return (
+        <TokenContext.Provider value={[token, setToken]}> {children} </TokenContext.Provider>
+    );
 };
 
+
 export { TokencontextProvider, TokenContext };
+
