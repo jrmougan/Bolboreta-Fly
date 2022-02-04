@@ -48,6 +48,7 @@ const {
     offerPrice,
     newSearch,
     advanceSearch,
+    seatMap,
 } = require('./controllers/search/index');
 
 
@@ -105,6 +106,8 @@ app.post('/booking/newBooking', isAuth, newBooking);
 app.get('/booking/:userId/getBookings', getBookings);
 app.get('/booking/:bookingId/getBooking', getBooking);
 app.post('/pricing', offerPrice);
+app.post('/seatmap', seatMap);
+
 
 /**
  * #########################

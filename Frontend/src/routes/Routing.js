@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
+import '../App.css';
 import routes from './routes';
 import {
   AdvancedSearchScreen,
@@ -6,7 +7,11 @@ import {
   LoginScreen,
   ProfileScreen,
   RegisterScreen,
-} from "../page";
+} from '../page';
+import StepperForm from '../components/StepperForm/StepperForm';
+import StepForm from '../components/StepForm/StepForm';
+import Itinerary from '../components/StepperForm/Itinerary/Itinerary';
+import SeatChoice from '../components/StepperForm/SeatChoice/SeatChoice';
 import FormPassenger from "../components/FormaPassenger/FormPassenger";
 import Header from "../components/ui/header/header";
 import HomeRound from '../page/HomeRound';
@@ -42,7 +47,6 @@ const Routing = () => {
                 ></Route>
               );
             })}
-
           </Routes>
         </main>
         <Footer />
