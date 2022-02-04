@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import './mainForm.css';
 import ReactDOM from 'react-dom';
 import { TextField } from '@mui/material';
 import { FaArrowRight } from 'react-icons/fa';
-import { useUserTokenContext } from '../../contexts/UserTokenContext';
+import { TokenContext } from '../../context/TokenContext';
+import swal from 'sweetalert';
 
-const PORT_BACKEND = 4000;
+
 
 const MainForm = () => {
-  const [token, setToken] = useUserTokenContext();
+  const [token, setToken] = useContext(TokenContext);
   const [respuesta, setRespuesta] = useState('');
   const [nombre, setNombre] = useLocalStorage('nombre', '');
   const [primerApellido, setPrimerApellido] = useLocalStorage(
@@ -38,7 +39,7 @@ const MainForm = () => {
     e.preventDefault();
     try {
       const response = await fetch(
-        `http://localhost:${PORT_BACKEND}/register`,
+        `${process.env.REACT_APP_PUBLIC_HOST_BACKEND}register`,
         {
           method: 'POST',
           body: JSON.stringify({
@@ -56,25 +57,25 @@ const MainForm = () => {
           },
         }
       );
-      const bodyResponse = await response.json();
-      if (bodyResponse.httpStattus === 400) {
-        console.error(bodyResponse.message);
-      }
+
       if (response.ok) {
-        console.log('Te has registrado satisfactoriamente');
-        console.log(bodyResponse.message);
-        const tokenJWT = bodyResponse.accessToken;
-        setRespuesta(response);
-
+        const bodyReponse = await response.json();
+        const tokenJWT = bodyReponse.accessToken;
         setToken(tokenJWT);
-
-        console.log('Aquí debería ir el token', token);
+        console.log(tokenJWT);
+        swal(bodyReponse.message, '', 'success');
+      } else {
+        const error = await response.json();
+        swal(error.message, '', 'error')
       }
+
     } catch (error) {
-      console.error('Error de comunicación', error);
+      swal(error, '', 'error');
     }
   };
-
+  //checkbox para mostrar contraseña
+  const [shown, setShown] = useState(false);
+  const switchShown = () => setShown(!shown);
   return (
     <main>
       <div className='form-title-container'>
@@ -140,7 +141,7 @@ const MainForm = () => {
               Contraseña
             </label>
             <TextField
-              type='password'
+              type={shown ? 'text' : 'password'}
               id='password'
               value={password}
               className='inputForm'
@@ -154,7 +155,7 @@ const MainForm = () => {
               Confirmar contraseña
             </label>
             <TextField
-              type='password'
+              type={shown ? 'text' : 'password'}
               id='passwordRepeat'
               value={passwordRepeat}
               className='inputForm'
@@ -162,6 +163,7 @@ const MainForm = () => {
               margin='dense'
             ></TextField>
           </div>
+          <label className='showpass'> <input type='checkbox' name='newpassword' onClick={switchShown} /> Mostrar contraseña </label>
           <div className='input_container'>
             <label htmlFor='birthday' className='label-input'>
               {' '}
