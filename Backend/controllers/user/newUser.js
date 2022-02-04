@@ -3,11 +3,8 @@ const getDB = require('../../database/getDB');
 const {
     hashedPassword,
     generateRandomString,
-    mailVerify
-  
-    
+    mailVerify,
 } = require('../../helpers');
-
 
 const newUser = async (req, res, next) => {
     let connection;
@@ -15,22 +12,36 @@ const newUser = async (req, res, next) => {
     try {
         connection = await getDB();
 
-        const { name_user, lastname, lastname2, email, password, confirmpassword,  bio, birthdate} =
-            req.body;
+        const {
+            name_user,
+            lastname,
+
+
+            email,
+            password,
+            confirmpassword,
+        } = req.body;
 
         // Comprobamos que no faltan ningun dato
-        if(!name_user || !lastname || !lastname2 || !email || !password || !confirmpassword || !bio || !birthdate ){
-            const error = new Error ('Faltan campos por rellenar') ;
-            error.httpStatus = 400 ;
+        if (
+            !name_user ||
+            !lastname ||
+
+            !email ||
+            !password ||
+            !confirmpassword
+        ) {
+            const error = new Error('Faltan campos por rellenar');
+            error.httpStatus = 400;
             throw error;
         }
-            
+
         //confirmamos que la contraseña se aigual las dos veces
-            if(password !== confirmpassword ) {
-                const error = new Error ('Las contraseñas tienen que ser igual');
-                error.httpStatus = 400
-                throw error;
-            }
+        if (password !== confirmpassword) {
+            const error = new Error('Las contraseñas tienen que ser igual');
+            error.httpStatus = 400;
+            throw error;
+        }
 
         const [user] = await connection.query(
             `
@@ -47,18 +58,18 @@ const newUser = async (req, res, next) => {
         }
 
         const registration_code = generateRandomString(40);
-         
+
         await connection.query(
-            `INSERT INTO user(name_user, lastname, lastname2, email, password, bio, rol, birthdate, registration_code, createDate) VALUES (?,?,?,?,?,?,?,?,?,?)`,
+            `INSERT INTO user(name_user,  email, password, rol, registration_code, createDate) VALUES (?,?,?,?,?,?)`,
             [
                 name_user,
-                lastname,
-                lastname2,
+
+
                 email,
-                await hashedPassword(password,10),
-                bio,
+                await hashedPassword(password, 10),
+
                 1,
-                birthdate,
+
                 registration_code,
                 new Date(),
             ]
