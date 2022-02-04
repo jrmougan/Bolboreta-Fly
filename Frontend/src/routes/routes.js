@@ -1,3 +1,4 @@
+
 import FormPassenger from "../components/FormaPassenger/FormPassenger";
 import { DatosUsuario, ProfileScreen } from "../page";
 import { HomeScreen, RecoveryPass, EditPass, ResetPassScreen } from "../page";
@@ -13,6 +14,9 @@ const routes = [
   { name: 'editpass', path: '/user/:iduser/editpass', component: <EditPass /> },
   { name: 'resetpass', path: '/resetpass', component: <ResetPassScreen /> },
   { name: 'edit', path: '/user/:iduser/edit', component: <DatosUsuario /> },
+  { name: 'return', path: '/return', component: <HomeRound /> },
+  { name: 'multiple', path: '/multiple', component: <HomeMultiple /> },
+
 
 ];
 

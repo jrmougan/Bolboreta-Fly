@@ -6,10 +6,11 @@ import {
   LoginScreen,
   ProfileScreen,
   RegisterScreen,
-  PassengerScreen,
 } from "../page";
 import FormPassenger from "../components/FormaPassenger/FormPassenger";
 import Header from "../components/ui/header/header";
+import HomeRound from '../page/HomeRound';
+import HomeMultiple from '../page/HomeMultiple';
 import { TokencontextProvider } from "../context/TokenContext";
 
 import Footer from "../components/ui/Footer/Footer";
