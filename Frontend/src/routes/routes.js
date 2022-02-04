@@ -1,14 +1,12 @@
 
 import FormPassenger from "../components/FormaPassenger/FormPassenger";
-import { DatosUsuario, ProfileScreen } from "../page";
-import { HomeScreen, RecoveryPass, EditPass, ResetPassScreen } from "../page";
-
+import { AdvancedSearchScreen, DatosUsuario, ProfileScreen, HomeRound, HomeScreen, RecoveryPass, RegisterScreen, HomeMultiple, EditPass, ResetPassScreen} from "../page";
 
 const routes = [
   { name: "home", path: "/", component: <HomeScreen /> },
   { name: 'recover', path: '/recover', component: <RecoveryPass /> },
   { name: "register", path: "/register", component: <RegisterScreen /> },
-  { name: "search", path: "/search", component: <Searchscreen /> },
+  { name: "search", path: "/search", component: <AdvancedSearchScreen /> },
   { name: "user", path: "/user", component: <ProfileScreen /> },
   { name: "passenger", path: "/passenger", component: <FormPassenger /> },
   { name: 'editpass', path: '/user/:iduser/editpass', component: <EditPass /> },
