@@ -60,9 +60,10 @@ const newUser = async (req, res, next) => {
         const registration_code = generateRandomString(40);
 
         await connection.query(
-            `INSERT INTO user(name_user,  email, password, rol, registration_code, createDate) VALUES (?,?,?,?,?,?)`,
+            `INSERT INTO user(name_user, lastname,  email, password, rol, registration_code, createDate) VALUES (?,?,?,?,?,?,?)`,
             [
                 name_user,
+                lastname,
 
 
                 email,

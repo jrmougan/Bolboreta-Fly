@@ -6,6 +6,7 @@ const LoginScreen = () => {
       Login
       <PopUpLogin />
     </div>);
+
 };
 
 export default LoginScreen;

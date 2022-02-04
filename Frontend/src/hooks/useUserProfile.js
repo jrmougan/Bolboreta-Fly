@@ -13,7 +13,7 @@ const useUserProfile = (token) => {
             console.log(decodedToken.id)
 
             const fetchUserProfile = async () => {
-                const res = await fetch(`http://localhost:3000/user/${decodedToken.id}`,
+                const res = await fetch(`${process.env.REACT_APP_PUBLIC_HOST_BACKEND}user/${decodedToken.id}`,
                     {
                         headers: {
                             Authorization: token,
