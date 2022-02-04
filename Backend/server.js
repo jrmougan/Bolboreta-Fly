@@ -2,10 +2,12 @@ require('dotenv').config();
 const express = require('express');
 const fileUpload = require('express-fileupload');
 const cors = require('cors');
+
 const { PORT } = process.env;
 
 const app = express();
 app.use(cors());
+
 /**
  * #################
  * ## Middlewares ##
@@ -31,7 +33,10 @@ const {
     resetPass,
     editPass,
     deleteUser,
+    loginGoogle,
 } = require('./controllers/user/index');
+
+app.use(cors());
 
 /**
  * ###############################
@@ -44,6 +49,7 @@ const {
     newSearch,
     advanceSearch,
 } = require('./controllers/search/index');
+
 
 const {
     newBooking,
@@ -66,6 +72,8 @@ app.use(express.json());
 // Middleware que deserializa un body en formato "form-data".
 app.use(fileUpload());
 
+app.use(express.static('static'));
+
 /**
  * ########################
  * ## Endpoints usuarios ##
@@ -77,13 +85,14 @@ app.use(fileUpload());
 app.post('/register', newUser);
 app.put('/user/:iduser/edit', userExists, isAuth, caneditUser, editUser);
 app.delete('/user/:iduser/delete', userExists, isAuth, caneditUser, deleteUser);
-app.put('/user/:iduser/recover', userExists, isAuth, caneditUser, recoveryPass);
+app.put('/recover', recoveryPass);
 app.get('/register/validate/:registration_code', activeUser);
 app.post('/login', loginUser);
 app.put('/user/:iduser/avatar', userExists, isAuth, caneditUser, editAvatar);
 app.get('/user/:iduser', userExists, isAuth, getUser);
-app.post('/user/:iduser/resetpass', userExists, isAuth, caneditUser, resetPass);
+app.post('/resetpass', resetPass);
 app.post('/user/:iduser/editpass', userExists, isAuth, caneditUser, editPass);
+app.post('/login_google', loginGoogle);
 /**
  * ########################
  * ## Endpoints reservas ##

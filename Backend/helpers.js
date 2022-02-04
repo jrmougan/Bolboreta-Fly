@@ -100,8 +100,11 @@ async function savePhoto(image, maxwidth) {
 
 async function deletePhoto(photoname) {
     try {
-        const photoPath = path.join(uploadDir, photoname);
-        await unlink(photoPath);
+        if (!photoname.includes("http")) {
+            const photoPath = path.join(uploadDir, photoname);
+
+            await unlink(photoPath);
+        }
     } catch (_) {
         throw new Error(
             'No se ha podido eliminar la foto/avatar del servidor.'
