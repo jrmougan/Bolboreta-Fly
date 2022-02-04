@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link, Outlet, Route, Routes, Router } from 'react-router-dom';
 import useLocalStorage from '../hooks/useLocalStorage';
@@ -12,6 +13,7 @@ const override = `
   margin: 10rem auto;
   border-color: red;
 `;
+
 
 const HomeScreen = () => {
   // Obtenemos los datos de los input y los guardamos en el localStorage
@@ -37,9 +39,11 @@ const HomeScreen = () => {
     adults,
   };
 
+
   // Obtenemos el resultado (vuelos) a través de data
   // y la función search para pasarla a través de las props a ListFlights
   const [data, search, loading] = useSearch(searching);
+
 
   // Función para modificar el valor de cada variable
   // a través del onChange de cada input
