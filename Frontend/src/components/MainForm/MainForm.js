@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import './mainForm.css';
 import ReactDOM from 'react-dom';
+import { Navigate } from 'react-router-dom';
 import { TextField } from '@mui/material';
 import { FaArrowRight } from 'react-icons/fa';
 import { TokenContext } from '../../context/TokenContext';
@@ -60,9 +61,6 @@ const MainForm = () => {
 
       if (response.ok) {
         const bodyReponse = await response.json();
-        const tokenJWT = bodyReponse.accessToken;
-        setToken(tokenJWT);
-        console.log(tokenJWT);
         swal(bodyReponse.message, '', 'success');
       } else {
         const error = await response.json();
@@ -76,6 +74,7 @@ const MainForm = () => {
   //checkbox para mostrar contraseña
   const [shown, setShown] = useState(false);
   const switchShown = () => setShown(!shown);
+
   return (
     <main>
       <div className='form-title-container'>
@@ -108,18 +107,7 @@ const MainForm = () => {
               margin='dense'
             ></TextField>
           </div>
-          <div className='input_container'>
-            <label htmlFor='segundoApellido' className='label-input'>
-              Segundo Apellido
-            </label>
-            <TextField
-              id='segundoApellido'
-              value={segundoApellido}
-              className='inputForm'
-              onChange={handleSubmit(setSegundoApellido)}
-              margin='dense'
-            ></TextField>
-          </div>
+
 
           <div className='input_container'>
             <label htmlFor='email' className='label-input'>
