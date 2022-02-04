@@ -1,0 +1,30 @@
+input {
+  max-width: 250px;
+}
+label {
+  text-align: center;
+}
+
+.fotousuario {
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  transform: rotate(65deg);
+}
+
+.guardarcambios {
+  border: 1px solid;
+  background: #5d7ca6;
+  font-size: medium;
+  font-weight: bolder;
+  align-items: center;
+  width: 170px;
+  height: 40px;
+  color: white;
+  margin-top: 10px;
+}
+.fotocontainer {
+  width: 300px;
+  height: 300px;
+  margin-bottom: 10px;
+}

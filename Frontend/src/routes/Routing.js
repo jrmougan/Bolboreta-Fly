@@ -6,39 +6,52 @@ import {
   LoginScreen,
   ProfileScreen,
   RegisterScreen,
+  PassengerScreen,
 } from "../page";
+import FormPassenger from "../components/FormaPassenger/FormPassenger";
+import Header from "../components/ui/header/header";
+import { TokencontextProvider } from "../context/TokenContext";
+
+import Footer from "../components/ui/Footer/Footer";
 
 const Routing = () => {
   return (
     <Router>
-      <div>
-        <nav>
-          <ul>
+      <TokencontextProvider>
+        <Header></Header>
+        <main>
+          <nav>
+            <ul>
+              {routes.map((route) => {
+                return (
+                  <li key={route.path}>
+                    <Link to={route.path}>{route.name}</Link>
+                  </li>
+                );
+              })}
+            </ul>
+
+          </nav>
+
+          {/* A <Switch> looks through its children <Route>s and
+              renders the first one that matches the current URL. */}
+          <Routes>
+
             {routes.map((route) => {
               return (
-                <li key={route.path}>
-                  <Link to={route.path}>{route.name}</Link>
-                </li>
+                <Route
+                  key={route.path}
+                  path={route.path}
+                  element={route.component}
+                ></Route>
               );
             })}
-          </ul>
-        </nav>
 
-        {/* A <Switch> looks through its children <Route>s and
-              renders the first one that matches the current URL. */}
-        <Routes>
-          {routes.map((route) => {
-            return (
-              <Route
-                key={route.path}
-                path={route.path}
-                element={route.component}
-              ></Route>
-            );
-          })}
-          <Route path=""></Route>
-        </Routes>
-      </div>
+          </Routes>
+        </main>
+        <Footer />
+      </TokencontextProvider>
+
     </Router>
   );
 };

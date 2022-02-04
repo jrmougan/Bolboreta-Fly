@@ -1,0 +1,21 @@
+.form_recover_pass {
+  display: flex;
+  flex-direction: column;
+}
+
+.envioemail {
+  border: 1px solid;
+  background: #5d7ca6;
+  font-size: small;
+  font-weight: bolder;
+  align-items: center;
+  width: 100px;
+  height: 40px;
+  color: white;
+  margin-top: 10px;
+}
+
+#email {
+  width: 200px;
+  margin: 5px;
+}

@@ -1,0 +1,16 @@
+.Avatar {
+  display: flex;
+  justify-content: center;
+}
+
+.user_avatar {
+  margin-top: 10px;
+  max-width: 100px;
+  max-height: 100px;
+  border-radius: 150px;
+  transform: rotate(90deg);
+}
+
+.nombreusuario {
+  margin: 10px;
+}
