@@ -18,7 +18,7 @@ const RecoverPass = () => {
 
 
         e.preventDefault();
-        const res = await fetch('http://localhost:3000/recover',
+        const res = await fetch(`${process.env.REACT_APP_PUBLIC_HOST_BACKEND}recover`,
             {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json', },

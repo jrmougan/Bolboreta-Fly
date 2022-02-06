@@ -8,6 +8,9 @@ import DatosUsuario from './DatosdeUsuario';
 import RecoveryPass from "./RecoveryPass";
 import EditPass from "./Editpass";
 import ResetPassScreen from "./ResetPassScreen";
+import HomeMultiple  from "./HomeMultiple";
+import HomeRound from "./HomeRound";
+
 
 export {
   AdvancedSearchScreen,
@@ -19,5 +22,7 @@ export {
   DatosUsuario,
   RecoveryPass,
   EditPass,
-  ResetPassScreen
+  ResetPassScreen,
+  HomeMultiple,
+  HomeRound
 };

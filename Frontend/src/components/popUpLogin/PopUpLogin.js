@@ -24,7 +24,7 @@ function PopUpLogin({ setShowPopUp }) {
     const login = async (e) => {
         e.preventDefault();
         try {
-            const res = await fetch("http://localhost:3000/login", {
+            const res = await fetch(`${process.env.REACT_APP_PUBLIC_HOST_BACKEND}login`, {
                 method: "POST",
                 headers: {
                     "Content-type": "application/json",
@@ -90,13 +90,9 @@ function PopUpLogin({ setShowPopUp }) {
                         onChange={handlePassword}
                     />
 
-<<<<<<< Updated upstream
-                    <button className="sesion"> Inicio de Sesión </button>
-=======
-                    <button className="sesion" type="submit" > Inicio de Sesión </button>
 
+                    <button className="sesion" type="submit"> Inicio de Sesión </button>
 
->>>>>>> Stashed changes
 
 
                 </form>
