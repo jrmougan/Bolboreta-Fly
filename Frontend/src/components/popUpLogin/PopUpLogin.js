@@ -19,7 +19,7 @@ function PopUpLogin({ setShowPopUp }) {
     };
 
     const [token, setToken] = useContext(TokenContext);
-    console.log("token", token);
+
 
     const login = async (e) => {
         e.preventDefault();
@@ -34,7 +34,7 @@ function PopUpLogin({ setShowPopUp }) {
             });
             if (res.ok) {
                 const body = await res.json();
-                console.log(body)
+
                 setToken(body.data.token);
             } else {
                 const error = await res.json();
@@ -50,7 +50,7 @@ function PopUpLogin({ setShowPopUp }) {
     const switchShown = () => setShown(!shown);
 
     if (token) {
-        return <Navigate to={`/`} />;
+        return <Navigate to='/' />;
     }
 
 
@@ -90,7 +90,13 @@ function PopUpLogin({ setShowPopUp }) {
                         onChange={handlePassword}
                     />
 
+<<<<<<< Updated upstream
                     <button className="sesion"> Inicio de Sesión </button>
+=======
+                    <button className="sesion" type="submit" > Inicio de Sesión </button>
+
+
+>>>>>>> Stashed changes
 
 
                 </form>

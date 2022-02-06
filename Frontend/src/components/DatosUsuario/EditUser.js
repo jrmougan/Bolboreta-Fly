@@ -7,6 +7,7 @@ import { TokenContext } from "../../context/TokenContext";
 import swal from "sweetalert";
 import EditAvatar from "../EditAvatar/EditAvatar";
 import avataranonimo from '../../logos/photo.svg'
+import DeleteUsuario from "../DeleteUsuariio/DeleteUsuario";
 
 
 const EditUser = () => {
@@ -164,7 +165,9 @@ const EditUser = () => {
 
                 <button type="submit" className="guardarcambios"> Guardar Cambios  </button>
             </form>
+            <DeleteUsuario />
         </div>
+
     );
 };
 
