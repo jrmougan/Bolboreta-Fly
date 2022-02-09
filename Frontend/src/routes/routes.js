@@ -1,6 +1,6 @@
 
 import FormPassenger from "../components/FormaPassenger/FormPassenger";
-import { AdvancedSearchScreen, DatosUsuario, ProfileScreen, HomeRound, HomeScreen, RecoveryPass, RegisterScreen, HomeMultiple, EditPass, ResetPassScreen, ActiveUserScreen } from "../page";
+import { AdvancedSearchScreen, DatosUsuario, ProfileScreen, HomeRound, HomeScreen, RecoveryPass, RegisterScreen, HomeMultiple, EditPass, ResetPassScreen, ActiveUserScreen, LoginScreen } from "../page";
 
 const routes = [
   { name: "home", path: "/", component: <HomeScreen /> },
@@ -15,6 +15,7 @@ const routes = [
   { name: 'return', path: '/return', component: <HomeRound /> },
   { name: 'multiple', path: '/multiple', component: <HomeMultiple /> },
   { name: 'activeuser', path: '/register/validate/:registration_code', component: <ActiveUserScreen /> },
+  { name: 'loginuser', path: '/login', component: <LoginScreen /> },
 
 
 ];

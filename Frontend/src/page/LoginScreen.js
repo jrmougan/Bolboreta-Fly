@@ -1,10 +1,10 @@
-import PopUpLogin from "../components/popUpLogin/PopUpLogin";
+import LoginUser from "../components/LoginUser/LoginUser";
 
 const LoginScreen = () => {
   return (
     <div>
       Login
-      <PopUpLogin />
+      <LoginUser />
     </div>);
 
 };

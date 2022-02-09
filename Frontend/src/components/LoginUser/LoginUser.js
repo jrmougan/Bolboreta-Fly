@@ -6,10 +6,11 @@ import { useState, useContext } from "react";
 import { TokenContext } from "../../context/TokenContext";
 
 import swal from "sweetalert";
-import GoogleLoginButton from "./LoginGoogle";
 
-function PopUpLogin({ setShowPopUp }) {
+
+function LoginUser() {
     const [email, setEmail] = useState("");
+
     const handleEmail = (e) => {
         setEmail(e.target.value);
     };
@@ -56,23 +57,20 @@ function PopUpLogin({ setShowPopUp }) {
 
 
     const handleregister = (e) => {
-        setShowPopUp(false);
+
         return <Navigate to='/register' />;
     }
 
     const handlerecover = (e) => {
-        setShowPopUp(false);
+
         console.log("envento", e);
         return <Navigate to='/recover' />;
     };
 
     return (
         <div className="formulario">
-            <section className="logo">
-                <img src={logo} className="logos" alt="logo2" />
-                <h3> Bolboreta Flight </h3>
-            </section>
-            <section className="form">
+
+            <section className="form_logueo">
                 <form onSubmit={login} className="login">
                     <TextField
                         id="usuario"
@@ -97,7 +95,7 @@ function PopUpLogin({ setShowPopUp }) {
 
                 </form>
 
-                <GoogleLoginButton />
+
 
                 <section className="show">
                     <button className="passshow" onClick={switchShown}>
@@ -127,4 +125,4 @@ function PopUpLogin({ setShowPopUp }) {
     );
 }
 
-export default PopUpLogin;
+export default LoginUser;
