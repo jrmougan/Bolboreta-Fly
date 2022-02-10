@@ -1,8 +1,8 @@
 import './style.css';
 import React, { useEffect, useState } from 'react';
-import useUserProfile from '../../hooks/useUserProfile';
+
 import swal from 'sweetalert';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 
 
 const RecoverPass = () => {
@@ -42,16 +42,14 @@ const RecoverPass = () => {
 
 
 
-
     return (
-        <div className='form_recover_pass'>
-            <form onSubmit={fetchrecorpass}>
+        <div >
+            <form className='form_recover_pass' >
 
                 <label htmlFor='email'> ¿No recuerdas tu contraseña? Introduce tu correo electrónico y te indicaremos cómo conseguir una nueva </label>
                 <input id='email' name='email' type='email' value={email} onChange={(e) => { setEmail(e.target.value) }} />
-                <Link to='/resetpass'>
-                    <button type='submit' className='envioemail'> Enviar email </button>
-                </Link>
+
+                <button className='envioemail' onClick={fetchrecorpass} > Enviar email </button>
 
 
 

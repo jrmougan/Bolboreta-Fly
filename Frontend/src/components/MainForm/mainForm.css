@@ -13,6 +13,9 @@ main {
 main {
   background-color: #f7f6ff;
   padding: 5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 nav {
   background-color: #f7f6ff;

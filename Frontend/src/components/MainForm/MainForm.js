@@ -84,7 +84,7 @@ const MainForm = () => {
     <main>
 
       <div className="form-title-container">
-        <h1 className="form-title">Formulario de registro en Bolboreta Fly</h1>
+        <h1 className="form-title">Formulario de registro en Bolboreta Flight</h1>
       </div>
       <div className="mainForm">
         <form onSubmit={register} className="form">

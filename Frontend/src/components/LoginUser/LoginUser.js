@@ -56,17 +56,6 @@ function LoginUser() {
 
 
 
-    const handleregister = (e) => {
-
-        return <Navigate to='/register' />;
-    }
-
-    const handlerecover = (e) => {
-
-        console.log("envento", e);
-        return <Navigate to='/recover' />;
-    };
-
     return (
         <div className="formulario">
 
@@ -103,7 +92,7 @@ function LoginUser() {
                         {shown ? "Ocultar contraseña" : "Mostrar contraseña"}{" "}
                     </button>
                     <Link to='/recover'>
-                        <button onClick={handlerecover} className="pregunta" type='button'>
+                        <button className="pregunta" type='button'>
                             ¿Has olvidado la contraseña?{" "}
                         </button>
                     </Link>
@@ -113,9 +102,11 @@ function LoginUser() {
 
 
                 <section className="registro">
+
                     <Link to="/register">
-                        <button onClick={handleregister} className="registerlogin" type="button">
-                            {" "}
+
+                        <button className="registerlogin" type="button">
+
                             REGISTRATE{" "}
                         </button>
                     </Link>
