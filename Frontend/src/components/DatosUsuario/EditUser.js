@@ -20,7 +20,7 @@ const EditUser = () => {
     const [newbirthdate, setNewbirthdate] = useState(user.userInfo?.birthdate);
     const [newaddress, setNewaddress] = useState(user.userInfo?.address);
     const [newbio, setNewbio] = useState(user.userInfo?.bio);
-    console.log(user.userInfo?.birthdate)
+
 
 
     console.log(decodedToken.id);

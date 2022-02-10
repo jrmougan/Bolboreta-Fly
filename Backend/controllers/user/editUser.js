@@ -59,7 +59,7 @@ const editUser = async (req, res, next) => {
         await connection.query(`
          UPDATE user SET name_user = ?, lastname = ?, lastname2 = ?, bio = ?, address = ?, birthdate = ? , modifyDate = ? WHERE id = ?
          `,
-            [newname || user[0].name_user, newlastname || user[0].lastname, newlastname2 || user[0].lastname2, newbio || user[0].bio, newaddress || user[0].address, formatnewbirthdate || format(user[0].birthdate, new Date(), iduser]);
+            [newname || user[0].name_user, newlastname || user[0].lastname, newlastname2 || user[0].lastname2, newbio || user[0].bio, newaddress || user[0].address, formatnewbirthdate || user[0].birthdate, new Date(), iduser]);
 
         res.send({
             status: 'ok',
