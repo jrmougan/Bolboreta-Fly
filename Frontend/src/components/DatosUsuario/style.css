@@ -1,10 +1,20 @@
+#getuser {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 input {
   max-width: 250px;
 }
 label {
+  margin-top: 10px;
   text-align: center;
 }
-
+h2 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 .fotousuario {
   width: 100%;
   height: 100%;
@@ -20,10 +30,15 @@ label {
   width: 170px;
   height: 40px;
   color: white;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 .fotocontainer {
   width: 300px;
   height: 300px;
   margin-bottom: 10px;
+}
+#bio {
+  width: 200px;
+  height: 100px;
+  margin-top: 10px;
 }

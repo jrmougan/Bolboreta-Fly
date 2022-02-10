@@ -20,6 +20,7 @@ const EditUser = () => {
     const [newbirthdate, setNewbirthdate] = useState(user.userInfo?.birthdate);
     const [newaddress, setNewaddress] = useState(user.userInfo?.address);
     const [newbio, setNewbio] = useState(user.userInfo?.bio);
+    console.log(user.userInfo?.birthdate)
 
 
     console.log(decodedToken.id);
@@ -65,6 +66,12 @@ const EditUser = () => {
         }
     };
 
+    const handleBirthdate = (e) => {
+        setNewbirthdate(e.target.value || user.userInfo?.birthdate);
+        console.log(e.target.value)
+
+    }
+
 
     return (
         <div>
@@ -102,6 +109,7 @@ const EditUser = () => {
                     value={newlastname}
                     onChange={(e) => {
                         setLastname(e.target.value);
+
                     }}
                     placeholder={user.userInfo?.lastname}
                 />
@@ -127,9 +135,9 @@ const EditUser = () => {
                     name="birthdate"
                     type="date"
                     value={newbirthdate}
-                    onChange={(e) => {
-                        setNewbirthdate(e.target.value);
-                    }}
+                    onChange={handleBirthdate
+
+                    }
                 />
 
 

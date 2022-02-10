@@ -112,12 +112,6 @@ async function deletePhoto(photoname) {
     }
 }
 
-// Estructura de la fecha
-/*
-function formatDate(date) {
-    return format(date, 'yyy-MM-dd HH:mm:ss');
-}
-*/
 
 module.exports = {
     hashedPassword,
@@ -126,4 +120,5 @@ module.exports = {
     savePhoto,
     deletePhoto,
     sendMail,
+
 };

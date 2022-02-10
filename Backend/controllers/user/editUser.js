@@ -1,6 +1,7 @@
 const getDB = require('../../database/getDB');
-
+const { format, parseISO } = require('date-fns');
 const { generateRandomString, mailVerify } = require('../../helpers');
+
 
 
 const editUser = async (req, res, next) => {
@@ -52,10 +53,13 @@ const editUser = async (req, res, next) => {
 
         // Actualizamos todo lo que ha podido guardar el usuario
 
+        const formatnewbirthdate = format((parseISO(newbirthdate)), 'yyyy-MM-dd');
+
+
         await connection.query(`
          UPDATE user SET name_user = ?, lastname = ?, lastname2 = ?, bio = ?, address = ?, birthdate = ? , modifyDate = ? WHERE id = ?
          `,
-            [newname || user[0].name_user, newlastname || user[0].lastname, newlastname2 || user[0].lastname2, newbio || user[0].bio, newaddress || user[0].address, newbirthdate || user[0].birthdate, new Date(), iduser]);
+            [newname || user[0].name_user, newlastname || user[0].lastname, newlastname2 || user[0].lastname2, newbio || user[0].bio, newaddress || user[0].address, formatnewbirthdate || format(user[0].birthdate, new Date(), iduser]);
 
         res.send({
             status: 'ok',
