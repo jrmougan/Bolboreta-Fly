@@ -64,13 +64,9 @@ export const BasicSearch = ({
             <MenuItem value={6}>6 adultos</MenuItem>
           </Select>
         </div>
-        <Link
-          to={`search/${origin}/${destination}/${departureDate}/${adults}`}
-          className='btn btn-search'
-          type='submit'
-        >
+        <button className='btn btn-search' type='submit'>
           Buscar
-        </Link>
+        </button>
       </form>
     </section>
   );

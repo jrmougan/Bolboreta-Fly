@@ -15,7 +15,7 @@ const useSearch = (searching) => {
     e.preventDefault();
     setLoading(true);
     try {
-      let fetchUrl = `${process.env.REACT_APP_PUBLIC_HOST_BACKEND}search?origin=${origin}&destination=${destination}&departuredate=${departureDate}&adults=${adults}`;
+      let fetchUrl = `${process.env.REACT_APP_PUBLIC_HOST_BACKEND}/search?origin=${origin}&destination=${destination}&departuredate=${departureDate}&adults=${adults}`;
       if (returnDate) {
         fetchUrl += `&returndate=${returnDate}`;
       }

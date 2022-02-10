@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 export const ListFlights = ({ data }) => {
   return (
     <section>
@@ -24,7 +26,9 @@ export const ListFlights = ({ data }) => {
               <p>
                 {flight.price.total} {flight.price.currency}
               </p>
-              <button className='btn btnFlight'>Ir al vuelo</button>
+              <Link to='/stepper/1' className='btn btnFlight'>
+                Ir al vuelo
+              </Link>
             </div>
           </article>
         ))}

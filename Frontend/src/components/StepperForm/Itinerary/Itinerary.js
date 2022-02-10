@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import '../style.css';
 import SegmentContainer from './SegmentContainer';
 import ContactInfo from './ContactInfo';
@@ -7,6 +7,7 @@ import flightExample from '../InfoFlights/flightExample';
 import airports from '../InfoFlights/airports.json';
 import airlines from '../InfoFlights/airlines.json';
 import { tripIncludes } from '../InfoFlights/constantInfo';
+// import OfferPriceContext from '../../../context/OfferPriceContext';
 
 const dateToFormat = '2022-02-21T17:10:00';
 // console.log(dateToFormat.toLocaleString());
