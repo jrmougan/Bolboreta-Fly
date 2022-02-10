@@ -7,29 +7,30 @@ import flightExample from '../InfoFlights/flightExample';
 import airports from '../InfoFlights/airports.json';
 import airlines from '../InfoFlights/airlines.json';
 import { tripIncludes } from '../InfoFlights/constantInfo';
-// import OfferPriceContext from '../../../context/OfferPriceContext';
+import { OfferPriceContext } from '../../../context/OfferPriceContext';
 
+/* 
+##################
+## INFO NO REAL ##
+##################
+*/
 const dateToFormat = '2022-02-21T17:10:00';
 // console.log(dateToFormat.toLocaleString());
 const newDate = new Date('2022-02-21T17:10:00');
 // console.log(newDate);
-
 const srcLogo = airlines[100].logo;
-
 const flightOffer = flightExample.data.flightOffers;
 const itineraries = flightOffer[0].itineraries[0].segments[0];
-
 const airlineInfo = itineraries.operating.carrierCode;
-console.log(airlines);
-console.log(flightOffer);
 const infoAirline = 'AF';
-
 const france = airlines.find((airline) => {
   return JSON.stringify(airline.code) === 'TP';
 });
-console.log(france);
 
 const Itinerary = () => {
+  // const [flightOffers] = useContext(OfferPriceContext);
+  // console.log(flightOffers);
+
   const infoMainContact = {
     name: 'Firulais García',
     email: ' fulanitocontrerasmansalva@gamil.com',
@@ -45,15 +46,11 @@ const Itinerary = () => {
   const superPassenger = '';
   const totalPrice = '128,17 €';
 
-  // Información de flightOffer
-
   // Encontramos el iataCode
   const iataCode = {
     departure: itineraries.departure.iataCode,
     arrival: itineraries.arrival.iataCode,
   };
-
-  // Información de airports
 
   // Horario de salida y llegada
   console.log(itineraries);

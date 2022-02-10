@@ -3,7 +3,7 @@ import React, { createContext, useState } from 'react';
 const OfferPriceContext = createContext();
 
 export function OfferPriceContextProvider({ children }) {
-  const [flightOffers, setFlightOffers] = useState();
+  const [flightOffers, setFlightOffers] = useState([]);
 
   return (
     <OfferPriceContext.Provider value={(flightOffers, setFlightOffers)}>
@@ -11,3 +11,5 @@ export function OfferPriceContextProvider({ children }) {
     </OfferPriceContext.Provider>
   );
 }
+
+export { OfferPriceContext };
