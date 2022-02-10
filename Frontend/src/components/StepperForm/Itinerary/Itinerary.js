@@ -1,17 +1,12 @@
 import { useEffect } from 'react';
 import '../style.css';
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import SegmentContainer from './SegmentContainer';
+import ContactInfo from './ContactInfo';
+import InTripIncluded from './InTripIncluded';
 import flightExample from '../InfoFlights/flightExample';
 import airports from '../InfoFlights/airports.json';
 import airlines from '../InfoFlights/airlines.json';
-import { FaCheck } from 'react-icons/fa';
-import {
-  ImCreditCard,
-  ImEnvelop,
-  ImHome,
-  ImMail4,
-  ImPhone,
-} from 'react-icons/im';
+import { tripIncludes } from '../InfoFlights/constantInfo';
 
 const dateToFormat = '2022-02-21T17:10:00';
 // console.log(dateToFormat.toLocaleString());
@@ -34,10 +29,13 @@ const france = airlines.find((airline) => {
 console.log(france);
 
 const Itinerary = () => {
-  const emailContact = ' fulanitocontrerasmansalva@gamil.com';
-  const phoneContact = ' +34 664 433 333';
-  const adressContact = 'Calle Nueva Perdicion';
-  const creditCardContact = ' Visa / 4 / Euro&000';
+  const infoMainContact = {
+    name: 'Firulais García',
+    email: ' fulanitocontrerasmansalva@gamil.com',
+    phone: ' +34 664 433 333',
+    address: 'Calle Nueva Perdicion',
+    creditCard: ' Visa / 4 / Euro&000',
+  };
 
   const returnDate = 0;
 
@@ -75,52 +73,15 @@ const Itinerary = () => {
 
   return (
     <section className='itinerary_container_end'>
-      <article className='info_container'>
-        <h1 className='title_info_container'>Itinerario: Vuelo</h1>
-        <div className='subtitle_info_container'>
-          <p>{returnDate ? 'Ida y Vuelta' : 'Ida'}</p>
-          <span>Duración {durationFlight}</span>
-        </div>
-        <span className='flight_confirmed'>
-          {' '}
-          <CheckCircleOutlineIcon /> Vuelo confirmado
-        </span>
-        <section id='segments_container'>
-          <div className='flightPart'>
-            <div className='segment'>
-              {
-                <p>
-                  <CheckCircleOutlineIcon /> {timeDep} - {/* {airport.name} */}{' '}
-                  Aeropuero de Munich ({/* {airport.code} */} MUC) Múnich -
-                  Alemania
-                </p>
-              }
-              <span className='date_flight'>
-                {monthDeparture} {/* Mar, 15 Dic */}{' '}
-              </span>
-              <div className='airline_info'>
-                <img alt='Logo' src={srcLogo} />
-                <div className=''>
-                  <p>Air France - AF 1423</p>
-                  <span> Tipo de avión/vehículo: 318 - Clase Turista</span>
-                </div>
-              </div>
-              <p>
-                <CheckCircleOutlineIcon /> {timeArr} - Charles de Gaulle (CDG)
-                París - Francia
-              </p>
-              <span className='date_flight'>
-                {monthArrival}
-                {/* Mar, 15 Dic */}
-              </span>
-            </div>
-            <div className='segment_scale'>
-              <p>Pueden producirse cambios</p>
-              <span>Duración de la escala: 7 h 20 min</span>
-            </div>
-          </div>
-        </section>
-      </article>
+      <SegmentContainer
+        returnDate={returnDate}
+        durationFlight={durationFlight}
+        timeDep={timeDep}
+        monthDeparture={monthDeparture}
+        monthArrival={monthArrival}
+        timeArr={timeArr}
+        srcLogo={srcLogo}
+      />
       <article className='info_container'>
         <h1>Pasajeros, asientos y equipaje</h1>
         <h2>Firulais García</h2>
@@ -157,50 +118,10 @@ const Itinerary = () => {
           </div>
         </div>
       </article>
-      <article className='info_container'>
-        <h1 className='title_include'> Tu viaje incluye</h1>
-        <p>
-          <FaCheck /> Gestiona tu viaje desde el móvil: recibe un mensaje en el
-          móvil con un enlace a una página web personalizada donde podrás
-          consultar el estado de tu viaje
-        </p>
-        <p>
-          <FaCheck /> Alertas sobre tu vuelo en tu teléfono: te mandamos un
-          mensaje al móvil informándote de cualquier cambio en tu vuelo
-        </p>
-        <p>
-          <FaCheck /> Atención al Cliente prioritaria: recibe atención al
-          cliente prioritaria a través del número de teléfono con tarifa
-          reducida .
-        </p>
-        <p>
-          <FaCheck /> Cambios en tu reserva: modificaciones y cancelaciones sin
-          ningún coste adicional
-        </p>
-      </article>
-      <article className='info_container'>
-        <h1>Información de facturación</h1>
-        <p className='bottom_line'>Contacto principal</p>
-        <h2> Firulais García</h2>
-        <div className='info_main_contact'>
-          <span>
-            {' '}
-            <ImEnvelop />
-            {emailContact}
-          </span>
-          <span>
-            <ImPhone /> {phoneContact}
-          </span>
-          <span>
-            <ImHome /> {adressContact}
-          </span>
-          <span>
-            <ImCreditCard /> {creditCardContact}
-          </span>
-        </div>
-        <span className='totalPrice'>Total: {totalPrice}</span>
-      </article>
+      <InTripIncluded tripIncludes={tripIncludes} />
+      <ContactInfo infoMainContact={infoMainContact} totalPrice={totalPrice} />
     </section>
   );
 };
+
 export default Itinerary;

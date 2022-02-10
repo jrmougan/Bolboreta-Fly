@@ -12,20 +12,23 @@ import StepperForm from '../components/StepperForm/StepperForm';
 import StepForm from '../components/StepForm/StepForm';
 import Itinerary from '../components/StepperForm/Itinerary/Itinerary';
 import SeatChoice from '../components/StepperForm/SeatChoice/SeatChoice';
-import FormPassenger from "../components/FormaPassenger/FormPassenger";
-import Header from "../components/ui/header/header";
+import FormPassenger from '../components/FormaPassenger/FormPassenger';
+import Header from '../components/ui/header/header';
 import HomeRound from '../page/HomeRound';
 import HomeMultiple from '../page/HomeMultiple';
-import { TokencontextProvider } from "../context/TokenContext";
+import { TokencontextProvider } from '../context/TokenContext';
 
-import Footer from "../components/ui/Footer/Footer";
+import Footer from '../components/ui/Footer/Footer';
 
 const Routing = () => {
   return (
     <Router>
       <TokencontextProvider>
         <Header></Header>
-        <main>
+
+        <Itinerary />
+        {/* <StepForm /> */}
+        {/*  <main>
           <nav>
             <ul>
               {routes.map((route) => {
@@ -48,7 +51,7 @@ const Routing = () => {
               );
             })}
           </Routes>
-        </main>
+        </main> */}
         <Footer />
       </TokencontextProvider>
     </Router>

@@ -2,6 +2,7 @@
   --clr-bg: #5d7ca6;
   --confirmed-flight: #3aa706;
   --clr-title: #605dec;
+  --clr-scale-title: #14a1ce;
 }
 body {
   background-color: #f7f6ff;
@@ -12,6 +13,9 @@ body {
 }
 .ter-clr {
   color: #7c8db0;
+}
+.bold {
+  font-weight: bold;
 }
 
 /* 
@@ -167,6 +171,9 @@ Muiinput-root {
   box-shadow: 0px 0px 10px 1px rgb(151, 147, 147);
   margin: 2rem 0;
 }
+.info_container img {
+  height: 40px;
+}
 @media screen and (min-width: 1000px) {
   .info_container {
     max-width: 830px;
@@ -193,6 +200,16 @@ Muiinput-root {
   background-color: rgba(204, 204, 204, 0.671);
   z-index: 2;
 }
+.flight_duration_container {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+.flight_duration {
+  background: rgba(204, 204, 204, 0.431);
+  padding: 0.5rem 0.5rem;
+  border-radius: 20px;
+}
 
 .flight_confirmed {
   display: block;
@@ -208,6 +225,19 @@ Muiinput-root {
 }
 .airline_info {
   display: flex;
+  align-items: center;
+  padding: 0 2rem;
+  margin: 1rem 0;
+}
+.airline_info img {
+  margin-right: 1rem;
+}
+.segment_scale {
+  margin: 3rem 1rem;
+}
+.segment_scale p {
+  color: var(--clr-scale-title);
+  font-weight: bolder;
 }
 /* 
 
