@@ -2,7 +2,6 @@ import './style.css';
 import React, { useEffect, useState } from 'react';
 
 import swal from 'sweetalert';
-import { Link, Navigate } from 'react-router-dom';
 
 
 const RecoverPass = () => {
