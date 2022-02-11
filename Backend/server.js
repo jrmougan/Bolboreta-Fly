@@ -49,6 +49,7 @@ const {
     newSearch,
     advanceSearch,
     seatMap,
+    citySearch,
 } = require('./controllers/search/index');
 
 
@@ -101,6 +102,7 @@ app.post('/login_google', loginGoogle);
  */
 
 app.get('/search', newSearch);
+app.get('/citysearch', citySearch)
 app.post('/advancesearch', advanceSearch);
 app.post('/booking/newBooking', isAuth, newBooking);
 app.get('/booking/:userId/getBookings', getBookings);
