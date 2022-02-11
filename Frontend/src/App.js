@@ -1,3 +1,4 @@
+
 import {
   BrowserRouter as Router,
   Routes,
@@ -13,6 +14,9 @@ import { HomeScreen } from './page';
 import HomeRound from './page/HomeRound';
 import HomeMultiple from './page/HomeMultiple';
 */
+
+
+import Autocomplete from './components/Autocomplete';
 
 function App() {
   return <Routing />;
