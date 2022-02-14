@@ -42,7 +42,7 @@ function Header() {
 
                 <section className="avatar">
                     <Link to='/login'>
-                        <button className='iniciosesion' >👤 Inicio de Sesión</button>
+                        <button className='iniciosesion' >👤 Inicio de Sesión / Registro</button>
 
                     </Link>
 

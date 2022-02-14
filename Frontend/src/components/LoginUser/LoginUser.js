@@ -1,4 +1,4 @@
-import logo from "../../logos/logo2.svg";
+
 import { TextField } from "@mui/material";
 import { Link, Navigate } from "react-router-dom";
 import "./style.css";
