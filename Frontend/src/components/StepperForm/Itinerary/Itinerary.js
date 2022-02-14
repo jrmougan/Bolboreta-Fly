@@ -8,6 +8,10 @@ import airports from '../InfoFlights/airports.json';
 import airlines from '../InfoFlights/airlines.json';
 import { tripIncludes } from '../InfoFlights/constantInfo';
 import { OfferPriceContext } from '../../../context/OfferPriceContext';
+import flightOrder from '../InfoFlights/flightOrderExample';
+import { formatDuration } from 'date-fns/esm';
+import { duration } from '@mui/material';
+import { format, formatISO, parse, parseISO } from 'date-fns';
 
 /* 
 ##################
@@ -17,6 +21,7 @@ import { OfferPriceContext } from '../../../context/OfferPriceContext';
 const dateToFormat = '2022-02-21T17:10:00';
 // console.log(dateToFormat.toLocaleString());
 const newDate = new Date('2022-02-21T17:10:00');
+
 // console.log(newDate);
 const srcLogo = airlines[100].logo;
 const flightOffer = flightExample.data.flightOffers;
@@ -27,9 +32,26 @@ const france = airlines.find((airline) => {
   return JSON.stringify(airline.code) === 'TP';
 });
 
+/* 
+#######################
+## INFO FLIGHT ORDER ##
+#######################
+*/
+console.log(flightOrder.data);
+// console.log(flightOrder.data.id);
+
+const durationFlightExample =
+  flightOrder.data.flightOffers[0].itineraries[1].duration;
+console.log(durationFlightExample);
+const result = parse('2016-01-01', 'hh-mm', new Date());
+console.log(result);
 const Itinerary = () => {
   // const [flightOffers] = useContext(OfferPriceContext);
   // console.log(flightOffers);
+
+  const flightOrderInfo = {
+    id: flightOrder.data.id,
+  };
 
   const infoMainContact = {
     name: 'Firulais García',
@@ -53,7 +75,7 @@ const Itinerary = () => {
   };
 
   // Horario de salida y llegada
-  console.log(itineraries);
+  // console.log(itineraries);
   const timeDeparture = itineraries.departure.at.split('T');
   const timeArrival = itineraries.arrival.at.split('T');
   const timeDep = timeDeparture[1];
@@ -66,20 +88,8 @@ const Itinerary = () => {
   const monthDeparture = mesDep.toDateString();
   const monthArrival = mesArr.toDateString();
 
-  const dateDep = timeDeparture[0];
-  const dateArr = timeArrival[0];
-
-  return (
-    <section className='itinerary_container_end'>
-      <SegmentContainer
-        returnDate={returnDate}
-        durationFlight={durationFlight}
-        timeDep={timeDep}
-        monthDeparture={monthDeparture}
-        monthArrival={monthArrival}
-        timeArr={timeArr}
-        srcLogo={srcLogo}
-      />
+  const SeatAndBaggage = () => {
+    return (
       <article className='info_container'>
         <h1>Pasajeros, asientos y equipaje</h1>
         <h2>Firulais García</h2>
@@ -116,6 +126,21 @@ const Itinerary = () => {
           </div>
         </div>
       </article>
+    );
+  };
+
+  return (
+    <section className='itinerary_container_end'>
+      <SegmentContainer
+        returnDate={returnDate}
+        durationFlight={durationFlight}
+        timeDep={timeDep}
+        monthDeparture={monthDeparture}
+        monthArrival={monthArrival}
+        timeArr={timeArr}
+        srcLogo={srcLogo}
+      />
+      <SeatAndBaggage />
       <InTripIncluded tripIncludes={tripIncludes} />
       <ContactInfo infoMainContact={infoMainContact} totalPrice={totalPrice} />
     </section>
