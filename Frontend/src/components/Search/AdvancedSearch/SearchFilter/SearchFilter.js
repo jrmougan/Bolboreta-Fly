@@ -5,13 +5,8 @@ import { SliderRange } from "./inputs/SliderRange";
 import { useState } from "react";
 
 export const SearchFilter = (props) => {
-  //Estado
-  const [filterState, setFilterState] = useState({
-    scales: "",
-    bagage: "",
-    duration: 0,
-    price: [100, 3000],
-  });
+
+  const [filterState, setFilterState] = props.filterState;
 
   //Manejadora evento
 
