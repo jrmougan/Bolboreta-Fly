@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import FormPassenger from '../components/FormaPassenger/FormPassenger';
 import {
   AdvancedSearchScreen,
@@ -35,6 +36,8 @@ const routes = [
   { name: 'return', path: '/return', component: <HomeRound /> },
   { name: 'multiple', path: '/multiple', component: <HomeMultiple /> },
 =======
+=======
+>>>>>>> 84ebbddc9b3c83cc59ec6e36a6fadb9a8b6d2920
 import {
   AdvancedSearchScreen,
   HomeScreen,
@@ -48,7 +51,10 @@ const routes = [
   { name: "register", path: "/register", component: <RegisterScreen /> },
   { name: "search", path: "/search", component: <AdvancedSearchScreen /> },
   { name: "user", path: "/user/:iduser", component: <ProfileScreen /> },
+<<<<<<< HEAD
 >>>>>>> Arreglado enrutado
+=======
+>>>>>>> 84ebbddc9b3c83cc59ec6e36a6fadb9a8b6d2920
 ];
 
 export default routes;

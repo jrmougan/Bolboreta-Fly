@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
 import '../App.css';
 import routes from './routes';
@@ -25,6 +26,11 @@ import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import routes from "./routes";
 //import App from "../App";
 >>>>>>> Arreglado enrutado
+=======
+import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
+import routes from "./routes";
+//import App from "../App";
+>>>>>>> 84ebbddc9b3c83cc59ec6e36a6fadb9a8b6d2920
 
 const Routing = () => {
   return (
