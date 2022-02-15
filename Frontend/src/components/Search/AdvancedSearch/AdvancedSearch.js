@@ -35,9 +35,9 @@ export const AdvancedSearch = (props) => {
 //Monitorización de estado de filtro de búsqueda
 
 
-  const [data, search, loading, override] = useSearch(({origin, destination, departureDate, returnDate, adults}), [filterState]);
+  let [data, loading, override] = useSearch(({origin, destination, departureDate, returnDate, adults}), [filterState]);
 
-  console.log('data:' + data);
+  console.log('data:' + loading);
 
 
   return (
@@ -49,7 +49,7 @@ export const AdvancedSearch = (props) => {
         <SearchFilter scales={selectScales} bagage={bagage} filterState={[filterState,setFilterState]} />
       </Grid>
       <Grid item xs={12} md={9}>
-      <ListFlights data={data}></ListFlights>
+      {loading ? <MoonLoader css={override} /> : <ListFlights data={data} />}
       </Grid>
     </Grid>
   );
