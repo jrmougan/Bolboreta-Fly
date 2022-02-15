@@ -5,8 +5,8 @@ const SegmentContainer = ({
   durationFlight,
   timeDep,
   timeArr,
-  monthDeparture,
-  monthArrival,
+  departureDate,
+  arrivalDate,
   srcLogo,
 }) => {
   return (
@@ -30,9 +30,7 @@ const SegmentContainer = ({
                 Alemania
               </p>
             }
-            <span className='date_flight'>
-              {monthDeparture} {/* Mar, 15 Dic */}{' '}
-            </span>
+            <span className='date_flight'>{departureDate} </span>
             <div className='airline_info'>
               <img alt='Logo' src={srcLogo} />
               <div className=''>
@@ -47,10 +45,7 @@ const SegmentContainer = ({
               <CheckCircleOutlineIcon /> {timeArr} - Charles de Gaulle (CDG)
               París - Francia
             </p>
-            <span className='date_flight'>
-              {monthArrival}
-              {/* Mar, 15 Dic */}
-            </span>
+            <span className='date_flight'>{arrivalDate}</span>
           </div>
           <div className='segment_scale'>
             <p>Pueden producirse cambios</p>

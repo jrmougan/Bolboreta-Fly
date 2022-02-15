@@ -1,7 +1,7 @@
 import React from 'react';
 import './style.css';
 
-const MyTrip = () => {
+const MyTrip = ({ goingDate, returnDate }) => {
   return (
     <div className='my-trip'>
       <h2>Mi viaje</h2>
@@ -12,7 +12,7 @@ const MyTrip = () => {
 
       <div className='box-flight'>
         <h4> Ida </h4>
-        <span className='date-flight'> Sábado, 28 Noviembre 2021</span>
+        <span className='date-flight'> {goingDate}</span>
         <div className='schedule-box'>
           <div className='departure-box'>
             <p>Salida</p>
@@ -32,7 +32,7 @@ const MyTrip = () => {
       </div>
       <div className='box-flight'>
         <h4> Vuelta </h4>
-        <span className='date-flight'> Lunes, 30 Noviembre 2021</span>
+        <span className='date-flight'> {returnDate}</span>
         <div className='schedule-box'>
           <div className='departure-box'>
             <p>Salida</p>

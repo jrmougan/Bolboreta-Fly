@@ -1,28 +1,21 @@
-import { useContext, useEffect } from 'react';
 import '../style.css';
 import SegmentContainer from './SegmentContainer';
 import ContactInfo from './ContactInfo';
 import InTripIncluded from './InTripIncluded';
+import SeatAndBaggage from './SeatAndBaggage';
 import flightExample from '../InfoFlights/flightExample';
 import airports from '../InfoFlights/airports.json';
 import airlines from '../InfoFlights/airlines.json';
 import { tripIncludes } from '../InfoFlights/constantInfo';
-import { OfferPriceContext } from '../../../context/OfferPriceContext';
 import flightOrder from '../InfoFlights/flightOrderExample';
-import { formatDuration } from 'date-fns/esm';
-import { duration } from '@mui/material';
-import { format, formatISO, parse, parseISO } from 'date-fns';
+import { dateFormat } from '../../../helpers/formatHelp';
 
 /* 
 ##################
-## INFO NO REAL ##
+## INFO NO REAL ## SON SOLO DE PRUEBA
 ##################
 */
-const dateToFormat = '2022-02-21T17:10:00';
-// console.log(dateToFormat.toLocaleString());
-const newDate = new Date('2022-02-21T17:10:00');
 
-// console.log(newDate);
 const srcLogo = airlines[100].logo;
 const flightOffer = flightExample.data.flightOffers;
 const itineraries = flightOffer[0].itineraries[0].segments[0];
@@ -34,21 +27,14 @@ const france = airlines.find((airline) => {
 
 /* 
 #######################
-## INFO FLIGHT ORDER ##
+## INFO FLIGHT ORDER ## PROBAND
 #######################
 */
-console.log(flightOrder.data);
-// console.log(flightOrder.data.id);
 
 const durationFlightExample =
   flightOrder.data.flightOffers[0].itineraries[1].duration;
-console.log(durationFlightExample);
-const result = parse('2016-01-01', 'hh-mm', new Date());
-console.log(result);
-const Itinerary = () => {
-  // const [flightOffers] = useContext(OfferPriceContext);
-  // console.log(flightOffers);
 
+const Itinerary = () => {
   const flightOrderInfo = {
     id: flightOrder.data.id,
   };
@@ -61,73 +47,30 @@ const Itinerary = () => {
     creditCard: ' Visa / 4 / Euro&000',
   };
 
-  const returnDate = 0;
+  // Info para que el código no de error y
+  // visualizar casi hardcoded
 
+  const returnDate = 0;
   const durationFlight = '11 h 35 min';
   const seatChosen = null;
   const superPassenger = '';
   const totalPrice = '128,17 €';
 
-  // Encontramos el iataCode
+  // iataCode de los aeropuertos en OfferPrice de Amadeus
   const iataCode = {
     departure: itineraries.departure.iataCode,
     arrival: itineraries.arrival.iataCode,
   };
 
-  // Horario de salida y llegada
-  // console.log(itineraries);
+  // Horario de salida y llegada sin formatear
   const timeDeparture = itineraries.departure.at.split('T');
   const timeArrival = itineraries.arrival.at.split('T');
   const timeDep = timeDeparture[1];
   const timeArr = timeArrival[1];
 
   // Fecha de salida y llegada
-  const mesDep = new Date(timeDeparture[0]);
-  const mesArr = new Date(timeArrival[0]);
-
-  const monthDeparture = mesDep.toDateString();
-  const monthArrival = mesArr.toDateString();
-
-  const SeatAndBaggage = () => {
-    return (
-      <article className='info_container'>
-        <h1>Pasajeros, asientos y equipaje</h1>
-        <h2>Firulais García</h2>
-        <p className='bottom_line'>Adulto</p>
-        <div className='aditional_info_container'>
-          <div className='aditional_info'>
-            <span>Maletas facturadas</span>
-            <p> 0 maletas </p>
-          </div>
-          <div className='aditional_info'>
-            {' '}
-            <span>Asientos</span>
-            <p>
-              {' '}
-              {seatChosen
-                ? seatChosen
-                : 'No se ha seleccionado ningún asiento'}{' '}
-            </p>
-          </div>
-          <div className='aditional_info'>
-            {' '}
-            <span>Pasajero frecuente</span>
-            <p>
-              {' '}
-              {superPassenger
-                ? superPassenger
-                : 'No se ha añadido código de pasajero frecuente'}{' '}
-            </p>
-          </div>
-          <div className='aditional_info'>
-            {' '}
-            <span>Selección de comida (solicitada a compañía aérea</span>
-            <p>Estándar</p>
-          </div>
-        </div>
-      </article>
-    );
-  };
+  const departureDate = dateFormat(new Date(timeDeparture[0]));
+  const arrivalDate = dateFormat(new Date(timeArrival[0]));
 
   return (
     <section className='itinerary_container_end'>
@@ -135,12 +78,12 @@ const Itinerary = () => {
         returnDate={returnDate}
         durationFlight={durationFlight}
         timeDep={timeDep}
-        monthDeparture={monthDeparture}
-        monthArrival={monthArrival}
+        departureDate={departureDate}
+        arrivalDate={arrivalDate}
         timeArr={timeArr}
         srcLogo={srcLogo}
       />
-      <SeatAndBaggage />
+      <SeatAndBaggage seatChosen={seatChosen} superPassenger={superPassenger} />
       <InTripIncluded tripIncludes={tripIncludes} />
       <ContactInfo infoMainContact={infoMainContact} totalPrice={totalPrice} />
     </section>

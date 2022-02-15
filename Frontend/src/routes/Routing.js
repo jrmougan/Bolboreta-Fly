@@ -9,6 +9,7 @@ import {
   RegisterScreen,
 } from '../page';
 import StepperForm from '../components/StepperForm/StepperForm';
+import RateChoice from '../components/StepperForm/RateChoice';
 import StepForm from '../components/StepForm/StepForm';
 import Itinerary from '../components/StepperForm/Itinerary/Itinerary';
 import SeatChoice from '../components/StepperForm/SeatChoice/SeatChoice';
@@ -30,6 +31,7 @@ const Routing = () => {
           <Header></Header>
           {
             <main>
+              <StepForm />
               <nav>
                 <ul>
                   {routes.map((route) => {
