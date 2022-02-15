@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
 import '../App.css';
 import routes from './routes';
@@ -21,16 +19,6 @@ import HomeMultiple from '../page/HomeMultiple';
 import { TokencontextProvider } from "../context/TokenContext";
 
 import Footer from "../components/ui/Footer/Footer";
-=======
-import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
-import routes from "./routes";
-//import App from "../App";
->>>>>>> Arreglado enrutado
-=======
-import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
-import routes from "./routes";
-//import App from "../App";
->>>>>>> 84ebbddc9b3c83cc59ec6e36a6fadb9a8b6d2920
 
 const Routing = () => {
   return (
@@ -59,30 +47,10 @@ const Routing = () => {
                 ></Route>
               );
             })}
-<<<<<<< HEAD
           </Routes>
         </main>
         <Footer />
       </TokencontextProvider>
-=======
-          </ul>
-        </nav>
-
-        {/* A <Switch> looks through its children <Route>s and
-              renders the first one that matches the current URL. */}
-        <Routes>
-          {routes.map((route) => {
-            return (
-              <Route
-                key={route.path}
-                path={route.path}
-                element={route.component}
-              ></Route>
-            );
-          })}
-        </Routes>
-      </div>
->>>>>>> Arreglado enrutado
     </Router>
   );
 };
