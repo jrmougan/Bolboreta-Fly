@@ -3,7 +3,7 @@ const getDB = require('../../database/getDB');
 
 const { generateRandomString, sendMail } = require('../../helpers');
 
-const { PUBLIC_HOST } = process.env;
+const { PUBLIC_HOST_FRONT } = process.env;
 
 const recoveryPass = async (req, res, next) => {
 
@@ -31,6 +31,8 @@ const recoveryPass = async (req, res, next) => {
             const recoverCode = generateRandomString(40);
             const emailBody = `Se ha solicitado la recuperación de su contraseña en Bolboreta Flight
             Este es el código de recuperacion de contraseña : ${recoverCode}.
+             Copialo y pegalo en el siguiente enlace :
+             <a href="${PUBLIC_HOST_FRONT}resetpass"> Recupera Tu contraseña </a>
             Si no has sido tu, ignora este email`;
 
             await sendMail({

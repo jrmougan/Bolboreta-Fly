@@ -1,17 +1,8 @@
 import FormPassenger from '../components/FormaPassenger/FormPassenger';
 import StepForm from '../components/StepForm/StepForm';
-import {
-  AdvancedSearchScreen,
-  DatosUsuario,
-  ProfileScreen,
-  HomeRound,
-  HomeScreen,
-  RecoveryPass,
-  RegisterScreen,
-  HomeMultiple,
-  EditPass,
-  ResetPassScreen,
-} from '../page';
+import { AdvancedSearchScreen, DatosUsuario, ProfileScreen, HomeRound, HomeScreen, RecoveryPass, RegisterScreen, HomeMultiple, EditPass, ResetPassScreen, ActiveUserScreen, LoginScreen } from "../page";
+
+
 
 const routes = [
   { name: 'home', path: '/', component: <HomeScreen /> },
@@ -35,6 +26,8 @@ const routes = [
   { name: 'edit', path: '/user/:iduser/edit', component: <DatosUsuario /> },
   { name: 'return', path: '/return', component: <HomeRound /> },
   { name: 'multiple', path: '/multiple', component: <HomeMultiple /> },
+  { name: 'activeuser', path: '/register/validate/:registration_code', component: <ActiveUserScreen /> },
+  { name: 'loginuser', path: '/login', component: <LoginScreen /> },
 ];
 
 export default routes;

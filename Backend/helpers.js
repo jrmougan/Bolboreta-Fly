@@ -6,7 +6,7 @@ const sharp = require('sharp');
 const { ensureDir, unlink } = require('fs-extra');
 const uuid = require('uuid');
 
-const { SENDGRID_API_KEY, SENDGRID_FROM, PUBLIC_HOST, UPLOAD_DIRECTORY } =
+const { SENDGRID_API_KEY, SENDGRID_FROM, PUBLIC_HOST_FRONT, UPLOAD_DIRECTORY } =
     process.env;
 
 // ruta directorio donde guardar avatar
@@ -58,7 +58,7 @@ async function mailVerify(email, registration_code) {
     const bodyemail = `
         Para activar tu registro en Bolboreta Flight, 
         pulsa el link siguiente para verificar tu email:
-        <a href="${PUBLIC_HOST}register/validate/${registration_code}"> Pulsa aqui </a>`;
+        <a href="${PUBLIC_HOST_FRONT}register/validate/${registration_code}"> Pulsa aqui </a>`;
     await sendMail({
         to: email,
         subject: 'Activación registro de Bolboreta Flight',
@@ -112,12 +112,6 @@ async function deletePhoto(photoname) {
     }
 }
 
-// Estructura de la fecha
-/*
-function formatDate(date) {
-    return format(date, 'yyy-MM-dd HH:mm:ss');
-}
-*/
 
 module.exports = {
     hashedPassword,
@@ -126,4 +120,5 @@ module.exports = {
     savePhoto,
     deletePhoto,
     sendMail,
+
 };
