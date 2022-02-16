@@ -1,6 +1,6 @@
 
 import React, { useState } from "react";
-import useLocalStorage from "../../hooks/useLocalStorage";
+
 import "./mainForm.css";
 
 import { TextField } from "@mui/material";
@@ -15,20 +15,20 @@ import swal from "sweetalert";
 
 const MainForm = () => {
 
-  const [nombre, setNombre] = useLocalStorage('nombre', '');
-  const [primerApellido, setPrimerApellido] = useLocalStorage(
-    'primerApellido',
+  const [nombre, setNombre] = useState('');
+  const [primerApellido, setPrimerApellido] = useState(
+
     ''
   );
 
-  const [email, setEmail] = useLocalStorage('email', '');
-  const [password, setPassword] = useLocalStorage('password', '');
-  const [passwordRepeat, setPasswordRepeat] = useLocalStorage(
-    'passwordRepeat',
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordRepeat, setPasswordRepeat] = useState(
+
     ''
   );
-  const [birthdate, setBirthdate] = useLocalStorage('birthdate', '1995/10/31');
-  const [bio, setBio] = useLocalStorage('bio', '');
+  const [birthdate, setBirthdate] = useState('birthdate', '1995/10/31');
+  const [bio, setBio] = useState('');
 
 
   const handleSubmit = (setter) => (e) => {
