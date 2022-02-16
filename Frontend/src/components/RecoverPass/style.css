@@ -1,6 +1,7 @@
 .form_recover_pass {
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 .envioemail {

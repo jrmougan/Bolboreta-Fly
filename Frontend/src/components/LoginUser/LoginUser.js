@@ -1,4 +1,4 @@
-import logo from "../../logos/logo2.svg";
+
 import { TextField } from "@mui/material";
 import { Link, Navigate } from "react-router-dom";
 import "./style.css";
@@ -6,10 +6,11 @@ import { useState, useContext } from "react";
 import { TokenContext } from "../../context/TokenContext";
 
 import swal from "sweetalert";
-import GoogleLoginButton from "./LoginGoogle";
 
-function PopUpLogin({ setShowPopUp }) {
+
+function LoginUser() {
     const [email, setEmail] = useState("");
+
     const handleEmail = (e) => {
         setEmail(e.target.value);
     };
@@ -19,7 +20,7 @@ function PopUpLogin({ setShowPopUp }) {
     };
 
     const [token, setToken] = useContext(TokenContext);
-    console.log("token", token);
+
 
     const login = async (e) => {
         e.preventDefault();
@@ -34,7 +35,7 @@ function PopUpLogin({ setShowPopUp }) {
             });
             if (res.ok) {
                 const body = await res.json();
-                console.log(body)
+
                 setToken(body.data.token);
             } else {
                 const error = await res.json();
@@ -50,29 +51,15 @@ function PopUpLogin({ setShowPopUp }) {
     const switchShown = () => setShown(!shown);
 
     if (token) {
-        return <Navigate to={`/`} />;
+        return <Navigate to='/' />;
     }
 
 
-
-    const handleregister = (e) => {
-        setShowPopUp(false);
-        return <Navigate to='/register' />;
-    }
-
-    const handlerecover = (e) => {
-        setShowPopUp(false);
-        console.log("envento", e);
-        return <Navigate to='/recover' />;
-    };
 
     return (
         <div className="formulario">
-            <section className="logo">
-                <img src={logo} className="logos" alt="logo2" />
-                <h3> Bolboreta Flight </h3>
-            </section>
-            <section className="form">
+
+            <section className="form_logueo">
                 <form onSubmit={login} className="login">
                     <TextField
                         id="usuario"
@@ -90,12 +77,14 @@ function PopUpLogin({ setShowPopUp }) {
                         onChange={handlePassword}
                     />
 
+
                     <button className="sesion" type="submit"> Inicio de Sesión </button>
+
 
 
                 </form>
 
-                <GoogleLoginButton />
+
 
                 <section className="show">
                     <button className="passshow" onClick={switchShown}>
@@ -103,7 +92,7 @@ function PopUpLogin({ setShowPopUp }) {
                         {shown ? "Ocultar contraseña" : "Mostrar contraseña"}{" "}
                     </button>
                     <Link to='/recover'>
-                        <button onClick={handlerecover} className="pregunta" type='button'>
+                        <button className="pregunta" type='button'>
                             ¿Has olvidado la contraseña?{" "}
                         </button>
                     </Link>
@@ -113,9 +102,11 @@ function PopUpLogin({ setShowPopUp }) {
 
 
                 <section className="registro">
+
                     <Link to="/register">
-                        <button onClick={handleregister} className="registerlogin" type="button">
-                            {" "}
+
+                        <button className="registerlogin" type="button">
+
                             REGISTRATE{" "}
                         </button>
                     </Link>
@@ -125,4 +116,4 @@ function PopUpLogin({ setShowPopUp }) {
     );
 }
 
-export default PopUpLogin;
+export default LoginUser;

@@ -2,6 +2,7 @@
   --clr-bg: #5d7ca6;
   --confirmed-flight: #3aa706;
   --clr-title: #605dec;
+  --clr-scale-title: #14a1ce;
 }
 body {
   background-color: #f7f6ff;
@@ -12,6 +13,9 @@ body {
 }
 .ter-clr {
   color: #7c8db0;
+}
+.bold {
+  font-weight: bold;
 }
 
 /* 
@@ -29,16 +33,18 @@ body {
 ## PASSENGER INFO ##
 ####################
 */
-form {
+/* form {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+} */
+
+.passengeForm {
+  display: flex;
 }
-.FormularioPasajero {
-  padding: 2rem 2rem;
-}
+
 .enviardatos {
   border: 1px solid;
   background: #5d7ca6;
@@ -89,20 +95,30 @@ Muiinput-root {
   display: flex;
   justify-content: space-around;
   border: 1px solid black;
-  max-width: 80%;
+  width: 100%;
   margin: 1rem auto;
-  padding: 1rem 0;
-  flex-grow: 3;
+  padding: 1rem;
+
+  height: 150px;
 }
 
 .rate-card span {
   font-weight: bold;
 }
+.title {
+  align-self: center;
+}
+.title h2 {
+  transform: rotate(-90deg);
+}
 .rateChoicePage {
   display: flex;
 }
-.rates-choices {
-  flex-grow: 3;
+
+.rate-price {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .btn-card {
@@ -111,6 +127,35 @@ Muiinput-root {
   border: none;
   padding: 0.5rem 2rem;
   border-radius: 15px;
+}
+
+@media screen and (max-width: 710px) {
+  .rateChoicePage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.8rem;
+  }
+  .btn-card {
+    font-size: 0.5rem;
+    margin-top: 1rem;
+  }
+}
+
+@media screen and (min-width: 710px) {
+  .rates-choices {
+    flex-grow: 3;
+  }
+  .rate-card {
+    display: flex;
+    justify-content: space-around;
+    border: 1px solid black;
+    max-width: 80%;
+    margin: 1rem auto;
+    padding: 1rem 0;
+
+    height: 150px;
+  }
 }
 
 /* 
@@ -125,6 +170,17 @@ Muiinput-root {
   align-items: center;
   width: 200px;
   flex-grow: 1;
+  padding: 2rem 0;
+}
+
+.my-trip h2 {
+  margin: 1rem 0 2rem;
+}
+.my-trip h3 {
+  margin: 1rem 0;
+}
+.my-trip h4 {
+  margin: 1rem 0 0.6rem;
 }
 .date-flight {
   font-weight: bold;
@@ -132,16 +188,19 @@ Muiinput-root {
 .schedule-box {
   display: flex;
   border: 1px solid black;
-  border-radius: 5px 5px 0 0;
+  border-radius: 5px 5px 5px 5px;
   background-color: var(--clr-bg);
+  margin-top: 0.8rem;
 }
 
 .arrival-schedule,
 .departure-schedule {
+  padding: 0.5rem 0.2rem;
   border: 1px solid black;
-  width: 100px;
-  display: flex;
-  flex-flow: nowrap column;
+  width: 105px;
+  display: block;
+  /*   display: flex;
+  flex-flow: nowrap column; */
   align-items: center;
 }
 
@@ -166,6 +225,9 @@ Muiinput-root {
   border-radius: 5px;
   box-shadow: 0px 0px 10px 1px rgb(151, 147, 147);
   margin: 2rem 0;
+}
+.info_container img {
+  height: 40px;
 }
 @media screen and (min-width: 1000px) {
   .info_container {
@@ -193,6 +255,16 @@ Muiinput-root {
   background-color: rgba(204, 204, 204, 0.671);
   z-index: 2;
 }
+.flight_duration_container {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+.flight_duration {
+  background: rgba(204, 204, 204, 0.431);
+  padding: 0.5rem 0.5rem;
+  border-radius: 20px;
+}
 
 .flight_confirmed {
   display: block;
@@ -208,6 +280,19 @@ Muiinput-root {
 }
 .airline_info {
   display: flex;
+  align-items: center;
+  padding: 0 2rem;
+  margin: 1rem 0;
+}
+.airline_info img {
+  margin-right: 1rem;
+}
+.segment_scale {
+  margin: 3rem 1rem;
+}
+.segment_scale p {
+  color: var(--clr-scale-title);
+  font-weight: bolder;
 }
 /* 
 

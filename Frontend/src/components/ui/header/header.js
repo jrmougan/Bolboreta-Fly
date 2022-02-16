@@ -2,8 +2,7 @@ import { Link } from "react-router-dom";
 import logo from "../../../logos/logo2.svg";
 import "./style.css";
 import { useContext, useState } from "react";
-import PopUp from "../../popUpLogin/PopUp";
-import PopUpLogin from "../../popUpLogin/PopUpLogin";
+import LoginUser from "../../LoginUser/LoginUser";
 
 
 import { TokenContext } from "../../../context/TokenContext";
@@ -12,7 +11,7 @@ import Avatar from "../Avatar/Avatar";
 
 function Header() {
     const [token] = useContext(TokenContext);
-    const [showPopUp, setShowPopUp] = useState(false);
+
 
 
 
@@ -42,14 +41,15 @@ function Header() {
                 </section>
 
                 <section className="avatar">
+                    <Link to='/login'>
+                        <button className='iniciosesion' >👤 Inicio de Sesión / Registro</button>
 
-                    <button className='iniciosesion' onClick={(e) => setShowPopUp(true)}>👤 Inicio de Sesión</button>
+                    </Link>
 
 
                 </section>
 
-                {showPopUp && (<PopUp setShowPopUp={setShowPopUp}> <PopUpLogin setShowPopUp={setShowPopUp} /> </PopUp>)
-                }
+
             </header>
         );
     }

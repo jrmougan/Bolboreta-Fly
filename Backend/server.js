@@ -7,7 +7,6 @@ const { PORT } = process.env;
 const app = express();
 app.use(cors());
 
-app.use(cors());
 /**
  * #################
  * ## Middlewares ##
@@ -50,7 +49,6 @@ const {
     advanceSearch,
     seatMap,
 } = require('./controllers/search/index');
-
 
 const {
     newBooking,
@@ -107,7 +105,6 @@ app.get('/booking/:userId/getBookings', getBookings);
 app.get('/booking/:bookingId/getBooking', getBooking);
 app.post('/pricing', offerPrice);
 app.post('/seatmap', seatMap);
-
 
 /**
  * #########################

@@ -1,4 +1,4 @@
-import { Checkbox } from '@mui/material';
+
 import { React, useEffect, useState } from 'react';
 import swal from 'sweetalert';
 import './style.css';
@@ -12,7 +12,6 @@ const ResetPass = () => {
         setRecovercode(recovercode);
         setNewpassword(newpassword);
     }, [recovercode, newpassword]);
-    console.log(recovercode);
 
     const fetchresetpass = async (e) => {
         e.preventDefault();
@@ -43,7 +42,7 @@ const ResetPass = () => {
     const [shown, setShown] = useState(false);
     const switchShown = () => setShown(!shown);
     return (
-        <div>
+        <div className='reser_pass'>
             <form className='reset_pass' onSubmit={fetchresetpass}>
                 <div className='input_container'>
                     <label htmlFor='recovercode'> Introduzca aqui el código que le hemos mandado a su email </label>

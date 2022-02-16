@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { OfferPriceContextProvider } from '../context/OfferPriceContext';
 
 const useSearch = (searching) => {
   const { origin, destination, departureDate, returnDate, adults, filterState } = searching;
@@ -18,6 +19,7 @@ const useSearch = (searching) => {
     try {
       let fetchUrl = `${process.env.REACT_APP_PUBLIC_HOST_BACKEND}search?origin=${origin}&destination=${destination}&departuredate=${departureDate}&adults=${adults}`;
       console.log('fetchurl: ' + fetchUrl);
+
       if (returnDate) {
         fetchUrl += `&returndate=${returnDate}`;
       }
@@ -26,6 +28,8 @@ const useSearch = (searching) => {
 
       if (response.ok) {
         setData(body.data.data);
+        console.log(data);
+        // setFlightOffers(body.data.data);
         setLoading(false);
       }
     } catch (error) {
