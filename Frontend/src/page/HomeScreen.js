@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link, Outlet, Route, Routes, Router } from 'react-router-dom';
 import useLocalStorage from '../hooks/useLocalStorage';
 import '../css/homescreen.css';
 import { BasicSearch } from '../components/Search/BasicSearch/BasicSearch';
