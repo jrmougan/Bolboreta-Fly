@@ -11,10 +11,7 @@ const HomeRound = () => {
 
   const [origin, setOrigin] = useLocalStorage('origin', '');
   const [destination, setDestination] = useLocalStorage('password', '');
-  const [departureDate, setDepartureDate] = useLocalStorage(
-    'departureDate',
-    ''
-  );
+  const [departureDate, setDepartureDate] = useState('');
   const [returnDate, setReturndate] = useState('');
   const [adults, setAdults] = useLocalStorage('adult', '');
 
@@ -51,6 +48,7 @@ const HomeRound = () => {
           origin={origin}
           setOrigin={setOrigin}
           setDestination={setDestination}
+          departureDate={departureDate}
           setDepartureDate={setDepartureDate}
           returnDate={returnDate}
           setAdults={setAdults}

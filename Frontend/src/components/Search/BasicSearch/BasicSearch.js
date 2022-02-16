@@ -64,9 +64,13 @@ export const BasicSearch = ({
             <MenuItem value={6}>6 adultos</MenuItem>
           </Select>
         </div>
-        <button className='btn btn-search' type='submit'>
+        <Link
+          to={`search/${origin}/${destination}/${departureDate}/${adults}`}
+          className='btn btn-search'
+          type='submit'
+        >
           Buscar
-        </button>
+        </Link>
       </form>
     </section>
   );
@@ -137,9 +141,13 @@ export const RoundTrip = ({
             </Select>
           </div>
 
-          <button className='btn btn-search' type='submit'>
+          <Link
+            to={`search/${origin}/${destination}/${departureDate}/${returnDate}/${adults}`}
+            className='btn btn-search'
+            type='submit'
+          >
             Buscar
-          </button>
+          </Link>
         </form>
       }
     </section>
