@@ -8,8 +8,9 @@ import DatosUsuario from './DatosdeUsuario';
 import RecoveryPass from "./RecoveryPass";
 import EditPass from "./Editpass";
 import ResetPassScreen from "./ResetPassScreen";
-import HomeMultiple  from "./HomeMultiple";
+import HomeMultiple from "./HomeMultiple";
 import HomeRound from "./HomeRound";
+import ActiveUserScreen from "./ActiveUser";
 
 
 export {
@@ -24,5 +25,6 @@ export {
   EditPass,
   ResetPassScreen,
   HomeMultiple,
-  HomeRound
+  HomeRound,
+  ActiveUserScreen,
 };

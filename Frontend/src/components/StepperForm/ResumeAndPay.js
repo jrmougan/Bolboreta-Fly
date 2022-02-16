@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import useLocalStorage from '../../hooks/useLocalStorage';
+import PayPal from '../PayPal/PayPal';
 
 const LogoAirline = () => {
   return (
@@ -26,9 +27,8 @@ const ResumeandPay = () => {
     <div className='paymentConfirmationContainer'>
       <div className='paymentElection'>
         <h1 className='title_payment'>Método de Pago</h1>
-        <p>Selecciona un método de pago</p>
-        <button className='card_selection'> Tarjeta de crédito </button>
-        <span> Datos de la tarjeta de crédito </span>
+        <PayPal> </PayPal>
+
 
         <label htmlFor='facturation_address'>
           <input type='checkbox' id='facturation_address' /> Dirección de
