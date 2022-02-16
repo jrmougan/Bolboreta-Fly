@@ -35,9 +35,10 @@ export const AdvancedSearch = (props) => {
 //Monitorización de estado de filtro de búsqueda
 
 
-  let [data, loading, override] = useSearch(({origin, destination, departureDate, returnDate, adults}), [filterState]);
+  const [data, loading, override] = useSearch(({origin, destination, departureDate, returnDate, adults, filterState}), [filterState]);
 
   console.log('data:' + loading);
+
 
 
   return (

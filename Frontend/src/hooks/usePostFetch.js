@@ -1,18 +1,13 @@
 import { useEffect, useState } from 'react';
 
-const useSearch = (searching) => {
-  const { origin, destination, departureDate, returnDate, adults, filterState } = searching;
-  
+const useSearch = (req) => {
+  const { body } = searching;
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState('');
 
-  const override = `
-  display: block;
-  margin: 10rem auto;
-  border-color: red;
-`;
 
-
+  useEffect(() => {
+    console.log('useSearch');
     const search = async () => {
     setLoading(true);
     try {
@@ -31,15 +26,9 @@ const useSearch = (searching) => {
     } catch (error) {
       console.error('Error de comunicación', error);
     }
-  };
-  
-
-  useEffect(()=>{
-    console.log('useSearch');
-    search();
-  }, [filterState]);
-  
-
+  }
+  search();
+  },[]);
   return [data, loading, override];
 };
 
