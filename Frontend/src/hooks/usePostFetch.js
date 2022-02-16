@@ -1,25 +1,18 @@
-import { useContext, useEffect, useState } from 'react';
-import { OfferPriceContextProvider } from '../context/OfferPriceContext';
+import { useEffect, useState } from 'react';
 
-const useSearch = (searching) => {
-  const { origin, destination, departureDate, returnDate, adults, filterState } = searching;
-  
+const useSearch = (req) => {
+  const { body } = searching;
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState('');
 
-  const override = `
-  display: block;
-  margin: 10rem auto;
-  border-color: red;
-`;
 
-
+  useEffect(() => {
+    console.log('useSearch');
     const search = async () => {
     setLoading(true);
     try {
       let fetchUrl = `${process.env.REACT_APP_PUBLIC_HOST_BACKEND}search?origin=${origin}&destination=${destination}&departuredate=${departureDate}&adults=${adults}`;
       console.log('fetchurl: ' + fetchUrl);
-
       if (returnDate) {
         fetchUrl += `&returndate=${returnDate}`;
       }
@@ -28,22 +21,14 @@ const useSearch = (searching) => {
 
       if (response.ok) {
         setData(body.data.data);
-        console.log(data);
-        // setFlightOffers(body.data.data);
         setLoading(false);
       }
     } catch (error) {
       console.error('Error de comunicación', error);
     }
-  };
-  
-
-  useEffect(()=>{
-    console.log('useSearch');
-    search();
-  }, [filterState]);
-  
-
+  }
+  search();
+  },[]);
   return [data, loading, override];
 };
 
