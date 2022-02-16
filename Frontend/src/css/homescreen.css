@@ -87,8 +87,15 @@ input {
   font-family: FontAwesome;
 }
 
+/* 
+########################
+## TARJETAS DE VUELOS ##
+########################
+*/
+
 .resultCard {
-  padding: 2rem 1rem;
+  font-size: 0.8rem;
+  padding: 2rem 0rem;
   width: 500px;
   background-color: #f7f6ff;
   display: flex;
@@ -97,15 +104,35 @@ input {
   border-radius: 5px;
   border: 1px solid black;
 }
+.btnFlight {
+  text-decoration: none;
+  display: inline;
+  margin-top: 2rem;
+  padding: 0.7rem 2rem;
+}
 
 .left-card {
+  padding: 0 1.5rem;
   flex-grow: 3;
 }
 .right-card {
   flex-grow: 1;
   border-left: 1px solid black;
+  text-align: center;
 }
 .right-card p {
-  text-align: center;
+  margin-bottom: 2.5rem;
   font-size: 2rem;
+}
+
+.fareOption {
+  font-size: 0.4rem;
+}
+.timeFlight {
+  display: flex;
+  justify-content: space-between;
+}
+.origin_destination {
+  display: flex;
+  justify-content: space-between;
 }

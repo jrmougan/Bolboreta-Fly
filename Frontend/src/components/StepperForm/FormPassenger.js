@@ -1,16 +1,12 @@
 import { useState } from 'react';
 import { TextField, Autocomplete, MenuItem } from '@mui/material';
-import airports from './InfoFlights/airports.json';
-
-import MuiPhoneNumber from 'material-ui-phone-number';
 import './style.css';
-console.log(airports[2].code, airports[2].name, airports[2].location);
+import MuiPhoneNumber from 'material-ui-phone-number';
 
 const FormPassenger = () => {
-  const [name, setName] = useState({
-    firstName: '',
-    lastName: '',
-  });
+  const [name, setName] = useState();
+  const [lastname, setLastname] = useState();
+  const [lastname2, setLastname2] = useState();
 
   const [birthdate, setBirhdate] = useState('');
   const [birthPlace, setBirthplace] = useState();
@@ -28,20 +24,30 @@ const FormPassenger = () => {
   const [phone, setPhone] = useState('');
 
   // Estados del contacto de emergencia
+  // y agrupación
+
   const [emergencyName, setEmergencyName] = useState('');
   const [emergencyLastname, setEmergencyLastname] = useState('');
   const [emergencyEmail, setEmegencyEmail] = useState('');
   const [emergencyPhone, setEmergencyPhone] = useState('');
 
+  const emergencyData = {
+    name: emergencyName,
+    lastname: emergencyLastname,
+    email: emergencyEmail,
+    phone: emergencyPhone,
+  };
+
   // Función para controlar los inputs
   const handleSubmit = (setter) => (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     setter(e.target.value);
   };
 
-  const documents = {
-    firstName: name.firstName,
-    lastName: name.lastName,
+  const traveler = {
+    firstName: name,
+    lastName: lastname,
+    lastname2: lastname2,
     birthPlace,
     inssuanceDate,
     number,
@@ -58,6 +64,8 @@ const FormPassenger = () => {
         <h3 className='sec-clr'> Información de los pasajeros </h3>
         <p className='ter-clr'> Introduce la información de los pasajeros </p>
       </section>
+      {/* <PassengerInfo /> */}
+
       <section>
         <h3> Pasajero 1 </h3>
         <form className='passengerForm'>
@@ -66,27 +74,27 @@ const FormPassenger = () => {
             required
             id='Nombre-required'
             placeholder='Nombre'
-            value={name.firstName}
+            value={name}
             onChange={handleSubmit(setName)}
             className='passengerInput'
             margin='dense'
           />
-          <TextField
-            sx={{ marginInline: '1rem', width: '30%', marginTop: '2rem' }}
-            required
-            id='Apellido-required'
-            placeholder='Lugar de nacimiento'
-            value={birthPlace}
-            onChange={handleSubmit(setBirthplace)}
-            className='passenger-input'
-            margin='dense'
-          />
+
           <TextField
             sx={{ marginInline: '1rem', width: '30%', marginTop: '2rem' }}
             required
             id='Apellido-required'
             placeholder=' Primer Apellido'
-            value={name.lastName}
+            value={lastname}
+            onChange={handleSubmit(setLastname)}
+            className='passenger-input'
+            margin='dense'
+          />
+          <TextField
+            sx={{ marginInline: '1rem', width: '30%', marginTop: '2rem' }}
+            id='Apellido2-required'
+            placeholder=' Segundo Apellido'
+            value={lastname2}
             onChange={handleSubmit(setName)}
             className='passenger-input'
             margin='dense'
@@ -99,6 +107,16 @@ const FormPassenger = () => {
             type='date'
             value={birthdate}
             onChange={handleSubmit(setBirhdate)}
+            className='passenger-input'
+            margin='dense'
+          />
+          <TextField
+            sx={{ marginInline: '1rem', width: '30%', marginTop: '2rem' }}
+            required
+            id='Nacimiento-required'
+            placeholder='Lugar de nacimiento'
+            value={birthPlace}
+            onChange={handleSubmit(setBirthplace)}
             className='passenger-input'
             margin='dense'
           />
@@ -213,17 +231,20 @@ const FormPassenger = () => {
               ))}
             </TextField>
           }
-          {/*           <MuiPhoneNumber
-            defaultCountry={'es'}
-            onChange={handleSubmit(setPhone)}
-            value={phone}
-          /> */}
+          {
+            <MuiPhoneNumber
+              defaultCountry={'es'}
+              onChange={handleSubmit(setPhone)}
+              value={phone}
+            />
+          }
           <button className='enviardatos' type='submit'>
             {' '}
-            Enviar Datos Pasajero{' '}
+            Guardar pasajero{' '}
           </button>
         </form>
       </section>
+
       <section>
         <form>
           <h3 className='ter-clr'>Información contacto de emergencia </h3>
