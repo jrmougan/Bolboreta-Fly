@@ -1,7 +1,7 @@
 
 import React, { useEffect } from "react";
 import swal from "sweetalert";
-import { Link } from "react-router-dom";
+import LoginUser from '../LoginUser/LoginUser'
 import { useParams } from "react-router-dom";
 import './style.css'
 
@@ -44,9 +44,7 @@ const ActiveUser = () => {
     return (
         <div className="activeuser">
 
-            <Link to='/'>
-                <button className="active" > Ir a inicio </button>
-            </Link>
+            <LoginUser />
 
 
         </div>)
