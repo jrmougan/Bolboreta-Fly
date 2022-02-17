@@ -31,7 +31,7 @@ const Routing = () => {
           <Header></Header>
           {
             <main>
-              <nav>
+              {/* <nav>
                 <ul>
                   {routes.map((route) => {
                     return (
@@ -41,7 +41,8 @@ const Routing = () => {
                     );
                   })}
                 </ul>
-              </nav>
+              </nav>  */}
+
               <Routes>
                 {routes.map((route) => {
                   return (
