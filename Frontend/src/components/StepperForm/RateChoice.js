@@ -3,6 +3,7 @@ import './style.css';
 import MyTrip from './MyTrip';
 import flightExample from './InfoFlights/flightExample';
 import { dateFormat, durationFormat } from '../../helpers/formatHelp';
+import { RATES } from './InfoFlights/constantInfo';
 
 /* 
 ################################
@@ -36,50 +37,9 @@ const Rates = () => {
   );
 };
 const ChooseARate = () => {
-  return (
-    <div className='rates-choices'>
-      {rates.map((rate, key) => {
-        return (
-          <div className='rate-card' key={key}>
-            <div className='title'>
-              <h2>{rate.title} </h2>
-            </div>
-            <div className='included'>
-              <span>Incluido</span>
-              <ul>
-                {rate.included.map((rate, key) => {
-                  return (
-                    <li style={{ listStyle: 'none' }} key={key}>
-                      {' '}
-                      {rate}{' '}
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-            <div className='non-included'>
-              <span>No incluido</span>
-              {rate.nonIncluded.map((rate, key) => {
-                return (
-                  <li style={{ listStyle: 'none' }} key={key}>
-                    {' '}
-                    {rate}{' '}
-                  </li>
-                );
-              })}
-            </div>
-            <div className='rate-price'>
-              <span>{rate.price}</span>
-              <p>Tarifa por persona</p>
-
-              <button className='btn-card'>Añadir</button>
-            </div>
-          </div>
-        );
-      })}
-    </div>
-  );
+  return <div className='rates-choices'>{listOfChoices}</div>;
 };
+
 const rates = [
   {
     title: 'Económica',
@@ -112,4 +72,43 @@ const rates = [
   },
 ];
 
+const listOfChoices = rates.map((rate, key) => {
+  return (
+    <div className='rate-card' key={key}>
+      <div className='title'>
+        <h2>{rate.title} </h2>
+      </div>
+      <div className='included'>
+        <span>Incluido</span>
+        <ul>
+          {rate.included.map((rate, key) => {
+            return (
+              <li style={{ listStyle: 'none' }} key={key}>
+                {' '}
+                {rate}{' '}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+      <div className='non-included'>
+        <span>No incluido</span>
+        {rate.nonIncluded.map((rate, key) => {
+          return (
+            <li style={{ listStyle: 'none' }} key={key}>
+              {' '}
+              {rate}{' '}
+            </li>
+          );
+        })}
+      </div>
+      <div className='rate-price'>
+        <span>{rate.price}</span>
+        <p>Tarifa por persona</p>
+
+        <button className='btn-card'>Añadir</button>
+      </div>
+    </div>
+  );
+});
 export default Rates;

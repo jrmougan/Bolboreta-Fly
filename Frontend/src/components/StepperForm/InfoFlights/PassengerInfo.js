@@ -2,7 +2,7 @@ import { Autocomplete, MenuItem, TextField } from '@mui/material';
 import MuiPhoneNumber from 'material-ui-phone-number';
 
 const PassengerInfo = ({
-  handleSubmit,
+  /*   handleSubmit,
   name,
   setName,
   lastname,
@@ -35,18 +35,20 @@ const PassengerInfo = ({
   TypePhone,
   phone,
   setPhone,
+  counter, */
+
+  params,
 }) => {
   return (
     <section>
-      <h3> Pasajero 1 </h3>
       <form className='passengerForm'>
         <TextField
           sx={{ marginInline: '1rem', width: '30%', marginTop: '2rem' }}
           required
           id='Nombre-required'
           placeholder='Nombre'
-          value={name}
-          onChange={handleSubmit(setName)}
+          value={params.name}
+          onChange={params.handleSubmit(params.setName)}
           className='passengerInput'
           margin='dense'
         />
@@ -56,8 +58,8 @@ const PassengerInfo = ({
           required
           id='Apellido-required'
           placeholder=' Primer Apellido'
-          value={lastname}
-          onChange={handleSubmit(setLastname)}
+          value={params.lastname}
+          onChange={params.handleSubmit(params.setLastname)}
           className='passenger-input'
           margin='dense'
         />
@@ -65,8 +67,8 @@ const PassengerInfo = ({
           sx={{ marginInline: '1rem', width: '30%', marginTop: '2rem' }}
           id='Apellido2-required'
           placeholder=' Segundo Apellido'
-          value={lastname2}
-          onChange={handleSubmit(setName)}
+          value={params.lastname2}
+          onChange={params.handleSubmit(params.setName)}
           className='passenger-input'
           margin='dense'
         />
@@ -76,8 +78,8 @@ const PassengerInfo = ({
           id='birthdate'
           placeholder='Fecha Nacimiento'
           type='date'
-          value={birthdate}
-          onChange={handleSubmit(setBirhdate)}
+          value={params.birthdate}
+          onChange={params.handleSubmit(params.setBirhdate)}
           className='passenger-input'
           margin='dense'
         />
@@ -86,8 +88,8 @@ const PassengerInfo = ({
           required
           id='Nacimiento-required'
           placeholder='Lugar de nacimiento'
-          value={birthPlace}
-          onChange={handleSubmit(setBirthplace)}
+          value={params.birthPlace}
+          onChange={params.handleSubmit(params.setBirthplace)}
           className='passenger-input'
           margin='dense'
         />
@@ -96,12 +98,12 @@ const PassengerInfo = ({
           id='document'
           select
           label='Tipo de Documento'
-          value={typedocument}
-          onChange={handleSubmit(setTypeDocument)}
+          value={params.typedocument}
+          onChange={params.handleSubmit(params.setTypeDocument)}
           className='passenger-input'
           margin='dense'
         >
-          {documentation.map((option) => (
+          {params.documentation.map((option) => (
             <MenuItem key={option.value} value={option.value}>
               {' '}
               {option.label}
@@ -113,8 +115,8 @@ const PassengerInfo = ({
           required
           id='Dni'
           placeholder='DNI /  NIE'
-          value={documentFlight}
-          onChange={handleSubmit(setDocumentFlight)}
+          value={params.documentFlight}
+          onChange={params.handleSubmit(params.setDocumentFlight)}
           margin='dense'
           className='passenger-input'
         />
@@ -124,8 +126,8 @@ const PassengerInfo = ({
           id='inssuancedate'
           label='Fecha de expedición'
           type='date'
-          value={inssuanceDate}
-          onChange={handleSubmit(setInssuancedate)}
+          value={params.inssuanceDate}
+          onChange={params.handleSubmit(params.setInssuancedate)}
           className='passenger-input'
           margin='dense'
         />
@@ -135,8 +137,8 @@ const PassengerInfo = ({
           id='expiredate'
           label='Fecha de expiración'
           type='date'
-          value={expiredate}
-          onChange={handleSubmit(setExpiredate)}
+          value={params.expiredate}
+          onChange={params.handleSubmit(params.setExpiredate)}
           className='passenger-input'
           margin='dense'
         />
@@ -153,12 +155,12 @@ const PassengerInfo = ({
           id='gender'
           select
           placeholder='Genero'
-          value={genero}
-          onChange={handleSubmit(setGenero)}
+          value={params.genero}
+          onChange={params.handleSubmit(params.setGenero)}
           className='passenger-input'
           margin='dense'
         >
-          {gender.map((option) => (
+          {params.gender.map((option) => (
             <MenuItem key={option.value} value={option.value}>
               {' '}
               {option.label}
@@ -171,18 +173,18 @@ const PassengerInfo = ({
           id='email'
           label='E-mail'
           type='email'
-          value={email}
-          onChange={handleSubmit(setEmail)}
+          value={params.email}
+          onChange={params.handleSubmit(params.setEmail)}
           className='passenger-input'
           margin='dense'
         />
         {
           <Autocomplete
             id='pais'
-            options={countries}
+            options={params.countries}
             sx={{ width: 300 }}
-            onChange={(e, newinputvalue) => setPais(newinputvalue)}
-            value={pais.label}
+            onChange={(e, newinputvalue) => params.setPais(newinputvalue)}
+            value={params.pais.label}
             renderInput={(params) => <TextField {...params} label='Pais' />}
           ></Autocomplete>
         }
@@ -191,10 +193,10 @@ const PassengerInfo = ({
             id='typephone'
             select
             label='Tipo de Teléfono'
-            value={TypePhone}
-            onChange={handleSubmit(setTypePhone)}
+            value={params.TypePhone}
+            onChange={params.handleSubmit(params.setTypePhone)}
           >
-            {typePhone.map((option) => (
+            {params.typePhone.map((option) => (
               <MenuItem key={option.value} value={option.value}>
                 {' '}
                 {option.label}
@@ -205,8 +207,8 @@ const PassengerInfo = ({
         {
           <MuiPhoneNumber
             defaultCountry={'es'}
-            onChange={handleSubmit(setPhone)}
-            value={phone}
+            onChange={params.handleSubmit(params.setPhone)}
+            value={params.phone}
           />
         }
         <button className='enviardatos' type='submit'>
