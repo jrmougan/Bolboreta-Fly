@@ -3,7 +3,6 @@ import { ADULTS } from '../../StepperForm/InfoFlights/constantInfo';
 import {
   FaPlaneDeparture,
   FaPlaneArrival,
-  AiOutlineUser,
   FaWpforms,
   FaUserFriends,
 } from 'react-icons/fa';
