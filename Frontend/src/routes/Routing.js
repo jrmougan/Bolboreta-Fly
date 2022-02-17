@@ -31,7 +31,6 @@ const Routing = () => {
           <Header></Header>
           {
             <main>
-              <StepForm />
               <nav>
                 <ul>
                   {routes.map((route) => {

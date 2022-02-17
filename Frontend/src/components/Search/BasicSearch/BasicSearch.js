@@ -19,6 +19,7 @@ export const BasicSearch = ({
   setAdults,
   handleSubmit,
 }) => {
+  let url = `/advance?origin=${origin}&destination=${destination}&departureDate=${departureDate}&adults=${adults}`;
   return (
     <section className='searchFlight'>
       <NavLinks />
@@ -64,9 +65,9 @@ export const BasicSearch = ({
             <MenuItem value={6}>6 adultos</MenuItem>
           </Select>
         </div>
-        <button className='btn btn-search' type='submit'>
+        <Link to={url} className='btn btn-search' type='submit'>
           Buscar
-        </button>
+        </Link>
       </form>
     </section>
   );
@@ -85,6 +86,7 @@ export const RoundTrip = ({
   setAdults,
   handleSubmit,
 }) => {
+  let url = `/advance?origin=${origin}&destination=${destination}&departureDate=${departureDate}&returnDate=${returnDate}&adults=${adults}`;
   return (
     <section className='searchFlight'>
       <NavLinks />
@@ -137,11 +139,7 @@ export const RoundTrip = ({
             </Select>
           </div>
 
-          <Link
-            to={`search/${origin}/${destination}/${departureDate}/${returnDate}/${adults}`}
-            className='btn btn-search'
-            type='submit'
-          >
+          <Link to={url} className='btn btn-search' type='submit'>
             Buscar
           </Link>
         </form>
