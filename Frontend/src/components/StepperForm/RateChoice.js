@@ -28,8 +28,7 @@ const returnDateToFormat = new Date(
 const goingDate = dateFormat(goingDateToFormat);
 const returnDate = dateFormat(returnDateToFormat);
 
-const Rates = () => {
-  const [rateCharge, setRateCharge] = useState(0);
+const RateChoice = ({ rateCharge, setRateCharge }) => {
   return (
     <div className='rateChoicePage'>
       <ChooseARate rateCharge={rateCharge} setRateCharge={setRateCharge} />
@@ -92,4 +91,4 @@ const ListOfChoices = ({ rateCharge, setRateCharge }) => {
     );
   });
 };
-export default Rates;
+export default RateChoice;

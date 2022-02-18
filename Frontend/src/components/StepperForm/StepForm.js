@@ -7,8 +7,46 @@ import SeatChoice from '../StepperForm/SeatChoice/SeatChoice';
 import ResumeAndPay from '../StepperForm/ResumeAndPay';
 import { Container } from '@mui/material';
 import Itinerary from '../StepperForm/Itinerary/Itinerary';
+import offerprice from './InfoFlights/offerpriceExample.json';
 
 const StepForm = () => {
+  /* 
+ ##################################
+ ## INFORMACIÓN DE LOS PASAJEROS ##
+ ##################################
+*/
+
+  const [passenger, setPassenger] = useState({
+    firstName: '',
+    lastname: '',
+    lastname2: '',
+    birthdate: '',
+    birthPlace: '',
+    typedocument: '',
+    documentFlight: '',
+    inssuanceDate: '',
+    inssuancePlace: '',
+    gender: '',
+    expireDate: '',
+    email: '',
+    TypePhone: '',
+    issuanceCountry: '',
+    validityCountry: 'ES',
+    nacionality: 'ES',
+    holder: true,
+  });
+
+  const [emergencyData, setEmergencyData] = useState({
+    name: '',
+    lastName: '',
+    email: '',
+    phone: '',
+  });
+  console.log(passenger);
+  console.log(emergencyData);
+
+  const [rateCharge, setRateCharge] = useState(0);
+
   /* 
  #######################
  ## PASOS DEL STEPPER ##
@@ -28,11 +66,15 @@ const StepForm = () => {
     } else if (page === 1) {
       return <BookingData />;
     } else if (page === 2) {
-      return <RateChoice />;
+      return (
+        <RateChoice rateCharge={rateCharge} setRateCharge={setRateCharge} />
+      );
     } else if (page === 3) {
       return <SeatChoice />;
     } else if (page === 4) {
-      return <ResumeAndPay />;
+      return (
+        <ResumeAndPay rateCharge={rateCharge} setRateCharge={setRateCharge} />
+      );
     } else {
       return <Itinerary emergencyData={emergencyData} />;
     }
@@ -101,41 +143,6 @@ const StepForm = () => {
   const handleReset = () => {
     setActiveStep(0);
   };
-
-  /* 
- ##################################
- ## INFORMACIÓN DE LOS PASAJEROS ##
- ##################################
-*/
-
-  const [passenger, setPassenger] = useState({
-    firstName: '',
-    lastname: '',
-    lastname2: '',
-    birthdate: '',
-    birthPlace: '',
-    typedocument: '',
-    documentFlight: '',
-    inssuanceDate: '',
-    inssuancePlace: '',
-    gender: '',
-    expireDate: '',
-    email: '',
-    TypePhone: '',
-    issuanceCountry: '',
-    validityCountry: 'ES',
-    nacionality: 'ES',
-    holder: true,
-  });
-
-  const [emergencyData, setEmergencyData] = useState({
-    name: '',
-    lastName: '',
-    email: '',
-    phone: '',
-  });
-  console.log(passenger);
-  console.log(emergencyData);
 
   return (
     <Container>

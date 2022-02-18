@@ -79,3 +79,19 @@ export const RATES = [
     price: '350',
   },
 ];
+
+export const CancellationPolicy = () => {
+  return (
+    <article className='cancelation_container'>
+      <h3>Política de cancelación</h3>
+      <p>
+        Este vuelo tiene una política de cancelación flexible. Si cancela o
+        cambiar su vuelo hasta 30 días antes de la fecha de salida, es elegible
+        para un reembolso gratuito. Todos los vuelos reservados en Bolboreta
+        están respaldados por nuestra garantía de satisfacción, sin embargo, las
+        políticas de cancelación varían serún las aerolíneas. Consulte la
+        política de cancelacion completa de este vuelo.
+      </p>
+    </article>
+  );
+};
