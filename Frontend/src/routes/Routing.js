@@ -32,7 +32,7 @@ const Routing = () => {
           {
             <main>
               <StepForm />
-              <nav>
+              {/*               <nav>
                 <ul>
                   {routes.map((route) => {
                     return (
@@ -42,8 +42,8 @@ const Routing = () => {
                     );
                   })}
                 </ul>
-              </nav>
-              <Routes>
+              </nav> */}
+              {/*               <Routes>
                 {routes.map((route) => {
                   return (
                     <Route
@@ -53,7 +53,7 @@ const Routing = () => {
                     ></Route>
                   );
                 })}
-              </Routes>
+              </Routes> */}
             </main>
           }
           <Footer />
