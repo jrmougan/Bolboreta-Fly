@@ -27,13 +27,13 @@ const ActiveUser = () => {
                 }
             );
             if (res.ok) {
-                console.log(res)
+
                 const body = await res.json();
                 swal(body.message, '', 'success')
 
             } else {
                 const error = await res.json();
-                console.log(error)
+
                 swal(error.message, '', 'error')
             }
 
