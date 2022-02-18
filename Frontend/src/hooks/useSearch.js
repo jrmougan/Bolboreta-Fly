@@ -3,7 +3,8 @@ import { OfferPriceContextProvider } from '../context/OfferPriceContext';
 
 const useSearch = (searching) => {
   const { origin, destination, departureDate, returnDate, adults, filterState } = searching;
-  
+
+  const [filter, updateFilter] = useState(filterState);  
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState('');
 
@@ -41,10 +42,10 @@ const useSearch = (searching) => {
   useEffect(()=>{
     console.log('useSearch');
     search();
-  }, [filterState]);
+  }, [filter]);
   
 
-  return [data, loading, override];
+  return [data, loading, override, updateFilter];
 };
 
 export default useSearch;

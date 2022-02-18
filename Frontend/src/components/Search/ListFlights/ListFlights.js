@@ -45,10 +45,12 @@ export const ListFlights = ({ data }) => {
           const timeArrivalFormatted = hourFormat(arrivalToFormat);
           const pruebaDuration = durationFormat(flightDuration);
 
+          /*
           console.log('Fecha pura', departureToFormat);
           console.log('Fecha formateada', dateDepartureFormatted);
           console.log('Hora formateada ===>', timeDepartureFormatted);
           console.log('Duración cruda', flightDuration);
+          */
 
           return (
             <article key={id} className='resultCard'>

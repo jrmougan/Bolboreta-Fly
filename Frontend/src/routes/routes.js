@@ -9,7 +9,7 @@ const routes = [
   { name: 'recover', path: '/recover', component: <RecoveryPass /> },
   { name: 'register', path: '/register', component: <RegisterScreen /> },
   { name: 'stepper', path: '/stepper/:flightId', component: <StepForm /> },
-  /*   {
+   {
     name: 'search',
     path: '/search/:origin/:destination/:departureDate/:adults',
     component: <AdvancedSearchScreen />,
@@ -18,7 +18,7 @@ const routes = [
     name: 'searchAdvance',
     path: '/return/search/:origin/:destination/:departureDate/:returnDate/:adults',
     component: <AdvancedSearchScreen />,
-  }, */
+  }, 
   { name: 'user', path: '/user', component: <ProfileScreen /> },
   { name: 'passenger', path: '/passenger', component: <FormPassenger /> },
   { name: 'editpass', path: '/user/:iduser/editpass', component: <EditPass /> },
