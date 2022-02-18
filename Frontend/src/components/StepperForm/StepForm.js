@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Stepper, Step, StepLabel, Button, Typography } from '@mui/material';
 import FormPassenger from '../StepperForm/FormPassenger';
 import BookingData from '../StepperForm/BookingData.';
@@ -8,41 +8,57 @@ import ResumeAndPay from '../StepperForm/ResumeAndPay';
 import { Container } from '@mui/material';
 import Itinerary from '../StepperForm/Itinerary/Itinerary';
 
-function getSteps() {
-  return [
-    'Información de Pasajeros',
-    'Datos de reserva',
-    'Elección de tarifa',
-    'Elección de asiento',
-    'Resumen y Pago',
-    'Itinerario',
-  ];
-}
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <FormPassenger />;
-    case 1:
-      return <BookingData />;
-    case 2:
-      return <RateChoice />;
-    case 3:
-      return <SeatChoice />;
-    case 4:
-      return <ResumeAndPay />;
-    case 5:
-      return <Itinerary />;
-    default:
-      return 'No hay pasos por aquí';
-  }
-}
-
 const StepForm = () => {
+  /* 
+ #######################
+ ## PASOS DEL STEPPER ##
+ #######################
+ */
+
+  const getStepContent = (page) => {
+    if (page === 0) {
+      return (
+        <FormPassenger
+          passenger={passenger}
+          setPassenger={setPassenger}
+          emergencyData={emergencyData}
+          setEmergencyData={setEmergencyData}
+        />
+      );
+    } else if (page === 1) {
+      return <BookingData />;
+    } else if (page === 2) {
+      return <RateChoice />;
+    } else if (page === 3) {
+      return <SeatChoice />;
+    } else if (page === 4) {
+      return <ResumeAndPay />;
+    } else {
+      return <Itinerary emergencyData={emergencyData} />;
+    }
+  };
+
+  function getSteps() {
+    return [
+      'Información de Pasajeros',
+      'Datos de reserva',
+      'Elección de tarifa',
+      'Elección de asiento',
+      'Resumen y Pago',
+      'Itinerario',
+    ];
+  }
+
+  /* 
+  #################################
+  ## Funcionamiento del  Stepper ##
+  #################################
+  */
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
   const steps = getSteps();
 
-  // Aquí elegimos la elección de asiento como un paso opcional
+  // Elegimos la elección de asiento como un paso opcional (Paso 3)
 
   const isStepOptional = (step) => {
     return step === 3;
@@ -86,6 +102,41 @@ const StepForm = () => {
     setActiveStep(0);
   };
 
+  /* 
+ ##################################
+ ## INFORMACIÓN DE LOS PASAJEROS ##
+ ##################################
+*/
+
+  const [passenger, setPassenger] = useState({
+    firstName: '',
+    lastname: '',
+    lastname2: '',
+    birthdate: '',
+    birthPlace: '',
+    typedocument: '',
+    documentFlight: '',
+    inssuanceDate: '',
+    inssuancePlace: '',
+    gender: '',
+    expireDate: '',
+    email: '',
+    TypePhone: '',
+    issuanceCountry: '',
+    validityCountry: 'ES',
+    nacionality: 'ES',
+    holder: true,
+  });
+
+  const [emergencyData, setEmergencyData] = useState({
+    name: '',
+    lastName: '',
+    email: '',
+    phone: '',
+  });
+  console.log(passenger);
+  console.log(emergencyData);
+
   return (
     <Container>
       <div>
@@ -118,7 +169,7 @@ const StepForm = () => {
             </div>
           ) : (
             <div>
-              <Typography>{getStepContent(activeStep)}</Typography>
+              <div>{getStepContent(activeStep)}</div>
               <div className='button_steps'>
                 <Button
                   disabled={activeStep === 0}
