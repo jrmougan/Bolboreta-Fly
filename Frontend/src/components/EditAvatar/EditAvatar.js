@@ -22,7 +22,7 @@ const EditAvatar = () => {
         console.log("avatar");
         console.log(newavatar);
         const res = await fetch(
-            `${process.env.REACT_APP_PUBLIC_HOST_BACKEND}user/${decodedToken?.id}/avatar`,
+            `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/user/${decodedToken?.id}/avatar`,
             {
                 method: 'PUT',
                 headers: {

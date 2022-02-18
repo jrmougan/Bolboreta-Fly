@@ -20,7 +20,7 @@ const Avatar = () => {
         <Link to='/user'>
             <img
                 className="user_avatar"
-                src={user.userInfo?.avatar ? `${process.env.REACT_APP_PUBLIC_HOST_BACKEND}uploads/${user.userInfo?.avatar}` : avataranonimo}
+                src={user.userInfo?.avatar ? `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/uploads/${user.userInfo?.avatar}` : avataranonimo}
                 alt={`Avatar de ${user.userInfo?.name_user} ${user.userInfo?.lastname}`}
             />
         </Link>

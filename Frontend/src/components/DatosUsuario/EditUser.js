@@ -40,7 +40,7 @@ const EditUser = () => {
 
 
         const res = await fetch(
-            `${process.env.REACT_APP_PUBLIC_HOST_BACKEND}user/${decodedToken?.id}/edit`,
+            `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}user/${decodedToken?.id}/edit`,
             {
                 method: "PUT",
                 headers: {
@@ -80,7 +80,7 @@ const EditUser = () => {
                 <div className="fotocontainer">
                     <img
                         className="fotousuario"
-                        src={user.userInfo?.avatar ? `${process.env.REACT_APP_PUBLIC_HOST_BACKEND}/uploads/${user.userInfo?.avatar}` : avataranonimo}
+                        src={user.userInfo?.avatar ? `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/uploads/${user.userInfo?.avatar}` : avataranonimo}
                         alt={`Avatar de ${user.userInfo?.name_user}`}
                     />
                 </div>

@@ -40,10 +40,7 @@ export const AdvancedSearch = (props) => {
   //updateFilter(filterState);
   console.log('data:' + loading);
 
-  
-  useEffect(()=>{
-    updateFilter(filterState);
-  },[filterState]);
+
 
 
 

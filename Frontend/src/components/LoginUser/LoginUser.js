@@ -25,7 +25,7 @@ function LoginUser() {
     const login = async (e) => {
         e.preventDefault();
         try {
-            const res = await fetch(`${process.env.REACT_APP_PUBLIC_HOST_BACKEND}login`, {
+            const res = await fetch(`http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/login`, {
                 method: "POST",
                 headers: {
                     "Content-type": "application/json",

@@ -17,7 +17,7 @@ const ActiveUser = () => {
 
 
 
-            const res = await fetch(`${process.env.REACT_APP_PUBLIC_HOST_BACKEND}register/validate/${registration_code.registration_code}`,
+            const res = await fetch(`http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/register/validate/${registration_code.registration_code}`,
                 {
                     method: 'GET',
                     headers: {

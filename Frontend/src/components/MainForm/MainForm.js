@@ -40,7 +40,7 @@ const MainForm = () => {
     e.preventDefault();
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_PUBLIC_HOST_BACKEND}register`,
+        `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/register`,
         {
 
           method: "POST",

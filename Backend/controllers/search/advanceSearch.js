@@ -145,6 +145,8 @@ const advanceSearch = async (req, res, next) => {
             SearchCriteria,
         };
 
+        console.log(searchAdvancebody);
+
         //lo pasamos a json
         const jsonBody = JSON.stringify(searchAdvancebody);
 
