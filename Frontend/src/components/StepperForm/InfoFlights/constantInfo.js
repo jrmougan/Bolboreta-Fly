@@ -58,13 +58,13 @@ export const RATES = [
       'Comida en vuelo',
       'Entretenimiento',
     ],
-    price: '150€',
+    price: '150',
   },
   {
     title: 'Plus',
     included: [' 1 x equipaje de mano', 'Entretenimiento'],
     nonIncluded: ['2 x maletas', 'Embarque prioritario', 'Comida en vuelo'],
-    price: '227€',
+    price: '227',
   },
   {
     title: 'Premium',
@@ -76,6 +76,6 @@ export const RATES = [
       'Comida en vuelo',
     ],
     nonIncluded: [],
-    price: '350€',
+    price: '350',
   },
 ];
