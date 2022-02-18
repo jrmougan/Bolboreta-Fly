@@ -5,7 +5,12 @@ import MuiPhoneNumber from 'material-ui-phone-number';
 import PassengerInfo from './InfoFlights/PassengerInfo';
 import offerprice from '../../components/StepperForm/InfoFlights/offerpriceExample.json';
 
-const FormPassenger = () => {
+const FormPassenger = ({
+  passenger,
+  setPassenger,
+  emergencyData,
+  setEmergencyData,
+}) => {
   const [name, setName] = useState();
   const [lastname, setLastname] = useState();
   const [lastname2, setLastname2] = useState();
@@ -22,28 +27,13 @@ const FormPassenger = () => {
   const [typedocument, setTypeDocument] = useState('');
   const [number, setNumber] = useState('');
   const [genero, setGenero] = useState('');
-  const [pais, setPais] = useState('');
+  const [country, setCountry] = useState('');
   const [phone, setPhone] = useState('');
 
   const [counter, setCounter] = useState(1);
 
   // Datos de todos los pasajeros
   const [allPassengerData, setAllPassengerData] = useState([]);
-
-  // Estados del contacto de emergencia
-  // y agrupación
-
-  const [emergencyName, setEmergencyName] = useState('');
-  const [emergencyLastname, setEmergencyLastname] = useState('');
-  const [emergencyEmail, setEmegencyEmail] = useState('');
-  const [emergencyPhone, setEmergencyPhone] = useState('');
-
-  const emergencyData = {
-    name: emergencyName,
-    lastname: emergencyLastname,
-    email: emergencyEmail,
-    phone: emergencyPhone,
-  };
 
   // Función para controlar los inputs
   const handleSubmit = (setter) => (e) => {
@@ -55,8 +45,8 @@ const FormPassenger = () => {
 
   const traveler = {
     firstName: name,
-    lastName: lastname,
-    lastname2: lastname2,
+    lastname,
+    lastname2,
     birthPlace,
     inssuanceDate,
     number,
@@ -67,41 +57,13 @@ const FormPassenger = () => {
     holder: true,
   };
 
-  const params = {
-    handleSubmit,
-    name,
-    setName,
-    lastname,
-    setLastname,
-    lastname2,
-    setLastname2,
-    birthdate,
-    setBirhdate: setBirthday,
-    birthPlace,
-    setBirthplace,
-    typedocument,
-    setTypeDocument,
-    documentation,
-    documentFlight,
-    setDocumentFlight,
-    inssuanceDate,
-    setInssuancedate,
-    expiredate,
-    setExpiredate,
-    genero,
-    setGenero,
+  const autoValue = {
     gender,
-    email,
-    setEmail,
     countries,
-    setPais,
-    pais,
+    documentation,
     typePhone,
-    setTypePhone,
-    TypePhone,
-    phone,
-    setPhone,
-    counter,
+    country,
+    setCountry,
   };
 
   // Averiguamos el número de pasajeros
@@ -115,47 +77,70 @@ const FormPassenger = () => {
         <p className='ter-clr'> Introduce la información de los pasajeros </p>
       </section>
 
-      {travelers.map((trav) => {
+      {/*       {travelers.map((trav) => {
         return (
           <section key={trav.travelerId}>
             <h3>Pasajero {trav.travelerId}</h3>
             <PassengerInfo params={params} />
           </section>
         );
-      })}
-
-      <section>
-        <form>
-          <h3 className='ter-clr'>Información contacto de emergencia </h3>
-          <div className='emergency-inputs'>
-            <TextField
-              value={emergencyName}
-              onChange={(e) => handleSubmit(setEmergencyName)}
-              sx={emergencyInputStyle}
-              placeholder='Nombre'
-            ></TextField>
-            <TextField
-              value={emergencyLastname}
-              onChange={(e) => handleSubmit(setEmergencyLastname)}
-              sx={emergencyInputStyle}
-              placeholder='Apellidos'
-            ></TextField>
-            <TextField
-              value={emergencyEmail}
-              onChange={(e) => handleSubmit(setEmegencyEmail)}
-              sx={emergencyInputStyle}
-              placeholder='Email'
-            ></TextField>
-            <TextField
-              value={emergencyPhone}
-              onChange={(e) => handleSubmit(setEmergencyPhone)}
-              sx={emergencyInputStyle}
-              placeholder='Numero de teléfono'
-            ></TextField>
-          </div>
-        </form>
-      </section>
+      })} */}
+      <PassengerInfo
+        passenger={passenger}
+        setPassenger={setPassenger}
+        emergencyData={emergencyData}
+        setEmergencyData={setEmergencyData}
+        autoValue={autoValue}
+      />
+      <EmergencyForm
+        emergencyData={emergencyData}
+        setEmergencyData={setEmergencyData}
+      />
     </div>
+  );
+};
+
+const EmergencyForm = ({ emergencyData, setEmergencyData }) => {
+  return (
+    <section>
+      <form>
+        <h3 className='ter-clr'>Información contacto de emergencia </h3>
+        <div className='emergency-inputs'>
+          <TextField
+            value={emergencyData.name}
+            onChange={(e) =>
+              setEmergencyData({ ...emergencyData, name: e.target.value })
+            }
+            sx={emergencyInputStyle}
+            placeholder='Nombre'
+          ></TextField>
+          <TextField
+            value={emergencyData.lastname}
+            onChange={(e) =>
+              setEmergencyData({ ...emergencyData, lastname: e.target.value })
+            }
+            sx={emergencyInputStyle}
+            placeholder='Apellidos'
+          ></TextField>
+          <TextField
+            value={emergencyData.email}
+            onChange={(e) =>
+              setEmergencyData({ ...emergencyData, email: e.target.value })
+            }
+            sx={emergencyInputStyle}
+            placeholder='Email'
+          ></TextField>
+          <TextField
+            value={emergencyData.phone}
+            onChange={(e) =>
+              setEmergencyData({ ...emergencyData, phone: e.target.value })
+            }
+            sx={emergencyInputStyle}
+            placeholder='Numero de teléfono'
+          ></TextField>
+        </div>
+      </form>
+    </section>
   );
 };
 
@@ -446,4 +431,12 @@ const typePhone = [
   { label: 'Teléfono fijo', value: 'Landline' },
   { label: 'Fax', value: 'Fax' },
 ];
+
+// Reunimos lista de valores para autocompletar
+const autoValue = {
+  gender,
+  countries,
+  documentation,
+  typePhone,
+};
 export default FormPassenger;

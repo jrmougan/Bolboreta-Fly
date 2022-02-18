@@ -1,44 +1,7 @@
 import { Autocomplete, MenuItem, TextField } from '@mui/material';
 import MuiPhoneNumber from 'material-ui-phone-number';
 
-const PassengerInfo = ({
-  /*   handleSubmit,
-  name,
-  setName,
-  lastname,
-  setLastname,
-  lastname2,
-  setLastname2,
-  birthdate,
-  setBirhdate,
-  birthPlace,
-  setBirthplace,
-  typedocument,
-  setTypeDocument,
-  documentation,
-  documentFlight,
-  setDocumentFlight,
-  inssuanceDate,
-  setInssuancedate,
-  expiredate,
-  setExpiredate,
-  genero,
-  setGenero,
-  gender,
-  email,
-  setEmail,
-  countries,
-  setPais,
-  pais,
-  typePhone,
-  setTypePhone,
-  TypePhone,
-  phone,
-  setPhone,
-  counter, */
-
-  params,
-}) => {
+const PassengerInfo = ({ passenger, setPassenger, autoValue }) => {
   return (
     <section>
       <form className='passengerForm'>
@@ -47,8 +10,10 @@ const PassengerInfo = ({
           required
           id='Nombre-required'
           placeholder='Nombre'
-          value={params.name}
-          onChange={params.handleSubmit(params.setName)}
+          value={passenger.firstName}
+          onChange={(e) =>
+            setPassenger({ ...passenger, firstName: e.target.value })
+          }
           className='passengerInput'
           margin='dense'
         />
@@ -58,8 +23,10 @@ const PassengerInfo = ({
           required
           id='Apellido-required'
           placeholder=' Primer Apellido'
-          value={params.lastname}
-          onChange={params.handleSubmit(params.setLastname)}
+          value={passenger.lastname}
+          onChange={(e) =>
+            setPassenger({ ...passenger, lastname: e.target.value })
+          }
           className='passenger-input'
           margin='dense'
         />
@@ -67,8 +34,10 @@ const PassengerInfo = ({
           sx={{ marginInline: '1rem', width: '30%', marginTop: '2rem' }}
           id='Apellido2-required'
           placeholder=' Segundo Apellido'
-          value={params.lastname2}
-          onChange={params.handleSubmit(params.setName)}
+          value={passenger.lastname2}
+          onChange={(e) =>
+            setPassenger({ ...passenger, lastname2: e.target.value })
+          }
           className='passenger-input'
           margin='dense'
         />
@@ -78,8 +47,10 @@ const PassengerInfo = ({
           id='birthdate'
           placeholder='Fecha Nacimiento'
           type='date'
-          value={params.birthdate}
-          onChange={params.handleSubmit(params.setBirhdate)}
+          value={passenger.birthdate}
+          onChange={(e) =>
+            setPassenger({ ...passenger, birthdate: e.target.value })
+          }
           className='passenger-input'
           margin='dense'
         />
@@ -88,8 +59,10 @@ const PassengerInfo = ({
           required
           id='Nacimiento-required'
           placeholder='Lugar de nacimiento'
-          value={params.birthPlace}
-          onChange={params.handleSubmit(params.setBirthplace)}
+          value={passenger.birthPlace}
+          onChange={(e) =>
+            setPassenger({ ...passenger, birthPlace: e.target.value })
+          }
           className='passenger-input'
           margin='dense'
         />
@@ -98,12 +71,14 @@ const PassengerInfo = ({
           id='document'
           select
           label='Tipo de Documento'
-          value={params.typedocument}
-          onChange={params.handleSubmit(params.setTypeDocument)}
+          value={passenger.typedocument}
+          onChange={(e) =>
+            setPassenger({ ...passenger, typedocument: e.target.value })
+          }
           className='passenger-input'
           margin='dense'
         >
-          {params.documentation.map((option) => (
+          {autoValue.documentation.map((option) => (
             <MenuItem key={option.value} value={option.value}>
               {' '}
               {option.label}
@@ -114,9 +89,11 @@ const PassengerInfo = ({
           sx={{ marginInline: '1rem', width: '30%', marginTop: '2rem' }}
           required
           id='Dni'
-          placeholder='DNI /  NIE'
-          value={params.documentFlight}
-          onChange={params.handleSubmit(params.setDocumentFlight)}
+          placeholder='Nº Documento'
+          value={passenger.documentFlight}
+          onChange={(e) =>
+            setPassenger({ ...passenger, documentFlight: e.target.value })
+          }
           margin='dense'
           className='passenger-input'
         />
@@ -126,8 +103,10 @@ const PassengerInfo = ({
           id='inssuancedate'
           label='Fecha de expedición'
           type='date'
-          value={params.inssuanceDate}
-          onChange={params.handleSubmit(params.setInssuancedate)}
+          value={passenger.inssuanceDate}
+          onChange={(e) =>
+            setPassenger({ ...passenger, inssuanceDate: e.target.value })
+          }
           className='passenger-input'
           margin='dense'
         />
@@ -137,8 +116,10 @@ const PassengerInfo = ({
           id='expiredate'
           label='Fecha de expiración'
           type='date'
-          value={params.expiredate}
-          onChange={params.handleSubmit(params.setExpiredate)}
+          value={passenger.expireDate}
+          onChange={(e) =>
+            setPassenger({ ...passenger, expireDate: e.target.value })
+          }
           className='passenger-input'
           margin='dense'
         />
@@ -149,18 +130,24 @@ const PassengerInfo = ({
           placeholder='Lugar de Expedicion'
           className='passenger-input'
           margin='dense'
+          value={passenger.inssuancePlace}
+          onChange={(e) =>
+            setPassenger({ ...passenger, expireDate: e.target.value })
+          }
         />
         <TextField
           sx={{ marginInline: '1rem', width: '30%', marginTop: '2rem' }}
           id='gender'
           select
-          placeholder='Genero'
-          value={params.genero}
-          onChange={params.handleSubmit(params.setGenero)}
+          placeholder='Género'
+          value={passenger.gender}
+          onChange={(e) =>
+            setPassenger({ ...passenger, gender: e.target.value })
+          }
           className='passenger-input'
           margin='dense'
         >
-          {params.gender.map((option) => (
+          {autoValue.gender.map((option) => (
             <MenuItem key={option.value} value={option.value}>
               {' '}
               {option.label}
@@ -173,18 +160,20 @@ const PassengerInfo = ({
           id='email'
           label='E-mail'
           type='email'
-          value={params.email}
-          onChange={params.handleSubmit(params.setEmail)}
+          value={passenger.email}
+          onChange={(e) =>
+            setPassenger({ ...passenger, email: e.target.value })
+          }
           className='passenger-input'
           margin='dense'
         />
         {
           <Autocomplete
             id='pais'
-            options={params.countries}
+            options={autoValue.countries}
             sx={{ width: 300 }}
-            onChange={(e, newinputvalue) => params.setPais(newinputvalue)}
-            value={params.pais.label}
+            onChange={(e, newinputvalue) => autoValue.setCountry(newinputvalue)}
+            value={autoValue.country.label}
             renderInput={(params) => <TextField {...params} label='Pais' />}
           ></Autocomplete>
         }
@@ -193,10 +182,12 @@ const PassengerInfo = ({
             id='typephone'
             select
             label='Tipo de Teléfono'
-            value={params.TypePhone}
-            onChange={params.handleSubmit(params.setTypePhone)}
+            value={passenger.TypePhone}
+            onChange={(e) =>
+              setPassenger({ ...passenger, TypePhone: e.target.value })
+            }
           >
-            {params.typePhone.map((option) => (
+            {autoValue.typePhone.map((option) => (
               <MenuItem key={option.value} value={option.value}>
                 {' '}
                 {option.label}
@@ -207,8 +198,10 @@ const PassengerInfo = ({
         {
           <MuiPhoneNumber
             defaultCountry={'es'}
-            onChange={params.handleSubmit(params.setPhone)}
-            value={params.phone}
+            onChange={(e) =>
+              setPassenger({ ...passenger, phone: e.target.value })
+            }
+            value={passenger.phone}
           />
         }
         <button className='enviardatos' type='submit'>
