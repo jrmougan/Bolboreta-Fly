@@ -16,11 +16,11 @@ const HomeScreen = () => {
   // Obtenemos los datos de los input y los guardamos en el localStorage
   // para mantenerlos si recarga la página
 
-  const [origin, setOrigin] = useLocalStorage('origin', '');
-  const [destination, setDestination] = useLocalStorage('password', '');
-  const [departureDate, setDepartureDate] = useState('Hola');
+  const [origin, setOrigin] = useState('');
+  const [destination, setDestination] = useState('');
+  const [departureDate, setDepartureDate] = useState('');
   const [returnDate, setReturndate] = useState('');
-  const [adults, setAdults] = useLocalStorage('adult', '');
+  const [adults, setAdults] = useState('');
 
   // Objeto que aglutina los parámetros de búsqueda que usará
   // el Custom Hook useSearch

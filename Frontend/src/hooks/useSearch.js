@@ -2,9 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { OfferPriceContextProvider } from '../context/OfferPriceContext';
 
 const useSearch = (searching) => {
-  const { origin, destination, departureDate, returnDate, adults, filterState } = searching;
 
-  const [filter, updateFilter] = useState(filterState);  
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState('');
 
@@ -14,8 +12,7 @@ const useSearch = (searching) => {
   border-color: red;
 `;
 
-
-    const search = async () => {
+  const search = async () => {
     setLoading(true);
     try {
       let fetchUrl = `${process.env.REACT_APP_PUBLIC_HOST_BACKEND}search?origin=${origin}&destination=${destination}&departuredate=${departureDate}&adults=${adults}`;
@@ -37,13 +34,10 @@ const useSearch = (searching) => {
       console.error('Error de comunicación', error);
     }
   };
-  
-
-  useEffect(()=>{
+  /* 
+  useEffect(() => {
     console.log('useSearch');
     search();
-  }, [filter]);
-  
 
   return [data, loading, override, updateFilter];
 };

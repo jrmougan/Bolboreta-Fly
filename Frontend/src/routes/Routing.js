@@ -41,7 +41,8 @@ const Routing = () => {
                     );
                   })}
                 </ul>
-              </nav>
+              </nav>  */}
+
               <Routes>
                 {routes.map((route) => {
                   return (
