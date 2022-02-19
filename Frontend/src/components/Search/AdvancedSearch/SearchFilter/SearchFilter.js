@@ -6,7 +6,12 @@ import { useState } from "react";
 
 export const SearchFilter = (props) => {
 
+  const state = props.state;
+  const setState = props.setState;
+
+
   const [filterState, setFilterState] = props.filterState;
+
 
   //Manejadora evento
 

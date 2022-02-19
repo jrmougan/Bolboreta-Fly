@@ -4,6 +4,7 @@ import decodeTokenData from "../helpers/decodeTokenData";
 
 const useUserProfile = (token) => {
     const [user, setUser] = useState({});
+    const [refetch, setRefetch] = useState(false);
     console.log('user:', user)
     const decodedToken = decodeTokenData(token);
 
@@ -32,9 +33,9 @@ const useUserProfile = (token) => {
             fetchUserProfile();
         }
 
-    }, [decodedToken?.id, token]);
+    }, [decodedToken?.id, token, refetch]);
 
-    return [user, setUser];
+    return [user, refetch, setRefetch];
 };
 
 export default useUserProfile;

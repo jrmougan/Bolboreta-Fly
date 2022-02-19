@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 
+
 const fetch = async () => {
     setLoading(true);
     try {
@@ -23,4 +24,6 @@ const fetch = async () => {
   useEffect(()=>{
     console.log('useFetch');
     search();
-  }, [filter]);
+  }, [url, body]);
+
+  return setBody 

@@ -1,4 +1,4 @@
-import { React, useState, useContext } from 'react';
+import { React, useState, useContext, useEffect } from 'react';
 import swal from 'sweetalert';
 import decodeTokenData from '../../helpers/decodeTokenData';
 import useUserProfile from '../../hooks/useUserProfile';
@@ -8,15 +8,25 @@ import './style.css'
 
 
 
-const EditAvatar = () => {
+
+
+const EditAvatar = ({update}) => {
+    const [refetch, setRefetch] = update;
     const [token] = useContext(TokenContext);
     const [user] = useUserProfile(token);
     const decodedToken = decodeTokenData(token);
     const [avatar, setAvatar] = useState(user.userInfo?.avatar)
 
+    console.log('refetch' + refetch);
+    setRefetch(!refetch);
+    console.log('refetch' + refetch);
+
+    
+
     const fetchAvatar = async (e) => {
 
         e.preventDefault();
+        setRefetch(!refetch);
         const newavatar = new FormData();
         newavatar.append('avatar', avatar || user.userInfo?.avatar);
         console.log("avatar");
@@ -45,9 +55,11 @@ const EditAvatar = () => {
         }
 
     };
+    
     const handleAvatar = (e) => {
         console.log(e);
         setAvatar(e.target.files[0])
+  
     }
 
     return (

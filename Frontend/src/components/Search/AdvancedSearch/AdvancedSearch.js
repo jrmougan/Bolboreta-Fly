@@ -13,6 +13,7 @@ export const AdvancedSearch = (props) => {
   let {origin, destination, departureDate, returnDate, adults} = props.search;
 
 
+  const [state, setState]= useState('test');
 
   const selectScales = ["Directo", "1 escala", "2 escalas"];
   const bagage = [1, 2, 3, 4];
