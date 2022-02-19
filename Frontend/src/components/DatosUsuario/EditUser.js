@@ -23,6 +23,7 @@ const EditUser = () => {
 
 
 
+
     console.log(decodedToken.id);
     const updateUser = async (e) => {
         e.preventDefault();
@@ -34,6 +35,7 @@ const EditUser = () => {
             newbirthdate: newbirthdate || user.userInfo?.birthdate,
             newaddress: newaddress || user.userInfo?.address,
             newbio: newbio || user.userInfo?.bio,
+
         }
 
         console.log(JSON.stringify(newUser));
