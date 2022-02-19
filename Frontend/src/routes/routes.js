@@ -1,5 +1,7 @@
 import FormPassenger from '../components/FormaPassenger/FormPassenger';
-import StepForm from '../components/StepForm/StepForm';
+
+import StepForm from '../components/StepperForm/StepForm';
+
 import {
   AdvancedSearchScreen,
   DatosUsuario,

@@ -10,7 +10,7 @@ import {
 } from '../page';
 import StepperForm from '../components/StepperForm/StepperForm';
 import RateChoice from '../components/StepperForm/RateChoice';
-import StepForm from '../components/StepForm/StepForm';
+import StepForm from '../components/StepperForm/StepForm';
 import Itinerary from '../components/StepperForm/Itinerary/Itinerary';
 import SeatChoice from '../components/StepperForm/SeatChoice/SeatChoice';
 import FormPassenger from '../components/FormaPassenger/FormPassenger';
@@ -31,7 +31,9 @@ const Routing = () => {
           <Header></Header>
           {
             <main>
+
               <nav>
+
                 <ul>
                   {routes.map((route) => {
                     return (
@@ -41,9 +43,11 @@ const Routing = () => {
                     );
                   })}
                 </ul>
+
               </nav>  */}
 
               <Routes>
+
                 {routes.map((route) => {
                   return (
                     <Route
@@ -53,7 +57,7 @@ const Routing = () => {
                     ></Route>
                   );
                 })}
-              </Routes>
+              </Routes> */}
             </main>
           }
           <Footer />

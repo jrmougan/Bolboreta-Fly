@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './style.css';
 import MyTrip from './MyTrip';
 import flightExample from './InfoFlights/flightExample';
 import { dateFormat, durationFormat } from '../../helpers/formatHelp';
+import { RATES } from './InfoFlights/constantInfo';
 
 /* 
 ################################
@@ -27,89 +28,67 @@ const returnDateToFormat = new Date(
 const goingDate = dateFormat(goingDateToFormat);
 const returnDate = dateFormat(returnDateToFormat);
 
-const Rates = () => {
+const RateChoice = ({ rateCharge, setRateCharge }) => {
   return (
     <div className='rateChoicePage'>
-      <ChooseARate />
+      <ChooseARate rateCharge={rateCharge} setRateCharge={setRateCharge} />
       <MyTrip goingDate={goingDate} returnDate={returnDate} />
     </div>
   );
 };
-const ChooseARate = () => {
+const ChooseARate = ({ rateCharge, setRateCharge }) => {
   return (
     <div className='rates-choices'>
-      {rates.map((rate, key) => {
-        return (
-          <div className='rate-card' key={key}>
-            <div className='title'>
-              <h2>{rate.title} </h2>
-            </div>
-            <div className='included'>
-              <span>Incluido</span>
-              <ul>
-                {rate.included.map((rate, key) => {
-                  return (
-                    <li style={{ listStyle: 'none' }} key={key}>
-                      {' '}
-                      {rate}{' '}
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-            <div className='non-included'>
-              <span>No incluido</span>
-              {rate.nonIncluded.map((rate, key) => {
-                return (
-                  <li style={{ listStyle: 'none' }} key={key}>
-                    {' '}
-                    {rate}{' '}
-                  </li>
-                );
-              })}
-            </div>
-            <div className='rate-price'>
-              <span>{rate.price}</span>
-              <p>Tarifa por persona</p>
-
-              <button className='btn-card'>Añadir</button>
-            </div>
-          </div>
-        );
-      })}
+      {<ListOfChoices rateCharge={rateCharge} setRateCharge={setRateCharge} />}
     </div>
   );
 };
-const rates = [
-  {
-    title: 'Económica',
-    included: [' 1 x equipaje de mano'],
-    nonIncluded: [
-      '2 x maletas',
-      'Embarque prioritario',
-      'Comida en vuelo',
-      'Entretenimiento',
-    ],
-    price: '150€',
-  },
-  {
-    title: 'Plus',
-    included: [' 1 x equipaje de mano', 'Entretenimiento'],
-    nonIncluded: ['2 x maletas', 'Embarque prioritario', 'Comida en vuelo'],
-    price: '227€',
-  },
-  {
-    title: 'Premium',
-    included: [
-      ' 1 x equipaje de mano',
-      'Entretenimiento',
-      '2 x maletas',
-      'Embarque prioritario',
-      'Comida en vuelo',
-    ],
-    nonIncluded: [],
-    price: '350€',
-  },
-];
 
-export default Rates;
+const ListOfChoices = ({ rateCharge, setRateCharge }) => {
+  return RATES.map((rate, key) => {
+    console.log(rateCharge);
+    return (
+      <div className='rate-card' key={key}>
+        <div className='title'>
+          <h2>{rate.title} </h2>
+        </div>
+        <div className='included'>
+          <span>Incluido</span>
+          <ul>
+            {rate.included.map((rate, key) => {
+              return (
+                <li style={{ listStyle: 'none' }} key={key}>
+                  {' '}
+                  {rate}{' '}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+        <div className='non-included'>
+          <span>No incluido</span>
+          {rate.nonIncluded.map((rate, key) => {
+            return (
+              <li style={{ listStyle: 'none' }} key={key}>
+                {' '}
+                {rate}{' '}
+              </li>
+            );
+          })}
+        </div>
+        <div className='rate-price'>
+          <span>{Number(rate.price)} € </span>
+          <p>Tarifa por persona</p>
+
+          <button
+            className='btn-card'
+            onClick={() => setRateCharge(Number(rate.price))}
+          >
+            Añadir
+          </button>
+        </div>
+      </div>
+    );
+  });
+};
+export default RateChoice;
