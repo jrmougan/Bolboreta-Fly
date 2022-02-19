@@ -22,6 +22,7 @@ export const InputOrigin = ({ origin, setOrigin }) => {
         id='origin'
         value={origin}
         onChange={handleSubmit(setOrigin)}
+        placeholder='Origen'
       ></input>
     </div>
   );
