@@ -13,9 +13,10 @@ const useSearch = (searching) => {
 `;
 
   const search = async () => {
+    /*
     setLoading(true);
     try {
-      let fetchUrl = `${process.env.REACT_APP_PUBLIC_HOST_BACKEND}search?origin=${origin}&destination=${destination}&departuredate=${departureDate}&adults=${adults}`;
+     let fetchUrl = `${process.env.REACT_APP_PUBLIC_HOST_BACKEND}search?origin=${origin}&destination=${destination}&departuredate=${departureDate}&adults=${adults}`;
       console.log('fetchurl: ' + fetchUrl);
 
       if (returnDate) {
@@ -33,13 +34,16 @@ const useSearch = (searching) => {
     } catch (error) {
       console.error('Error de comunicación', error);
     }
+    */
   };
-  /* 
+  
   useEffect(() => {
     console.log('useSearch');
     search();
+  },[]);
 
-  return [data, loading, override, updateFilter];
-};
+  return [data, loading, override];
+}
 
 export default useSearch;
+
