@@ -85,14 +85,14 @@ useEffect(()=>{
       console.error('Error de comunicación', error);
     }
     */
-  };
+
   
   useEffect(() => {
     console.log('useSearch');
     search();
 
   }, [filter]);
-  */
+
 
 
 
