@@ -34,7 +34,7 @@ const france = airlines.find((airline) => {
 const durationFlightExample =
   flightOrder.data.flightOffers[0].itineraries[1].duration;
 
-const Itinerary = () => {
+const Itinerary = ({ emergencyData }) => {
   const flightOrderInfo = {
     id: flightOrder.data.id,
   };
@@ -85,7 +85,11 @@ const Itinerary = () => {
       />
       <SeatAndBaggage seatChosen={seatChosen} superPassenger={superPassenger} />
       <InTripIncluded tripIncludes={tripIncludes} />
-      <ContactInfo infoMainContact={infoMainContact} totalPrice={totalPrice} />
+      <ContactInfo
+        infoMainContact={infoMainContact}
+        totalPrice={totalPrice}
+        emergencyData={emergencyData}
+      />
     </section>
   );
 };

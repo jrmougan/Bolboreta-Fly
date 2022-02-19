@@ -47,3 +47,51 @@ export const tripIncludes = [
       'Cambios en tu reserva: modificaciones y cancelaciones sin ningún coste adicional',
   },
 ];
+
+export const RATES = [
+  {
+    title: 'Económica',
+    included: [' 1 x equipaje de mano'],
+    nonIncluded: [
+      '2 x maletas',
+      'Embarque prioritario',
+      'Comida en vuelo',
+      'Entretenimiento',
+    ],
+    price: '150',
+  },
+  {
+    title: 'Plus',
+    included: [' 1 x equipaje de mano', 'Entretenimiento'],
+    nonIncluded: ['2 x maletas', 'Embarque prioritario', 'Comida en vuelo'],
+    price: '227',
+  },
+  {
+    title: 'Premium',
+    included: [
+      ' 1 x equipaje de mano',
+      'Entretenimiento',
+      '2 x maletas',
+      'Embarque prioritario',
+      'Comida en vuelo',
+    ],
+    nonIncluded: [],
+    price: '350',
+  },
+];
+
+export const CancellationPolicy = () => {
+  return (
+    <article className='cancelation_container'>
+      <h3>Política de cancelación</h3>
+      <p>
+        Este vuelo tiene una política de cancelación flexible. Si cancela o
+        cambiar su vuelo hasta 30 días antes de la fecha de salida, es elegible
+        para un reembolso gratuito. Todos los vuelos reservados en Bolboreta
+        están respaldados por nuestra garantía de satisfacción, sin embargo, las
+        políticas de cancelación varían serún las aerolíneas. Consulte la
+        política de cancelacion completa de este vuelo.
+      </p>
+    </article>
+  );
+};

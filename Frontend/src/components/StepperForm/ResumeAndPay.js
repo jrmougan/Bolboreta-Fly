@@ -1,77 +1,70 @@
 import React, { useState } from 'react';
-import useLocalStorage from '../../hooks/useLocalStorage';
 import PayPal from '../PayPal/PayPal';
+import { CancellationPolicy } from './InfoFlights/constantInfo';
+import offerprice from './InfoFlights/offerpriceExample.json';
 
-const LogoAirline = () => {
+const flightOffer = offerprice.data[0];
+
+//  Averiguamos el código de la aerolínea
+// y mostramos su logo en pantalla
+
+const airlineCode = flightOffer.validatingAirlineCodes[0];
+
+const logoAirline = (airlineCode) => {
   return (
     <img
       alt='Airline company logo'
-      src='https://images.kiwi.com/airlines/64/IB.png'
+      src={`https://images.kiwi.com/airlines/64/${airlineCode}.png`}
     />
   );
 };
 
-const ResumeandPay = () => {
-  const [payerName, setPayerName] = useLocalStorage('payerName', '');
-  const [payerCreditNumber, setPayerCreditNumber] = useLocalStorage(
-    'payerCreditNumber',
-    ''
-  );
-  const [escale, setEscale] = useLocalStorage('escales', '');
-  const seatPrice = 100;
-  const subtotal = 150;
-  const taxes = 50;
-  const totalPrice = 300;
+const ResumeandPay = ({ rateCharge, setRateCharge }) => {
+  /* 
+  ##########################
+  ## Offerprice variables ##
+  ##########################
+  */
+
+  const priceOptions = flightOffer.price;
+
+  const { base, currency, grandTotal } = priceOptions;
+
+  const precioTotal = Number(grandTotal);
+
+  const totalPrice = precioTotal + rateCharge;
+
+  const taxes = 0.21;
+
+  const scalesGoing = flightOffer.itineraries[0].segments[0].numberOfStops;
+
+  const seatPrice = 0;
+
+  /* 
+   ##########################
+  ## Offerprice variables ##
+  ##########################
+  */
+  const [itineraries] = flightOffer.itineraries;
+  console.log(itineraries);
+
+  const flightOrder = {
+    type: 'flight-order',
+    flightOffers: [itineraries],
+  };
 
   return (
     <div className='paymentConfirmationContainer'>
       <div className='paymentElection'>
         <h1 className='title_payment'>Método de Pago</h1>
-        <PayPal> </PayPal>
-
-
-        <label htmlFor='facturation_address'>
-          <input type='checkbox' id='facturation_address' /> Dirección de
-          facturación es igual a la del pasajero 1
-        </label>
-        <div className='payment-info'>
-          <input
-            type='text'
-            value={payerName}
-            onChange={(e) => setPayerName(e.target.value)}
-          ></input>
-          <input
-            type='number'
-            value={payerCreditNumber}
-            onChange={(e) => setPayerCreditNumber(e.target.value)}
-          ></input>
-          <input
-            type='month'
-            placeholder='Fecha de caducidad'
-            value='2001-06'
-          ></input>
-          <input type='number' placeholder='Fecha de caducidad'></input>
-        </div>
-        <div className='cancelation_container'>
-          <h3>Política de cancelación</h3>
-          <p>
-            Este vuelo tiene una política de cancelación flexible. Si cancela o
-            cambiar su vuelo hasta 30 días antes de la fecha de salida, es
-            elegible para un reembolso gratuito. Todos los vuelos reservados en
-            Bolboreta están respaldados por nuestra garantía de satisfacción,
-            sin embargo, las políticas de cancelación varían serún las
-            aerolíneas. Consulte la política de cancelacion completa de este
-            vuelo.
-          </p>
-        </div>
+        <PayPal />
+        <CancellationPolicy />
       </div>
       <div className='paymentConfirmation'>
         <div className='flight_resume'>
           <div className='flight_resume_way flight_resume_going'>
             <div className='airline_container'>
-              <div className='airline_logo'>
-                <LogoAirline />
-              </div>
+              <div className='airline_logo'>{logoAirline(airlineCode)}</div>
               <div className='airline_name'>
                 <h4>Iberia</h4>
                 <p>FIG4312</p>
@@ -80,14 +73,15 @@ const ResumeandPay = () => {
             <div className='schedule_container'>
               <p>1h 10 min</p>
               <p>9:50 - 11:00 PM</p>
-              <p> {escale}</p>
+              <p>
+                {' '}
+                {scalesGoing ? `Hay ${scalesGoing} escalas` : 'Sin escalas'}
+              </p>
             </div>
           </div>
           <div className='flight_resume_way flight_resume_return'>
             <div className='airline_container'>
-              <div className='airline_logo'>
-                <LogoAirline />
-              </div>
+              <div className='airline_logo'>{logoAirline(airlineCode)}</div>
               <div className='airline_name'>
                 <h4>Iberia</h4>
                 <p>FIG4312</p>
@@ -96,15 +90,21 @@ const ResumeandPay = () => {
             <div className='schedule_container'>
               <p>1h 10 min</p>
               <p>9:50 - 11:00 PM</p>
-              <p> {escale}</p>
+              <p>
+                {' '}
+                {scalesGoing ? `Hay ${scalesGoing} escalas` : 'Sin escalas'}
+              </p>
             </div>
           </div>
         </div>
         <div className='finalCounting'>
-          <p>Actualización de asiento {seatPrice}€</p>
-          <p>Subtotal {subtotal}€</p>
-          <p>Impuestos {taxes}€</p>
-          <p>Total {totalPrice}€</p>
+          <p>Actualización de asiento {seatPrice} €</p>
+          <p>Subtotal {base} €</p>
+          <p>Elección de tarifa {rateCharge} €</p>
+          <p>Impuestos {taxes} €</p>
+          <p style={{ margin: '2rem', fontSize: '1.5rem' }}>
+            Total {totalPrice} {currency}
+          </p>
           <button>Confirmar y pagar</button>
         </div>
       </div>
