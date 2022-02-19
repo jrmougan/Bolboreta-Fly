@@ -19,9 +19,10 @@ export const ListFlights = ({ data }) => {
           const currency = flight.price.currency;
           const iataOrigin =
             flight.itineraries[0].segments[0].departure.iataCode;
+          const lastSegmentFlight =
+            Number(flight.itineraries[0].segments.length) - 1;
           const iataDestination =
-            flight.itineraries[0].segments[0].arrival.iataCode;
-
+            flight.itineraries[0].segments[lastSegmentFlight].arrival.iataCode;
           function hourFormat(date) {
             return format(date, 'hh:mm');
           }
