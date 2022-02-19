@@ -137,9 +137,7 @@ const EditUser = () => {
                     name="birthdate"
                     type="date"
                     value={newbirthdate}
-                    onChange={handleBirthdate
-
-                    }
+                    onChange={handleBirthdate}
                 />
 
 

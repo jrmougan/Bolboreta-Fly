@@ -12,6 +12,7 @@ const EditAvatar = () => {
     const decodedToken = decodeTokenData(token);
     const [avatar, setAvatar] = useState(user.userInfo?.avatar);
 
+    useEffect(() => { setAvatar(avatar) }, [avatar]);
 
     const fetchAvatar = async (e) => {
         e.preventDefault();
