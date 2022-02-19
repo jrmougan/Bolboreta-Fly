@@ -23,7 +23,7 @@ const useUserProfile = (token) => {
                 if (res.ok) {
                     const body = await res.json();
                     setUser(body.data);
-                    console.log(body.data)
+                    console.log('data'+ body.data)
 
 
                 }

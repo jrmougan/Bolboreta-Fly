@@ -31,7 +31,7 @@ const Routing = () => {
           <Header></Header>
           {
             <main>
-              {/* <nav>
+              <nav>
                 <ul>
                   {routes.map((route) => {
                     return (
