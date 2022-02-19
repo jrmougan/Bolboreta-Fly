@@ -17,7 +17,7 @@ const EditUser = () => {
     const [newname, setNewname] = useState(user.userInfo?.name_user);
     const [newlastname, setLastname] = useState(user.userInfo?.lastname);
     const [newemail, setNewemail] = useState(user.userInfo?.email);
-    const [newbirthdate, setNewbirthdate] = useState(user.userInfo?.birthdate);
+    const [newbirthdate, setNewbirthdate] = useState(user.userInfo?.birthdate || new Date());
     const [newaddress, setNewaddress] = useState(user.userInfo?.address);
     const [newbio, setNewbio] = useState(user.userInfo?.bio);
 
