@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import "./mainForm.css";
 
 import { TextField } from "@mui/material";
-import { FaArrowRight } from "react-icons/fa";
+
 
 import swal from "sweetalert";
 
@@ -79,6 +79,12 @@ const MainForm = () => {
   //checkbox para mostrar contraseña
   const [shown, setShown] = useState(false);
   const switchShown = () => setShown(!shown);
+
+  //checkbox para aceptar politica de privacidad y poder registrarte
+  const [checked, setChecked] = useState(false);
+  const switchChecked = () => setChecked(!checked);
+
+
 
   return (
     <main>
@@ -194,10 +200,14 @@ const MainForm = () => {
               className="inputForm textarea"
             ></textarea>
           </div>
+          <label className="condicionesgenerales">
+            <input type='checkbox' className="politica" onChange={switchChecked} />
+            Estoy de acuerdo con la politica de privacidad y condiciones generales
+          </label>
 
-          <button type="submit" className="register-btn">
+          <button type="submit" className="register-btn" disabled={!checked}>
 
-            Enviar datos de Registro <FaArrowRight />
+            Enviar datos de Registro
           </button>
         </form>
       </div>

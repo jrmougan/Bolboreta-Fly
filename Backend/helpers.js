@@ -72,14 +72,19 @@ async function savePhoto(image, maxwidth) {
     try {
         await ensureDir(uploadDir);
 
+
         const sharpImage = sharp(image.data);
 
         const infoImage = await sharpImage.metadata();
+
 
         // Todas las fotos/avatares van a tener un tamaño máximo.
         if (infoImage.width > maxwidth) {
             sharpImage.resize(maxwidth);
         }
+
+        // Rotar imagen.
+        sharpImage.rotate();
 
         //Nombre único para cada foto/avatar.
         const imgName = uuid.v4() + '.jpg';
@@ -91,6 +96,7 @@ async function savePhoto(image, maxwidth) {
         await sharpImage.toFile(imagePath);
 
         return imgName;
+
     } catch (_) {
         throw new Error('Error al procesar la imagen');
     }
