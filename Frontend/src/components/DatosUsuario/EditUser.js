@@ -28,6 +28,7 @@ const EditUser = () => {
     const updateUser = async (e) => {
 
         e.preventDefault();
+        setRefetch(!refetch);
         const newUser = {
             newname: newname || user.userInfo?.name_user,
             newlastname: newlastname || user.userInfo?.lastname,
@@ -81,7 +82,7 @@ const EditUser = () => {
                     />
                 </div>
 
-                <EditAvatar update={[refetch, setRefetch]}/>
+                <EditAvatar />
 
                 <h2> Datos de Usuario </h2>
                 <label htmlFor="name"> Nombre </label>

@@ -20,7 +20,7 @@ const EditAvatar = () => {
 
     const fetchAvatar = async (e) => {
         e.preventDefault();
-        setRefetch(!refetch);
+
         const newavatar = new FormData();
         newavatar.append("avatar", avatar || user.userInfo?.avatar);
         console.log(avatar);

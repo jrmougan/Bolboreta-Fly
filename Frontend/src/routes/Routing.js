@@ -45,7 +45,7 @@ const Routing = () => {
                   })}
                 </ul>
 
-              </nav>  */}
+              </nav>  
 
               <Routes>
 
@@ -58,7 +58,7 @@ const Routing = () => {
                     ></Route>
                   );
                 })}
-              </Routes> */}
+              </Routes> 
             </main>
           }
           <Footer />
