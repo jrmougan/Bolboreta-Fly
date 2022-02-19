@@ -26,4 +26,4 @@ const citySearch = async (req, res, next) => {
 
     }
 }
-module.export = citySearch;
+module.exports = citySearch;
