@@ -16,11 +16,13 @@ const HomeScreen = () => {
   // Obtenemos los datos de los input y los guardamos en el localStorage
   // para mantenerlos si recarga la página
 
+
   const [origin, setOrigin] = useState('');
   const [destination, setDestination] = useState('');
   const [departureDate, setDepartureDate] = useState('');
   const [returnDate, setReturndate] = useState('');
   const [adults, setAdults] = useState('');
+
 
   // Objeto que aglutina los parámetros de búsqueda que usará
   // el Custom Hook useSearch
@@ -33,9 +35,7 @@ const HomeScreen = () => {
     adults,
   };
 
-  // Obtenemos el resultado (vuelos) a través de data
-  // y la función search para pasarla a través de las props a ListFlights
-  const [data, search, loading] = useSearch(searching);
+
 
   // Función para modificar el valor de cada variable
   // a través del onChange de cada input
@@ -49,7 +49,6 @@ const HomeScreen = () => {
     <main className='searchEnvironment'>
       <BasicSearch
         destination={destination}
-        search={search}
         origin={origin}
         departureDate={departureDate}
         setOrigin={setOrigin}
@@ -60,9 +59,7 @@ const HomeScreen = () => {
         handleSubmit={handleSubmit}
         adults={adults}
         setReturndate={setReturndate}
-        loading={loading}
       />
-      {loading ? <MoonLoader css={override} /> : <ListFlights data={data} />}
     </main>
   );
 };

@@ -1,3 +1,4 @@
+
 import { React, useState, useContext, useEffect } from "react";
 import swal from "sweetalert";
 import decodeTokenData from "../../helpers/decodeTokenData";
@@ -7,21 +8,25 @@ import "./style.css";
 
 const EditAvatar = () => {
 
+
     const [token] = useContext(TokenContext);
     const [user] = useUserProfile(token);
     const decodedToken = decodeTokenData(token);
     const [avatar, setAvatar] = useState(user.userInfo?.avatar);
 
+
     useEffect(() => { setAvatar(avatar) }, [avatar]);
+
 
     const fetchAvatar = async (e) => {
         e.preventDefault();
+        setRefetch(!refetch);
         const newavatar = new FormData();
         newavatar.append("avatar", avatar || user.userInfo?.avatar);
         console.log(avatar);
         console.log(newavatar);
         const res = await fetch(
-            `${process.env.REACT_APP_PUBLIC_HOST_BACKEND}user/${decodedToken?.id}/avatar`,
+            `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/user/${decodedToken?.id}/avatar`,
             {
                 method: "PUT",
                 headers: {
@@ -39,10 +44,13 @@ const EditAvatar = () => {
             swal(error.message);
         }
     };
+    
     const handleAvatar = (e) => {
         console.log(e);
+
         setAvatar(e.target.files[0]);
     };
+
 
     return (
         <div className="editavatarcontainer">

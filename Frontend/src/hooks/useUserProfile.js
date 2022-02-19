@@ -4,6 +4,7 @@ import decodeTokenData from "../helpers/decodeTokenData";
 
 const useUserProfile = (token) => {
     const [user, setUser] = useState({});
+    const [refetch, setRefetch] = useState(false);
     console.log('user:', user)
     const decodedToken = decodeTokenData(token);
 
@@ -13,7 +14,7 @@ const useUserProfile = (token) => {
             console.log(decodedToken.id)
 
             const fetchUserProfile = async () => {
-                const res = await fetch(`${process.env.REACT_APP_PUBLIC_HOST_BACKEND}user/${decodedToken.id}`,
+                const res = await fetch(`http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/user/${decodedToken.id}`,
                     {
                         headers: {
                             Authorization: token,
@@ -32,9 +33,9 @@ const useUserProfile = (token) => {
             fetchUserProfile();
         }
 
-    }, [decodedToken?.id, token]);
+    }, [decodedToken?.id, token, refetch]);
 
-    return [user, setUser];
+    return [user, refetch, setRefetch];
 };
 
 export default useUserProfile;

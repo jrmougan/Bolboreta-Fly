@@ -1,4 +1,4 @@
-import {Fragment, useState, useEffect} from 'react';
+import {Fragment} from 'react';
 import { useParams } from 'react-router-dom';
 import {AdvancedSearch} from '../components/Search/AdvancedSearch/AdvancedSearch';
 

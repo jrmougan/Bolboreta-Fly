@@ -14,7 +14,7 @@ const DeleteUsuario = () => {
         e.preventDefault();
 
 
-        const res = await fetch(`${process.env.REACT_APP_PUBLIC_HOST_BACKEND}user/${decodedToken?.id}/delete`,
+        const res = await fetch(`http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/user/${decodedToken?.id}/delete`,
             {
                 method: 'DELETE',
                 headers: {

@@ -28,6 +28,7 @@ const ActiveUser = () => {
       } else {
         const error = await res.json();
 
+
         swal(error.message, '', 'error');
       }
     };

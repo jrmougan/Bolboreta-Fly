@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
 import '../App.css';
 import routes from './routes';
+
 import {
   AdvancedSearchScreen,
   HomeScreen,
@@ -14,9 +15,9 @@ import StepForm from '../components/StepperForm/StepForm';
 import Itinerary from '../components/StepperForm/Itinerary/Itinerary';
 import SeatChoice from '../components/StepperForm/SeatChoice/SeatChoice';
 import FormPassenger from '../components/FormaPassenger/FormPassenger';
+
 import Header from '../components/ui/header/header';
-import HomeRound from '../page/HomeRound';
-import HomeMultiple from '../page/HomeMultiple';
+
 import { TokencontextProvider } from '../context/TokenContext';
 import { OfferPriceContextProvider } from '../context/OfferPriceContext';
 

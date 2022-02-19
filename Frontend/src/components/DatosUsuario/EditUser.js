@@ -1,6 +1,6 @@
 import "./style.css";
 
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import decodeTokenData from "../../helpers/decodeTokenData";
 import useUserProfile from "../../hooks/useUserProfile";
 import { TokenContext } from "../../context/TokenContext";
@@ -12,7 +12,7 @@ import DeleteUsuario from "../DeleteUsuariio/DeleteUsuario";
 
 const EditUser = () => {
     const [token, setToken] = useContext(TokenContext);
-    const [user] = useUserProfile(token);
+    const [user, refetch, setRefetch] = useUserProfile(token);
     const decodedToken = decodeTokenData(token);
     const [newname, setNewname] = useState(user.userInfo?.name_user);
     const [newlastname, setLastname] = useState(user.userInfo?.lastname);
@@ -26,8 +26,8 @@ const EditUser = () => {
 
     console.log(decodedToken.id);
     const updateUser = async (e) => {
-        e.preventDefault();
 
+        e.preventDefault();
         const newUser = {
             newname: newname || user.userInfo?.name_user,
             newlastname: newlastname || user.userInfo?.lastname,
@@ -39,10 +39,8 @@ const EditUser = () => {
         }
 
         console.log(JSON.stringify(newUser));
-
-
         const res = await fetch(
-            `${process.env.REACT_APP_PUBLIC_HOST_BACKEND}user/${decodedToken?.id}/edit`,
+            `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/user/${decodedToken?.id}/edit`,
             {
                 method: "PUT",
                 headers: {
@@ -54,19 +52,15 @@ const EditUser = () => {
 
             }
         );
-
-
         if (res.ok) {
-
             const body = await res.json();
             swal(body.message);
-
         } else {
             const error = await res.json();
             swal(error.message);
-
         }
-    };
+
+    }
 
     const handleBirthdate = (e) => {
         setNewbirthdate(e.target.value || user.userInfo?.birthdate);
@@ -82,12 +76,12 @@ const EditUser = () => {
                 <div className="fotocontainer">
                     <img
                         className="fotousuario"
-                        src={user.userInfo?.avatar ? `${process.env.REACT_APP_PUBLIC_HOST_BACKEND}/uploads/${user.userInfo?.avatar}` : avataranonimo}
+                        src={user.userInfo?.avatar ? `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/uploads/${user.userInfo?.avatar}` : avataranonimo}
                         alt={`Avatar de ${user.userInfo?.name_user}`}
                     />
                 </div>
 
-                <EditAvatar />
+                <EditAvatar update={[refetch, setRefetch]}/>
 
                 <h2> Datos de Usuario </h2>
                 <label htmlFor="name"> Nombre </label>
