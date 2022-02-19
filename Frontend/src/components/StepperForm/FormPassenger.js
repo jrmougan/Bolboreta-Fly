@@ -2,13 +2,20 @@ import { useState } from 'react';
 import { TextField, Autocomplete, MenuItem } from '@mui/material';
 import './style.css';
 import MuiPhoneNumber from 'material-ui-phone-number';
+import PassengerInfo from './InfoFlights/PassengerInfo';
+import offerprice from '../../components/StepperForm/InfoFlights/offerpriceExample.json';
 
-const FormPassenger = () => {
+const FormPassenger = ({
+  passenger,
+  setPassenger,
+  emergencyData,
+  setEmergencyData,
+}) => {
   const [name, setName] = useState();
   const [lastname, setLastname] = useState();
   const [lastname2, setLastname2] = useState();
 
-  const [birthdate, setBirhdate] = useState('');
+  const [birthdate, setBirthday] = useState('');
   const [birthPlace, setBirthplace] = useState();
   const [documentFlight, setDocumentFlight] = useState('');
   const [inssuanceDate, setInssuancedate] = useState('');
@@ -20,23 +27,13 @@ const FormPassenger = () => {
   const [typedocument, setTypeDocument] = useState('');
   const [number, setNumber] = useState('');
   const [genero, setGenero] = useState('');
-  const [pais, setPais] = useState('');
+  const [country, setCountry] = useState('');
   const [phone, setPhone] = useState('');
 
-  // Estados del contacto de emergencia
-  // y agrupación
+  const [counter, setCounter] = useState(1);
 
-  const [emergencyName, setEmergencyName] = useState('');
-  const [emergencyLastname, setEmergencyLastname] = useState('');
-  const [emergencyEmail, setEmegencyEmail] = useState('');
-  const [emergencyPhone, setEmergencyPhone] = useState('');
-
-  const emergencyData = {
-    name: emergencyName,
-    lastname: emergencyLastname,
-    email: emergencyEmail,
-    phone: emergencyPhone,
-  };
+  // Datos de todos los pasajeros
+  const [allPassengerData, setAllPassengerData] = useState([]);
 
   // Función para controlar los inputs
   const handleSubmit = (setter) => (e) => {
@@ -44,10 +41,12 @@ const FormPassenger = () => {
     setter(e.target.value);
   };
 
+  // Información por pasajero
+
   const traveler = {
     firstName: name,
-    lastName: lastname,
-    lastname2: lastname2,
+    lastname,
+    lastname2,
     birthPlace,
     inssuanceDate,
     number,
@@ -58,225 +57,90 @@ const FormPassenger = () => {
     holder: true,
   };
 
+  const autoValue = {
+    gender,
+    countries,
+    documentation,
+    typePhone,
+    country,
+    setCountry,
+  };
+
+  // Averiguamos el número de pasajeros
+
+  let travelers = offerprice.data[0].travelerPricings;
+
   return (
     <div className='FormularioPasajero'>
       <section className='Titulo'>
         <h3 className='sec-clr'> Información de los pasajeros </h3>
         <p className='ter-clr'> Introduce la información de los pasajeros </p>
       </section>
-      {/* <PassengerInfo /> */}
 
-      <section>
-        <h3> Pasajero 1 </h3>
-        <form className='passengerForm'>
-          <TextField
-            sx={{ marginInline: '1rem', width: '30%', marginTop: '2rem' }}
-            required
-            id='Nombre-required'
-            placeholder='Nombre'
-            value={name}
-            onChange={handleSubmit(setName)}
-            className='passengerInput'
-            margin='dense'
-          />
-
-          <TextField
-            sx={{ marginInline: '1rem', width: '30%', marginTop: '2rem' }}
-            required
-            id='Apellido-required'
-            placeholder=' Primer Apellido'
-            value={lastname}
-            onChange={handleSubmit(setLastname)}
-            className='passenger-input'
-            margin='dense'
-          />
-          <TextField
-            sx={{ marginInline: '1rem', width: '30%', marginTop: '2rem' }}
-            id='Apellido2-required'
-            placeholder=' Segundo Apellido'
-            value={lastname2}
-            onChange={handleSubmit(setName)}
-            className='passenger-input'
-            margin='dense'
-          />
-          <TextField
-            sx={{ marginInline: '1rem', width: '30%', marginTop: '2rem' }}
-            required
-            id='birthdate'
-            placeholder='Fecha Nacimiento'
-            type='date'
-            value={birthdate}
-            onChange={handleSubmit(setBirhdate)}
-            className='passenger-input'
-            margin='dense'
-          />
-          <TextField
-            sx={{ marginInline: '1rem', width: '30%', marginTop: '2rem' }}
-            required
-            id='Nacimiento-required'
-            placeholder='Lugar de nacimiento'
-            value={birthPlace}
-            onChange={handleSubmit(setBirthplace)}
-            className='passenger-input'
-            margin='dense'
-          />
-          <TextField
-            sx={{ marginInline: '1rem', width: '30%', marginTop: '2rem' }}
-            id='document'
-            select
-            label='Tipo de Documento'
-            value={typedocument}
-            onChange={handleSubmit(setTypeDocument)}
-            className='passenger-input'
-            margin='dense'
-          >
-            {documentation.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {' '}
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
-          <TextField
-            sx={{ marginInline: '1rem', width: '30%', marginTop: '2rem' }}
-            required
-            id='Dni'
-            placeholder='DNI /  NIE'
-            value={documentFlight}
-            onChange={handleSubmit(setDocumentFlight)}
-            margin='dense'
-            className='passenger-input'
-          />
-          <TextField
-            sx={{ marginInline: '1rem', width: '30%', marginTop: '2rem' }}
-            required
-            id='inssuancedate'
-            label='Fecha de expedición'
-            type='date'
-            value={inssuanceDate}
-            onChange={handleSubmit(setInssuancedate)}
-            className='passenger-input'
-            margin='dense'
-          />
-          <TextField
-            sx={{ marginInline: '1rem', width: '30%', marginTop: '2rem' }}
-            required
-            id='expiredate'
-            label='Fecha de expiración'
-            type='date'
-            value={expiredate}
-            onChange={handleSubmit(setExpiredate)}
-            className='passenger-input'
-            margin='dense'
-          />
-          <TextField
-            sx={{ marginInline: '1rem', width: '30%', marginTop: '2rem' }}
-            required
-            id='issuancecountry'
-            placeholder='Lugar de Expedicion'
-            className='passenger-input'
-            margin='dense'
-          />
-          <TextField
-            sx={{ marginInline: '1rem', width: '30%', marginTop: '2rem' }}
-            id='gender'
-            select
-            placeholder='Genero'
-            value={genero}
-            onChange={handleSubmit(setGenero)}
-            className='passenger-input'
-            margin='dense'
-          >
-            {gender.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {' '}
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
-          <TextField
-            sx={{ marginInline: '1rem', width: '30%', marginTop: '2rem' }}
-            required
-            id='email'
-            label='E-mail'
-            type='email'
-            value={email}
-            onChange={handleSubmit(setEmail)}
-            className='passenger-input'
-            margin='dense'
-          />
-          {
-            <Autocomplete
-              id='pais'
-              options={countries}
-              sx={{ width: 300 }}
-              onChange={(e, newinputvalue) => setPais(newinputvalue)}
-              value={pais.label}
-              renderInput={(params) => <TextField {...params} label='Pais' />}
-            ></Autocomplete>
-          }
-          {
-            <TextField
-              id='typephone'
-              select
-              label='Tipo de Teléfono'
-              value={TypePhone}
-              onChange={handleSubmit(setTypePhone)}
-            >
-              {typePhone.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {' '}
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
-          }
-          {
-            <MuiPhoneNumber
-              defaultCountry={'es'}
-              onChange={handleSubmit(setPhone)}
-              value={phone}
-            />
-          }
-          <button className='enviardatos' type='submit'>
-            {' '}
-            Guardar pasajero{' '}
-          </button>
-        </form>
-      </section>
-
-      <section>
-        <form>
-          <h3 className='ter-clr'>Información contacto de emergencia </h3>
-          <div className='emergency-inputs'>
-            <TextField
-              value={emergencyName}
-              onChange={(e) => handleSubmit(setEmergencyName)}
-              sx={emergencyInputStyle}
-              placeholder='Nombre'
-            ></TextField>
-            <TextField
-              value={emergencyLastname}
-              onChange={(e) => handleSubmit(setEmergencyLastname)}
-              sx={emergencyInputStyle}
-              placeholder='Apellidos'
-            ></TextField>
-            <TextField
-              value={emergencyEmail}
-              onChange={(e) => handleSubmit(setEmegencyEmail)}
-              sx={emergencyInputStyle}
-              placeholder='Email'
-            ></TextField>
-            <TextField
-              value={emergencyPhone}
-              onChange={(e) => handleSubmit(setEmergencyPhone)}
-              sx={emergencyInputStyle}
-              placeholder='Numero de teléfono'
-            ></TextField>
-          </div>
-        </form>
-      </section>
+      {/*       {travelers.map((trav) => {
+        return (
+          <section key={trav.travelerId}>
+            <h3>Pasajero {trav.travelerId}</h3>
+            <PassengerInfo params={params} />
+          </section>
+        );
+      })} */}
+      <PassengerInfo
+        passenger={passenger}
+        setPassenger={setPassenger}
+        emergencyData={emergencyData}
+        setEmergencyData={setEmergencyData}
+        autoValue={autoValue}
+      />
+      <EmergencyForm
+        emergencyData={emergencyData}
+        setEmergencyData={setEmergencyData}
+      />
     </div>
+  );
+};
+
+const EmergencyForm = ({ emergencyData, setEmergencyData }) => {
+  return (
+    <section>
+      <form>
+        <h3 className='ter-clr'>Información contacto de emergencia </h3>
+        <div className='emergency-inputs'>
+          <TextField
+            value={emergencyData.name}
+            onChange={(e) =>
+              setEmergencyData({ ...emergencyData, name: e.target.value })
+            }
+            sx={emergencyInputStyle}
+            placeholder='Nombre'
+          ></TextField>
+          <TextField
+            value={emergencyData.lastname}
+            onChange={(e) =>
+              setEmergencyData({ ...emergencyData, lastname: e.target.value })
+            }
+            sx={emergencyInputStyle}
+            placeholder='Apellidos'
+          ></TextField>
+          <TextField
+            value={emergencyData.email}
+            onChange={(e) =>
+              setEmergencyData({ ...emergencyData, email: e.target.value })
+            }
+            sx={emergencyInputStyle}
+            placeholder='Email'
+          ></TextField>
+          <TextField
+            value={emergencyData.phone}
+            onChange={(e) =>
+              setEmergencyData({ ...emergencyData, phone: e.target.value })
+            }
+            sx={emergencyInputStyle}
+            placeholder='Numero de teléfono'
+          ></TextField>
+        </div>
+      </form>
+    </section>
   );
 };
 
@@ -567,4 +431,12 @@ const typePhone = [
   { label: 'Teléfono fijo', value: 'Landline' },
   { label: 'Fax', value: 'Fax' },
 ];
+
+// Reunimos lista de valores para autocompletar
+const autoValue = {
+  gender,
+  countries,
+  documentation,
+  typePhone,
+};
 export default FormPassenger;

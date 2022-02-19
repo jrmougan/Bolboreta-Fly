@@ -3,7 +3,7 @@ import './style.css'
 import swal from 'sweetalert';
 import { TokenContext } from '../../context/TokenContext';
 import decodeTokenData from '../../helpers/decodeTokenData';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 
 const DeleteUsuario = () => {
 
@@ -33,11 +33,16 @@ const DeleteUsuario = () => {
             swal(error.message, '', 'warning');
         };
     };
+
+    if (!token) {
+        return <Navigate to='/' />
+    }
+
     return (
         <div>
-            <Link to='/'>
-                <button className='delete' onClick={fetchDeleteuser}> Eliminar Usuario </button>
-            </Link>
+
+            <button className='delete' onClick={fetchDeleteuser}> Eliminar Usuario </button>
+
 
 
         </div>

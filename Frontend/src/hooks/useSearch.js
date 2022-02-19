@@ -3,9 +3,11 @@ import { OfferPriceContextProvider } from '../context/OfferPriceContext';
 import axios from "axios";
 
 const useSearch = (searching) => {
+
   const [search, updateSearch] = useState(searching);
   const [filter, updateFilter] = useState();
   const [loading, setLoading] = useState(true);
+
   const [data, setData] = useState('');
   
   
@@ -18,6 +20,7 @@ const useSearch = (searching) => {
   margin: 10rem auto;
   border-color: red;
 `;
+
 
 const body = {
   "courrencyCode":"EUR",
@@ -67,6 +70,7 @@ useEffect(()=>{
     setLoading(true);
     try {
 
+
       const response = await fetch(fetchUrl);
 
       const body = await response.json();
@@ -80,12 +84,13 @@ useEffect(()=>{
     } catch (error) {
       console.error('Error de comunicación', error);
     }
+    */
   };
   
-
-  useEffect(()=>{
+  useEffect(() => {
     console.log('useSearch');
     search();
+
   }, [filter]);
   */
 
@@ -93,7 +98,9 @@ useEffect(()=>{
 
 
 
-  return [data, loading, override, updateFilter];
-};
+
+  return [data, loading, override];
+}
 
 export default useSearch;
+

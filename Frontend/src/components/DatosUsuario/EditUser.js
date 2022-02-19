@@ -23,6 +23,7 @@ const EditUser = () => {
 
 
 
+
     console.log(decodedToken.id);
     const updateUser = async (e) => {
 
@@ -34,6 +35,7 @@ const EditUser = () => {
             newbirthdate: newbirthdate || user.userInfo?.birthdate,
             newaddress: newaddress || user.userInfo?.address,
             newbio: newbio || user.userInfo?.bio,
+
         }
 
         console.log(JSON.stringify(newUser));
@@ -129,9 +131,7 @@ const EditUser = () => {
                     name="birthdate"
                     type="date"
                     value={newbirthdate}
-                    onChange={handleBirthdate
-
-                    }
+                    onChange={handleBirthdate}
                 />
 
 

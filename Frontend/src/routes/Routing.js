@@ -2,7 +2,19 @@ import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
 import '../App.css';
 import routes from './routes';
 
-
+import {
+  AdvancedSearchScreen,
+  HomeScreen,
+  LoginScreen,
+  ProfileScreen,
+  RegisterScreen,
+} from '../page';
+import StepperForm from '../components/StepperForm/StepperForm';
+import RateChoice from '../components/StepperForm/RateChoice';
+import StepForm from '../components/StepperForm/StepForm';
+import Itinerary from '../components/StepperForm/Itinerary/Itinerary';
+import SeatChoice from '../components/StepperForm/SeatChoice/SeatChoice';
+import FormPassenger from '../components/FormaPassenger/FormPassenger';
 
 import Header from '../components/ui/header/header';
 
@@ -20,7 +32,9 @@ const Routing = () => {
           <Header></Header>
           {
             <main>
+
               <nav>
+
                 <ul>
                   {routes.map((route) => {
                     return (
@@ -30,8 +44,11 @@ const Routing = () => {
                     );
                   })}
                 </ul>
-              </nav>
+
+              </nav>  */}
+
               <Routes>
+
                 {routes.map((route) => {
                   return (
                     <Route
@@ -41,7 +58,7 @@ const Routing = () => {
                     ></Route>
                   );
                 })}
-              </Routes>
+              </Routes> */}
             </main>
           }
           <Footer />

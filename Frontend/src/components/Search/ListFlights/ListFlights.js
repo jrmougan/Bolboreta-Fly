@@ -7,6 +7,7 @@ export const ListFlights = ({ data }) => {
     <section>
       {data.length > 0 &&
         data.map((flight) => {
+          console.log(flight);
           // Para darle mayor legibilidad al código vamos a recoger la
           // información en variables más intuitivas
           const id = flight.id;
@@ -18,19 +19,12 @@ export const ListFlights = ({ data }) => {
           const currency = flight.price.currency;
           const iataOrigin =
             flight.itineraries[0].segments[0].departure.iataCode;
+          const lastSegmentFlight =
+            Number(flight.itineraries[0].segments.length) - 1;
           const iataDestination =
-            flight.itineraries[0].segments[0].arrival.iataCode;
-
-          // Función para formatear fechas
-          function formatDate(date) {
-            return format(date, 'yyy-MM-dd HH:mm:ss');
-          }
-
+            flight.itineraries[0].segments[lastSegmentFlight].arrival.iataCode;
           function hourFormat(date) {
             return format(date, 'hh:mm');
-          }
-          function durationFormat(duration) {
-            return formatDuration(duration, 'hours');
           }
 
           // Formateamos horas y fechas para que
@@ -38,19 +32,10 @@ export const ListFlights = ({ data }) => {
           const departureToFormat = new Date(departureTime);
           const arrivalToFormat = new Date(arrivalTime);
 
-          const dateDepartureFormatted = formatDate(departureToFormat);
           const timeDepartureFormatted = hourFormat(departureToFormat);
 
-          const dateArrivalFormatted = formatDate(arrivalToFormat);
           const timeArrivalFormatted = hourFormat(arrivalToFormat);
-          const pruebaDuration = durationFormat(flightDuration);
 
-          /*
-          console.log('Fecha pura', departureToFormat);
-          console.log('Fecha formateada', dateDepartureFormatted);
-          console.log('Hora formateada ===>', timeDepartureFormatted);
-          console.log('Duración cruda', flightDuration);
-          */
 
           return (
             <article key={id} className='resultCard'>
