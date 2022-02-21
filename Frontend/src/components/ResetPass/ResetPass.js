@@ -15,7 +15,7 @@ const ResetPass = () => {
 
     const fetchresetpass = async (e) => {
         e.preventDefault();
-        const res = await fetch(`${process.env.REACT_APP_PUBLIC_HOST_BACKEND}resetpass`,
+        const res = await fetch(`http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/resetpass`,
             {
                 method: 'POST',
                 headers: {

@@ -11,10 +11,12 @@ const useUserProfile = (token) => {
 
     useEffect(() => {
         if (token) {
-            console.log(decodedToken.id)
+            console.log(decodedToken)
 
             const fetchUserProfile = async () => {
-                const res = await fetch(`http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/user/${decodedToken.id}`,
+
+
+                const res = await fetch(`http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/user/${decodedToken.id ? decodedToken.id : decodedToken.email}`,
                     {
                         headers: {
                             Authorization: token,
@@ -24,10 +26,10 @@ const useUserProfile = (token) => {
                 if (res.ok) {
                     const body = await res.json();
                     setUser(body.data);
-                    console.log('data'+ body.data)
+                    console.log('data' + body.data)
 
 
-                }
+                } else { console.log(res) }
             };
 
             fetchUserProfile();

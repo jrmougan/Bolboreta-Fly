@@ -13,7 +13,8 @@ const Avatar = () => {
 
     const [user] = useUserProfile(token);
 
-
+    console.log(token)
+    console.log(user.userInfo);
 
 
     return (<section className='Avatar'>

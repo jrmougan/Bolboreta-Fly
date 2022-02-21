@@ -4,6 +4,7 @@ import { TokenContext } from '../../context/TokenContext';
 import useUserProfile from '../../hooks/useUserProfile';
 import decodeTokenData from '../../helpers/decodeTokenData';
 import './style.css'
+import LogOut from '../LoginGoogle/LogOutGoogle';
 
 
 
@@ -42,6 +43,7 @@ const PerfilUsuario = (e) => {
                 <button className='cerrar' onClick={() => { setToken('') }}> Cerrar Sesión </button>
             </Link>
 
+            <LogOut />
         </div>
 
 

@@ -43,10 +43,10 @@ export const ListFlights = ({ data }) => {
                 <div className='flightItem'>
                   <p className='fareOption'>{klass} CLASS</p>
                   <div className='timeFlight'>
-                  <span>{dateDepartureFormatted}</span>
+                    <span></span>
                     <span>{timeDepartureFormatted}</span>
                     <div className='duration'>{flightDuration}</div>
-                    <span>{dateArrivalFormatted}</span>
+                    <span></span>
                     <span>{timeArrivalFormatted}</span>
                   </div>
                   <div className='origin_destination'>
