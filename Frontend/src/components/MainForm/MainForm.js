@@ -184,7 +184,7 @@ const MainForm = () => {
             />
             Estoy de acuerdo con la{" "}
             <a href="/privacidad"> Política de Privacidad </a> y{" "}
-            <a href="/terminosyconciones"> Términos y condiciones </a>
+            <a href="/terminosycondiciones"> Términos y condiciones </a>
           </label>
 
           <button type="submit" className="register-btn" disabled={!checked}>
