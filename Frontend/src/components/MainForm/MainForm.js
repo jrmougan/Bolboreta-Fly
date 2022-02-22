@@ -1,35 +1,20 @@
-
 import React, { useState } from "react";
 
 import "./mainForm.css";
 
 import { TextField } from "@mui/material";
 
-
 import swal from "sweetalert";
 
-
-
-
-
-
 const MainForm = () => {
+  const [nombre, setNombre] = useState("");
+  const [primerApellido, setPrimerApellido] = useState("");
 
-  const [nombre, setNombre] = useState('');
-  const [primerApellido, setPrimerApellido] = useState(
-
-    ''
-  );
-
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordRepeat, setPasswordRepeat] = useState(
-
-    ''
-  );
-  const [birthdate, setBirthdate] = useState('birthdate', '1995/10/31');
-  const [bio, setBio] = useState('');
-
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordRepeat, setPasswordRepeat] = useState("");
+  const [birthdate, setBirthdate] = useState("birthdate", "1995/10/31");
+  const [bio, setBio] = useState("");
 
   const handleSubmit = (setter) => (e) => {
     e.preventDefault();
@@ -42,12 +27,10 @@ const MainForm = () => {
       const response = await fetch(
         `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/register`,
         {
-
           method: "POST",
           body: JSON.stringify({
             name_user: nombre,
             lastname: primerApellido,
-
 
             email,
             password,
@@ -56,9 +39,7 @@ const MainForm = () => {
             birthdate: birthdate,
           }),
           headers: {
-
             "Content-type": "application/json",
-
           },
         }
       );
@@ -73,7 +54,6 @@ const MainForm = () => {
       }
     } catch (error) {
       swal(error, "", "error");
-
     }
   };
   //checkbox para mostrar contraseña
@@ -84,13 +64,12 @@ const MainForm = () => {
   const [checked, setChecked] = useState(false);
   const switchChecked = () => setChecked(!checked);
 
-
-
   return (
     <main>
-
       <div className="form-title-container">
-        <h1 className="form-title">Formulario de registro en Bolboreta Flight</h1>
+        <h1 className="form-title">
+          Formulario de registro en Bolboreta Flight
+        </h1>
       </div>
       <div className="mainForm">
         <form onSubmit={register} className="form">
@@ -102,7 +81,6 @@ const MainForm = () => {
               id="nombre_input"
               value={nombre}
               className="inputForm"
-
               onChange={handleSubmit(setNombre)}
             >
               Nombre
@@ -189,24 +167,27 @@ const MainForm = () => {
           </div>
           <div className="input_container">
             <label htmlFor="bio" className="label-input">
-
               Bio
             </label>
             <textarea
               value={bio}
               onChange={handleSubmit(setBio)}
-
               id="bio"
               className="inputForm textarea"
             ></textarea>
           </div>
           <label className="condicionesgenerales">
-            <input type='checkbox' className="politica" onChange={switchChecked} />
-            Estoy de acuerdo con la <a href="/privacidad"> Política de Privacidad </a> y condiciones generales
+            <input
+              type="checkbox"
+              className="politica"
+              onChange={switchChecked}
+            />
+            Estoy de acuerdo con la{" "}
+            <a href="/privacidad"> Política de Privacidad </a> y{" "}
+            <a href="/terminosyconciones"> Términos y condiciones </a>
           </label>
 
           <button type="submit" className="register-btn" disabled={!checked}>
-
             Enviar datos de Registro
           </button>
         </form>
