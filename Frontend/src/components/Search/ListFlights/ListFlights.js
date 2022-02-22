@@ -1,8 +1,21 @@
 import { Link } from "react-router-dom";
 import { format, formatDuration } from "date-fns";
+import { useContext } from "react";
 import { FaPlane } from "react-icons/fa";
+import { OfferPriceContext } from "../../../context/OfferPriceContext.js";
+import { useNavigate } from "react-router-dom";
 
 export const ListFlights = ({ data }) => {
+  //Contexto booking
+  const [setFlightOffer] = useContext(OfferPriceContext);
+  let navigate = useNavigate();
+  const handleBooking = (e) => {
+    e.preventDefault();
+    const bookingId = e.target.parentElement.parentElement.id;
+    setFlightOffer(data[bookingId - 1]);
+    navigate("/step");
+  };
+
   return (
     <section>
       {data.length > 0 &&
@@ -37,7 +50,7 @@ export const ListFlights = ({ data }) => {
           const timeArrivalFormatted = hourFormat(arrivalToFormat);
 
           return (
-            <article key={id} className="resultCard">
+            <article key={id} id={id} className="resultCard">
               <div className="left-card card">
                 <div className="flightItem">
                   <p className="fareOption">{klass} CLASS</p>
@@ -59,9 +72,12 @@ export const ListFlights = ({ data }) => {
                 <p>
                   {price} {currency}
                 </p>
-                <Link to="/stepper/1" className="btn btnFlight">
-                  Ir al vuelo
-                </Link>
+                <input
+                  type="button"
+                  onClick={handleBooking}
+                  className="btn btnFlight"
+                  value="Ir al vuelo"
+                ></input>
               </div>
             </article>
           );

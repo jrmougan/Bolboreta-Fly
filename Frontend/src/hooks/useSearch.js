@@ -83,7 +83,7 @@ const useSearch = (searching) => {
 
   useEffect(() => {
     console.log("useSearch");
-    search();
+    AxiosSearch();
   }, [filter]);
 
   return [data, loading, override];

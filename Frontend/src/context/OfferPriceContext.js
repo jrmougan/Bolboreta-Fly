@@ -1,15 +1,14 @@
-import React, { createContext, useState } from 'react';
+import { createContext, useState } from "react";
 
 const OfferPriceContext = createContext();
-
-export function OfferPriceContextProvider({ children }) {
-  const [flightOffers, setFlightOffers] = useState([]);
+const OfferPriceContextProvider = ({ children }) => {
+  const [flightOffer, setFlightOffer] = useState();
 
   return (
-    <OfferPriceContext.Provider value={(flightOffers, setFlightOffers)}>
+    <OfferPriceContext.Provider value={[flightOffer, setFlightOffer]}>
       {children}
     </OfferPriceContext.Provider>
   );
-}
+};
 
-export { OfferPriceContext };
+export { OfferPriceContextProvider, OfferPriceContext };
