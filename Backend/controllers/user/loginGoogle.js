@@ -66,8 +66,7 @@ const loginGoogle = async (req, res, next) => {
 
     const tokenGoogle = jwt.sign(tokenInfo, process.env.SECRET, { expiresIn: '10d' });
 
-    console.log('token', tokenGoogle)
-    console.log('res', res.json)
+
 
     res.status(201);
     res.json(tokenGoogle);

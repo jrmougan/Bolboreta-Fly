@@ -11,7 +11,7 @@ import ResetPassScreen from "./ResetPassScreen";
 import HomeMultiple from "./HomeMultiple";
 import HomeRound from "./HomeRound";
 import ActiveUserScreen from "./ActiveUser";
-
+import PrivacidadScreen from "./PrivacidadScreen";
 
 export {
   AdvancedSearchScreen,
@@ -27,4 +27,5 @@ export {
   HomeMultiple,
   HomeRound,
   ActiveUserScreen,
+  PrivacidadScreen,
 };

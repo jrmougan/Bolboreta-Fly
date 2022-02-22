@@ -1,7 +1,9 @@
 
 import React, { useContext } from 'react';
 import { GoogleLogout } from 'react-google-login';
+import { Link } from 'react-router-dom';
 import { TokenContext } from '../../context/TokenContext';
+import './style.css'
 
 
 const clientId =
@@ -13,12 +15,19 @@ function LogOut() {
     const onSuccess = () => {
         setToken('');
     };
+
+
+
     return (
-        < div >
-            <GoogleLogout
-                clientId={clientId}
-                buttonText='LogOut'
-                onLogoutSuccess={onSuccess}></GoogleLogout>
+        < div className='logout'>
+            <Link to='/'>
+                <GoogleLogout
+                    clientId={clientId}
+                    buttonText='Cerrar sesion Google'
+                    onLogoutSuccess={onSuccess}></GoogleLogout>
+            </Link>
+
+
         </div >
     )
 

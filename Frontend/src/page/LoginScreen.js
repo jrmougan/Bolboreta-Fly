@@ -1,6 +1,5 @@
 import LoginUser from "../components/LoginUser/LoginUser";
-import LoginGoogle from '../components/LoginGoogle/LoginGoogle';
-import LogOut from "../components/LoginGoogle/LogOutGoogle";
+import LoginGoogle from '../components/LoginGoogle/LoginGoogle'
 
 const LoginScreen = () => {
   return (
@@ -10,8 +9,6 @@ const LoginScreen = () => {
       <h1> Inicia Sesión</h1>
       <LoginUser />
       <LoginGoogle />
-
-
     </div>);
 
 };

@@ -202,7 +202,7 @@ const MainForm = () => {
           </div>
           <label className="condicionesgenerales">
             <input type='checkbox' className="politica" onChange={switchChecked} />
-            Estoy de acuerdo con la politica de privacidad y condiciones generales
+            Estoy de acuerdo con la <a href="/privacidad"> Política de Privacidad </a> y condiciones generales
           </label>
 
           <button type="submit" className="register-btn" disabled={!checked}>
