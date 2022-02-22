@@ -46,7 +46,6 @@ const ChooseARate = ({ rateCharge, setRateCharge }) => {
 
 const ListOfChoices = ({ rateCharge, setRateCharge }) => {
   return RATES.map((rate, key) => {
-    console.log(rateCharge);
     return (
       <div className='rate-card' key={key}>
         <div className='title'>

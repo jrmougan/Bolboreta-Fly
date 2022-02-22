@@ -8,6 +8,15 @@ import ResumeAndPay from '../StepperForm/ResumeAndPay';
 import { Container } from '@mui/material';
 import Itinerary from '../StepperForm/Itinerary/Itinerary';
 import offerprice from './InfoFlights/offerpriceExample.json';
+import { dateFormat } from '../../helpers/formatHelp';
+
+/* 
+ ##################################
+ ## INFORMACIÓN DE LOS  VUELOS   ##
+ ##################################
+*/
+
+const flightOffer = offerprice.data.flightOffers[0];
 
 const StepForm = () => {
   /* 
@@ -42,8 +51,6 @@ const StepForm = () => {
     email: '',
     phone: '',
   });
-  console.log(passenger);
-  console.log(emergencyData);
 
   const [rateCharge, setRateCharge] = useState(0);
 

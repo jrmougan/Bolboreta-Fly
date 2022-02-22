@@ -2,8 +2,15 @@ import React, { useState } from 'react';
 import PayPal from '../PayPal/PayPal';
 import { CancellationPolicy } from './InfoFlights/constantInfo';
 import offerprice from './InfoFlights/offerpriceExample.json';
+import { writeDuration } from '../../helpers/formatHelp';
 
-const flightOffer = offerprice.data[0];
+console.log(offerprice.data.flightOffers[0]);
+
+const flightOffer = offerprice.data.flightOffers[0];
+const [itineraries] = flightOffer.itineraries;
+const duration = itineraries.duration;
+
+// console.log(itineraries.duration);
 
 //  Averiguamos el código de la aerolínea
 // y mostramos su logo en pantalla
@@ -21,32 +28,34 @@ const logoAirline = (airlineCode) => {
 
 const ResumeandPay = ({ rateCharge, setRateCharge }) => {
   /* 
-  ##########################
-  ## Offerprice variables ##
-  ##########################
+  #####################################
+  ## Offerprice variables monetarias ##
+  #####################################
   */
 
   const priceOptions = flightOffer.price;
-
   const { base, currency, grandTotal } = priceOptions;
-
   const precioTotal = Number(grandTotal);
-
   const totalPrice = precioTotal + rateCharge;
-
   const taxes = 0.21;
-
   const scalesGoing = flightOffer.itineraries[0].segments[0].numberOfStops;
-
   const seatPrice = 0;
 
   /* 
-   ##########################
-  ## Offerprice variables ##
+   #######################################
+  ## Offerprice variables de los vuelos ##
+  ########################################
+  */
+
+  const durationGoing = flightOffer;
+
+  console.log(durationGoing.itineraries);
+
+  /* 
+   #########################
+  ## Offerprice petición  ##
   ##########################
   */
-  const [itineraries] = flightOffer.itineraries;
-  console.log(itineraries);
 
   const flightOrder = {
     type: 'flight-order',
