@@ -2,33 +2,36 @@ import { React, useState, useContext, useEffect } from "react";
 import swal from "sweetalert";
 import { TokenContext } from "../../context/TokenContext";
 import decodeTokenData from "../../helpers/decodeTokenData";
-import useUserProfile from "../../hooks/useUserProfile";
 
 import "./style.css";
 
-const EditAvatar = () => {
-  const [token] = useContext(TokenContext);
-  const [user, avatar] = useUserProfile(token);
-  const decodedToken = decodeTokenData(token);
+const EditAvatar = ({ user, avatar, editAvatar }) => {
+  //const [token] = useContext(TokenContext);
 
-  const newavatar = new FormData();
-  newavatar.append("avatar", avatar || user.userInfo?.avatar);
-  console.log(avatar);
-  console.log(newavatar);
+  //const decodedToken = decodeTokenData(token);
+  const [newAvatar, setNewAvatar] = useState();
 
+  /*
+
+*/
   const handleAvatar = (e) => {
-    console.log(e);
+    e.preventDefault();
 
-    //setAvatar(e.target.files[0]);
+    setNewAvatar(e.target.files[0]);
   };
 
-  const fetchAvatar = () => {};
+  const submitAvatar = (e) => {
+    e.preventDefault();
+    const formFileUpload = new FormData();
+    formFileUpload.append("avatar", newAvatar);
+    editAvatar(formFileUpload);
+  };
 
   return (
     <div className="editavatarcontainer">
       <label htmlFor="avatar"> Sube tu avatar</label>
       <input id="avatar" name="avatar" type="file" onChange={handleAvatar} />
-      <button onClick={fetchAvatar} className="guardaravatar">
+      <button onClick={submitAvatar} className="guardaravatar">
         {" "}
         Subir Avatar{" "}
       </button>

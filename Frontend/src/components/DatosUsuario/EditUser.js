@@ -1,34 +1,40 @@
 import "./style.css";
 
-import { useFetch } from "use-http";
-
 import React, { useState, useContext, useEffect } from "react";
+import { useFetch } from "use-http";
 import decodeTokenData from "../../helpers/decodeTokenData";
-import useUserProfile from "../../hooks/useUserProfile";
+import useGetUser from "../../hooks/user/useUser";
 import { TokenContext } from "../../context/TokenContext";
 import swal from "sweetalert";
 import EditAvatar from "../EditAvatar/EditAvatar";
 import avataranonimo from "../../logos/photo.svg";
 import DeleteUsuario from "../DeleteUsuariio/DeleteUsuario";
 
+import { format } from "date-fns";
+
 const EditUser = () => {
   const [token, setToken] = useContext(TokenContext);
-  //Se obtiene usuario con custom hook
-  const [user, refetch, setRefetch] = useUserProfile(token);
-  const decodedToken = decodeTokenData(token);
+  //Se obtiene usuario
+  const [user, editUser, editAvatar] = useGetUser(token);
+
   const [newname, setNewname] = useState(user.userInfo?.name_user);
   const [newlastname, setLastname] = useState(user.userInfo?.lastname);
   const [newemail, setNewemail] = useState(user.userInfo?.email);
+
   const [newbirthdate, setNewbirthdate] = useState(
-    user.userInfo?.birthdate || new Date()
+    user.userInfo?.birthdate || format(new Date(), "yyyy-MM-dd")
   );
-  const [newaddress, setNewaddress] = useState(user.userInfo?.address);
+  const [newaddress, setNewaddress] = useState(user.userInfo?.address || "");
   const [newbio, setNewbio] = useState(user.userInfo?.bio);
 
-  const updateUser = async (e) => {
+  //console.log("birthdate " + newbirthdate);
+
+  //FUNCIONES MANEJADORAS DE EVENTOS
+
+  const updateUser = (e) => {
     e.preventDefault();
-    setRefetch(!refetch);
-    const newUser = {
+
+    const updatedUser = {
       newname: newname || user.userInfo?.name_user,
       newlastname: newlastname || user.userInfo?.lastname,
       newemail: newemail || user.userInfo?.email,
@@ -36,35 +42,15 @@ const EditUser = () => {
       newaddress: newaddress || user.userInfo?.address,
       newbio: newbio || user.userInfo?.bio,
     };
-    /*
-        console.log(JSON.stringify(newUser));
-        const res = await fetch(
-            `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/user/${decodedToken?.id}/edit`,
-            {
-                method: "PUT",
-                headers: {
-                    Authorization: token,
-                    "Content-type": "application/json",
-
-                },
-                body: JSON.stringify(newUser),
-
-            }
-        );
-        if (res.ok) {
-            const body = await res.json();
-            swal(body.message);
-        } else {
-            const error = await res.json();
-            swal(error.message);
-        }
-        */
+    editUser(updatedUser);
   };
 
   const handleBirthdate = (e) => {
-    setNewbirthdate(e.target.value || user.userInfo?.birthdate);
-    console.log(e.target.value);
+    setNewbirthdate(format(new Date(e.target.value), "yyyy-MM-dd"));
+    //console.log(e.target.value);
   };
+
+  //COMUNICACIÓN CON EL BACKEND
 
   return (
     <div>
@@ -81,7 +67,11 @@ const EditUser = () => {
             alt={`Avatar de ${user.userInfo?.name_user}`}
           />
         </div>
-        <EditAvatar />
+        <EditAvatar
+          user={user}
+          avatar={user.userInfo?.avatar || "default"}
+          editAvatar={editAvatar}
+        />
         <h2> Datos de Usuario </h2>
         <label htmlFor="name"> Nombre </label>
         <input
