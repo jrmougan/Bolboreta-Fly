@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import swal from "sweetalert";
 
 
+
 const clientId =
     "646466836206-mk4v45mvhmb00c0mhupsnqki749ch5kg.apps.googleusercontent.com";
 
@@ -34,8 +35,11 @@ function GoogleLoginButton() {
             }
         );
         if (res.ok) {
-            console.log(res)
-            setToken(googleRes.tokenId);
+            const bodyToken = await res.json();
+            console.log(bodyToken)
+            setToken(bodyToken);
+
+
 
         }
 

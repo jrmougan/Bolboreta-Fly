@@ -1,18 +1,26 @@
 const { OAuth2Client } = require('google-auth-library');
 const getDB = require('../../database/getDB');
+const jwt = require('jsonwebtoken')
 
-const client = new OAuth2Client(process.env.APP_GOOGLE_CLIENTE_ID);
+
+const client = new OAuth2Client(process.env.APP_GOOGLE_CLIENT_ID);
+
 
 const loginGoogle = async (req, res, next) => {
+
+
+
     let connection;
+
     connection = await getDB();
 
     const { token } = req.body;
 
     const ticket = await client.verifyIdToken({
         idToken: token,
-        audience: process.env.APP_GOOGLE_CLIENTE_ID
+        requireAudience: process.env.APP_GOOGLE_CLIENT_ID
     });
+
     const { given_name, email, family_name } = ticket.getPayload();
 
 
@@ -29,20 +37,40 @@ const loginGoogle = async (req, res, next) => {
     }
     if (user.length < 1) {
         await connection.query(
-            `INSERT INTO  user (name_user, lastname, email , password, createDate  ) VALUES(?,?,?,?,?)`,
+            `INSERT INTO  user (name_user, lastname, email , password, createDate , active  ) VALUES(?,?,?,?,?,?)`,
             [
                 given_name,
                 family_name,
                 email,
                 email,
                 new Date(),
+                1,
 
             ]
         );
     }
 
+    //comprbar si el email existe
+    const [usergoogle] = await connection.query(
+        `SELECT id , rol , password, active FROM user WHERE email = ?`,
+        [email]
+    );
+
+    console.log(usergoogle)
+
+    const tokenInfo = {
+        id: usergoogle[0].id,
+        rol: usergoogle[0].rol,
+        active: 1,
+    };
+
+    const tokenGoogle = jwt.sign(tokenInfo, process.env.SECRET, { expiresIn: '10d' });
+
+    console.log('token', tokenGoogle)
+    console.log('res', res.json)
+
     res.status(201);
-    res.json('token');
+    res.json(tokenGoogle);
 }
 
 module.exports = loginGoogle;
