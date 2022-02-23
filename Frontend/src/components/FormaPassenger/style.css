@@ -4,7 +4,7 @@ form {
   align-items: center;
   justify-content: center;
 }
-
+/*
 .MuiFormControl-root {
   margin-top: 15px !important;
 }
@@ -28,6 +28,7 @@ form {
 Muiinput-root {
   margin-bottom: 15px;
 }
+*/
 .enviardatos {
   border: 1px solid;
   background: #5d7ca6;

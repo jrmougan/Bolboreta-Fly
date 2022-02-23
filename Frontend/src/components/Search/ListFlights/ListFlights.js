@@ -7,8 +7,9 @@ import { useNavigate } from "react-router-dom";
 
 export const ListFlights = ({ data }) => {
   //Contexto booking
-  const [setFlightOffer] = useContext(OfferPriceContext);
+  const [flightOffer, setFlightOffer] = useContext(OfferPriceContext);
   let navigate = useNavigate();
+
   const handleBooking = (e) => {
     e.preventDefault();
     const bookingId = e.target.parentElement.parentElement.id;
