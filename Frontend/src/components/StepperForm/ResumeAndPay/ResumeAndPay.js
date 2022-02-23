@@ -68,7 +68,6 @@ const ResumeandPay = ({ rateCharge, setRateCharge, travelers }) => {
       travelers: travelers,
     };
     e.preventDefault();
-    const newFlightOrder = flightOrder;
 
     const res = await fetch(
       `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/booking/newBooking`,
@@ -77,11 +76,9 @@ const ResumeandPay = ({ rateCharge, setRateCharge, travelers }) => {
         headers: {
           Authorization: token,
         },
-        body: newFlightOrder,
+        body: flightOrder,
       }
     );
-    console.log(res);
-    console.log(token);
   };
 
   return (
