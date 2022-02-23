@@ -1,8 +1,22 @@
-import { Link } from 'react-router-dom';
-import { format, formatDuration } from 'date-fns';
-import { FaPlane } from 'react-icons/fa';
+import { Link } from "react-router-dom";
+import { format, formatDuration } from "date-fns";
+import { useContext } from "react";
+import { FaPlane } from "react-icons/fa";
+import { OfferPriceContext } from "../../../context/OfferPriceContext.js";
+import { useNavigate } from "react-router-dom";
 
 export const ListFlights = ({ data }) => {
+  //Contexto booking
+  const [flightOffer, setFlightOffer] = useContext(OfferPriceContext);
+  let navigate = useNavigate();
+
+  const handleBooking = (e) => {
+    e.preventDefault();
+    const bookingId = e.target.parentElement.parentElement.id;
+    setFlightOffer(data[bookingId - 1]);
+    navigate("/step");
+  };
+
   return (
     <section>
       {data.length > 0 &&
@@ -24,7 +38,7 @@ export const ListFlights = ({ data }) => {
           const iataDestination =
             flight.itineraries[0].segments[lastSegmentFlight].arrival.iataCode;
           function hourFormat(date) {
-            return format(date, 'hh:mm');
+            return format(date, "hh:mm");
           }
 
           // Formateamos horas y fechas para que
@@ -36,33 +50,35 @@ export const ListFlights = ({ data }) => {
 
           const timeArrivalFormatted = hourFormat(arrivalToFormat);
 
-
           return (
-            <article key={id} className='resultCard'>
-              <div className='left-card card'>
-                <div className='flightItem'>
-                  <p className='fareOption'>{klass} CLASS</p>
-                  <div className='timeFlight'>
-                  <span>{dateDepartureFormatted}</span>
+            <article key={id} id={id} className="resultCard">
+              <div className="left-card card">
+                <div className="flightItem">
+                  <p className="fareOption">{klass} CLASS</p>
+                  <div className="timeFlight">
+                    <span>{}</span>
                     <span>{timeDepartureFormatted}</span>
-                    <div className='duration'>{flightDuration}</div>
-                    <span>{dateArrivalFormatted}</span>
+                    <div className="duration">{flightDuration}</div>
+                    <span>{}</span>
                     <span>{timeArrivalFormatted}</span>
                   </div>
-                  <div className='origin_destination'>
+                  <div className="origin_destination">
                     <p>{iataOrigin}</p>
                     <FaPlane />
                     <p>{iataDestination}</p>
                   </div>
                 </div>
               </div>
-              <div className='right-card card'>
+              <div className="right-card card">
                 <p>
                   {price} {currency}
                 </p>
-                <Link to='/stepper/1' className='btn btnFlight'>
-                  Ir al vuelo
-                </Link>
+                <input
+                  type="button"
+                  onClick={handleBooking}
+                  className="btn btnFlight"
+                  value="Ir al vuelo"
+                ></input>
               </div>
             </article>
           );

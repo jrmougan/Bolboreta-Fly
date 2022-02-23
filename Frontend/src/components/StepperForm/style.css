@@ -245,7 +245,7 @@ Muiinput-root {
   align-items: center;
 }
 .subtitle_info_container::before {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 0;
@@ -343,7 +343,7 @@ Muiinput-root {
 }
 
 .bottom_line::before {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 0;

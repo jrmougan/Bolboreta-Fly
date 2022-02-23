@@ -1,18 +1,14 @@
-
 const getDB = require('../../database/getDB');
 const { savePhoto, deletePhoto } = require('../../helpers');
-
 
 // Modificación Avatar.
 
 const editAvatar = async (req, res, next) => {
-
     let connection;
     try {
         connection = await getDB();
 
         const { iduser } = req.params;
-
 
         //no ha enviado foto o avatar
 
@@ -22,10 +18,12 @@ const editAvatar = async (req, res, next) => {
             throw error;
         }
 
-        const [user] = await connection.query(`
+        const [user] = await connection.query(
+            `
        SELECT avatar FROM user WHERE id = ?
        `,
-            [iduser]);
+            [iduser]
+        );
 
         //Eliminanos foto/avatar si existe
 
@@ -37,16 +35,17 @@ const editAvatar = async (req, res, next) => {
 
         const newAvatar = await savePhoto(req.files.avatar, 300);
 
-        await connection.query(`
+        await connection.query(
+            `
           UPDATE user SET avatar = ?, modifyDate = ? WHERE id = ?
           `,
-            [newAvatar, new Date(), iduser]);
+            [newAvatar, new Date(), iduser]
+        );
 
         res.send({
             status: 'ok',
             message: 'Avatar actualizado',
         });
-
     } catch (error) {
         next(error);
     } finally {
