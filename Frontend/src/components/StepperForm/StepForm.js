@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Stepper, Step, StepLabel, Button, Typography } from "@mui/material";
 import FormPassenger from "./FormPassenger/FormPassenger";
 import BookingData from "./FormPassenger/BookingData.";
@@ -13,6 +13,8 @@ import { OfferPriceContext } from "../../context/OfferPriceContext";
  ## INFORMACIÓN DE LOS  VUELOS   ##
  ##################################
 */
+
+//const [] = useContext;
 
 const flightOffer = offerprice.data.flightOffers[0];
 

@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { TextField, Autocomplete, MenuItem } from "@mui/material";
-import "./style.css";
+import "../style.css";
 import MuiPhoneNumber from "material-ui-phone-number";
-import PassengerInfo from "./InfoFlights/PassengerInfo";
-import offerprice from "../../components/StepperForm/InfoFlights/offerpriceExample.json";
+import PassengerInfo from "./PassengerInfo";
+import offerprice from "../InfoFlights/offerpriceExample.json";
 
 const FormPassenger = ({
   passenger,
