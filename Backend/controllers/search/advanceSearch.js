@@ -59,40 +59,39 @@ const advanceSearch = async (req, res, next) => {
 
         let originDestinations = [];
 
+        if (oneway) {
+            //solo ida
 
-        if (!oneway ) {//solo ida
-          
-                const oneWay = {
-                    id: "1",
-                    originLocationCode,
-                    destinationLocationCode,
-                    departureDateTimeRange: {
-                        dateTimeRange: { date: departureDate },
-                    },
-                    
-                }; 
-                originDestinations.push(oneWay);
-                
-           
-        } else { // ida y vuelta
-            originDestinations.push ({
-                id: "1",
+            const oneWay = {
+                id: '1',
                 originLocationCode,
                 destinationLocationCode,
                 departureDateTimeRange: {
-                   date: departureDate
+                    date: departureDate,
                 },
-            },
+            };
+            originDestinations.push(oneWay);
+        } else {
+            // ida y vuelta
+            originDestinations.push(
+                {
+                    id: '1',
+                    originLocationCode,
+                    destinationLocationCode,
+                    departureDateTimeRange: {
+                        date: departureDate,
+                    },
+                },
 
-            {
-                id: "2" ,
-                originLocationCode:destinationLocationCode,
-                destinationLocationCode:originLocationCode,
-                departureDateTimeRange: {
-                  date: returnDate
-                },
-               
-            },)
+                {
+                    id: '2',
+                    originLocationCode: destinationLocationCode,
+                    destinationLocationCode: originLocationCode,
+                    departureDateTimeRange: {
+                        date: returnDate,
+                    },
+                }
+            );
         }
 
         //creamos array travels para mandarle a Amadeus
@@ -106,7 +105,6 @@ const advanceSearch = async (req, res, next) => {
                     id: j.toString(),
                     travelerType: 'ADULT',
                 });
-
             }
         }
         //niños
@@ -116,7 +114,6 @@ const advanceSearch = async (req, res, next) => {
                     id: i.toString(),
                     travelerType: 'CHILD',
                 });
-
             }
         }
 
@@ -124,13 +121,13 @@ const advanceSearch = async (req, res, next) => {
 
         let SearchCriteria = {
             maxPrice: maxprice,
-           pircingOptions: {
+            pircingOptions: {
                 includedCheckedBagsOnly,
             },
             FlightFilters: {
                 maxFlightTime,
                 CarrierRestrictions: { blacklistedInEUAllowed },
-                CabinRestriction: [{ cabin:travelClass }],
+                CabinRestriction: [{ cabin: travelClass }],
                 ConnectionRestiction: { maxNumberOfConnections: connections },
             },
         };
@@ -141,11 +138,9 @@ const advanceSearch = async (req, res, next) => {
             courrencyCode,
             originDestinations,
             travelers,
-            sources:[sources],
+            sources: [sources],
             SearchCriteria,
         };
-
-        console.log(searchAdvancebody);
 
         //lo pasamos a json
         const jsonBody = JSON.stringify(searchAdvancebody);
