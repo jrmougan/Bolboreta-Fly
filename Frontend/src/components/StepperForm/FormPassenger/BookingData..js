@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { TextField, Autocomplete, MenuItem } from '@mui/material';
-import './style.css';
+import '../style.css';
 
 import MuiPhoneNumber from 'material-ui-phone-number';
 

@@ -36,17 +36,16 @@ export const ListFlights = ({ data }) => {
 
           const timeArrivalFormatted = hourFormat(arrivalToFormat);
 
-
           return (
             <article key={id} className='resultCard'>
               <div className='left-card card'>
                 <div className='flightItem'>
                   <p className='fareOption'>{klass} CLASS</p>
                   <div className='timeFlight'>
-                  <span>{dateDepartureFormatted}</span>
+                    {/* <span>{dateDepartureFormatted}</span> */}
                     <span>{timeDepartureFormatted}</span>
                     <div className='duration'>{flightDuration}</div>
-                    <span>{dateArrivalFormatted}</span>
+                    {/* <span>{dateArrivalFormatted}</span> */}
                     <span>{timeArrivalFormatted}</span>
                   </div>
                   <div className='origin_destination'>

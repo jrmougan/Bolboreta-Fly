@@ -9,8 +9,8 @@ import {
   ProfileScreen,
   RegisterScreen,
 } from '../page';
-import StepperForm from '../components/StepperForm/StepperForm';
-import RateChoice from '../components/StepperForm/RateChoice';
+
+import RateChoice from '../components/StepperForm/RateChoice/RateChoice';
 import StepForm from '../components/StepperForm/StepForm';
 import Itinerary from '../components/StepperForm/Itinerary/Itinerary';
 import SeatChoice from '../components/StepperForm/SeatChoice/SeatChoice';
@@ -32,9 +32,7 @@ const Routing = () => {
           <Header></Header>
           {
             <main>
-
               <nav>
-
                 <ul>
                   {routes.map((route) => {
                     return (
@@ -44,11 +42,9 @@ const Routing = () => {
                     );
                   })}
                 </ul>
-
-              </nav>  
+              </nav>
 
               <Routes>
-
                 {routes.map((route) => {
                   return (
                     <Route
@@ -58,7 +54,7 @@ const Routing = () => {
                     ></Route>
                   );
                 })}
-              </Routes> 
+              </Routes>
             </main>
           }
           <Footer />

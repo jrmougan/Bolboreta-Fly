@@ -1,9 +1,9 @@
 import React from 'react';
-import './style.css';
-import offerprice from './InfoFlights/offerpriceExample.json';
-import { dateFormat, writeDuration } from '../../helpers/formatHelp';
-import { hourFormat } from '../../helpers/formatHelp';
-import airports from './InfoFlights/airports.json';
+import '../style.css';
+import offerprice from '../InfoFlights/offerpriceExample.json';
+import { dateFormat, writeDuration } from '../../../helpers/formatHelp';
+import { hourFormat } from '../../../helpers/formatHelp';
+import airports from '../InfoFlights/airports.json';
 
 const flightOffer = offerprice.data.flightOffers[0];
 
@@ -23,7 +23,7 @@ const lastSegmentRoundtrip =
 
 /* 
 #############################
-## CUIDADES Y AEROPUERTOS  ##
+## CIU  DADES Y AEROPUERTOS  ##
 #############################
 */
 const codeAirportDeparture_Outbound =
@@ -46,6 +46,7 @@ const MyTrip = () => {
   return (
     <div className='my-trip'>
       <h2>Mi viaje</h2>
+
       <h3>
         {cityDeparture_Outbound} - {cityArrival_Outbound} {isOneWay} <br />{' '}
         {howManyAdults}
@@ -69,8 +70,6 @@ const FlightBoxes = ({ children }) => {
 
   const outboundFirstDayFormatted = dateFormat(outboundFirstDay);
   const roundtripFirstDayFormatted = dateFormat(roundtripFirstDay);
-
-  console.log(flightOffer);
 
   // Encontramos el último vuelo de los segmentos de Ida y Vuelta
 

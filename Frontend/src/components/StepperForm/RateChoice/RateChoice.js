@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import './style.css';
+import '../style.css';
 import MyTrip from './MyTrip';
-import flightExample from './InfoFlights/flightExample';
-import { dateFormat, durationFormat } from '../../helpers/formatHelp';
-import { RATES } from './InfoFlights/constantInfo';
+import flightExample from '../InfoFlights/flightExample';
+import { dateFormat, durationFormat } from '../../../helpers/formatHelp';
+import { RATES } from '../InfoFlights/constantInfo';
 
 /* 
 ################################
