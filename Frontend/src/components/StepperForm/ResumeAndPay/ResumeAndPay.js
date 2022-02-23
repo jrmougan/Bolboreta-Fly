@@ -79,6 +79,7 @@ const ResumeandPay = ({ rateCharge, setRateCharge, travelers }) => {
         body: flightOrder,
       }
     );
+    console.log(res);
   };
 
   return (
