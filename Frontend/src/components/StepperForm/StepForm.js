@@ -14,9 +14,7 @@ import { OfferPriceContext } from "../../context/OfferPriceContext";
  ##################################
 */
 
-//const [] = useContext;
-
-const flightOffer = offerprice.data.flightOffers[0];
+//const flightOffer = offerprice.data.flightOffers[0];
 
 const StepForm = () => {
   /* 
@@ -24,8 +22,8 @@ const StepForm = () => {
  ## Contexto reserva ##
  ##################################
 */
-  const [FlightOffer] = useContext(OfferPriceContext);
-  console.log(FlightOffer);
+  const [flightOffer] = useContext(OfferPriceContext);
+  console.log(flightOffer);
 
   /* 
  ##################################

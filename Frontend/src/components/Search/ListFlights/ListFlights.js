@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { format, formatDuration } from "date-fns";
 import { useContext } from "react";
 import { FaPlane } from "react-icons/fa";
-import { OfferPriceContext } from "../../../context/OfferPriceContext.js";
+import { OfferPriceContext } from "../../../context/OfferPriceContext";
 import { useNavigate } from "react-router-dom";
 
 export const ListFlights = ({ data }) => {
@@ -51,7 +51,7 @@ export const ListFlights = ({ data }) => {
           const timeArrivalFormatted = hourFormat(arrivalToFormat);
 
           return (
-            <article key={id} className="resultCard">
+            <article key={id} id={id} className="resultCard">
               <div className="left-card card">
                 <div className="flightItem">
                   <p className="fareOption">{klass} CLASS</p>
