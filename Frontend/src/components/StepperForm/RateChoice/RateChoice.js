@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import './style.css';
+import '../style.css';
 import MyTrip from './MyTrip';
-import flightExample from './InfoFlights/flightExample';
-import { dateFormat, durationFormat } from '../../helpers/formatHelp';
-import { RATES } from './InfoFlights/constantInfo';
+import flightExample from '../InfoFlights/flightExample';
+import { dateFormat, durationFormat } from '../../../helpers/formatHelp';
+import { RATES } from '../InfoFlights/constantInfo';
 
 /* 
 ################################
@@ -46,7 +46,6 @@ const ChooseARate = ({ rateCharge, setRateCharge }) => {
 
 const ListOfChoices = ({ rateCharge, setRateCharge }) => {
   return RATES.map((rate, key) => {
-    console.log(rateCharge);
     return (
       <div className='rate-card' key={key}>
         <div className='title'>

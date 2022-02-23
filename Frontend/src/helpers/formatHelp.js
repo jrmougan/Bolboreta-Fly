@@ -4,6 +4,8 @@
 ###############################################################
 */
 
+import { format } from 'date-fns';
+
 function durationFormat(duration) {
   let minutes = Math.floor((duration / (1000 * 60)) % 60),
     hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
@@ -15,6 +17,37 @@ function durationFormat(duration) {
   } else {
     return hours + ' horas y ' + minutes + ' minutos ';
   }
+}
+function writeDuration(ISOformat) {
+  const timeToFormat = ISOformat.split('PT')[1];
+  console.log('pasa por aqui');
+  if (timeToFormat.split('H' && 'M')) {
+    console.log('Pero porqúe pasa por aquí ?');
+    const hour = timeToFormat.split('H')[0];
+    const minutes = timeToFormat.split('H')[1].split('M')[0];
+    const s = Number(hour) > 1 ? 's' : '';
+    const sMin = Number(minutes) ? 's' : '';
+
+    return `${hour} hora${s} y ${minutes} minuto${sMin}`;
+  }
+  if (!timeToFormat.split('').includes('M')) {
+    console.log('También por aquí');
+    const hour = timeToFormat.split('H')[0];
+    const s = Number(hour) > 1 ? 's' : '';
+
+    return `${hour}${s}`;
+  }
+  if (!timeToFormat.split('').includes('H')) {
+    console.log('PEro tambiçén por aquyí');
+    const minutes = timeToFormat.split('M')[0];
+    console.log('Hola');
+
+    const s = Number(minutes) > 1 ? 's' : '';
+
+    return `${minutes} minuto${s}`;
+  }
+
+  return ISOformat;
 }
 
 function dateFormat(date) {
@@ -56,4 +89,8 @@ function dateFormat(date) {
   return ` ${dia}, ${day} ${mes} de ${year}`;
 }
 
-export { durationFormat, dateFormat };
+function hourFormat(date) {
+  return format(date, 'hh:mm');
+}
+
+export { durationFormat, dateFormat, writeDuration, hourFormat };

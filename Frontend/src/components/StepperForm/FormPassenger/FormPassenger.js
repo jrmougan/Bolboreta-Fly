@@ -68,7 +68,7 @@ const FormPassenger = ({
 
   // Averiguamos el número de pasajeros
 
-  let travelers = offerprice.data[0].travelerPricings;
+  let travelers = offerprice.data.flightOffers[0].travelerPricings;
 
   return (
     <div className="FormularioPasajero">

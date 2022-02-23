@@ -1,14 +1,20 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Stepper, Step, StepLabel, Button, Typography } from "@mui/material";
-import FormPassenger from "../StepperForm/FormPassenger";
-import BookingData from "../StepperForm/BookingData.";
-import RateChoice from "../StepperForm/RateChoice";
-import SeatChoice from "../StepperForm/SeatChoice/SeatChoice";
-import ResumeAndPay from "../StepperForm/ResumeAndPay";
+import FormPassenger from "./FormPassenger/FormPassenger";
+import BookingData from "./FormPassenger/BookingData.";
+import RateChoice from "./RateChoice/RateChoice";
+import ResumeAndPay from "./ResumeAndPay/ResumeAndPay";
 import { Container } from "@mui/material";
 import Itinerary from "../StepperForm/Itinerary/Itinerary";
-import { OfferPriceContext } from "../../context/OfferPriceContext";
 import offerprice from "./InfoFlights/offerpriceExample.json";
+import { OfferPriceContext } from "../../context/OfferPriceContext";
+/* 
+ ##################################
+ ## INFORMACIÓN DE LOS  VUELOS   ##
+ ##################################
+*/
+
+const flightOffer = offerprice.data.flightOffers[0];
 
 const StepForm = () => {
   /* 
@@ -51,8 +57,6 @@ const StepForm = () => {
     email: "",
     phone: "",
   });
-  console.log(passenger);
-  console.log(emergencyData);
 
   const [rateCharge, setRateCharge] = useState(0);
 
@@ -79,8 +83,6 @@ const StepForm = () => {
         <RateChoice rateCharge={rateCharge} setRateCharge={setRateCharge} />
       );
     } else if (page === 3) {
-      return <SeatChoice />;
-    } else if (page === 4) {
       return (
         <ResumeAndPay rateCharge={rateCharge} setRateCharge={setRateCharge} />
       );
@@ -94,7 +96,6 @@ const StepForm = () => {
       "Información de Pasajeros",
       "Datos de reserva",
       "Elección de tarifa",
-      "Elección de asiento",
       "Resumen y Pago",
       "Itinerario",
     ];
@@ -208,6 +209,9 @@ const StepForm = () => {
                   variant="contained"
                   color="primary"
                   onClick={handleNext}
+                  sx={{
+                    fontSize: ".7rem",
+                  }}
                 >
                   {activeStep === steps.length - 1 ? "Finalizar" : "Siguiente"}
                 </Button>
