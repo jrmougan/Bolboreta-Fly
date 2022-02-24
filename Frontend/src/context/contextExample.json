@@ -5,104 +5,108 @@
   "instantTicketingRequired": false,
   "nonHomogeneous": false,
   "oneWay": false,
-  "lastTicketingDate": "2022-03-03",
-  "numberOfBookableSeats": 5,
+  "lastTicketingDate": "2022-02-24",
+  "numberOfBookableSeats": 9,
   "itineraries": [
     {
-      "duration": "PT30H25M",
+      "duration": "PT29H20M",
       "segments": [
         {
           "departure": {
             "iataCode": "AGP",
-            "at": "2022-03-03T17:30:00"
+            "at": "2022-03-03T15:40:00"
           },
           "arrival": {
-            "iataCode": "CMN",
-            "terminal": "2",
-            "at": "2022-03-03T19:10:00"
+            "iataCode": "FRA",
+            "terminal": "1",
+            "at": "2022-03-03T18:40:00"
           },
-          "carrierCode": "AT",
-          "number": "985",
+          "carrierCode": "LH",
+          "number": "1149",
           "aircraft": {
-            "code": "AT7"
+            "code": "32Q"
           },
-          "duration": "PT1H40M",
-          "id": "53",
+          "operating": {
+            "carrierCode": "LH"
+          },
+          "duration": "PT3H",
+          "id": "7",
           "numberOfStops": 0,
           "blacklistedInEU": false
         },
         {
           "departure": {
-            "iataCode": "CMN",
+            "iataCode": "FRA",
             "terminal": "1",
-            "at": "2022-03-04T15:50:00"
+            "at": "2022-03-04T08:00:00"
           },
           "arrival": {
-            "iataCode": "JFK",
-            "at": "2022-03-04T17:55:00"
+            "iataCode": "MEX",
+            "terminal": "1",
+            "at": "2022-03-04T14:00:00"
           },
-          "carrierCode": "AT",
-          "number": "200",
+          "carrierCode": "LH",
+          "number": "4570",
           "aircraft": {
-            "code": "789"
+            "code": "346"
           },
           "operating": {
-            "carrierCode": "AT"
+            "carrierCode": "LH"
           },
-          "duration": "PT8H5M",
-          "id": "54",
+          "duration": "PT13H",
+          "id": "8",
           "numberOfStops": 0,
           "blacklistedInEU": false
         }
       ]
     },
     {
-      "duration": "PT9H35M",
+      "duration": "PT15H50M",
       "segments": [
         {
           "departure": {
-            "iataCode": "JFK",
+            "iataCode": "MEX",
             "terminal": "1",
-            "at": "2022-03-05T19:55:00"
+            "at": "2022-03-10T16:00:00"
           },
           "arrival": {
-            "iataCode": "CMN",
-            "terminal": "2",
-            "at": "2022-03-06T08:40:00"
+            "iataCode": "FRA",
+            "terminal": "1",
+            "at": "2022-03-11T08:00:00"
           },
-          "carrierCode": "AT",
-          "number": "201",
+          "carrierCode": "LH",
+          "number": "4571",
           "aircraft": {
-            "code": "789"
+            "code": "346"
           },
           "operating": {
-            "carrierCode": "AT"
+            "carrierCode": "LH"
           },
-          "duration": "PT6H45M",
-          "id": "155",
+          "duration": "PT9H",
+          "id": "143",
           "numberOfStops": 0,
           "blacklistedInEU": false
         },
         {
           "departure": {
-            "iataCode": "CMN",
+            "iataCode": "FRA",
             "terminal": "1",
-            "at": "2022-03-06T10:15:00"
+            "at": "2022-03-11T11:55:00"
           },
           "arrival": {
             "iataCode": "AGP",
-            "at": "2022-03-06T11:30:00"
+            "at": "2022-03-11T14:50:00"
           },
-          "carrierCode": "AT",
-          "number": "988",
+          "carrierCode": "LH",
+          "number": "1148",
           "aircraft": {
-            "code": "73H"
+            "code": "32Q"
           },
           "operating": {
-            "carrierCode": "AT"
+            "carrierCode": "LH"
           },
-          "duration": "PT1H15M",
-          "id": "156",
+          "duration": "PT2H55M",
+          "id": "144",
           "numberOfStops": 0,
           "blacklistedInEU": false
         }
@@ -111,8 +115,8 @@
   ],
   "price": {
     "currency": "EUR",
-    "total": "425.66",
-    "base": "12.00",
+    "total": "606.30",
+    "base": "229.00",
     "fees": [
       {
         "amount": "0.00",
@@ -123,13 +127,19 @@
         "type": "TICKETING"
       }
     ],
-    "grandTotal": "425.66"
+    "grandTotal": "606.30",
+    "additionalServices": [
+      {
+        "amount": "120.00",
+        "type": "CHECKED_BAGS"
+      }
+    ]
   },
   "pricingOptions": {
     "fareType": ["PUBLISHED"],
-    "includedCheckedBagsOnly": true
+    "includedCheckedBagsOnly": false
   },
-  "validatingAirlineCodes": ["AT"],
+  "validatingAirlineCodes": ["LH"],
   "travelerPricings": [
     {
       "travelerId": "1",
@@ -137,44 +147,46 @@
       "travelerType": "ADULT",
       "price": {
         "currency": "EUR",
-        "total": "425.66",
-        "base": "12.00"
+        "total": "606.30",
+        "base": "229.00"
       },
       "fareDetailsBySegment": [
         {
-          "segmentId": "53",
+          "segmentId": "7",
           "cabin": "ECONOMY",
-          "fareBasis": "WA0RAEUA",
-          "class": "W",
+          "fareBasis": "TLPMF8BV",
+          "class": "T",
           "includedCheckedBags": {
-            "quantity": 2
+            "quantity": 0
           }
         },
         {
-          "segmentId": "54",
+          "segmentId": "8",
           "cabin": "ECONOMY",
-          "fareBasis": "WA0RAEUA",
-          "class": "W",
+          "fareBasis": "TLPMF8BV",
+          "brandedFare": "ECOLIGHT",
+          "class": "T",
           "includedCheckedBags": {
-            "quantity": 2
+            "quantity": 0
           }
         },
         {
-          "segmentId": "155",
+          "segmentId": "143",
           "cabin": "ECONOMY",
-          "fareBasis": "WA0RAEUA",
-          "class": "W",
+          "fareBasis": "TLPMF8BV",
+          "class": "T",
           "includedCheckedBags": {
-            "quantity": 2
+            "quantity": 0
           }
         },
         {
-          "segmentId": "156",
+          "segmentId": "144",
           "cabin": "ECONOMY",
-          "fareBasis": "WA0RAEUA",
-          "class": "W",
+          "fareBasis": "TLPMF8BV",
+          "brandedFare": "ECOLIGHT",
+          "class": "T",
           "includedCheckedBags": {
-            "quantity": 2
+            "quantity": 0
           }
         }
       ]
