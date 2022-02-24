@@ -9,6 +9,14 @@ const findAirlineLogo = (airlineCode) => {
     />
   );
 };
+const AirlineLogo = ({ airlineCode }) => {
+  return (
+    <img
+      alt='Airline company logo'
+      src={`https://images.kiwi.com/airlines/64/${airlineCode}.png`}
+    />
+  );
+};
 
 const findAirlineName = (airlineCode) => {
   const obj = airlines.find((airline) => {
@@ -44,4 +52,10 @@ function findAirportInfo(iataCode, option) {
   }
 }
 
-export { findAirlineName, findAirlineLogo, findFlightNumber, findAirportInfo };
+export {
+  findAirlineName,
+  findAirlineLogo,
+  findFlightNumber,
+  findAirportInfo,
+  AirlineLogo,
+};

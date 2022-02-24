@@ -11,6 +11,7 @@ import flightOrder from '../InfoFlights/flightOrderExample';
 import { dateFormat } from '../../../helpers/formatHelp';
 import { useContext } from 'react';
 import { OfferPriceContext } from '../../../context/OfferPriceContext';
+import Summary from './Summary';
 
 const Itinerary = ({ emergencyData, oneWay }) => {
   const [flights] = useContext(OfferPriceContext);
@@ -79,6 +80,7 @@ const Itinerary = ({ emergencyData, oneWay }) => {
 
   return (
     <section className='itinerary_container_end'>
+      <Summary srcLogo={srcLogo} />
       <SegmentContainer
         returnDate={returnDate}
         durationFlight={durationFlight}
