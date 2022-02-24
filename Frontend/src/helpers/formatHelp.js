@@ -1,10 +1,10 @@
+import { format } from 'date-fns';
+import { parse } from 'iso8601-duration';
 /* 
 ###############################################################
 ## Función para conversión de milisegundos a duración normal ##
 ###############################################################
 */
-
-import { format } from 'date-fns';
 
 function durationFormat(duration) {
   let minutes = Math.floor((duration / (1000 * 60)) % 60),
@@ -20,9 +20,7 @@ function durationFormat(duration) {
 }
 function writeDuration(ISOformat) {
   const timeToFormat = ISOformat.split('PT')[1];
-  console.log('pasa por aqui');
   if (timeToFormat.split('H' && 'M')) {
-    console.log('Pero porqúe pasa por aquí ?');
     const hour = timeToFormat.split('H')[0];
     const minutes = timeToFormat.split('H')[1].split('M')[0];
     const s = Number(hour) > 1 ? 's' : '';
@@ -31,14 +29,12 @@ function writeDuration(ISOformat) {
     return `${hour} hora${s} y ${minutes} minuto${sMin}`;
   }
   if (!timeToFormat.split('').includes('M')) {
-    console.log('También por aquí');
     const hour = timeToFormat.split('H')[0];
     const s = Number(hour) > 1 ? 's' : '';
 
     return `${hour}${s}`;
   }
   if (!timeToFormat.split('').includes('H')) {
-    console.log('PEro tambiçén por aquyí');
     const minutes = timeToFormat.split('M')[0];
     console.log('Hola');
 
@@ -48,6 +44,19 @@ function writeDuration(ISOformat) {
   }
 
   return ISOformat;
+}
+
+function finalDurationFormat(duration) {
+  // Parseamos la duración en formato ISO 8601
+  const totalDigits = parse(duration);
+
+  const horas = totalDigits.hours;
+  const minutos = totalDigits.minutes;
+
+  if (totalDigits.hours === 0) {
+    return `${minutos} min`;
+  }
+  return `${horas} horas y ${minutos} minutos `;
 }
 
 function dateFormat(date) {
@@ -90,7 +99,13 @@ function dateFormat(date) {
 }
 
 function hourFormat(date) {
-  return format(date, 'hh:mm');
+  return format(date, 'HH:MM');
 }
 
-export { durationFormat, dateFormat, writeDuration, hourFormat };
+export {
+  durationFormat,
+  dateFormat,
+  writeDuration,
+  hourFormat,
+  finalDurationFormat,
+};

@@ -26,24 +26,12 @@ const Itinerary = ({ emergencyData, oneWay }) => {
   const srcLogo = airlines[100].logo;
   const flightOffer = flightExample.data.flightOffers;
   const itineraries = flightOffer[0].itineraries[0].segments[0];
-  const airlineInfo = itineraries.operating.carrierCode;
-  const infoAirline = 'AF';
-  const france = airlines.find((airline) => {
-    return JSON.stringify(airline.code) === 'TP';
-  });
 
   /* 
 #######################
-## INFO FLIGHT ORDER ## PROBAND
+## INFO FLIGHT ORDER ## 
 #######################
 */
-
-  const durationFlightExample =
-    flightOrder.data.flightOffers[0].itineraries[1].duration;
-
-  const flightOrderInfo = {
-    id: flightOrder.data.id,
-  };
 
   const infoMainContact = {
     name: 'Firulais García',
@@ -80,7 +68,7 @@ const Itinerary = ({ emergencyData, oneWay }) => {
 
   return (
     <section className='itinerary_container_end'>
-      <Summary srcLogo={srcLogo} />
+      <Summary />
       <SegmentContainer
         returnDate={returnDate}
         durationFlight={durationFlight}

@@ -1,50 +1,80 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import PayPal from '../../PayPal/PayPal';
 import { CancellationPolicy } from '../InfoFlights/constantInfo';
-
-import { writeDuration } from '../../../helpers/formatHelp';
+import { finalDurationFormat, hourFormat } from '../../../helpers/formatHelp';
 import {
   findAirlineLogo,
   findAirlineName,
   findFlightNumber,
 } from '../InfoFlights/helpersFlight';
 import { TokenContext } from '../../../context/TokenContext';
-import { parse, end, toSeconds, pattern } from 'iso8601-duration';
-
 import PaymentElection from './PaymentElection';
 import { OfferPriceContext } from '../../../context/OfferPriceContext';
+import AirlineContainer from './AirlineContainer';
+import ScheduleContainer from './ScheduleContainer';
 
-const ResumeandPay = ({ rateCharge, setRateCharge, travelers }) => {
+const ResumeandPay = ({ rateCharge, travelers }) => {
+  /* 
+  ###############
+  ## CONTEXTOS ##
+  ###############
+  */
+  const [token] = useContext(TokenContext);
   const [flight] = useContext(OfferPriceContext);
-  console.log('flight', flight);
   const flightOffer = flight;
-  const [itineraries] = flightOffer.itineraries;
+  const [itinerary] = flightOffer.itineraries;
+
+  const { itineraries } = flight;
 
   /* 
-#########################
-## Itinerary variables ##
-#########################
-*/
-  const outboundItinerary = itineraries.segments[0];
-  const roundtripItinerary = itineraries.segments[1];
+  #########################
+  ## Itinerary durations ##
+  #########################
+  */
 
-  // Duración en formato ISO 8601
-  const outboundDurationToFormat = outboundItinerary.duration;
-  const roundtripDurationToFormat = roundtripItinerary.duration;
+  const totalDuration_outbound = finalDurationFormat(itineraries[0].duration);
+  const totalDuration_roundtrip = finalDurationFormat(itineraries[1].duration);
 
-  console.log(toSeconds(parse(outboundDurationToFormat)));
+  /* 
+  #########################
+  ## Itinerary variables ##
+  #########################
+  */
+  const outboundItinerary = itinerary.segments[0];
+  const roundtripItinerary = itinerary.segments[1];
+
+  /* 
+  #########################
+  ## Itinerary  schedule ##
+  #########################
+  */
+  // Horario del viaje de IDA
+  const timeDeparture_outbound = hourFormat(
+    new Date(itineraries[0].segments[0].departure.at)
+  );
+  const lastSegmentOutbound = Number(flight.itineraries[0].segments.length) - 1;
+  const timeArrival_outbound = hourFormat(
+    new Date(itineraries[0].segments[lastSegmentOutbound].arrival.at)
+  );
+
+  // Horario del viaje de VUELTA
+  const timeDeparture_roundtrip = hourFormat(
+    new Date(itineraries[1].segments[0].departure.at)
+  );
+  const lastSegmentRoundtrip =
+    Number(flight.itineraries[1].segments.length) - 1;
+  const timeArrival_roundtrip = hourFormat(
+    new Date(itineraries[1].segments[lastSegmentRoundtrip].arrival.at)
+  );
 
   //  Averiguamos el código de la aerolínea
   // y mostramos su logo en pantalla
   const airlineCode = flightOffer.validatingAirlineCodes[0];
 
-  /* 
-##################
-## ResumeAndPay ##
-##################
-*/
-
-  const [token] = useContext(TokenContext);
+  // Número de escalas
+  const scales_outbound = Number(itineraries[0].segments.length) - 1;
+  const scales_roundtrip = Number(itineraries[1].segments.length) - 1;
+  console.log('escalas', scales_outbound);
   /* 
   #####################################
   ## Offerprice variables monetarias ##
@@ -57,6 +87,7 @@ const ResumeandPay = ({ rateCharge, setRateCharge, travelers }) => {
   const totalPrice = precioTotal + rateCharge;
   const taxes = 0.21;
   const scalesGoing = flightOffer.itineraries[0].segments[0].numberOfStops;
+  console.log(scalesGoing);
 
   /* 
    #########################
@@ -66,7 +97,7 @@ const ResumeandPay = ({ rateCharge, setRateCharge, travelers }) => {
 
   const orderFlight = async (e) => {
     const flightOrder = {
-      itinerary: [itineraries],
+      itinerary: [itinerary],
       travelers: travelers,
     };
     e.preventDefault();
@@ -83,7 +114,35 @@ const ResumeandPay = ({ rateCharge, setRateCharge, travelers }) => {
     );
     console.log(res);
   };
-
+  const FlightResume = () => {
+    return (
+      <section className='flight_resume'>
+        <div className='flight_resume_way flight_resume_going'>
+          <AirlineContainer code={airlineCode} itinerary={outboundItinerary} />
+          <ScheduleContainer
+            totalDuration={totalDuration_outbound}
+            timeDeparture={timeDeparture_outbound}
+            timeArrival={timeArrival_outbound}
+            scales={scales_outbound}
+          />
+        </div>
+        <div className='flight_resume_way flight_resume_return'>
+          {
+            <AirlineContainer
+              code={airlineCode}
+              itinerary={roundtripItinerary}
+            />
+          }
+          <ScheduleContainer
+            totalDuration={totalDuration_roundtrip}
+            timeDeparture={timeDeparture_roundtrip}
+            timeArrival={timeArrival_roundtrip}
+            scales={scales_roundtrip}
+          />
+        </div>
+      </section>
+    );
+  };
   return (
     <section className='paymentConfirmationContainer'>
       <PaymentElection>
@@ -94,38 +153,30 @@ const ResumeandPay = ({ rateCharge, setRateCharge, travelers }) => {
       <div className='paymentConfirmation'>
         <section className='flight_resume'>
           <div className='flight_resume_way flight_resume_going'>
-            <section className='airline_container'>
-              <div className='airline_logo'>{findAirlineLogo(airlineCode)}</div>
-              <div className='airline_name'>
-                <h4>{findAirlineName(airlineCode)}</h4>
-                <p>{findFlightNumber(outboundItinerary)}</p>
-              </div>
-            </section>
-            <section className='schedule_container'>
-              <p>{writeDuration(outboundDurationToFormat)}</p>
-              <p>9:50 - 11:00 PM</p>
-              <p>
-                {' '}
-                {scalesGoing ? `Hay ${scalesGoing} escalas` : 'Sin escalas'}
-              </p>
-            </section>
+            <AirlineContainer
+              code={airlineCode}
+              itinerary={outboundItinerary}
+            />
+            <ScheduleContainer
+              totalDuration={totalDuration_outbound}
+              timeDeparture={timeDeparture_outbound}
+              timeArrival={timeArrival_outbound}
+              scales={scales_outbound}
+            />
           </div>
           <div className='flight_resume_way flight_resume_return'>
-            <div className='airline_container'>
-              <div className='airline_logo'>{findAirlineLogo(airlineCode)}</div>
-              <div className='airline_name'>
-                <h4>{findAirlineName(airlineCode)}</h4>
-                <p>{findFlightNumber(roundtripItinerary)}</p>
-              </div>
-            </div>
-            <div className='schedule_container'>
-              <p>{writeDuration(roundtripDurationToFormat)}</p>
-              <p>9:50 - 11:00 PM</p>
-              <p>
-                {' '}
-                {scalesGoing ? `Hay ${scalesGoing} escalas` : 'Sin escalas'}
-              </p>
-            </div>
+            {
+              <AirlineContainer
+                code={airlineCode}
+                itinerary={roundtripItinerary}
+              />
+            }
+            <ScheduleContainer
+              totalDuration={totalDuration_roundtrip}
+              timeDeparture={timeDeparture_roundtrip}
+              timeArrival={timeArrival_roundtrip}
+              scales={scales_roundtrip}
+            />
           </div>
         </section>
         <section className='finalCounting'>
