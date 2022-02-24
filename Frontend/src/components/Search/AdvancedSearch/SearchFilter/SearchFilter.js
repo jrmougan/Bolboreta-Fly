@@ -2,16 +2,23 @@ import { Slider, Grid, Select, InputLabel } from "@mui/material";
 import { SelectOptions } from "./inputs/SelectOptions";
 import { SliderFilter } from "./inputs/SliderFilter";
 import { SliderRange } from "./inputs/SliderRange";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export const SearchFilter = (props) => {
+export const SearchFilter = ({ scales, bagage, updateFilter, source }) => {
+  //Estado Filtro
+  const [filterState, setFilterState] = useState({
+    scales: "",
+    bagage: "",
+    duration: 0,
+    price: [100, 3000],
+  });
 
-  const state = props.state;
-  const setState = props.setState;
+  //Efecto para actualizar el filtro
 
-
-  const [filterState, setFilterState] = props.filterState;
-
+  useEffect(() => {
+    source.cancel();
+    updateFilter(filterState);
+  }, [filterState]);
 
   //Manejadora evento
 
@@ -21,10 +28,6 @@ export const SearchFilter = (props) => {
       ...filterState,
       [name]: e.target.value,
     });
-    console.log(name);
-    console.log(e.target);
-
-    console.log(filterState);
   };
 
   //Manejadora slider
@@ -38,7 +41,7 @@ export const SearchFilter = (props) => {
       <SelectOptions
         item
         filterState={filterState}
-        scales={props.scales}
+        scales={scales}
         handleChange={handleChange}
         label="Escalas"
         name="scales"
@@ -46,7 +49,7 @@ export const SearchFilter = (props) => {
       <SelectOptions
         item
         filterState={filterState}
-        scales={props.bagage}
+        scales={bagage}
         handleChange={handleChange}
         label="Maletas"
         name="bagage"

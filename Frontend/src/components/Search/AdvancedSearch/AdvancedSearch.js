@@ -20,23 +20,15 @@ export const AdvancedSearch = (props) => {
     selectScales,
   });
 */
-  //Estado Filtro
-  const [filterState, setFilterState] = useState({
-    scales: "",
-    bagage: "",
-    duration: 0,
-    price: [100, 3000],
-  });
 
   //Monitorización de estado de filtro de búsqueda
 
-  const [data, loading, override, updateFilter] = useSearch({
+  const { data, loading, override, updateFilter, source } = useSearch({
     origin,
     destination,
     departureDate,
     returnDate,
     adults,
-    filterState,
   });
 
   //updateFilter(filterState);
@@ -51,7 +43,8 @@ export const AdvancedSearch = (props) => {
         <SearchFilter
           scales={selectScales}
           bagage={bagage}
-          filterState={[filterState, setFilterState]}
+          updateFilter={updateFilter}
+          source={source}
         />
       </Grid>
       <Grid item xs={12} md={9}>

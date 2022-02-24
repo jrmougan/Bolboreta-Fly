@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import useLocalStorage from '../hooks/useLocalStorage';
-import '../css/homescreen.css';
-import { RoundTrip } from '../components/Search/BasicSearch/BasicSearch';
-import { ListFlights } from '../components/Search/ListFlights/ListFlights';
-import useSearch from '../hooks/useSearch';
+import React, { useState, useEffect } from "react";
+import useLocalStorage from "../hooks/useLocalStorage";
+import "../css/homescreen.css";
+import { RoundTrip } from "../components/Search/BasicSearch/BasicSearch";
+import { ListFlights } from "../components/Search/ListFlights/ListFlights";
+import useSearch from "../hooks/useSearch";
 
 const HomeRound = () => {
   // Obtenemos los datos de los input y los guardamos en el localStorage
   // para mantenerlos si recarga la página
 
-  const [origin, setOrigin] = useLocalStorage('origin', '');
-  const [destination, setDestination] = useLocalStorage('password', '');
-  const [departureDate, setDepartureDate] = useState('');
-  const [returnDate, setReturndate] = useState('');
-  const [adults, setAdults] = useLocalStorage('adult', '');
+  const [origin, setOrigin] = useLocalStorage("origin", "");
+  const [destination, setDestination] = useLocalStorage("password", "");
+  const [departureDate, setDepartureDate] = useState("");
+  const [returnDate, setReturndate] = useState("");
+  const [adults, setAdults] = useLocalStorage("adult", "");
 
   // Función para modificar el valor de cada variable
   // a través del onChange de cada input
@@ -37,14 +37,11 @@ const HomeRound = () => {
   // Obtenemos el resultado (vuelos) a través de data
   // y la función search para pasarla a través de las props a ListFlights
 
-  const [data, search] = useSearch(searching);
-
   return (
-    <main className='searchEnvironment'>
+    <main className="searchEnvironment">
       {
         <RoundTrip
           destination={destination}
-          search={search}
           origin={origin}
           setOrigin={setOrigin}
           setDestination={setDestination}
@@ -57,8 +54,6 @@ const HomeRound = () => {
           setReturndate={setReturndate}
         />
       }
-
-      <ListFlights data={data} />
     </main>
   );
 };
