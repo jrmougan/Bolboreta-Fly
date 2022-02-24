@@ -1,47 +1,49 @@
 import React, { useContext, useState } from 'react';
 import PayPal from '../../PayPal/PayPal';
 import { CancellationPolicy } from '../InfoFlights/constantInfo';
-import offerprice from '../InfoFlights/offerpriceExample.json';
+
 import { writeDuration } from '../../../helpers/formatHelp';
-import airlines from '../InfoFlights/airlines.json';
 import {
   findAirlineLogo,
   findAirlineName,
   findFlightNumber,
 } from '../InfoFlights/helpersFlight';
+import { TokenContext } from '../../../context/TokenContext';
 import { parse, end, toSeconds, pattern } from 'iso8601-duration';
 
 import PaymentElection from './PaymentElection';
-import { TokenContext } from '../../../context/TokenContext';
+import { OfferPriceContext } from '../../../context/OfferPriceContext';
 
-const flightOffer = offerprice.data.flightOffers[0];
-const [itineraries] = flightOffer.itineraries;
+const ResumeandPay = ({ rateCharge, setRateCharge, travelers }) => {
+  const [flight] = useContext(OfferPriceContext);
+  console.log('flight', flight);
+  const flightOffer = flight;
+  const [itineraries] = flightOffer.itineraries;
 
-/* 
+  /* 
 #########################
 ## Itinerary variables ##
 #########################
 */
-const outboundItinerary = itineraries.segments[0];
-const roundtripItinerary = itineraries.segments[1];
+  const outboundItinerary = itineraries.segments[0];
+  const roundtripItinerary = itineraries.segments[1];
 
-// Duración en formato ISO 8601
-const outboundDurationToFormat = outboundItinerary.duration;
-const roundtripDurationToFormat = roundtripItinerary.duration;
+  // Duración en formato ISO 8601
+  const outboundDurationToFormat = outboundItinerary.duration;
+  const roundtripDurationToFormat = roundtripItinerary.duration;
 
-console.log(toSeconds(parse(outboundDurationToFormat)));
+  console.log(toSeconds(parse(outboundDurationToFormat)));
 
-//  Averiguamos el código de la aerolínea
-// y mostramos su logo en pantalla
-const airlineCode = flightOffer.validatingAirlineCodes[0];
+  //  Averiguamos el código de la aerolínea
+  // y mostramos su logo en pantalla
+  const airlineCode = flightOffer.validatingAirlineCodes[0];
 
-/* 
+  /* 
 ##################
 ## ResumeAndPay ##
 ##################
 */
 
-const ResumeandPay = ({ rateCharge, setRateCharge, travelers }) => {
   const [token] = useContext(TokenContext);
   /* 
   #####################################

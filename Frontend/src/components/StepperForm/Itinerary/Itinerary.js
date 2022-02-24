@@ -9,32 +9,37 @@ import airlines from '../InfoFlights/airlines.json';
 import { tripIncludes } from '../InfoFlights/constantInfo';
 import flightOrder from '../InfoFlights/flightOrderExample';
 import { dateFormat } from '../../../helpers/formatHelp';
+import { useContext } from 'react';
+import { OfferPriceContext } from '../../../context/OfferPriceContext';
 
-/* 
+const Itinerary = ({ emergencyData, oneWay }) => {
+  const [flights] = useContext(OfferPriceContext);
+  console.log('flights', flights);
+
+  /* 
 ##################
 ## INFO NO REAL ## SON SOLO DE PRUEBA
 ##################
 */
 
-const srcLogo = airlines[100].logo;
-const flightOffer = flightExample.data.flightOffers;
-const itineraries = flightOffer[0].itineraries[0].segments[0];
-const airlineInfo = itineraries.operating.carrierCode;
-const infoAirline = 'AF';
-const france = airlines.find((airline) => {
-  return JSON.stringify(airline.code) === 'TP';
-});
+  const srcLogo = airlines[100].logo;
+  const flightOffer = flightExample.data.flightOffers;
+  const itineraries = flightOffer[0].itineraries[0].segments[0];
+  const airlineInfo = itineraries.operating.carrierCode;
+  const infoAirline = 'AF';
+  const france = airlines.find((airline) => {
+    return JSON.stringify(airline.code) === 'TP';
+  });
 
-/* 
+  /* 
 #######################
 ## INFO FLIGHT ORDER ## PROBAND
 #######################
 */
 
-const durationFlightExample =
-  flightOrder.data.flightOffers[0].itineraries[1].duration;
+  const durationFlightExample =
+    flightOrder.data.flightOffers[0].itineraries[1].duration;
 
-const Itinerary = ({ emergencyData }) => {
   const flightOrderInfo = {
     id: flightOrder.data.id,
   };
