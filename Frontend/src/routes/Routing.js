@@ -1,13 +1,13 @@
-import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
-import "../App.css";
-import routes from "./routes";
+import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
+import '../App.css';
+import routes from './routes';
 
-import Header from "../components/ui/header/header";
+import Header from '../components/ui/header/header';
 
-import { TokencontextProvider } from "../context/TokenContext";
-import { OfferPriceContextProvider } from "../context/OfferPriceContext";
+import { TokencontextProvider } from '../context/TokenContext';
+import { OfferPriceContextProvider } from '../context/OfferPriceContext';
 
-import Footer from "../components/ui/Footer/Footer";
+import Footer from '../components/ui/Footer/Footer';
 
 const Routing = () => {
   return (
@@ -17,18 +17,6 @@ const Routing = () => {
           <Header></Header>
           {
             <main>
-              <nav>
-                <ul>
-                  {routes.map((route) => {
-                    return (
-                      <li key={route.path}>
-                        <Link to={route.path}>{route.name}</Link>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </nav>
-
               <Routes>
                 {routes.map((route) => {
                   return (

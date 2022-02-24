@@ -1,0 +1,183 @@
+{
+  "type": "flight-offer",
+  "id": "1",
+  "source": "GDS",
+  "instantTicketingRequired": false,
+  "nonHomogeneous": false,
+  "oneWay": false,
+  "lastTicketingDate": "2022-03-03",
+  "numberOfBookableSeats": 5,
+  "itineraries": [
+    {
+      "duration": "PT30H25M",
+      "segments": [
+        {
+          "departure": {
+            "iataCode": "AGP",
+            "at": "2022-03-03T17:30:00"
+          },
+          "arrival": {
+            "iataCode": "CMN",
+            "terminal": "2",
+            "at": "2022-03-03T19:10:00"
+          },
+          "carrierCode": "AT",
+          "number": "985",
+          "aircraft": {
+            "code": "AT7"
+          },
+          "duration": "PT1H40M",
+          "id": "53",
+          "numberOfStops": 0,
+          "blacklistedInEU": false
+        },
+        {
+          "departure": {
+            "iataCode": "CMN",
+            "terminal": "1",
+            "at": "2022-03-04T15:50:00"
+          },
+          "arrival": {
+            "iataCode": "JFK",
+            "at": "2022-03-04T17:55:00"
+          },
+          "carrierCode": "AT",
+          "number": "200",
+          "aircraft": {
+            "code": "789"
+          },
+          "operating": {
+            "carrierCode": "AT"
+          },
+          "duration": "PT8H5M",
+          "id": "54",
+          "numberOfStops": 0,
+          "blacklistedInEU": false
+        }
+      ]
+    },
+    {
+      "duration": "PT9H35M",
+      "segments": [
+        {
+          "departure": {
+            "iataCode": "JFK",
+            "terminal": "1",
+            "at": "2022-03-05T19:55:00"
+          },
+          "arrival": {
+            "iataCode": "CMN",
+            "terminal": "2",
+            "at": "2022-03-06T08:40:00"
+          },
+          "carrierCode": "AT",
+          "number": "201",
+          "aircraft": {
+            "code": "789"
+          },
+          "operating": {
+            "carrierCode": "AT"
+          },
+          "duration": "PT6H45M",
+          "id": "155",
+          "numberOfStops": 0,
+          "blacklistedInEU": false
+        },
+        {
+          "departure": {
+            "iataCode": "CMN",
+            "terminal": "1",
+            "at": "2022-03-06T10:15:00"
+          },
+          "arrival": {
+            "iataCode": "AGP",
+            "at": "2022-03-06T11:30:00"
+          },
+          "carrierCode": "AT",
+          "number": "988",
+          "aircraft": {
+            "code": "73H"
+          },
+          "operating": {
+            "carrierCode": "AT"
+          },
+          "duration": "PT1H15M",
+          "id": "156",
+          "numberOfStops": 0,
+          "blacklistedInEU": false
+        }
+      ]
+    }
+  ],
+  "price": {
+    "currency": "EUR",
+    "total": "425.66",
+    "base": "12.00",
+    "fees": [
+      {
+        "amount": "0.00",
+        "type": "SUPPLIER"
+      },
+      {
+        "amount": "0.00",
+        "type": "TICKETING"
+      }
+    ],
+    "grandTotal": "425.66"
+  },
+  "pricingOptions": {
+    "fareType": ["PUBLISHED"],
+    "includedCheckedBagsOnly": true
+  },
+  "validatingAirlineCodes": ["AT"],
+  "travelerPricings": [
+    {
+      "travelerId": "1",
+      "fareOption": "STANDARD",
+      "travelerType": "ADULT",
+      "price": {
+        "currency": "EUR",
+        "total": "425.66",
+        "base": "12.00"
+      },
+      "fareDetailsBySegment": [
+        {
+          "segmentId": "53",
+          "cabin": "ECONOMY",
+          "fareBasis": "WA0RAEUA",
+          "class": "W",
+          "includedCheckedBags": {
+            "quantity": 2
+          }
+        },
+        {
+          "segmentId": "54",
+          "cabin": "ECONOMY",
+          "fareBasis": "WA0RAEUA",
+          "class": "W",
+          "includedCheckedBags": {
+            "quantity": 2
+          }
+        },
+        {
+          "segmentId": "155",
+          "cabin": "ECONOMY",
+          "fareBasis": "WA0RAEUA",
+          "class": "W",
+          "includedCheckedBags": {
+            "quantity": 2
+          }
+        },
+        {
+          "segmentId": "156",
+          "cabin": "ECONOMY",
+          "fareBasis": "WA0RAEUA",
+          "class": "W",
+          "includedCheckedBags": {
+            "quantity": 2
+          }
+        }
+      ]
+    }
+  ]
+}

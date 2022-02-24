@@ -1,4 +1,5 @@
 import airlines from './airlines.json';
+import airports from './airports.json';
 
 const findAirlineLogo = (airlineCode) => {
   return (
@@ -25,4 +26,22 @@ const findFlightNumber = (flightItinerary) => {
   return flightNum;
 };
 
-export { findAirlineName, findAirlineLogo, findFlightNumber };
+function findAirportInfo(iataCode, option) {
+  if (option === 'city') {
+    const airportFinded = airports.find((airport) => airport.code === iataCode);
+    const locationCity = airportFinded.location.split(',')[0];
+    return locationCity;
+  }
+  if (option === 'country') {
+    const airportFinded = airports.find((airport) => airport.code === iataCode);
+    const locationCountry = airportFinded.location.split(',')[1];
+    return locationCountry;
+  }
+  if (option === 'airport') {
+    const airportFinded = airports.find((airport) => airport.code === iataCode);
+    const airportName = airportFinded.name;
+    return airportName;
+  }
+}
+
+export { findAirlineName, findAirlineLogo, findFlightNumber, findAirportInfo };

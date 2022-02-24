@@ -68,9 +68,7 @@ body {
   width: 300px !important;
 }
 
-.MuiButtonBase-root {
-  width: 50px !important;
-}
+
 .MuiList-root {
   align-items: center !important;
   margin-left: 40px !important;
@@ -84,7 +82,9 @@ Muiinput-root {
 .country {
   width: 200px !important;
 } */
-
+.MuiPhoneNumber-flagButton {
+  width: 50px !important;
+}
 /* 
 #######################
 ## ELECIÓN DE TARIFA ##
@@ -182,6 +182,7 @@ Muiinput-root {
 .my-trip h4 {
   margin: 1rem 0 0.6rem;
 }
+
 .date-flight {
   font-weight: bold;
 }
@@ -202,6 +203,13 @@ Muiinput-root {
   /*   display: flex;
   flex-flow: nowrap column; */
   align-items: center;
+}
+.titleTrip_cities {
+  font-size: 1.4rem;
+}
+.titleTrip_container h4 {
+  text-align: center;
+  font-weight: 600;
 }
 
 /* 
@@ -245,7 +253,7 @@ Muiinput-root {
   align-items: center;
 }
 .subtitle_info_container::before {
-  content: "";
+  content: '';
   position: absolute;
   bottom: 0;
   left: 0;
@@ -343,7 +351,7 @@ Muiinput-root {
 }
 
 .bottom_line::before {
-  content: "";
+  content: '';
   position: absolute;
   bottom: 0;
   left: 0;
