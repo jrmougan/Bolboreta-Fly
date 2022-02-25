@@ -1,9 +1,14 @@
-import { Link } from 'react-router-dom';
-import { format, formatDuration } from 'date-fns';
 import { useContext } from 'react';
 import { FaPlane } from 'react-icons/fa';
 import { OfferPriceContext } from '../../../context/OfferPriceContext';
 import { useNavigate } from 'react-router-dom';
+import {
+  dateFormat,
+  finalDurationFormat,
+  hourFormat,
+} from '../../../helpers/formatHelp';
+import InputButton from './InputButton';
+import Flight from './Flight';
 
 export const ListFlights = ({ data }) => {
   //Contexto booking
@@ -26,66 +31,122 @@ export const ListFlights = ({ data }) => {
           // información en variables más intuitivas
           const id = flight.id;
           const klass = flight.travelerPricings[0].fareOption;
-          const arrivalTime = flight.itineraries[0].segments[0].arrival.at;
-          const departureTime = flight.itineraries[0].segments[0].departure.at;
-          const flightDuration = flight.itineraries[0].duration;
-          const price = flight.price.total;
-          const currency = flight.price.currency;
+
+          // ¿Sólo IDA?
+          const { oneWay } = flight;
+          // Códigos IATA de los aeropuertos
           const iataOrigin =
             flight.itineraries[0].segments[0].departure.iataCode;
-          const lastSegmentFlight =
+          const lastSegmentFlight_outbound =
             Number(flight.itineraries[0].segments.length) - 1;
           const iataDestination =
-            flight.itineraries[0].segments[lastSegmentFlight].arrival.iataCode;
-          function hourFormat(date) {
-            return format(date, 'hh:mm');
-          }
+            flight.itineraries[0].segments[lastSegmentFlight_outbound].arrival
+              .iataCode;
+
+          const lastSegmentFlight_rountrip =
+            Number(flight.itineraries[1].segments.length) - 1;
+
+          console.log('Motivo del problema', lastSegmentFlight_rountrip);
+          // IDA
+          const arrivalTime_outbound =
+            flight.itineraries[0].segments[0].arrival.at;
+          const departureTime_outbound =
+            flight.itineraries[0].segments[lastSegmentFlight_outbound].departure
+              .at;
+
+          // VUELTA
+          const arrivalTime_roundtrip =
+            flight.itineraries[0].segments[lastSegmentFlight_outbound].arrival
+              .at;
+          const departureTime_rountrip =
+            flight.itineraries[0].segments[0].departure.at;
+
+          // Duraciones sin formatear
+          const flightDuration_outbound = flight.itineraries[0].duration;
+          const flightDuration_roundtrip = flight?.itineraries[1].duration;
+
+          // Duraciones de los vuelos
+          const totalDuration_outbound = finalDurationFormat(
+            flightDuration_outbound
+          );
+          const totalDuration_roundtrip = finalDurationFormat(
+            flightDuration_roundtrip
+          );
+
+          const price = flight.price.total;
+          const currency = flight.price.currency;
 
           // Formateamos horas y fechas para que
           // se ajuste al diseño original
-          const departureToFormat = new Date(departureTime);
-          const arrivalToFormat = new Date(arrivalTime);
 
-          console.log(departureToFormat.getMonth());
-          const aqui = departureToFormat.toISOString();
+          // Horario vuelos IDA sin formatear
+          const departureToFormat_outbound = new Date(departureTime_outbound);
+          const arrivalToFormat_outbound = new Date(arrivalTime_outbound);
 
-          const timeDepartureFormatted = hourFormat(departureToFormat);
+          // Horario vuelos VUELTA sin formatear
+          const departureToFormat_roundtrip = new Date(departureTime_rountrip);
+          const arrivalToFormat_roundtrip = new Date(arrivalTime_roundtrip);
 
-          const timeArrivalFormatted = hourFormat(arrivalToFormat);
+          // Horario vuelos IDA
+          const timeDeparture_outbound = hourFormat(departureToFormat_outbound);
+          const timeArrival_outbound = hourFormat(arrivalToFormat_outbound);
+
+          // Horario vuelos VUELTA
+          const timeDeparture_roundtrip = hourFormat(
+            departureToFormat_roundtrip
+          );
+          const timeArrival_roundtrip = hourFormat(arrivalToFormat_roundtrip);
 
           return (
             <article key={id} id={id} className='resultCard'>
-              <div className='left-card card'>
-                <div className='flightItem'>
-                  <p className='fareOption'>{klass} CLASS</p>
-                  <div className='timeFlight'>
-                    <span>{aqui}</span>
-                    <span>{timeDepartureFormatted}</span>
-                    <div className='duration'>{flightDuration}</div>
-                    {/* <span>{arrivalToFormat}</span> */}
-                    <span>{timeArrivalFormatted}</span>
-                  </div>
-                  <div className='origin_destination'>
-                    <p>{iataOrigin}</p>
-                    <FaPlane />
-                    <p>{iataDestination}</p>
-                  </div>
-                </div>
-              </div>
-              <div className='right-card card'>
-                <p>
-                  {price} {currency}
-                </p>
-                <input
-                  type='button'
-                  onClick={handleBooking}
-                  className='btn btnFlight'
-                  value='Ir al vuelo'
-                ></input>
-              </div>
+              <LeftCard>
+                <Flight
+                  timeDeparture={timeDeparture_outbound}
+                  timeArrival={timeArrival_outbound}
+                  totalDuration={totalDuration_outbound}
+                  iataOrigin={iataOrigin}
+                  iataDestination={iataDestination}
+                  klass={klass}
+                />
+                {!oneWay && (
+                  <Flight
+                    timeDeparture={timeDeparture_roundtrip}
+                    timeArrival={timeArrival_roundtrip}
+                    totalDuration={totalDuration_roundtrip}
+                    iataOrigin={iataDestination}
+                    iataDestination={iataOrigin}
+                    klass={klass}
+                    isReturn={true}
+                  />
+                )}
+              </LeftCard>
+              <RightCard>
+                <Price price={price} currency={currency} />
+                <InputButton handleSubmit={handleBooking}>
+                  Ir al vuelo
+                </InputButton>
+              </RightCard>
             </article>
           );
         })}
     </section>
+  );
+};
+
+const LeftCard = ({ children, oneWay }) => {
+  return (
+    <section className={`left-card card ${oneWay ? '' : 'separation_card'}`}>
+      {children}
+    </section>
+  );
+};
+const RightCard = ({ children }) => {
+  return <section className='right-card card'>{children}</section>;
+};
+const Price = ({ price, currency }) => {
+  return (
+    <p>
+      {price} {currency}
+    </p>
   );
 };

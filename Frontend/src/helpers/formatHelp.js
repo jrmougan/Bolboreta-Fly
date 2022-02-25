@@ -56,6 +56,9 @@ function finalDurationFormat(duration) {
   if (totalDigits.hours === 0) {
     return `${minutos} min`;
   }
+  if (totalDigits.hours === 1) {
+    return `${horas} hora ${minutos} min`;
+  }
   return `${horas} horas y ${minutos} minutos `;
 }
 
