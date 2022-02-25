@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { useQuery } from "../hooks/useQuery";
 import { AdvancedSearch } from "../components/Search/AdvancedSearch/AdvancedSearch";
 
@@ -17,8 +17,6 @@ const AdvancedSearchScreen = () => {
     returnDate: diaLlegada,
     adults: adultos,
   };
-
-  console.log(search);
 
   return (
     <Fragment>

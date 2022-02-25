@@ -4,37 +4,29 @@ import { SliderFilter } from "./inputs/SliderFilter";
 import { SliderRange } from "./inputs/SliderRange";
 import { useEffect, useState } from "react";
 
-export const SearchFilter = ({ scales, bagage, updateFilter, source }) => {
-  //Estado Filtro
-  const [filterState, setFilterState] = useState({
-    scales: "",
-    bagage: "",
-    duration: 0,
-    price: [100, 3000],
-  });
-
-  //Efecto para actualizar el filtro
-
-  useEffect(() => {
-    source.cancel();
-    updateFilter(filterState);
-  }, [filterState]);
+export const SearchFilter = ({
+  scales,
+  bagage,
+  filterState,
+  abort,
+  maxPrice,
+}) => {
+  const [filter, setFilter] = filterState;
 
   //Manejadora evento
 
   const handleChange = (e) => {
+    if (abort) abort.cancel();
     const name = e.target.name;
-    setFilterState({
-      ...filterState,
+    setFilter({
+      ...filter,
       [name]: e.target.value,
     });
   };
 
   //Manejadora slider
 
-  const handleSlider = (e, value, active) => {
-    console.log(e, value, active);
-  };
+  //const handleSlider = (e, value, active) => {};
 
   return (
     <Grid container spacing={2} flexDirection="column">
@@ -63,14 +55,13 @@ export const SearchFilter = ({ scales, bagage, updateFilter, source }) => {
         label="Duracion"
       />
 
-      <SliderRange
+      <SliderFilter
         item
-        handleSlider={handleChange}
-        name="price"
-        min={300}
-        max={9000}
+        handleChange={handleChange}
+        name="precio"
+        min={1}
+        max={maxPrice}
         label="Precio"
-        state={filterState.price}
       />
     </Grid>
   );

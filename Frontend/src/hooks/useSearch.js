@@ -1,65 +1,52 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const useSearch = (searching) => {
-  const [search, updateSearch] = useState(searching);
-  const [filter, updateFilter] = useState({});
+const useSearch = () => {
   const [loading, setLoading] = useState(true);
-
+  const [error, setError] = useState("");
   const [data, setData] = useState("");
+  let abort;
 
-  const [url, setUrl] = useState(
-    `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/advancesearch`
-  );
+  const flightSearch = async (search, filter) => {
+    if (abort) abort.cancel("Operation canceled by the user.");
+    abort = axios.CancelToken.source();
+    const { origin, destination, departureDate, returnDate, adults } =
+      search.search;
+    const { precio } = filter;
 
-  const { origin, destination, departureDate, returnDate, adults } = search;
+    const body = {
+      courrencyCode: "EUR",
+      originLocationCode: origin,
+      destinationLocationCode: destination,
+      blacklistedInEUAllowed: true,
+      departureDate: departureDate,
+      includedCheckedBagsOnly: false,
+      returnDate: returnDate,
+      numAdults: adults,
+      numChilds: 0,
+      travelClass: "ECONOMY",
+      sources: "GDS",
+      maxFlighTime: 2,
+      connections: 1,
+      oneway: 1,
+      maxprice: precio,
+    };
 
-  const override = `
-  display: block;
-  margin: 10rem auto;
-  border-color: red;
-`;
-
-  const [body, setBody] = useState({
-    courrencyCode: "EUR",
-    originLocationCode: origin,
-    destinationLocationCode: destination,
-    blacklistedInEUAllowed: true,
-    departureDate: departureDate,
-    includedCheckedBagsOnly: false,
-    returnDate: returnDate,
-    numAdults: adults,
-    numChilds: 0,
-    travelClass: "ECONOMY",
-    sources: "GDS",
-    maxFlighTime: 2,
-    connections: 1,
-    oneway: 1,
-    maxprice: 1000,
-  });
-
-  let source = axios.CancelToken.source();
-
-  const AxiosSearch = async () => {
+    const url = `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/advancesearch`;
     try {
       setLoading(true);
-      const req = await axios.post(url, body, { cancelToken: source.token });
-      console.log(req.data);
+      const req = await axios.post(url, body, { cancelToken: abort.token });
+
       if (req.data.status === "ok") {
-        setData(req.data.data.data);
         setLoading(false);
+        setData(req.data.data.data);
       }
     } catch (error) {
-      console.error(error);
+      setError(error.response);
     }
   };
 
-  useEffect(() => {
-    console.log(body);
-    AxiosSearch();
-  }, [search, filter]);
-
-  return { data, loading, override, updateFilter, source };
+  return { flightSearch, error, loading, abort, data };
 };
 
 export default useSearch;

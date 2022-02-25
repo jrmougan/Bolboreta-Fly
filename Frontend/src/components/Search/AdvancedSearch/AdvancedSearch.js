@@ -6,13 +6,14 @@ import "./styles.css";
 import { MoonLoader } from "react-spinners";
 import { ListFlights } from "../ListFlights/ListFlights";
 
-export const AdvancedSearch = (props) => {
-  // Extraemos los datos de la búsqueda
+export const AdvancedSearch = (searchParams) => {
+  const [search, setSearch] = useState(searchParams);
 
-  let { origin, destination, departureDate, returnDate, adults } = props.search;
+  // Extraemos los datos de la búsqueda
 
   const selectScales = ["Directo", "1 escala", "2 escalas"];
   const bagage = [1, 2, 3, 4];
+  const [maxPrice, setMaxPrice] = useState(1000);
 
   //Estado búsqueda
   /*
@@ -20,19 +21,35 @@ export const AdvancedSearch = (props) => {
     selectScales,
   });
 */
-
-  //Monitorización de estado de filtro de búsqueda
-
-  const { data, loading, override, updateFilter, source } = useSearch({
-    origin,
-    destination,
-    departureDate,
-    returnDate,
-    adults,
+  //Estado Filtro
+  const [filter, setFilter] = useState({
+    scales: "",
+    bagage: "",
+    duration: 0,
+    price: [100, 3000],
   });
 
+  //Hook para la búsqueda
+
+  const { flightSearch, loading, abort, data } = useSearch();
+
+  //Efecto obtener búsqueda
+
+  useEffect(() => {
+    //Llamada a la api de búsqueda
+    flightSearch(search, filter);
+    if (data) {
+      setMaxPrice(Math.ceil(data[data.length - 1].price.total));
+    }
+  }, [filter, search]);
+
   //updateFilter(filterState);
-  console.log("data:" + loading);
+
+  const override = `
+  display: block;
+  margin: 10rem auto;
+  border-color: red;
+`;
 
   return (
     <Grid container spacing={2}>
@@ -43,8 +60,9 @@ export const AdvancedSearch = (props) => {
         <SearchFilter
           scales={selectScales}
           bagage={bagage}
-          updateFilter={updateFilter}
-          source={source}
+          filterState={[filter, setFilter]}
+          abort={abort}
+          maxPrice={maxPrice}
         />
       </Grid>
       <Grid item xs={12} md={9}>

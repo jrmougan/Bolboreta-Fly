@@ -31,6 +31,8 @@ const advanceSearch = async (req, res, next) => {
             sources,
         } = req.body;
 
+        console.log(maxprice);
+
         //comprobamos que los viajeros mayores de 2 años no son mas de 9
         if (Number(numAdults) + Number(numChilds) > 9) {
             const error = new Error('No puedes insertar mas de 9 pasajeros');
@@ -154,7 +156,8 @@ const advanceSearch = async (req, res, next) => {
             data: result,
         });
     } catch (error) {
-        next(error);
+        console.log(error);
+        //next(new Error('Hubo un problema al realizar la búsqueda de vuelos'));
     } finally {
         if (connection) connection.release();
     }
