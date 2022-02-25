@@ -26,9 +26,10 @@ const findAirlineName = (airlineCode) => {
   return name;
 };
 
-const findFlightNumber = (flightItinerary) => {
-  const { carrierCode } = flightItinerary;
-  const { number } = flightItinerary;
+const findFlightNumber = ({ segment }) => {
+  console.log('Es aquí el fallo', segment);
+  const { carrierCode } = segment;
+  const { number } = segment;
   const flightNum = carrierCode.concat(number);
 
   return flightNum;

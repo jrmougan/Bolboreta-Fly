@@ -10,7 +10,7 @@ const AirlineContainer = ({ code, itinerary }) => {
       <div className='airline_logo'>{findAirlineLogo(code)}</div>
       <div className='airline_name'>
         <h4>{findAirlineName(code)}</h4>
-        <p>{findFlightNumber(itinerary)}</p>
+        <p>{/* {findFlightNumber(itinerary)} */} 'Pepito'</p>
       </div>
     </section>
   );

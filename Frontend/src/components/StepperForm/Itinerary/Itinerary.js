@@ -11,21 +11,28 @@ import flightOrder from '../InfoFlights/flightOrderExample';
 import { dateFormat } from '../../../helpers/formatHelp';
 import { useContext } from 'react';
 import { OfferPriceContext } from '../../../context/OfferPriceContext';
-import Summary from './Summary';
+import Summary from './Summary/Summary';
 
-const Itinerary = ({ emergencyData, oneWay }) => {
+const Itinerary = ({ emergencyData, itineraries }) => {
   const [flights] = useContext(OfferPriceContext);
-  console.log('flights', flights);
+
+  /* 
+  ##################
+  ## INFO FLIGHTS ## 
+  ##################
+  */
+
+  console.log('itinerarios', itineraries);
 
   /* 
 ##################
-## INFO NO REAL ## SON SOLO DE PRUEBA
+## INFO NO REAL ## 
 ##################
 */
 
   const srcLogo = airlines[100].logo;
   const flightOffer = flightExample.data.flightOffers;
-  const itineraries = flightOffer[0].itineraries[0].segments[0];
+  const itinerarieS = flightOffer[0].itineraries[0].segments[0];
 
   /* 
 #######################
@@ -50,15 +57,9 @@ const Itinerary = ({ emergencyData, oneWay }) => {
   const superPassenger = '';
   const totalPrice = '128,17 €';
 
-  // iataCode de los aeropuertos en OfferPrice de Amadeus
-  const iataCode = {
-    departure: itineraries.departure.iataCode,
-    arrival: itineraries.arrival.iataCode,
-  };
-
   // Horario de salida y llegada sin formatear
-  const timeDeparture = itineraries.departure.at.split('T');
-  const timeArrival = itineraries.arrival.at.split('T');
+  const timeDeparture = itinerarieS.departure.at.split('T');
+  const timeArrival = itinerarieS.arrival.at.split('T');
   const timeDep = timeDeparture[1];
   const timeArr = timeArrival[1];
 
@@ -68,7 +69,7 @@ const Itinerary = ({ emergencyData, oneWay }) => {
 
   return (
     <section className='itinerary_container_end'>
-      <Summary />
+      <Summary itineraries={itineraries} />
       <SegmentContainer
         returnDate={returnDate}
         durationFlight={durationFlight}

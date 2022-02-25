@@ -8,7 +8,7 @@ import TitleTrip from './TitleTrip';
 
 const MyTrip = () => {
   // Conseguimos el vuelo seleccionado a través del contexto
-  const [flight] = useContext(OfferPriceContext);
+  const [flights] = useContext(OfferPriceContext);
 
   /* 
   ##################################
@@ -17,16 +17,17 @@ const MyTrip = () => {
   */
 
   // ¿Cuántos adultos?
-  const adults = Number(flight.travelerPricings.length);
+  const adults = Number(flights.travelerPricings.length);
   const howManyAdults = adults === 1 ? '1 adulto' : `${adults} adultos`;
 
   // ¿Sólo ida?
-  const oneWay = flight.itineraries.length === 1;
+  const oneWay = flights.itineraries.length === 1;
   const isOneWay = oneWay ? 'Sólo Ida' : 'Ida y vuelta';
 
   // Encontramos en el array de los vuelos de IDA
   //  la posición del último vuelo
-  const lastSegmentOutbound = Number(flight.itineraries[0].segments.length) - 1;
+  const lastSegmentOutbound =
+    Number(flights.itineraries[0].segments.length) - 1;
 
   /* 
   #############################
@@ -37,9 +38,9 @@ const MyTrip = () => {
   // Códigos iata del primer aeropuerto de salida
   // y del último de llegada en la IDA
   const iataFirstDeparture_outbound =
-    flight.itineraries[0].segments[0].departure.iataCode;
+    flights.itineraries[0].segments[0].departure.iataCode;
   const iataLastArrival_outbound =
-    flight.itineraries[0].segments[lastSegmentOutbound].arrival.iataCode;
+    flights.itineraries[0].segments[lastSegmentOutbound].arrival.iataCode;
 
   /* Ciudades IDA */
   const cityDeparture_Outbound = findAirportInfo(
@@ -62,7 +63,7 @@ const MyTrip = () => {
         howManyAdults={howManyAdults}
       />
 
-      <FlightBoxes isOneWay={isOneWay}>{flight}</FlightBoxes>
+      <FlightBoxes isOneWay={isOneWay}>{flights}</FlightBoxes>
     </div>
   );
 };
