@@ -12,13 +12,7 @@ import AirportInfo from './AirportInfo';
 import Confirmation from './Confirmation';
 import SubtitleInfo from './SubtitleInfo';
 
-const Summary = ({
-  timeDep,
-  timeArr,
-  departureDate,
-  arrivalDate,
-  itineraries,
-}) => {
+const Summary = ({ itineraries }) => {
   const [flights] = useContext(OfferPriceContext);
   // ¿Sólo ida?
   const oneWay = itineraries.length === 1;
@@ -63,6 +57,7 @@ const Summary = ({
   };
 
   const firstIterableSegment = itineraries[0].segments;
+  const secondIterableSegment = itineraries[1].segments;
 
   console.log('firstIterableSegment', firstIterableSegment);
 
@@ -79,49 +74,140 @@ const Summary = ({
       </div>
     );
   };
-  return (
-    <article className='info_container'>
-      <h1 className='title_info_container'>Itinerario: Vuelo</h1>
-      <SubtitleInfo
-        isRoundtrip={isOneWay}
-        totalDuration={totalDuration_outbound}
-      />
-      <Confirmation>Vuelo confirmado</Confirmation>
 
-      {firstIterableSegment.map((segment, key) => {
-        // Códigos IATA de aeropuertos de salida y llegada
-        const firstCode = segment.departure.iataCode;
-        const secondCode = segment.arrival.iataCode;
+  const InfoContainer = ({ children, segments }) => {
+    return (
+      <article className='info_container'>
+        <h1 className='title_info_container'>Itinerario: Vuelo</h1>
+        <SubtitleInfo
+          isRoundtrip={isOneWay}
+          totalDuration={totalDuration_outbound}
+        />
+        <Confirmation>Vuelo confirmado</Confirmation>
 
-        const firstTime = hourFormat(new Date(segment.departure.at));
-        const secondTime = hourFormat(new Date(segment.arrival.at));
+        {segments.map((segment, key) => {
+          // Códigos IATA de aeropuertos de salida y llegada
+          const firstCode = segment.departure.iataCode;
+          const secondCode = segment.arrival.iataCode;
 
-        const firstDate = dateFormat(new Date(segment.departure.at));
-        const secondDate = dateFormat(new Date(segment.arrival.at));
-        return (
-          <section id='segments_container' key={key}>
-            <div className='flightPart'>
-              <div className='segment'>
-                <AirportInfo
-                  time={firstTime}
-                  code={firstCode}
-                  date={firstDate}
-                />
+          const firstTime = hourFormat(new Date(segment.departure.at));
+          const secondTime = hourFormat(new Date(segment.arrival.at));
 
-                <AirlineInfo code={airlineCode} segment={firstSegment} />
+          const firstDate = dateFormat(new Date(segment.departure.at));
+          const secondDate = dateFormat(new Date(segment.arrival.at));
+          return (
+            <section id='segments_container' key={key}>
+              <div className='flightPart'>
+                <div className='segment'>
+                  <AirportInfo
+                    time={firstTime}
+                    code={firstCode}
+                    date={firstDate}
+                  />
 
-                <AirportInfo
-                  time={secondTime}
-                  code={secondCode}
-                  date={secondDate}
-                />
+                  <AirlineInfo code={airlineCode} segment={firstSegment} />
+
+                  <AirportInfo
+                    time={secondTime}
+                    code={secondCode}
+                    date={secondDate}
+                  />
+                </div>
+                <ScaleSegment />
               </div>
-              <ScaleSegment />
-            </div>
-          </section>
-        );
-      })}
-    </article>
+            </section>
+          );
+        })}
+      </article>
+    );
+  };
+  return (
+    <React.Fragment>
+      <article className='info_container'>
+        <h1 className='title_info_container'>Itinerario: Vuelo</h1>
+        <SubtitleInfo
+          isRoundtrip={isOneWay}
+          totalDuration={totalDuration_outbound}
+        />
+        <Confirmation>Vuelo confirmado</Confirmation>
+
+        {firstIterableSegment.map((segment, key) => {
+          // Códigos IATA de aeropuertos de salida y llegada
+          const firstCode = segment.departure.iataCode;
+          const secondCode = segment.arrival.iataCode;
+
+          const firstTime = hourFormat(new Date(segment.departure.at));
+          const secondTime = hourFormat(new Date(segment.arrival.at));
+
+          const firstDate = dateFormat(new Date(segment.departure.at));
+          const secondDate = dateFormat(new Date(segment.arrival.at));
+          return (
+            <section id='segments_container' key={key}>
+              <div className='flightPart'>
+                <div className='segment'>
+                  <AirportInfo
+                    time={firstTime}
+                    code={firstCode}
+                    date={firstDate}
+                  />
+
+                  <AirlineInfo code={airlineCode} segment={firstSegment} />
+
+                  <AirportInfo
+                    time={secondTime}
+                    code={secondCode}
+                    date={secondDate}
+                  />
+                </div>
+                <ScaleSegment />
+              </div>
+            </section>
+          );
+        })}
+      </article>
+      <article className='info_container'>
+        <h1 className='title_info_container'>Itinerario: Vuelo</h1>
+        <SubtitleInfo
+          isRoundtrip={isOneWay}
+          totalDuration={totalDuration_outbound}
+        />
+        <Confirmation>Vuelo confirmado</Confirmation>
+
+        {secondIterableSegment.map((segment, key) => {
+          // Códigos IATA de aeropuertos de salida y llegada
+          const firstCode = segment.departure.iataCode;
+          const secondCode = segment.arrival.iataCode;
+
+          const firstTime = hourFormat(new Date(segment.departure.at));
+          const secondTime = hourFormat(new Date(segment.arrival.at));
+
+          const firstDate = dateFormat(new Date(segment.departure.at));
+          const secondDate = dateFormat(new Date(segment.arrival.at));
+          return (
+            <section id='segments_container' key={key}>
+              <div className='flightPart'>
+                <div className='segment'>
+                  <AirportInfo
+                    time={firstTime}
+                    code={firstCode}
+                    date={firstDate}
+                  />
+
+                  <AirlineInfo code={airlineCode} segment={firstSegment} />
+
+                  <AirportInfo
+                    time={secondTime}
+                    code={secondCode}
+                    date={secondDate}
+                  />
+                </div>
+                <ScaleSegment />
+              </div>
+            </section>
+          );
+        })}
+      </article>
+    </React.Fragment>
   );
 };
 

@@ -18,19 +18,18 @@ import { OfferPriceContext } from '../../context/OfferPriceContext';
 
 const StepForm = () => {
   /* 
- ##################################
- ## Contexto reserva ##
- ##################################
-*/
+  ##################################
+  ## Contexto reserva ##
+  ##################################
+  */
   const [flightOffer] = useContext(OfferPriceContext);
   const { itineraries } = flightOffer;
-  console.log(itineraries);
 
   /* 
- ##################################
- ## INFORMACIÓN DE LOS PASAJEROS ##
- ##################################
-*/
+  ##################################
+  ## INFORMACIÓN DE LOS PASAJEROS ##
+  ##################################
+  */
 
   const [passenger, setPassenger] = useState({
     firstName: '',
@@ -144,7 +143,7 @@ const StepForm = () => {
     if (!isStepOptional(activeStep)) {
       throw new Error('No puedes ir al paso siguiente sin completar el actual');
     }
-
+    // Define el paso que va a estar activado
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
     setSkipped((prevSkipped) => {
       const newSkipped = new Set(prevSkipped.values());
@@ -152,7 +151,8 @@ const StepForm = () => {
       return newSkipped;
     });
   };
-  // Esto solo para tenerlo mientras probamos,
+  // Esto solo para tenerlo mientras probamos
+  // volver atrás
   const handleReset = () => {
     setActiveStep(0);
   };
