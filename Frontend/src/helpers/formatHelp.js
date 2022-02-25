@@ -18,7 +18,7 @@ function durationFormat(duration) {
     return hours + ' horas y ' + minutes + ' minutos ';
   }
 }
-function writeDuration(ISOformat) {
+/* function writeDuration(ISOformat) {
   const timeToFormat = ISOformat.split('PT')[1];
   if (timeToFormat.split('H' && 'M')) {
     const hour = timeToFormat.split('H')[0];
@@ -44,7 +44,7 @@ function writeDuration(ISOformat) {
   }
 
   return ISOformat;
-}
+} */
 
 function finalDurationFormat(duration) {
   // Parseamos la duración en formato ISO 8601
@@ -105,7 +105,7 @@ function hourFormat(date) {
 export {
   durationFormat,
   dateFormat,
-  writeDuration,
+  // writeDuration,
   hourFormat,
   finalDurationFormat,
 };
