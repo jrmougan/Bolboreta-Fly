@@ -8,7 +8,7 @@ export const SearchFilter = ({
   scales,
   bagage,
   filterState,
-  abort,
+
   maxPrice,
 }) => {
   const [filter, setFilter] = filterState;
@@ -16,7 +16,7 @@ export const SearchFilter = ({
   //Manejadora evento
 
   const handleChange = (e) => {
-    if (abort) abort.cancel();
+    console.log("Evento");
     const name = e.target.name;
     setFilter({
       ...filter,
@@ -48,7 +48,7 @@ export const SearchFilter = ({
       />
       <SliderFilter
         item
-        handleChange={handleChange}
+        onChangeCommitted={handleChange}
         name="duration"
         min={1}
         max={24}
@@ -57,7 +57,7 @@ export const SearchFilter = ({
 
       <SliderFilter
         item
-        handleChange={handleChange}
+        onChangeCommitted={handleChange}
         name="precio"
         min={1}
         max={maxPrice}

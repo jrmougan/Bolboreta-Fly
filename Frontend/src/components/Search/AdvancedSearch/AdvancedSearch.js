@@ -5,7 +5,7 @@ import { SearchFilter } from "./SearchFilter/SearchFilter.js";
 import "./styles.css";
 import { MoonLoader } from "react-spinners";
 import { ListFlights } from "../ListFlights/ListFlights";
-
+import axios from "axios";
 export const AdvancedSearch = (searchParams) => {
   const [search, setSearch] = useState(searchParams);
 
@@ -31,16 +31,22 @@ export const AdvancedSearch = (searchParams) => {
 
   //Hook para la búsqueda
 
-  const { flightSearch, loading, abort, data } = useSearch();
+  const { flightSearch, loading, data } = useSearch();
 
   //Efecto obtener búsqueda
 
   useEffect(() => {
+    const controller = new AbortController();
+    console.log("EFECTO BUSQUEDA");
     //Llamada a la api de búsqueda
-    flightSearch(search, filter);
-    if (data) {
+    flightSearch(search, filter, controller);
+    if (data.length) {
       setMaxPrice(Math.ceil(data[data.length - 1].price.total));
     }
+    return () => {
+      console.log("cleaning up");
+      if (controller) controller.abort();
+    };
   }, [filter, search]);
 
   //updateFilter(filterState);
@@ -61,7 +67,6 @@ export const AdvancedSearch = (searchParams) => {
           scales={selectScales}
           bagage={bagage}
           filterState={[filter, setFilter]}
-          abort={abort}
           maxPrice={maxPrice}
         />
       </Grid>

@@ -14,7 +14,7 @@ const advanceSearch = async (req, res, next) => {
         connection = await getDB();
 
         const {
-            courrencyCode,
+            currencyCode,
             originLocationCode,
             destinationLocationCode,
             departureDate,
@@ -31,7 +31,7 @@ const advanceSearch = async (req, res, next) => {
             sources,
         } = req.body;
 
-        console.log(maxprice);
+        //console.log(maxprice);
 
         //comprobamos que los viajeros mayores de 2 años no son mas de 9
         if (Number(numAdults) + Number(numChilds) > 9) {
@@ -137,7 +137,7 @@ const advanceSearch = async (req, res, next) => {
         //Creamos body para mandaserlo a amadeus:
 
         let searchAdvancebody = {
-            courrencyCode,
+            currencyCode,
             originDestinations,
             travelers,
             sources: [sources],
