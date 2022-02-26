@@ -2,11 +2,6 @@ import React, { useContext } from 'react';
 import PayPal from '../../PayPal/PayPal';
 import { CancellationPolicy } from '../InfoFlights/constantInfo';
 import { finalDurationFormat, hourFormat } from '../../../helpers/formatHelp';
-import {
-  findAirlineLogo,
-  findAirlineName,
-  findFlightNumber,
-} from '../InfoFlights/helpersFlight';
 import { TokenContext } from '../../../context/TokenContext';
 import PaymentElection from './PaymentElection';
 import { OfferPriceContext } from '../../../context/OfferPriceContext';
