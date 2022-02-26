@@ -9,10 +9,6 @@ const NavLinks = () => {
       <NavLink to='/return' className='tab tab-2'>
         Ida y vuelta
       </NavLink>
-      <NavLink to='/multiple' className='tab tab-3'>
-        {' '}
-        Múltiples destinos
-      </NavLink>
       <Outlet />
     </div>
   );

@@ -2,20 +2,24 @@
   {
     "code": "OCH",
     "name": "A. L. Mangham Jr. Regional Airport",
-    "location": "Nacogdoches, Texas, United States"
+    "location": "Nacogdoches, Texas, Estados Unidos"
   },
   {
     "code": "APH",
     "name": "A.P. Hill Army Airfield",
-    "location": "Fort A.P. Hill, Virginia, United States"
+    "location": "Fort A.P. Hill, Virginia, Estados Unidos"
   },
-  { "code": "AAL", "name": "Aalborg Airport", "location": "Aalborg, Denmark" },
+  {
+    "code": "AAL",
+    "name": "Aalborg Airport",
+    "location": "Aalborg, Dinamarca"
+  },
   {
     "code": "AAP",
     "name": "Aappilattoq (Qaasuitsup) Heliport",
     "location": "Aappilattoq, Greenland"
   },
-  { "code": "AAR", "name": "Aarhus Airport", "location": "Aarhus, Denmark" },
+  { "code": "AAR", "name": "Aarhus Airport", "location": "Aarhus, Dinamarca" },
   {
     "code": "JEG",
     "name": "Aasiaat Airport",
@@ -921,7 +925,7 @@
   {
     "code": "LEI",
     "name": "Almer\u00eda International Airport",
-    "location": "Almer\u00eda, Spain"
+    "location": "Almer\u00eda, España"
   },
   {
     "code": "REL",
@@ -1851,7 +1855,7 @@
   {
     "code": "OVD",
     "name": "Asturias Airport (Oviedo Airport)",
-    "location": "Oviedo, Asturias, Spain"
+    "location": "Oviedo, Asturias, España"
   },
   {
     "code": "ASW",
@@ -2192,7 +2196,7 @@
   {
     "code": "BJZ",
     "name": "Badajoz Airport (Talavera la Real Air Base)",
-    "location": "Badajoz, Spain"
+    "location": "Badajoz, España"
   },
   { "code": "BXD", "name": "Bade Airport", "location": "Bade, Indonesia" },
   {
@@ -2559,7 +2563,7 @@
   {
     "code": "MAD",
     "name": "Barajas International Airport",
-    "location": "Madrid, Spain"
+    "location": "Madrid, España"
   },
   { "code": "BMJ", "name": "Baramita Airport", "location": "Baramita, Guyana" },
   { "code": "QYR", "name": "Barberey Airport", "location": "Troyes, France" },
@@ -2571,7 +2575,7 @@
   {
     "code": "BCN",
     "name": "Barcelona Airport",
-    "location": "El Prat de Llobregat (near Barcelona), Spain"
+    "location": "El Prat de Llobregat (near Barcelona), España"
   },
   {
     "code": "BAE",
@@ -3481,7 +3485,7 @@
     "location": "Bikini Atoll, Marshall Islands"
   },
   { "code": "PAB", "name": "Bilaspur Airport", "location": "Bilaspur, India" },
-  { "code": "BIO", "name": "Bilbao Airport", "location": "Bilbao, Spain" },
+  { "code": "BIO", "name": "Bilbao Airport", "location": "Bilbao, España" },
   {
     "code": "BIJ",
     "name": "Biliau Airport",
@@ -5743,7 +5747,7 @@
     "name": "Cessnock Airport",
     "location": "Cessnock, New South Wales, Australia"
   },
-  { "code": "JCU", "name": "Ceuta Heliport", "location": "Ceuta, Spain" },
+  { "code": "JCU", "name": "Ceuta Heliport", "location": "Ceuta, España" },
   {
     "code": "ARI",
     "name": "Chacalluta International Airport",
@@ -6484,7 +6488,7 @@
   {
     "code": "CQM",
     "name": "Ciudad Real Central Airport",
-    "location": "Ciudad Real, Spain"
+    "location": "Ciudad Real, España"
   },
   {
     "code": "CME",
@@ -9074,7 +9078,7 @@
     "name": "El Alcarav\u00e1n Airport",
     "location": "Yopal, Colombia"
   },
-  { "code": "ALC", "name": "El Altet Airport", "location": "Alicante, Spain" },
+  { "code": "ALC", "name": "El Altet Airport", "location": "Alicante, España" },
   {
     "code": "LPB",
     "name": "El Alto International Airport",
@@ -9148,7 +9152,7 @@
   {
     "code": "FUE",
     "name": "El Matorral Airport",
-    "location": "Puerto del Rosario, Fuerteventura, Spain"
+    "location": "Puerto del Rosario, Fuerteventura, España"
   },
   {
     "code": "EMT",
@@ -10831,7 +10835,7 @@
   {
     "code": "GRO",
     "name": "Girona-Costa Brava Airport",
-    "location": "Girona, Spain"
+    "location": "Girona, España"
   },
   {
     "code": "GIS",
@@ -11094,12 +11098,12 @@
   {
     "code": "LPA",
     "name": "Gran Canaria International Airport",
-    "location": "Canary Islands, Spain"
+    "location": "Canary Islands, España"
   },
   {
     "code": "GRX",
     "name": "Granada Jaen Airport",
-    "location": "Granada, Spain"
+    "location": "Granada, España"
   },
   {
     "code": "GDJ",
@@ -12471,7 +12475,7 @@
     "location": "Huatulco (Bah\u00edas de Huatulco), Oaxaca, Mexico"
   },
   { "code": "HBX", "name": "Hubli Airport", "location": "Hubli, India" },
-  { "code": "HSK", "name": "Huesca Airport", "location": "Huesca, Spain" },
+  { "code": "HSK", "name": "Huesca Airport", "location": "Huesca, España" },
   {
     "code": "HUS",
     "name": "Hughes Airport",
@@ -12587,7 +12591,7 @@
     "name": "Ia\u015fi International Airport",
     "location": "Ia\u015fi, Romania"
   },
-  { "code": "IBZ", "name": "Ibiza Airport", "location": "Ibiza, Spain" },
+  { "code": "IBZ", "name": "Ibiza Airport", "location": "Ibiza, España" },
   {
     "code": "TNG",
     "name": "Ibn Batouta International Airport",

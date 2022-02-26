@@ -1,6 +1,6 @@
-import FormPassenger from "../components/FormaPassenger/FormPassenger";
+import FormPassenger from '../components/FormaPassenger/FormPassenger';
 
-import StepForm from "../components/StepperForm/StepForm";
+import StepForm from '../components/StepperForm/StepForm';
 
 import {
   AdvancedSearchScreen,
@@ -15,31 +15,30 @@ import {
   ResetPassScreen,
   ActiveUserScreen,
   LoginScreen,
-} from "../page";
+} from '../page';
 
 const routes = [
-  { name: "home", path: "/", component: <HomeScreen /> },
-  { name: "recover", path: "/recover", component: <RecoveryPass /> },
-  { name: "register", path: "/register", component: <RegisterScreen /> },
-  { name: "stepper", path: "/step/", component: <StepForm /> },
+  { name: 'home', path: '/', component: <HomeScreen /> },
+  { name: 'recover', path: '/recover', component: <RecoveryPass /> },
+  { name: 'register', path: '/register', component: <RegisterScreen /> },
+  { name: 'stepper', path: '/step/', component: <StepForm /> },
   {
     name: "search",
     path: "/search",
     component: <AdvancedSearchScreen />,
   },
-  { name: "user", path: "/user", component: <ProfileScreen /> },
-  { name: "passenger", path: "/passenger", component: <FormPassenger /> },
-  { name: "editpass", path: "/user/:iduser/editpass", component: <EditPass /> },
-  { name: "resetpass", path: "/resetpass", component: <ResetPassScreen /> },
-  { name: "edit", path: "/user/:iduser/edit", component: <DatosUsuario /> },
-  { name: "return", path: "/return", component: <HomeRound /> },
-  { name: "multiple", path: "/multiple", component: <HomeMultiple /> },
+  { name: 'user', path: '/user', component: <ProfileScreen /> },
+  { name: 'passenger', path: '/passenger', component: <FormPassenger /> },
+  { name: 'editpass', path: '/user/:iduser/editpass', component: <EditPass /> },
+  { name: 'resetpass', path: '/resetpass', component: <ResetPassScreen /> },
+  { name: 'edit', path: '/user/:iduser/edit', component: <DatosUsuario /> },
+  { name: 'return', path: '/return', component: <HomeRound /> },
   {
-    name: "activeuser",
-    path: "/register/validate/:registration_code",
+    name: 'activeuser',
+    path: '/register/validate/:registration_code',
     component: <ActiveUserScreen />,
   },
-  { name: "loginuser", path: "/login", component: <LoginScreen /> },
+  { name: 'loginuser', path: '/login', component: <LoginScreen /> },
 ];
 
 export default routes;

@@ -1,13 +1,13 @@
-import React, { useState, useContext } from "react";
-import { Stepper, Step, StepLabel, Button, Typography } from "@mui/material";
-import FormPassenger from "./FormPassenger/FormPassenger";
-import BookingData from "./FormPassenger/BookingData.";
-import RateChoice from "./RateChoice/RateChoice";
-import ResumeAndPay from "./ResumeAndPay/ResumeAndPay";
-import { Container } from "@mui/material";
-import Itinerary from "../StepperForm/Itinerary/Itinerary";
-import offerprice from "./InfoFlights/offerpriceExample.json";
-import { OfferPriceContext } from "../../context/OfferPriceContext";
+import React, { useState, useContext } from 'react';
+import { Stepper, Step, StepLabel, Button, Typography } from '@mui/material';
+import FormPassenger from './FormPassenger/FormPassenger';
+import BookingData from './FormPassenger/BookingData.';
+import RateChoice from './RateChoice/RateChoice';
+import ResumeAndPay from './ResumeAndPay/ResumeAndPay';
+import { Container } from '@mui/material';
+import Itinerary from '../StepperForm/Itinerary/Itinerary';
+import offerprice from './InfoFlights/offerpriceExample.json';
+import { OfferPriceContext } from '../../context/OfferPriceContext';
 /* 
  ##################################
  ## INFORMACIÓN DE LOS  VUELOS   ##
@@ -18,44 +18,48 @@ import { OfferPriceContext } from "../../context/OfferPriceContext";
 
 const StepForm = () => {
   /* 
- ##################################
- ## Contexto reserva ##
- ##################################
-*/
+  ##################################
+  ## Contexto reserva ##
+  ##################################
+  */
   const [flightOffer] = useContext(OfferPriceContext);
-  console.log(flightOffer);
+  const { itineraries } = flightOffer;
+
+  // Precio total
+  const initialPrice = Number(flightOffer.price.total);
+  const [totalPrice, setTotalPrice] = useState(initialPrice);
 
   /* 
- ##################################
- ## INFORMACIÓN DE LOS PASAJEROS ##
- ##################################
-*/
+  ##################################
+  ## INFORMACIÓN DE LOS PASAJEROS ##
+  ##################################
+  */
 
   const [passenger, setPassenger] = useState({
-    firstName: "",
-    lastname: "",
-    lastname2: "",
-    birthdate: "",
-    birthPlace: "",
-    typedocument: "",
-    documentFlight: "",
-    inssuanceDate: "",
-    inssuancePlace: "",
-    gender: "",
-    expireDate: "",
-    email: "",
-    TypePhone: "",
-    issuanceCountry: "",
-    validityCountry: "ES",
-    nacionality: "ES",
+    firstName: '',
+    lastname: '',
+    lastname2: '',
+    birthdate: '',
+    birthPlace: '',
+    typedocument: '',
+    documentFlight: '',
+    inssuanceDate: '',
+    inssuancePlace: '',
+    gender: '',
+    expireDate: '',
+    email: '',
+    TypePhone: '',
+    issuanceCountry: '',
+    validityCountry: 'ES',
+    nacionality: 'ES',
     holder: true,
   });
 
   const [emergencyData, setEmergencyData] = useState({
-    name: "",
-    lastName: "",
-    email: "",
-    phone: "",
+    name: '',
+    lastName: '',
+    email: '',
+    phone: '',
   });
 
   const [rateCharge, setRateCharge] = useState(0);
@@ -80,24 +84,38 @@ const StepForm = () => {
       return <BookingData />;
     } else if (page === 2) {
       return (
-        <RateChoice rateCharge={rateCharge} setRateCharge={setRateCharge} />
+        <RateChoice
+          rateCharge={rateCharge}
+          setRateCharge={setRateCharge}
+          setTotalPrice={setTotalPrice}
+        />
       );
     } else if (page === 3) {
       return (
-        <ResumeAndPay rateCharge={rateCharge} setRateCharge={setRateCharge} />
+        <ResumeAndPay
+          rateCharge={rateCharge}
+          setRateCharge={setRateCharge}
+          totalPrice={totalPrice}
+        />
       );
     } else {
-      return <Itinerary emergencyData={emergencyData} />;
+      return (
+        <Itinerary
+          emergencyData={emergencyData}
+          itineraries={itineraries}
+          totalPrice={totalPrice}
+        />
+      );
     }
   };
 
   function getSteps() {
     return [
-      "Información de Pasajeros",
-      "Datos de reserva",
-      "Elección de tarifa",
-      "Resumen y Pago",
-      "Itinerario",
+      'Información de Pasajeros',
+      'Datos de reserva',
+      'Elección de tarifa',
+      'Resumen y Pago',
+      'Itinerario',
     ];
   }
 
@@ -139,9 +157,9 @@ const StepForm = () => {
   //  Salta al siguiente paso
   const handleSkip = () => {
     if (!isStepOptional(activeStep)) {
-      throw new Error("No puedes ir al paso siguiente sin completar el actual");
+      throw new Error('No puedes ir al paso siguiente sin completar el actual');
     }
-
+    // Define el paso que va a estar activado
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
     setSkipped((prevSkipped) => {
       const newSkipped = new Set(prevSkipped.values());
@@ -149,7 +167,8 @@ const StepForm = () => {
       return newSkipped;
     });
   };
-  // Esto solo para tenerlo mientras probamos,
+  // Esto solo para tenerlo mientras probamos
+  // volver atrás
   const handleReset = () => {
     setActiveStep(0);
   };
@@ -163,7 +182,7 @@ const StepForm = () => {
             const labelProps = {};
             if (isStepOptional(index)) {
               labelProps.optional = (
-                <Typography variant="caption">Opcional</Typography>
+                <Typography variant='caption'>Opcional</Typography>
               );
             }
             if (isStepSkipped(index)) {
@@ -187,18 +206,18 @@ const StepForm = () => {
           ) : (
             <div>
               <div>{getStepContent(activeStep)}</div>
-              <div className="button_steps">
+              <div className='button_steps'>
                 <Button
                   disabled={activeStep === 0}
                   onClick={handleBack}
-                  color="primary"
+                  color='primary'
                 >
                   Atrás
                 </Button>
                 {isStepOptional(activeStep) && (
                   <Button
-                    variant="contained"
-                    color="primary"
+                    variant='contained'
+                    color='primary'
                     onClick={handleSkip}
                   >
                     Saltar
@@ -206,14 +225,14 @@ const StepForm = () => {
                 )}
 
                 <Button
-                  variant="contained"
-                  color="primary"
+                  variant='contained'
+                  color='primary'
                   onClick={handleNext}
                   sx={{
-                    fontSize: ".7rem",
+                    fontSize: '.7rem',
                   }}
                 >
-                  {activeStep === steps.length - 1 ? "Finalizar" : "Siguiente"}
+                  {activeStep === steps.length - 1 ? 'Finalizar' : 'Siguiente'}
                 </Button>
               </div>
             </div>

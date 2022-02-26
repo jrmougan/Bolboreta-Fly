@@ -9,20 +9,20 @@ const ContactInfo = ({ infoMainContact, totalPrice, emergencyData }) => {
       <div className='info_main_contact'>
         <span>
           {' '}
-          <ImEnvelop />
+          <ImEnvelop className='icon-color ' />
           {emergencyData.email}
         </span>
         <span>
-          <ImPhone /> {emergencyData.phone}
+          <ImPhone className='icon-color ' /> {emergencyData.phone}
         </span>
         <span>
-          <ImHome /> {infoMainContact.address}
+          <ImHome className='icon-color ' /> {infoMainContact.address}
         </span>
         <span>
-          <ImCreditCard /> {infoMainContact.creditCard}
+          <ImCreditCard className='icon-color ' /> {infoMainContact.creditCard}
         </span>
       </div>
-      <span className='totalPrice'>Total: {totalPrice}</span>
+      <span className='totalPrice'>Total: {totalPrice} €</span>
     </article>
   );
 };

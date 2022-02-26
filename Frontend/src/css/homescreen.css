@@ -44,7 +44,7 @@ input {
   border-radius: 15px 0 0 0;
 }
 
-.tab-3 {
+.tab-2 {
   border-radius: 0 15px 0 0;
 }
 
@@ -129,9 +129,16 @@ input {
 }
 
 .left-card {
+  display: flex;
+  flex-direction: column;
   padding: 0 1.5rem;
   flex-grow: 3;
 }
+
+.separation_card {
+  justify-content: space-around;
+}
+
 .right-card {
   flex-grow: 1;
   border-left: 1px solid black;
@@ -152,4 +159,7 @@ input {
 .origin_destination {
   display: flex;
   justify-content: space-between;
+}
+.duration_listflights {
+  font-size: 0.6rem;
 }

@@ -1,96 +1,108 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import '../style.css';
-import offerprice from '../InfoFlights/offerpriceExample.json';
-import { dateFormat, writeDuration } from '../../../helpers/formatHelp';
-import { hourFormat } from '../../../helpers/formatHelp';
-import airports from '../InfoFlights/airports.json';
-
-const flightOffer = offerprice.data.flightOffers[0];
-
-const adultsFlightoffer = Number(flightOffer.travelerPricings.length);
-const howManyAdults =
-  adultsFlightoffer === 1 ? '1 adulto' : `${adultsFlightoffer} adultos`;
-const oneWay = flightOffer.itineraries.length === 1;
-const isOneWay = oneWay ? 'Ida' : '(Ida y vuelta)';
-console.log(oneWay);
-
-// Encontramos el último vuelo de los segmentos de Ida y Vuelta
-
-const lastSegmentOutbound =
-  Number(flightOffer.itineraries[0].segments.length) - 1;
-const lastSegmentRoundtrip =
-  Number(flightOffer.itineraries[1].segments.length) - 1;
-
-/* 
-#############################
-## CIU  DADES Y AEROPUERTOS  ##
-#############################
-*/
-const codeAirportDeparture_Outbound =
-  flightOffer.itineraries[0].segments[0].departure.iataCode;
-
-const codeAirportArrival_Outbound =
-  flightOffer.itineraries[0].segments[lastSegmentOutbound].arrival.iataCode;
-
-function airportFinding(code) {
-  const airportFinded = airports.find((airport) => airport.code === code);
-  const location = airportFinded.location.split(',')[0];
-  return location;
-}
-
-/* Ciudades IDA */
-const cityDeparture_Outbound = airportFinding(codeAirportDeparture_Outbound);
-const cityArrival_Outbound = airportFinding(codeAirportArrival_Outbound);
+import { dateFormat, hourFormat } from '../../../helpers/formatHelp';
+import { OfferPriceContext } from '../../../context/OfferPriceContext';
+import { findAirportInfo } from '../InfoFlights/helpersFlight';
+import FlightBox from './FlightBox';
+import TitleTrip from './TitleTrip';
 
 const MyTrip = () => {
+  // Conseguimos el vuelo seleccionado a través del contexto
+  const [flights] = useContext(OfferPriceContext);
+
+  /* 
+  ##################################
+  ## INFORMACIÓN BÁSICA DEL VUELO ##
+  ##################################
+  */
+
+  // ¿Cuántos adultos?
+  const adults = Number(flights.travelerPricings.length);
+  const howManyAdults = adults === 1 ? '1 adulto' : `${adults} adultos`;
+
+  // ¿Sólo ida?
+  const oneWay = flights.itineraries.length === 1;
+  const isOneWay = oneWay ? 'Sólo Ida' : 'Ida y vuelta';
+
+  // Encontramos en el array de los vuelos de IDA
+  //  la posición del último vuelo
+  const lastSegmentOutbound =
+    Number(flights.itineraries[0].segments.length) - 1;
+
+  /* 
+  #############################
+  ## CIUDADES Y AEROPUERTOS  ##
+  #############################
+  */
+
+  // Códigos iata del primer aeropuerto de salida
+  // y del último de llegada en la IDA
+  const iataFirstDeparture_outbound =
+    flights.itineraries[0].segments[0].departure.iataCode;
+  const iataLastArrival_outbound =
+    flights.itineraries[0].segments[lastSegmentOutbound].arrival.iataCode;
+
+  /* Ciudades IDA */
+  const cityDeparture_Outbound = findAirportInfo(
+    iataFirstDeparture_outbound,
+    'city'
+  );
+  const cityArrival_Outbound = findAirportInfo(
+    iataLastArrival_outbound,
+    'city'
+  );
+
   return (
     <div className='my-trip'>
       <h2>Mi viaje</h2>
 
-      <h3>
-        {cityDeparture_Outbound} - {cityArrival_Outbound} {isOneWay} <br />{' '}
-        {howManyAdults}
-      </h3>
-      <FlightBoxes>{offerprice}</FlightBoxes>
+      <TitleTrip
+        cityDeparture={cityDeparture_Outbound}
+        cityArrival={cityArrival_Outbound}
+        isOneWay={isOneWay}
+        howManyAdults={howManyAdults}
+      />
+
+      <FlightBoxes isOneWay={isOneWay}>{flights}</FlightBoxes>
     </div>
   );
 };
 
-const FlightBoxes = ({ children }) => {
-  const flightOffer = children.data.flightOffers[0];
+const FlightBoxes = ({ children, oneWay }) => {
+  // Obtenemos el vuelo a través del children
+  const flight = children;
 
   /* 
-############
-## FECHAS ##
-############
-*/
+  ############
+  ## FECHAS ##
+  ############
+  */
 
-  const outboundFirstDay = flightOffer.itineraries[0].segments[0].departure.at;
-  const roundtripFirstDay = flightOffer.itineraries[1].segments[0].departure.at;
+  const outboundFirstDay = flight.itineraries[0].segments[0].departure.at;
+  const roundtripFirstDay = flight.itineraries[1].segments[0].departure.at;
 
   const outboundFirstDayFormatted = dateFormat(outboundFirstDay);
   const roundtripFirstDayFormatted = dateFormat(roundtripFirstDay);
 
   // Encontramos el último vuelo de los segmentos de Ida y Vuelta
 
-  const lastSegmentOutbound =
-    Number(flightOffer.itineraries[0].segments.length) - 1;
+  const lastSegmentOutbound = Number(flight.itineraries[0].segments.length) - 1;
   const lastSegmentRoundtrip =
-    Number(flightOffer.itineraries[1].segments.length) - 1;
+    Number(flight.itineraries[1].segments.length) - 1;
 
   // Último vuelo de ida, hora de llegada
   const outboundLastArrival =
-    flightOffer.itineraries[0].segments[lastSegmentOutbound].arrival.at;
+    flight.itineraries[0].segments[lastSegmentOutbound].arrival.at;
 
   // Último vuelo de vuelta, hora de llegada
   const roundtripLastArrival =
-    flightOffer.itineraries[1].segments[lastSegmentRoundtrip].arrival.at;
+    flight.itineraries[1].segments[lastSegmentRoundtrip].arrival.at;
 
   /* 
-############
-## HORAS  ##
-############
-*/
+  ############
+  ## HORAS  ##
+  ############
+  */
 
   const timeOutboundLastArrival = hourFormat(new Date(outboundLastArrival));
   const roundtripArrivalLastTime = hourFormat(new Date(roundtripLastArrival));
@@ -99,82 +111,66 @@ const FlightBoxes = ({ children }) => {
   const roundtripDepartureTimeFirst = hourFormat(new Date(roundtripFirstDay));
 
   /* 
-#############################
-## CUIDADES Y AEROPUERTOS  ##
-#############################
-*/
+  #############################
+  ## CUIDADES Y AEROPUERTOS  ##
+  #############################
+  */
+
+  // IDA => Códigos IATA
   const codeAirportDeparture_Outbound =
-    flightOffer.itineraries[0].segments[0].departure.iataCode;
+    flight.itineraries[0].segments[0].departure.iataCode;
 
   const codeAirportArrival_Outbound =
-    flightOffer.itineraries[0].segments[lastSegmentOutbound].arrival.iataCode;
+    flight.itineraries[0].segments[lastSegmentOutbound].arrival.iataCode;
 
+  // VUELTA => Códigos IATA
   const codeAirportDeparture_Roundtrip =
-    flightOffer.itineraries[1].segments[0].departure.iataCode;
+    flight.itineraries[1].segments[0].departure.iataCode;
 
   const codeAirportArrival_Roundtrip =
-    flightOffer.itineraries[1].segments[lastSegmentRoundtrip].arrival.iataCode;
-
-  function airportFinding(code) {
-    const airportFinded = airports.find((airport) => airport.code === code);
-    const location = airportFinded.location.split(',')[0];
-    return location;
-  }
+    flight.itineraries[1].segments[lastSegmentRoundtrip].arrival.iataCode;
 
   /* Ciudades IDA */
-  const cityDeparture_Outbound = airportFinding(codeAirportDeparture_Outbound);
-  const cityArrival_Outbound = airportFinding(codeAirportArrival_Outbound);
+  const cityDeparture_Outbound = findAirportInfo(
+    codeAirportDeparture_Outbound,
+    'city'
+  );
+  const cityArrival_Outbound = findAirportInfo(
+    codeAirportArrival_Outbound,
+    'city'
+  );
 
   /* Ciudades VUELTA */
-  const cityDeparture_Roundtrip = airportFinding(
-    codeAirportDeparture_Roundtrip
+  const cityDeparture_Roundtrip = findAirportInfo(
+    codeAirportDeparture_Roundtrip,
+    'city'
   );
-  const cityArrival_Roundtrip = airportFinding(codeAirportArrival_Roundtrip);
-
-  console.log(flightOffer);
+  const cityArrival_Roundtrip = findAirportInfo(
+    codeAirportArrival_Roundtrip,
+    'city'
+  );
 
   return (
     <section>
-      <div className='box-flight'>
-        <h4> Ida </h4>
-        <span className='date-flight'> {outboundFirstDayFormatted}</span>
-        <div className='schedule-box'>
-          <div className='departure-box'>
-            <p>Salida</p>
-            <div className='departure-schedule'>
-              <p>{outboundDepartureTimeFirst}</p>
-              <p>{cityDeparture_Outbound}</p>
-            </div>
-          </div>
-          <div className='arrival-box'>
-            <p>Llegada</p>
-            <div className='arrival-schedule'>
-              <p>{timeOutboundLastArrival}</p>
-              <p>{cityArrival_Outbound}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className='box-flight'>
-        <h4> Vuelta </h4>
-        <span className='date-flight'> {roundtripFirstDayFormatted}</span>
-        <div className='schedule-box'>
-          <div className='departure-box'>
-            <p>Salida</p>
-            <div className='departure-schedule'>
-              <p>{roundtripDepartureTimeFirst}</p>
-              <p>{cityDeparture_Roundtrip}</p>
-            </div>
-          </div>
-          <div className='arrival-box'>
-            <p>Llegada</p>
-            <div className='arrival-schedule'>
-              <p>{roundtripArrivalLastTime}</p>
-              <p>{cityArrival_Roundtrip}</p>
-            </div>
-          </div>
-        </div>
-      </div>
+      <FlightBox
+        dayDeparture={outboundFirstDayFormatted}
+        timeDeparture={outboundDepartureTimeFirst}
+        timeArrival={timeOutboundLastArrival}
+        cityDeparture={cityDeparture_Outbound}
+        cityArrival={cityArrival_Outbound}
+        outbound={true}
+      />
+
+      {!oneWay && (
+        <FlightBox
+          dayDeparture={roundtripFirstDayFormatted}
+          timeDeparture={roundtripDepartureTimeFirst}
+          timeArrival={roundtripArrivalLastTime}
+          cityDeparture={cityDeparture_Roundtrip}
+          cityArrival={cityArrival_Roundtrip}
+          outbound={false}
+        />
+      )}
     </section>
   );
 };
