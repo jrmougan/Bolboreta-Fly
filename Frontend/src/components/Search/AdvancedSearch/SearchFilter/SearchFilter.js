@@ -2,43 +2,38 @@ import { Slider, Grid, Select, InputLabel } from "@mui/material";
 import { SelectOptions } from "./inputs/SelectOptions";
 import { SliderFilter } from "./inputs/SliderFilter";
 import { SliderRange } from "./inputs/SliderRange";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export const SearchFilter = (props) => {
+export const SearchFilter = ({
+  scales,
+  bagage,
+  filterState,
 
-  const state = props.state;
-  const setState = props.setState;
-
-
-  const [filterState, setFilterState] = props.filterState;
-
+  maxPrice,
+}) => {
+  const [filter, setFilter] = filterState;
 
   //Manejadora evento
 
   const handleChange = (e) => {
+    console.log("Evento");
     const name = e.target.name;
-    setFilterState({
-      ...filterState,
+    setFilter({
+      ...filter,
       [name]: e.target.value,
     });
-    console.log(name);
-    console.log(e.target);
-
-    console.log(filterState);
   };
 
   //Manejadora slider
 
-  const handleSlider = (e, value, active) => {
-    console.log(e, value, active);
-  };
+  //const handleSlider = (e, value, active) => {};
 
   return (
     <Grid container spacing={2} flexDirection="column">
       <SelectOptions
         item
         filterState={filterState}
-        scales={props.scales}
+        scales={scales}
         handleChange={handleChange}
         label="Escalas"
         name="scales"
@@ -46,28 +41,27 @@ export const SearchFilter = (props) => {
       <SelectOptions
         item
         filterState={filterState}
-        scales={props.bagage}
+        scales={bagage}
         handleChange={handleChange}
         label="Maletas"
         name="bagage"
       />
       <SliderFilter
         item
-        handleChange={handleChange}
+        onChangeCommitted={handleChange}
         name="duration"
         min={1}
         max={24}
         label="Duracion"
       />
 
-      <SliderRange
+      <SliderFilter
         item
-        handleSlider={handleChange}
-        name="price"
-        min={300}
-        max={9000}
+        onChangeCommitted={handleChange}
+        name="precio"
+        min={1}
+        max={maxPrice}
         label="Precio"
-        state={filterState.price}
       />
     </Grid>
   );

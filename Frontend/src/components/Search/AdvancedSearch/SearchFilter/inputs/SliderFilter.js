@@ -12,7 +12,7 @@ export const SliderFilter = (props) => {
           min={props.min}
           max={props.max}
           className="Slider"
-          onChange={props.handleChange}
+          onChangeCommitted={props.onChangeCommitted}
           name={props.name}
         />
       </Grid>

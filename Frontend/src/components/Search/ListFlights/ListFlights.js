@@ -21,7 +21,6 @@ export const ListFlights = ({ data }) => {
     <section>
       {data.length > 0 &&
         data.map((flight) => {
-          console.log(flight);
           // Para darle mayor legibilidad al código vamos a recoger la
           // información en variables más intuitivas
           const id = flight.id;
