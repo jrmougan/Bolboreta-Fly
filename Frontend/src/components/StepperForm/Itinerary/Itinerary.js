@@ -4,8 +4,12 @@ import InTripIncluded from './InTripIncluded';
 import SeatAndBaggage from './SeatAndBaggage';
 import { tripIncludes } from '../InfoFlights/constantInfo';
 import Summary from './Summary/Summary';
+import { useState } from 'react';
 
-const Itinerary = ({ emergencyData, itineraries }) => {
+const Itinerary = ({ emergencyData, itineraries, totalPrice }) => {
+  const [seatChosen] = useState(0);
+  const [regularPassenger] = useState(null);
+
   const infoMainContact = {
     name: 'Firulais García',
     email: ' fulanitocontrerasmansalva@gamil.com',
@@ -14,16 +18,13 @@ const Itinerary = ({ emergencyData, itineraries }) => {
     creditCard: ' Visa / 4 / Euro&000',
   };
 
-  // Info para que el código no de error y
-  // visualizar casi hardcoded
-  const seatChosen = null;
-  const superPassenger = '';
-  const totalPrice = '128,17 €';
-
   return (
     <section className='itinerary_container_end'>
       <Summary itineraries={itineraries} />
-      <SeatAndBaggage seatChosen={seatChosen} superPassenger={superPassenger} />
+      <SeatAndBaggage
+        seatChosen={seatChosen}
+        superPassenger={regularPassenger}
+      />
       <InTripIncluded tripIncludes={tripIncludes} />
       <ContactInfo
         infoMainContact={infoMainContact}

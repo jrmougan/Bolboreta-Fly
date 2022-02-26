@@ -25,6 +25,10 @@ const StepForm = () => {
   const [flightOffer] = useContext(OfferPriceContext);
   const { itineraries } = flightOffer;
 
+  // Precio total
+  const initialPrice = Number(flightOffer.price.total);
+  const [totalPrice, setTotalPrice] = useState(initialPrice);
+
   /* 
   ##################################
   ## INFORMACIÓN DE LOS PASAJEROS ##
@@ -80,15 +84,27 @@ const StepForm = () => {
       return <BookingData />;
     } else if (page === 2) {
       return (
-        <RateChoice rateCharge={rateCharge} setRateCharge={setRateCharge} />
+        <RateChoice
+          rateCharge={rateCharge}
+          setRateCharge={setRateCharge}
+          setTotalPrice={setTotalPrice}
+        />
       );
     } else if (page === 3) {
       return (
-        <ResumeAndPay rateCharge={rateCharge} setRateCharge={setRateCharge} />
+        <ResumeAndPay
+          rateCharge={rateCharge}
+          setRateCharge={setRateCharge}
+          totalPrice={totalPrice}
+        />
       );
     } else {
       return (
-        <Itinerary emergencyData={emergencyData} itineraries={itineraries} />
+        <Itinerary
+          emergencyData={emergencyData}
+          itineraries={itineraries}
+          totalPrice={totalPrice}
+        />
       );
     }
   };
