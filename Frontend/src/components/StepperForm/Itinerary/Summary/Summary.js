@@ -1,4 +1,6 @@
-import React, { useContext } from 'react';
+import { ConnectingAirportsOutlined } from '@mui/icons-material';
+import { duration } from '@mui/material';
+import React, { useContext, useState } from 'react';
 import { OfferPriceContext } from '../../../../context/OfferPriceContext';
 import {
   dateFormat,
@@ -18,6 +20,13 @@ const Summary = ({ itineraries }) => {
   const oneWay = itineraries.length === 1;
   const isOneWay = oneWay ? 'Sólo Ida' : 'Ida y vuelta';
 
+  /*   const [scalesOutbound, setScalesOutbound] = useState(
+    Number(itineraries[0].segments.length) - 1
+  );
+  const [scalesRoundtrip, setScalesRoundtrip] = useState(
+    Number(itineraries[0].segments.length) - 1
+  ); */
+
   // Duración total vuelo IDA
   const totalDuration_outbound = finalDurationFormat(itineraries[0].duration);
   // Duración total vuelo VUELTA
@@ -35,13 +44,11 @@ const Summary = ({ itineraries }) => {
   ###################
   */
 
-  const { segments } = itineraries[0];
+  const segments_outbound = itineraries[0].segments;
+  const segments_roundtrip = itineraries[1].segments;
 
-  const firstSegment = itineraries[0].segments[0];
-  console.log('Segmento', firstSegment);
-
-  const AirlineInfo = () => {
-    const durationSegment = finalDurationFormat(firstSegment.duration);
+  const AirlineInfo = ({ segment }) => {
+    const durationSegment = finalDurationFormat(segment.duration);
     return (
       <div className='airline_info'>
         <AirlineLogo airlineCode={airlineCode} />
@@ -56,21 +63,11 @@ const Summary = ({ itineraries }) => {
     );
   };
 
-  const firstIterableSegment = itineraries[0].segments;
-  const secondIterableSegment = itineraries[1].segments;
-
-  console.log('firstIterableSegment', firstIterableSegment);
-
-  const ScaleSegment = ({ date1, date2 }) => {
-    const dateFirst = new Date(date1);
-    const dateSecond = new Date(date2);
-    const diff = dateFirst - dateSecond;
-    const result = durationFormat(diff);
-
+  const ScaleSegment = ({ duration }) => {
     return (
       <div className='segment_scale'>
         <p>Pueden producirse cambios</p>
-        <span>Duración de la escala: 'Todavía no solucionado'</span>
+        <span>Duración de la escala: {duration}</span>
       </div>
     );
   };
@@ -105,7 +102,7 @@ const Summary = ({ itineraries }) => {
                     date={firstDate}
                   />
 
-                  <AirlineInfo code={airlineCode} segment={firstSegment} />
+                  <AirlineInfo code={airlineCode} segment={segment} />
 
                   <AirportInfo
                     time={secondTime}
@@ -121,6 +118,13 @@ const Summary = ({ itineraries }) => {
       </article>
     );
   };
+
+  const date = new Date().getMilliseconds();
+  console.log(date);
+
+  let scalesOutbound_Counter = Number(itineraries[0].segments.length);
+  let readyForNextDeparture = false;
+  let vuelos = -1;
   return (
     <React.Fragment>
       <article className='info_container'>
@@ -131,7 +135,7 @@ const Summary = ({ itineraries }) => {
         />
         <Confirmation>Vuelo confirmado</Confirmation>
 
-        {firstIterableSegment.map((segment, key) => {
+        {segments_outbound.map((segment, key) => {
           // Códigos IATA de aeropuertos de salida y llegada
           const firstCode = segment.departure.iataCode;
           const secondCode = segment.arrival.iataCode;
@@ -141,17 +145,22 @@ const Summary = ({ itineraries }) => {
 
           const firstDate = dateFormat(new Date(segment.departure.at));
           const secondDate = dateFormat(new Date(segment.arrival.at));
+
+          scalesOutbound_Counter--;
+          vuelos++;
+          readyForNextDeparture = 1;
           return (
             <section id='segments_container' key={key}>
               <div className='flightPart'>
                 <div className='segment'>
+                  {vuelos > 0 && <ScaleSegment />}
                   <AirportInfo
                     time={firstTime}
                     code={firstCode}
                     date={firstDate}
                   />
 
-                  <AirlineInfo code={airlineCode} segment={firstSegment} />
+                  <AirlineInfo code={airlineCode} segment={segment} />
 
                   <AirportInfo
                     time={secondTime}
@@ -159,7 +168,6 @@ const Summary = ({ itineraries }) => {
                     date={secondDate}
                   />
                 </div>
-                <ScaleSegment />
               </div>
             </section>
           );
@@ -173,7 +181,7 @@ const Summary = ({ itineraries }) => {
         />
         <Confirmation>Vuelo confirmado</Confirmation>
 
-        {secondIterableSegment.map((segment, key) => {
+        {segments_roundtrip.map((segment, key) => {
           // Códigos IATA de aeropuertos de salida y llegada
           const firstCode = segment.departure.iataCode;
           const secondCode = segment.arrival.iataCode;
@@ -191,9 +199,10 @@ const Summary = ({ itineraries }) => {
                     time={firstTime}
                     code={firstCode}
                     date={firstDate}
+                    segments={segment}
                   />
 
-                  <AirlineInfo code={airlineCode} segment={firstSegment} />
+                  <AirlineInfo code={airlineCode} segment={segment} />
 
                   <AirportInfo
                     time={secondTime}
