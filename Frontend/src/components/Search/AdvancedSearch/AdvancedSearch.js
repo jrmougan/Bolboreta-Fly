@@ -5,14 +5,15 @@ import { SearchFilter } from "./SearchFilter/SearchFilter.js";
 import "./styles.css";
 import { MoonLoader } from "react-spinners";
 import { ListFlights } from "../ListFlights/ListFlights";
+import axios from "axios";
+export const AdvancedSearch = (searchParams) => {
+  const [search, setSearch] = useState(searchParams);
 
-export const AdvancedSearch = (props) => {
   // Extraemos los datos de la búsqueda
-
-  let { origin, destination, departureDate, returnDate, adults } = props.search;
 
   const selectScales = ["Directo", "1 escala", "2 escalas"];
   const bagage = [1, 2, 3, 4];
+  const [maxPrice, setMaxPrice] = useState(1000);
 
   //Estado búsqueda
   /*
@@ -21,26 +22,40 @@ export const AdvancedSearch = (props) => {
   });
 */
   //Estado Filtro
-  const [filterState, setFilterState] = useState({
+  const [filter, setFilter] = useState({
     scales: "",
     bagage: "",
     duration: 0,
     price: [100, 3000],
   });
 
-  //Monitorización de estado de filtro de búsqueda
+  //Hook para la búsqueda
 
-  const [data, loading, override, updateFilter] = useSearch({
-    origin,
-    destination,
-    departureDate,
-    returnDate,
-    adults,
-    filterState,
-  });
+  const { flightSearch, loading, data } = useSearch();
+
+  //Efecto obtener búsqueda
+
+  useEffect(() => {
+    const controller = new AbortController();
+    console.log("EFECTO BUSQUEDA");
+    //Llamada a la api de búsqueda
+    flightSearch(search, filter, controller);
+    if (data.length) {
+      setMaxPrice(Math.ceil(data[data.length - 1].price.total));
+    }
+    return () => {
+      console.log("cleaning up");
+      if (controller) controller.abort();
+    };
+  }, [filter, search]);
 
   //updateFilter(filterState);
-  console.log("data:" + loading);
+
+  const override = `
+  display: block;
+  margin: 10rem auto;
+  border-color: red;
+`;
 
   return (
     <Grid container spacing={2}>
@@ -51,7 +66,8 @@ export const AdvancedSearch = (props) => {
         <SearchFilter
           scales={selectScales}
           bagage={bagage}
-          filterState={[filterState, setFilterState]}
+          filterState={[filter, setFilter]}
+          maxPrice={maxPrice}
         />
       </Grid>
       <Grid item xs={12} md={9}>

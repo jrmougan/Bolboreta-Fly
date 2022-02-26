@@ -23,13 +23,8 @@ const routes = [
   { name: 'register', path: '/register', component: <RegisterScreen /> },
   { name: 'stepper', path: '/step/', component: <StepForm /> },
   {
-    name: 'search',
-    path: '/search/:origin/:destination/:departureDate/:adults',
-    component: <AdvancedSearchScreen />,
-  },
-  {
-    name: 'searchAdvance',
-    path: '/return/search/:origin/:destination/:departureDate/:returnDate/:adults',
+    name: "search",
+    path: "/search",
     component: <AdvancedSearchScreen />,
   },
   { name: 'user', path: '/user', component: <ProfileScreen /> },
