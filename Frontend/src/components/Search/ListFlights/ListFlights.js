@@ -1,14 +1,14 @@
-import { useContext } from 'react';
-import { FaPlane } from 'react-icons/fa';
-import { OfferPriceContext } from '../../../context/OfferPriceContext';
-import { useNavigate } from 'react-router-dom';
+import { useContext } from "react";
+import { FaPlane } from "react-icons/fa";
+import { OfferPriceContext } from "../../../context/OfferPriceContext";
+import { useNavigate } from "react-router-dom";
 import {
   dateFormat,
   finalDurationFormat,
   hourFormat,
-} from '../../../helpers/formatHelp';
-import InputButton from './InputButton';
-import Flight from './Flight';
+} from "../../../helpers/formatHelp";
+import InputButton from "./InputButton";
+import Flight from "./Flight";
 
 export const ListFlights = ({ data }) => {
   //Contexto booking
@@ -19,7 +19,7 @@ export const ListFlights = ({ data }) => {
     e.preventDefault();
     const bookingId = e.target.parentElement.parentElement.id;
     setFlightOffer(data[bookingId - 1]);
-    navigate('/step');
+    navigate("/step");
   };
 
   return (
@@ -33,6 +33,7 @@ export const ListFlights = ({ data }) => {
 
           // ¿Sólo IDA?
           const { oneWay } = flight;
+          console.log(flight);
           // Códigos IATA de los aeropuertos
           const iataOrigin =
             flight.itineraries[0].segments[0].departure.iataCode;
@@ -45,7 +46,7 @@ export const ListFlights = ({ data }) => {
           const lastSegmentFlight_rountrip =
             Number(flight.itineraries[1].segments.length) - 1;
 
-          console.log('Motivo del problema', lastSegmentFlight_rountrip);
+          console.log("Motivo del problema", lastSegmentFlight_rountrip);
           // IDA
           const arrivalTime_outbound =
             flight.itineraries[0].segments[0].arrival.at;
@@ -97,7 +98,7 @@ export const ListFlights = ({ data }) => {
           const timeArrival_roundtrip = hourFormat(arrivalToFormat_roundtrip);
 
           return (
-            <article key={id} id={id} className='resultCard'>
+            <article key={id} id={id} className="resultCard">
               <LeftCard>
                 <Flight
                   timeDeparture={timeDeparture_outbound}
@@ -134,13 +135,13 @@ export const ListFlights = ({ data }) => {
 
 const LeftCard = ({ children, oneWay }) => {
   return (
-    <section className={`left-card card ${oneWay ? '' : 'separation_card'}`}>
+    <section className={`left-card card ${oneWay ? "" : "separation_card"}`}>
       {children}
     </section>
   );
 };
 const RightCard = ({ children }) => {
-  return <section className='right-card card'>{children}</section>;
+  return <section className="right-card card">{children}</section>;
 };
 const Price = ({ price, currency }) => {
   return (

@@ -3,27 +3,24 @@ const { AMADEUS_ID, AMADEUS_SECRET } = process.env;
 
 const amadeus = new Amadeus({
     clientId: AMADEUS_ID,
-    clientSecret: AMADEUS_SECRET
+    clientSecret: AMADEUS_SECRET,
 });
-
 
 const citySearch = async (req, res, next) => {
     try {
         const { keyword } = req.query;
 
-        const { result } = await amadeus.referenveData.locations.get({
+        const { result } = await amadeus.referenceData.locations.get({
             keyword: keyword,
             subType: 'CITY',
-            view: 'LIGHT'
+            view: 'LIGHT',
         });
         res.send({
             status: 'ok',
             data: result,
-        })
-
+        });
     } catch (error) {
         next(error);
-
     }
-}
+};
 module.exports = citySearch;

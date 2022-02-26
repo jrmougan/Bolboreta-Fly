@@ -26,7 +26,7 @@ const useSearch = () => {
       sources: "GDS",
       maxFlighTime: 2,
       connections: 1,
-      oneway: 1,
+      oneway: 0,
       maxprice: precio,
     };
 
