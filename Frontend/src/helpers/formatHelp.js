@@ -18,33 +18,17 @@ function durationFormat(duration) {
     return hours + ' horas y ' + minutes + ' minutos ';
   }
 }
-/* function writeDuration(ISOformat) {
-  const timeToFormat = ISOformat.split('PT')[1];
-  if (timeToFormat.split('H' && 'M')) {
-    const hour = timeToFormat.split('H')[0];
-    const minutes = timeToFormat.split('H')[1].split('M')[0];
-    const s = Number(hour) > 1 ? 's' : '';
-    const sMin = Number(minutes) ? 's' : '';
 
-    return `${hour} hora${s} y ${minutes} minuto${sMin}`;
-  }
-  if (!timeToFormat.split('').includes('M')) {
-    const hour = timeToFormat.split('H')[0];
-    const s = Number(hour) > 1 ? 's' : '';
-
-    return `${hour}${s}`;
-  }
-  if (!timeToFormat.split('').includes('H')) {
-    const minutes = timeToFormat.split('M')[0];
-    console.log('Hola');
-
-    const s = Number(minutes) > 1 ? 's' : '';
-
-    return `${minutes} minuto${s}`;
-  }
-
-  return ISOformat;
-} */
+function msToTime(ms) {
+  let seconds = (ms / 1000).toFixed(1);
+  let minutes = (ms / (1000 * 60)).toFixed(1);
+  let hours = (ms / (1000 * 60 * 60)).toFixed(1);
+  let days = (ms / (1000 * 60 * 60 * 24)).toFixed(1);
+  if (seconds < 60) return seconds + ' Sec';
+  else if (minutes < 60) return minutes + ' Min';
+  else if (hours < 24) return hours + ' Hrs';
+  else return days + ' Days';
+}
 
 function finalDurationFormat(duration) {
   // Parseamos la duración en formato ISO 8601
@@ -102,7 +86,7 @@ function dateFormat(date) {
 }
 
 function hourFormat(date) {
-  return format(date, 'HH:MM');
+  return format(date, 'HH:mm');
 }
 
 export {

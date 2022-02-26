@@ -49,6 +49,7 @@ const StepForm = () => {
     expireDate: '',
     email: '',
     TypePhone: '',
+    phone: '',
     issuanceCountry: '',
     validityCountry: 'ES',
     nacionality: 'ES',
