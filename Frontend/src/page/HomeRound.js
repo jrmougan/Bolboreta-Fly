@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from "react";
-import useLocalStorage from "../hooks/useLocalStorage";
-import "../css/homescreen.css";
-import { RoundTrip } from "../components/Search/BasicSearch/BasicSearch";
-import { ListFlights } from "../components/Search/ListFlights/ListFlights";
-import useSearch from "../hooks/useSearch";
+import React, { useState, useEffect } from 'react';
+import useLocalStorage from '../hooks/useLocalStorage';
+import '../css/homescreen.css';
+import { RoundTrip } from '../components/Search/BasicSearch/BasicSearch';
+import { ListFlights } from '../components/Search/ListFlights/ListFlights';
+import useSearch from '../hooks/useSearch';
 
 const HomeRound = () => {
   // Obtenemos los datos de los input y los guardamos en el localStorage
   // para mantenerlos si recarga la página
 
-  const [origin, setOrigin] = useLocalStorage("origin", "");
-  const [destination, setDestination] = useLocalStorage("password", "");
-  const [departureDate, setDepartureDate] = useState("");
-  const [returnDate, setReturndate] = useState("");
-  const [adults, setAdults] = useLocalStorage("adult", "");
+  const [origin, setOrigin] = useState('');
+  const [destination, setDestination] = useState('');
+  const [departureDate, setDepartureDate] = useState('');
+  const [returnDate, setReturndate] = useState('');
+  const [adults, setAdults] = useState(1);
 
   // Función para modificar el valor de cada variable
   // a través del onChange de cada input
@@ -38,7 +38,7 @@ const HomeRound = () => {
   // y la función search para pasarla a través de las props a ListFlights
 
   return (
-    <main className="searchEnvironment">
+    <main className='searchEnvironment'>
       {
         <RoundTrip
           destination={destination}

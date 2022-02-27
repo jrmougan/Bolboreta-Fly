@@ -1,19 +1,35 @@
 import { FaPlane } from 'react-icons/fa';
+import { finalDurationFormat, hourFormat } from '../../../helpers/formatHelp';
 
-const Flight = ({
-  timeDeparture,
-  timeArrival,
-  totalDuration,
-  iataOrigin,
-  iataDestination,
-  klass,
-}) => {
+const Flight = ({ itinerary }) => {
+  // Duraciones
+  const flightDuration = itinerary.duration;
+  const duration = finalDurationFormat(flightDuration);
+
+  // Encontramos la posición del último vuelo de itinerario
+  const lastSegment = Number(itinerary.segments.length) - 1;
+
+  // Códigos IATA aeropuertos de salida y destino
+  const iataOrigin = itinerary.segments[0].departure.iataCode;
+  const iataDestination = itinerary.segments[lastSegment].arrival.iataCode;
+
+  // Horarios de salida y aterrizaje
+  const departureTimeToFormat = new Date(itinerary.segments[0].departure.at);
+  const arrivalTimeToFormat = new Date(
+    itinerary.segments[lastSegment].departure.at
+  );
+  // Horarios formateados
+  const timeDeparture = hourFormat(departureTimeToFormat);
+  const timeArrival = hourFormat(arrivalTimeToFormat);
+
+  // Clase
+
   return (
-    <div className='flightItem'>
-      <p className='fareOption'>{klass} CLASS</p>
+    <section className='flightItem'>
+      <p className='fareOption'>{'ECONOMY'} CLASS</p>
       <div className='timeFlight'>
         <span>{timeDeparture}</span>
-        <div className='duration_listflights'>{totalDuration}</div>
+        <div className='duration_listflights'>{duration}</div>
         <span>{timeArrival}</span>
       </div>
       <div className='origin_destination'>
@@ -21,7 +37,7 @@ const Flight = ({
         <FaPlane />
         <p>{iataDestination}</p>
       </div>
-    </div>
+    </section>
   );
 };
 
