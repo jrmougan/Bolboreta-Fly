@@ -6,15 +6,7 @@ import RateChoice from './RateChoice/RateChoice';
 import ResumeAndPay from './ResumeAndPay/ResumeAndPay';
 import { Container } from '@mui/material';
 import Itinerary from '../StepperForm/Itinerary/Itinerary';
-import offerprice from './InfoFlights/offerpriceExample.json';
 import { OfferPriceContext } from '../../context/OfferPriceContext';
-/* 
- ##################################
- ## INFORMACIÓN DE LOS  VUELOS   ##
- ##################################
-*/
-
-//const flightOffer = offerprice.data.flightOffers[0];
 
 const StepForm = () => {
   /* 
