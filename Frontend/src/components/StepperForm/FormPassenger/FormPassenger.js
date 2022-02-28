@@ -150,5 +150,3 @@ const EmergencyForm = ({ emergencyData, setEmergencyData }) => {
     </section>
   );
 };
-
-export default FormPassenger;

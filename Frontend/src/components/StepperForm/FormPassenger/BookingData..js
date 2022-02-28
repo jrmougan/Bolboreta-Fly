@@ -8,7 +8,6 @@ const BookingData = () => {
   return (
     <div>
       <ContactData />
-      <ContactData />
     </div>
   );
 };

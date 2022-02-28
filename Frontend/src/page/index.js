@@ -3,13 +3,13 @@ import HomeScreen from './HomeScreen';
 import LoginScreen from './LoginScreen';
 import ProfileScreen from './ProfileScreen';
 import RegisterScreen from './RegisterScreen';
-import PassengerScreen from './PassengerScreen';
 import DatosUsuario from './DatosdeUsuario';
 import RecoveryPass from './RecoveryPass';
 import EditPass from './Editpass';
 import ResetPassScreen from './ResetPassScreen';
 import HomeRound from './HomeRound';
 import ActiveUserScreen from './ActiveUser';
+import StepFormScreen from './StepFormScreen';
 
 export {
   AdvancedSearchScreen,
@@ -17,11 +17,11 @@ export {
   LoginScreen,
   ProfileScreen,
   RegisterScreen,
-  PassengerScreen,
   DatosUsuario,
   RecoveryPass,
   EditPass,
   ResetPassScreen,
   HomeRound,
   ActiveUserScreen,
+  StepFormScreen,
 };

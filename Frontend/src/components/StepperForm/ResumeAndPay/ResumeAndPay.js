@@ -9,6 +9,7 @@ const ResumeandPay = ({ rateCharge, travelers }) => {
   // Contextos
   const [token] = useContext(TokenContext);
   const [flight] = useContext(OfferPriceContext);
+  console.log(travelers);
 
   // Itinerarios de vuelo
   const { itineraries } = flight;
@@ -16,25 +17,31 @@ const ResumeandPay = ({ rateCharge, travelers }) => {
   //  Averiguamos el código de la aerolínea principal
   const airlineCode = flight.validatingAirlineCodes[0];
 
+  const flightOrder = {
+    itinerary: flight,
+    travelers: [travelers],
+  };
   // Petición Order Flight
   const orderFlight = async (e) => {
-    const flightOrder = {
-      itinerary: itineraries,
-      travelers: travelers,
-    };
     e.preventDefault();
+    try {
+      const res = await fetch(
+        `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/booking/newBooking`,
+        {
+          method: 'POST',
+          headers: {
+            Authorization: token,
+          },
+          body: flightOrder,
+        }
+      );
 
-    const res = await fetch(
-      `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/booking/newBooking`,
-      {
-        method: 'POST',
-        headers: {
-          Authorization: token,
-        },
-        body: flightOrder,
+      if (res.ok) {
+        console.log(res);
       }
-    );
-    console.log(res);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
