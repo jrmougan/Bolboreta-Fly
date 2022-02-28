@@ -4,23 +4,19 @@ import { SliderFilter } from "./inputs/SliderFilter";
 import { SliderRange } from "./inputs/SliderRange";
 import { useEffect, useState } from "react";
 
-export const SearchFilter = ({
-  scales,
-  bagage,
-  filterState,
-
-  maxPrice,
-}) => {
+export const SearchFilter = ({ scales, filterState, maxPrice }) => {
   const [filter, setFilter] = filterState;
 
   //Manejadora evento
 
-  const handleChange = (e) => {
+  const handleChange = (e, val) => {
     console.log("Evento");
-    const name = e.target.name;
+    console.log(e);
+    const name = e.target.name || e.path[0].childNodes[0].name;
+
     setFilter({
       ...filter,
-      [name]: e.target.value,
+      [name]: val || e.target.value,
     });
   };
 
@@ -38,14 +34,7 @@ export const SearchFilter = ({
         label="Escalas"
         name="scales"
       />
-      <SelectOptions
-        item
-        filterState={filterState}
-        scales={bagage}
-        handleChange={handleChange}
-        label="Maletas"
-        name="bagage"
-      />
+
       <SliderFilter
         item
         onChangeCommitted={handleChange}
@@ -58,7 +47,7 @@ export const SearchFilter = ({
       <SliderFilter
         item
         onChangeCommitted={handleChange}
-        name="precio"
+        name="maxprice"
         min={1}
         max={maxPrice}
         label="Precio"

@@ -11,27 +11,24 @@ export const AdvancedSearch = (searchParams) => {
 
   // Extraemos los datos de la búsqueda
 
-  const selectScales = ["Directo", "1 escala", "2 escalas"];
-  const bagage = [1, 2, 3, 4];
+  const selectScales = [
+    ["Directo", 0],
+    ["1 escala", 1],
+    ["2 escalas", 2],
+  ];
+
   const [maxPrice, setMaxPrice] = useState(1000);
 
-  //Estado búsqueda
-  /*
-  const [search, setSearch] = useState({
-    selectScales,
-  });
-*/
   //Estado Filtro
   const [filter, setFilter] = useState({
-    scales: "",
-    bagage: "",
+    scales: 0,
     duration: 0,
-    price: [100, 3000],
+    maxprice: 0,
   });
 
   //Hook para la búsqueda
 
-  const { flightSearch, loading, data } = useSearch();
+  const { flightSearch, loading, data, filterData } = useSearch();
 
   //Efecto obtener búsqueda
 
@@ -39,9 +36,11 @@ export const AdvancedSearch = (searchParams) => {
     const controller = new AbortController();
     //Llamada a la api de búsqueda
     flightSearch(search, filter, controller);
+
     if (data.length) {
-      setMaxPrice(Math.ceil(data[data.length - 1].price.total));
+      setMaxPrice(Number(filterData.maxprice));
     }
+    console.log(filter);
 
     /*
     return () => {
@@ -66,7 +65,6 @@ export const AdvancedSearch = (searchParams) => {
       <Grid item className="filter" xs={12} md={3}>
         <SearchFilter
           scales={selectScales}
-          bagage={bagage}
           filterState={[filter, setFilter]}
           maxPrice={maxPrice}
         />

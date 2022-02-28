@@ -121,12 +121,12 @@ const advanceSearch = async (req, res, next) => {
 
         //creamos objeto de searchCriteria
 
-        let SearchCriteria = {
+        let searchCriteria = {
             maxPrice: maxprice,
             pircingOptions: {
                 includedCheckedBagsOnly,
             },
-            FlightFilters: {
+            flightFilters: {
                 maxFlightTime,
                 CarrierRestrictions: { blacklistedInEUAllowed },
                 CabinRestriction: [{ cabin: travelClass }],
@@ -141,8 +141,10 @@ const advanceSearch = async (req, res, next) => {
             originDestinations,
             travelers,
             sources: [sources],
-            SearchCriteria,
+            searchCriteria,
         };
+
+        console.log(searchCriteria);
 
         //lo pasamos a json
         const jsonBody = JSON.stringify(searchAdvancebody);

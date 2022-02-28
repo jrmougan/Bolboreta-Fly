@@ -5,12 +5,13 @@ const useSearch = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [data, setData] = useState("");
+  const [filterData, setFilterData] = useState("default");
 
   const flightSearch = async (search, filter, controller) => {
     const signal = controller.signal;
     const { origin, destination, departureDate, returnDate, adults } =
       search.search;
-    const { precio } = filter;
+    const { maxprice, scales } = filter;
 
     const body = {
       courrencyCode: "EUR",
@@ -25,9 +26,9 @@ const useSearch = () => {
       travelClass: "ECONOMY",
       sources: "GDS",
       maxFlighTime: 2,
-      connections: 1,
+      connections: Number(scales),
       oneway: 0,
-      maxprice: precio,
+      maxprice: maxprice,
     };
 
     const url = `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/advancesearch`;
@@ -38,6 +39,7 @@ const useSearch = () => {
       if (req.data.status === "ok") {
         setLoading(false);
         setData(req.data.data.data);
+        setFilterData(req.data.filterdata);
       }
     } catch (error) {
       console.error(error);
@@ -45,7 +47,7 @@ const useSearch = () => {
     }
   };
 
-  return { flightSearch, error, loading, data };
+  return { flightSearch, error, loading, data, filterData };
 };
 
 export default useSearch;
