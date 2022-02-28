@@ -17,18 +17,18 @@ export const AdvancedSearch = (searchParams) => {
     ["2 escalas", 2],
   ];
 
-  const [maxPrice, setMaxPrice] = useState(1000);
+  const [maxPrice, setMaxPrice] = useState(6000);
 
   //Estado Filtro
   const [filter, setFilter] = useState({
     scales: 0,
     duration: 0,
-    maxprice: 0,
+    maxprice: null,
   });
 
   //Hook para la búsqueda
 
-  const { flightSearch, loading, data, filterData } = useSearch();
+  const { flightSearch, loading, data } = useSearch();
 
   //Efecto obtener búsqueda
 
@@ -36,11 +36,6 @@ export const AdvancedSearch = (searchParams) => {
     const controller = new AbortController();
     //Llamada a la api de búsqueda
     flightSearch(search, filter, controller);
-
-    if (data.length) {
-      setMaxPrice(Number(filterData.maxprice));
-    }
-    console.log(filter);
 
     /*
     return () => {

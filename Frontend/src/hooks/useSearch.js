@@ -5,31 +5,50 @@ const useSearch = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [data, setData] = useState("");
-  const [filterData, setFilterData] = useState("default");
 
   const flightSearch = async (search, filter, controller) => {
     const signal = controller.signal;
     const { origin, destination, departureDate, returnDate, adults } =
       search.search;
     const { maxprice, scales } = filter;
+    let body;
 
-    const body = {
-      courrencyCode: "EUR",
-      originLocationCode: origin,
-      destinationLocationCode: destination,
-      blacklistedInEUAllowed: true,
-      departureDate: departureDate,
-      includedCheckedBagsOnly: false,
-      returnDate: returnDate,
-      numAdults: adults,
-      numChilds: 0,
-      travelClass: "ECONOMY",
-      sources: "GDS",
-      maxFlighTime: 2,
-      connections: Number(scales),
-      oneway: 0,
-      maxprice: maxprice,
-    };
+    if (returnDate) {
+      body = {
+        courrencyCode: "EUR",
+        originLocationCode: origin,
+        destinationLocationCode: destination,
+        blacklistedInEUAllowed: true,
+        departureDate: departureDate,
+        includedCheckedBagsOnly: false,
+        returnDate: returnDate,
+        numAdults: adults,
+        numChilds: 0,
+        travelClass: "ECONOMY",
+        sources: "GDS",
+        maxFlighTime: 2,
+        connections: Number(scales),
+        oneway: 0,
+        maxprice: maxprice,
+      };
+    } else {
+      body = {
+        courrencyCode: "EUR",
+        originLocationCode: origin,
+        destinationLocationCode: destination,
+        blacklistedInEUAllowed: true,
+        departureDate: departureDate,
+        includedCheckedBagsOnly: false,
+        numAdults: adults,
+        numChilds: 0,
+        travelClass: "ECONOMY",
+        sources: "GDS",
+        maxFlighTime: 2,
+        connections: Number(scales),
+        oneway: 1,
+        maxprice: maxprice,
+      };
+    }
 
     const url = `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/advancesearch`;
     try {
@@ -39,7 +58,6 @@ const useSearch = () => {
       if (req.data.status === "ok") {
         setLoading(false);
         setData(req.data.data.data);
-        setFilterData(req.data.filterdata);
       }
     } catch (error) {
       console.error(error);
@@ -47,7 +65,7 @@ const useSearch = () => {
     }
   };
 
-  return { flightSearch, error, loading, data, filterData };
+  return { flightSearch, error, loading, data };
 };
 
 export default useSearch;
