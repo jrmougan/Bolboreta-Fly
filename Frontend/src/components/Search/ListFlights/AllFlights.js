@@ -2,11 +2,14 @@ import React from 'react';
 import Flight from './Flight';
 
 const AllFlights = ({ flight }) => {
-  const { oneWay } = flight;
-  const isReturn = !oneWay;
-
+  const isReturn = flight.itineraries.length > 1 ? true : false;
   const outboundItinerary = flight.itineraries[0];
-  const roundtripItinerary = isReturn ? flight.itineraries[1] : '';
+  let roundtripItinerary;
+
+  if (isReturn === false) {
+    roundtripItinerary = flight.itineraries[1];
+  }
+
   return (
     <React.Fragment>
       <Flight itinerary={outboundItinerary} />
