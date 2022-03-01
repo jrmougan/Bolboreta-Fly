@@ -1,4 +1,4 @@
-import StepForm from '../components/StepperForm/StepForm';
+import StepForm from "../components/StepperForm/StepForm";
 
 const StepFormScreen = () => {
   return <StepForm />;

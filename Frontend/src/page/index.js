@@ -11,6 +11,7 @@ import HomeRound from "./HomeRound";
 import ActiveUserScreen from "./ActiveUser";
 import PrivacidadScreen from "./PrivacidadScreen";
 import TerminosScreen from "./TerminosScreen";
+import StepFormScreen from "./StepFormScreen";
 
 export {
   AdvancedSearchScreen,
@@ -26,4 +27,5 @@ export {
   ActiveUserScreen,
   PrivacidadScreen,
   TerminosScreen,
+  StepFormScreen,
 };

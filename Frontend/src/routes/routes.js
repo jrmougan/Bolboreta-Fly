@@ -12,6 +12,7 @@ import {
   LoginScreen,
   PrivacidadScreen,
   TerminosScreen,
+  StepFormScreen,
 } from "../page";
 
 const routes = [
@@ -25,6 +26,7 @@ const routes = [
   },
   { name: "user", path: "/user", component: <ProfileScreen /> },
   { name: "editpass", path: "/user/:iduser/editpass", component: <EditPass /> },
+  { name: "step", path: "/step", component: <StepFormScreen /> },
   { name: "resetpass", path: "/resetpass", component: <ResetPassScreen /> },
   { name: "edit", path: "/user/:iduser/edit", component: <DatosUsuario /> },
   { name: "return", path: "/return", component: <HomeRound /> },
