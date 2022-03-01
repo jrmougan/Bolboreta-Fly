@@ -229,7 +229,7 @@ Muiinput-root {
 }
 
 .info_container {
-  padding: 1rem;
+  padding: 1rem 1rem 5rem;
   border-radius: 5px;
   box-shadow: 0px 0px 10px 1px rgb(151, 147, 147);
   margin: 2rem 0;
@@ -240,7 +240,7 @@ Muiinput-root {
 @media screen and (min-width: 1000px) {
   .info_container {
     max-width: 830px;
-    padding: 1rem 1.5rem;
+    padding: 1rem 1.5rem 4rem;
     margin: 2rem auto;
   }
 }

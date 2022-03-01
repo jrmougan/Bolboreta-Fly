@@ -1,20 +1,14 @@
 import React, { useState, useContext } from 'react';
 import { Stepper, Step, StepLabel, Button, Typography } from '@mui/material';
-import FormPassenger from './FormPassenger/FormPassenger';
+import FormPassenger from './FormaPassenger/FormPassenger';
 import BookingData from './FormPassenger/BookingData.';
 import RateChoice from './RateChoice/RateChoice';
 import ResumeAndPay from './ResumeAndPay/ResumeAndPay';
 import { Container } from '@mui/material';
 import Itinerary from '../StepperForm/Itinerary/Itinerary';
-import offerprice from './InfoFlights/offerpriceExample.json';
 import { OfferPriceContext } from '../../context/OfferPriceContext';
-/* 
- ##################################
- ## INFORMACIÓN DE LOS  VUELOS   ##
- ##################################
-*/
-
-//const flightOffer = offerprice.data.flightOffers[0];
+import Pasajero from './Pasajeros/Pasajeros';
+import TodosPasajeros from './Pasajeros/TodosPasajeros';
 
 const StepForm = () => {
   /* 
@@ -35,25 +29,7 @@ const StepForm = () => {
   ##################################
   */
 
-  const [passenger, setPassenger] = useState({
-    firstName: '',
-    lastname: '',
-    lastname2: '',
-    birthdate: '',
-    birthPlace: '',
-    typedocument: '',
-    documentFlight: '',
-    inssuanceDate: '',
-    inssuancePlace: '',
-    gender: '',
-    expireDate: '',
-    email: '',
-    TypePhone: '',
-    issuanceCountry: '',
-    validityCountry: 'ES',
-    nacionality: 'ES',
-    holder: true,
-  });
+  const [travelers, setTravelers] = useState([]);
 
   const [emergencyData, setEmergencyData] = useState({
     name: '',
@@ -73,12 +49,7 @@ const StepForm = () => {
   const getStepContent = (page) => {
     if (page === 0) {
       return (
-        <FormPassenger
-          passenger={passenger}
-          setPassenger={setPassenger}
-          emergencyData={emergencyData}
-          setEmergencyData={setEmergencyData}
-        />
+        <TodosPasajeros travelers={travelers} setTravelers={setTravelers} />
       );
     } else if (page === 1) {
       return <BookingData />;
@@ -88,6 +59,7 @@ const StepForm = () => {
           rateCharge={rateCharge}
           setRateCharge={setRateCharge}
           setTotalPrice={setTotalPrice}
+          travelers={travelers}
         />
       );
     } else if (page === 3) {
@@ -96,6 +68,7 @@ const StepForm = () => {
           rateCharge={rateCharge}
           setRateCharge={setRateCharge}
           totalPrice={totalPrice}
+          travelers={travelers}
         />
       );
     } else {
