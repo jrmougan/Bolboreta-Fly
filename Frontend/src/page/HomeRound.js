@@ -9,11 +9,11 @@ const HomeRound = () => {
   // Obtenemos los datos de los input y los guardamos en el localStorage
   // para mantenerlos si recarga la página
 
-  const [origin, setOrigin] = useLocalStorage('origin', '');
-  const [destination, setDestination] = useLocalStorage('password', '');
+  const [origin, setOrigin] = useState('');
+  const [destination, setDestination] = useState('');
   const [departureDate, setDepartureDate] = useState('');
   const [returnDate, setReturndate] = useState('');
-  const [adults, setAdults] = useLocalStorage('adult', '');
+  const [adults, setAdults] = useState(1);
 
   // Función para modificar el valor de cada variable
   // a través del onChange de cada input
@@ -37,14 +37,11 @@ const HomeRound = () => {
   // Obtenemos el resultado (vuelos) a través de data
   // y la función search para pasarla a través de las props a ListFlights
 
-  const [data, search] = useSearch(searching);
-
   return (
     <main className='searchEnvironment'>
       {
         <RoundTrip
           destination={destination}
-          search={search}
           origin={origin}
           setOrigin={setOrigin}
           setDestination={setDestination}
@@ -57,8 +54,6 @@ const HomeRound = () => {
           setReturndate={setReturndate}
         />
       }
-
-      <ListFlights data={data} />
     </main>
   );
 };

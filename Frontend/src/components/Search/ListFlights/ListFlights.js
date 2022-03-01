@@ -1,83 +1,61 @@
-import { Link } from 'react-router-dom';
-import { format, formatDuration } from 'date-fns';
-import { FaPlane } from 'react-icons/fa';
+import React, { useContext } from "react";
+import { OfferPriceContext } from "../../../context/OfferPriceContext";
+import { useNavigate } from "react-router-dom";
+import InputButton from "./InputButton";
+import AllFlights from "./AllFlights";
 
 export const ListFlights = ({ data }) => {
+  //Contexto booking
+  const [flightOffer, setFlightOffer] = useContext(OfferPriceContext);
+  let navigate = useNavigate();
+
+  const handleBooking = (e) => {
+    e.preventDefault();
+    const bookingId = e.target.parentElement.parentElement.id;
+    setFlightOffer(data[bookingId - 1]);
+    navigate("/step");
+  };
+
   return (
     <section>
       {data.length > 0 &&
         data.map((flight) => {
-          // Para darle mayor legibilidad al código vamos a recoger la
-          // información en variables más intuitivas
           const id = flight.id;
-          const klass = flight.travelerPricings[0].fareOption;
-          const arrivalTime = flight.itineraries[0].segments[0].arrival.at;
-          const departureTime = flight.itineraries[0].segments[0].departure.at;
-          const flightDuration = flight.itineraries[0].duration;
           const price = flight.price.total;
           const currency = flight.price.currency;
-          const iataOrigin =
-            flight.itineraries[0].segments[0].departure.iataCode;
-          const iataDestination =
-            flight.itineraries[0].segments[0].arrival.iataCode;
-
-          // Función para formatear fechas
-          function formatDate(date) {
-            return format(date, 'yyy-MM-dd HH:mm:ss');
-          }
-
-          function hourFormat(date) {
-            return format(date, 'hh:mm');
-          }
-          function durationFormat(duration) {
-            return formatDuration(duration, 'hours');
-          }
-
-          // Formateamos horas y fechas para que
-          // se ajuste al diseño original
-          const departureToFormat = new Date(departureTime);
-          const arrivalToFormat = new Date(arrivalTime);
-
-          const dateDepartureFormatted = formatDate(departureToFormat);
-          const timeDepartureFormatted = hourFormat(departureToFormat);
-
-          const dateArrivalFormatted = formatDate(arrivalToFormat);
-          const timeArrivalFormatted = hourFormat(arrivalToFormat);
-          const pruebaDuration = durationFormat(flightDuration);
-
-          console.log('Fecha pura', departureToFormat);
-          console.log('Fecha formateada', dateDepartureFormatted);
-          console.log('Hora formateada ===>', timeDepartureFormatted);
-          console.log('Duración cruda', flightDuration);
 
           return (
-            <article key={id} className='resultCard'>
-              <div className='left-card card'>
-                <div className='flightItem'>
-                  <p className='fareOption'>{klass} CLASS</p>
-                  <div className='timeFlight'>
-                    <span>{timeDepartureFormatted}</span>
-                    <div className='duration'>{flightDuration}</div>
-                    <span>{timeArrivalFormatted}</span>
-                  </div>
-                  <div className='origin_destination'>
-                    <p>{iataOrigin}</p>
-                    <FaPlane />
-                    <p>{iataDestination}</p>
-                  </div>
-                </div>
-              </div>
-              <div className='right-card card'>
-                <p>
-                  {price} {currency}
-                </p>
-                <Link to='/stepper/1' className='btn btnFlight'>
+            <article key={id} id={id} className="resultCard">
+              <LeftCard>
+                <AllFlights flight={flight} />
+              </LeftCard>
+              <RightCard>
+                <Price price={price} currency={currency} />
+                <InputButton handleSubmit={handleBooking}>
                   Ir al vuelo
-                </Link>
-              </div>
+                </InputButton>
+              </RightCard>
             </article>
           );
         })}
     </section>
+  );
+};
+
+const LeftCard = ({ children, oneWay }) => {
+  return (
+    <section className={`left-card card ${oneWay ? "" : "separation_card"}`}>
+      {children}
+    </section>
+  );
+};
+const RightCard = ({ children }) => {
+  return <section className="right-card card">{children}</section>;
+};
+const Price = ({ price, currency }) => {
+  return (
+    <p>
+      {price} {currency}
+    </p>
   );
 };

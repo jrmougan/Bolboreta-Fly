@@ -1,0 +1,14 @@
+.passengerForm {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 0 2rem;
+}
+.inputs-passengers {
+  margin: 2rem 0 2rem;
+}
+.textfield-mui {
+  margin-left: 3rem;
+}
+.btn-passenger {
+  display: block;
+}

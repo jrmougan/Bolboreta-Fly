@@ -1,45 +1,56 @@
 import { Grid } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import useSearch from "../../../hooks/useSearch.js";
 import { SearchFilter } from "./SearchFilter/SearchFilter.js";
 import "./styles.css";
-import { MoonLoader } from 'react-spinners';
-import { ListFlights } from '../ListFlights/ListFlights';
-
-export const AdvancedSearch = (props) => {
+import { MoonLoader } from "react-spinners";
+import { ListFlights } from "../ListFlights/ListFlights";
+import axios from "axios";
+export const AdvancedSearch = (searchParams) => {
+  const [search, setSearch] = useState(searchParams);
 
   // Extraemos los datos de la búsqueda
 
-  let {origin, destination, departureDate, returnDate, adults} = props.search;
+  const selectScales = [
+    ["Directo", 0],
+    ["1 escala", 1],
+    ["2 escalas", 2],
+  ];
 
+  const [maxPrice, setMaxPrice] = useState(6000);
 
-
-  const selectScales = ["Directo", "1 escala", "2 escalas"];
-  const bagage = [1, 2, 3, 4];
-
-  //Estado búsqueda
-  /*
-  const [search, setSearch] = useState({
-    selectScales,
+  //Estado Filtro
+  const [filter, setFilter] = useState({
+    scales: 0,
+    duration: 0,
+    maxprice: null,
   });
-*/
-    //Estado Filtro
-    const [filterState, setFilterState] = useState({
-      scales: "",
-      bagage: "",
-      duration: 0,
-      price: [100, 3000],
-    });
-  
 
-//Monitorización de estado de filtro de búsqueda
+  //Hook para la búsqueda
 
+  const { flightSearch, loading, data } = useSearch();
 
-  const [data, loading, override] = useSearch(({origin, destination, departureDate, returnDate, adults, filterState}), [filterState]);
+  //Efecto obtener búsqueda
 
-  console.log('data:' + loading);
+  useEffect(() => {
+    const controller = new AbortController();
+    //Llamada a la api de búsqueda
+    flightSearch(search, filter, controller);
 
+    /*
+    return () => {
+      console.log("cleaning up");
+      if (controller) controller.abort();
+    };*/
+  }, [filter, search]);
 
+  //updateFilter(filterState);
+
+  const override = `
+  display: block;
+  margin: 10rem auto;
+  border-color: red;
+`;
 
   return (
     <Grid container spacing={2}>
@@ -47,10 +58,14 @@ export const AdvancedSearch = (props) => {
         headSearch
       </Grid>
       <Grid item className="filter" xs={12} md={3}>
-        <SearchFilter scales={selectScales} bagage={bagage} filterState={[filterState,setFilterState]} />
+        <SearchFilter
+          scales={selectScales}
+          filterState={[filter, setFilter]}
+          maxPrice={maxPrice}
+        />
       </Grid>
       <Grid item xs={12} md={9}>
-      {loading ? <MoonLoader css={override} /> : <ListFlights data={data} />}
+        {loading ? <MoonLoader css={override} /> : <ListFlights data={data} />}
       </Grid>
     </Grid>
   );

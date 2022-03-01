@@ -1,15 +1,15 @@
-import React, { createContext, useState } from 'react';
+import { createContext, useState } from 'react';
+import example from '../context/contextExample.json';
 
 const OfferPriceContext = createContext();
-
-export function OfferPriceContextProvider({ children }) {
-  const [flightOffers, setFlightOffers] = useState([]);
+const OfferPriceContextProvider = ({ children }) => {
+  const [flightOffer, setFlightOffer] = useState(example);
 
   return (
-    <OfferPriceContext.Provider value={(flightOffers, setFlightOffers)}>
+    <OfferPriceContext.Provider value={[flightOffer, setFlightOffer]}>
       {children}
     </OfferPriceContext.Provider>
   );
-}
+};
 
-export { OfferPriceContext };
+export { OfferPriceContextProvider, OfferPriceContext };

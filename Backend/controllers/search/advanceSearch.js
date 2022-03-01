@@ -14,7 +14,7 @@ const advanceSearch = async (req, res, next) => {
         connection = await getDB();
 
         const {
-            courrencyCode,
+            currencyCode,
             originLocationCode,
             destinationLocationCode,
             departureDate,
@@ -30,6 +30,8 @@ const advanceSearch = async (req, res, next) => {
             oneway,
             sources,
         } = req.body;
+
+        //console.log(maxprice);
 
         //comprobamos que los viajeros mayores de 2 años no son mas de 9
         if (Number(numAdults) + Number(numChilds) > 9) {
@@ -59,40 +61,39 @@ const advanceSearch = async (req, res, next) => {
 
         let originDestinations = [];
 
+        if (oneway) {
+            //solo ida
 
-        if (!oneway ) {//solo ida
-          
-                const oneWay = {
-                    id: "1",
-                    originLocationCode,
-                    destinationLocationCode,
-                    departureDateTimeRange: {
-                        dateTimeRange: { date: departureDate },
-                    },
-                    
-                }; 
-                originDestinations.push(oneWay);
-                
-           
-        } else { // ida y vuelta
-            originDestinations.push ({
-                id: "1",
+            const oneWay = {
+                id: '1',
                 originLocationCode,
                 destinationLocationCode,
                 departureDateTimeRange: {
-                   date: departureDate
+                    date: departureDate,
                 },
-            },
+            };
+            originDestinations.push(oneWay);
+        } else {
+            // ida y vuelta
+            originDestinations.push(
+                {
+                    id: '1',
+                    originLocationCode,
+                    destinationLocationCode,
+                    departureDateTimeRange: {
+                        date: departureDate,
+                    },
+                },
 
-            {
-                id: "2" ,
-                originLocationCode:destinationLocationCode,
-                destinationLocationCode:originLocationCode,
-                departureDateTimeRange: {
-                  date: returnDate
-                },
-               
-            },)
+                {
+                    id: '2',
+                    originLocationCode: destinationLocationCode,
+                    destinationLocationCode: originLocationCode,
+                    departureDateTimeRange: {
+                        date: returnDate,
+                    },
+                }
+            );
         }
 
         //creamos array travels para mandarle a Amadeus
@@ -106,7 +107,6 @@ const advanceSearch = async (req, res, next) => {
                     id: j.toString(),
                     travelerType: 'ADULT',
                 });
-
             }
         }
         //niños
@@ -116,21 +116,20 @@ const advanceSearch = async (req, res, next) => {
                     id: i.toString(),
                     travelerType: 'CHILD',
                 });
-
             }
         }
 
         //creamos objeto de searchCriteria
 
-        let SearchCriteria = {
+        let searchCriteria = {
             maxPrice: maxprice,
-           pircingOptions: {
+            pircingOptions: {
                 includedCheckedBagsOnly,
             },
-            FlightFilters: {
+            flightFilters: {
                 maxFlightTime,
                 CarrierRestrictions: { blacklistedInEUAllowed },
-                CabinRestriction: [{ cabin:travelClass }],
+                CabinRestriction: [{ cabin: travelClass }],
                 ConnectionRestiction: { maxNumberOfConnections: connections },
             },
         };
@@ -138,12 +137,14 @@ const advanceSearch = async (req, res, next) => {
         //Creamos body para mandaserlo a amadeus:
 
         let searchAdvancebody = {
-            courrencyCode,
+            currencyCode,
             originDestinations,
             travelers,
-            sources:[sources],
-            SearchCriteria,
+            sources: [sources],
+            searchCriteria,
         };
+
+        console.log(searchCriteria);
 
         //lo pasamos a json
         const jsonBody = JSON.stringify(searchAdvancebody);
@@ -157,7 +158,8 @@ const advanceSearch = async (req, res, next) => {
             data: result,
         });
     } catch (error) {
-        next(error);
+        console.log(error);
+        //next(new Error('Hubo un problema al realizar la búsqueda de vuelos'));
     } finally {
         if (connection) connection.release();
     }

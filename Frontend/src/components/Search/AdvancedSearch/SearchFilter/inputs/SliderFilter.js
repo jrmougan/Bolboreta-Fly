@@ -11,8 +11,9 @@ export const SliderFilter = (props) => {
           valueLabelDisplay="auto"
           min={props.min}
           max={props.max}
+          defaultValue={props.max}
           className="Slider"
-          onChange={props.handleChange}
+          onChangeCommitted={props.onChangeCommitted}
           name={props.name}
         />
       </Grid>

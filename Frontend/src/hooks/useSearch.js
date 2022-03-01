@@ -1,50 +1,71 @@
-import { useContext, useEffect, useState } from 'react';
-import { OfferPriceContextProvider } from '../context/OfferPriceContext';
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-const useSearch = (searching) => {
-  const { origin, destination, departureDate, returnDate, adults, filterState } = searching;
-  
-  const [loading, setLoading] = useState(false);
-  const [data, setData] = useState('');
+const useSearch = () => {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [data, setData] = useState("");
 
-  const override = `
-  display: block;
-  margin: 10rem auto;
-  border-color: red;
-`;
+  const flightSearch = async (search, filter, controller) => {
+    const signal = controller.signal;
+    const { origin, destination, departureDate, returnDate, adults } =
+      search.search;
+    const { maxprice, scales } = filter;
+    let body;
 
+    if (returnDate) {
+      body = {
+        courrencyCode: "EUR",
+        originLocationCode: origin,
+        destinationLocationCode: destination,
+        blacklistedInEUAllowed: true,
+        departureDate: departureDate,
+        includedCheckedBagsOnly: false,
+        returnDate: returnDate,
+        numAdults: adults,
+        numChilds: 0,
+        travelClass: "ECONOMY",
+        sources: "GDS",
+        maxFlighTime: 2,
+        connections: Number(scales),
+        oneway: 0,
+        maxprice: maxprice,
+      };
+    } else {
+      body = {
+        courrencyCode: "EUR",
+        originLocationCode: origin,
+        destinationLocationCode: destination,
+        blacklistedInEUAllowed: true,
+        departureDate: departureDate,
+        includedCheckedBagsOnly: false,
+        numAdults: adults,
+        numChilds: 0,
+        travelClass: "ECONOMY",
+        sources: "GDS",
+        maxFlighTime: 2,
+        connections: Number(scales),
+        oneway: 1,
+        maxprice: maxprice,
+      };
+    }
 
-    const search = async () => {
-    setLoading(true);
+    const url = `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/advancesearch`;
     try {
-      let fetchUrl = `${process.env.REACT_APP_PUBLIC_HOST_BACKEND}search?origin=${origin}&destination=${destination}&departuredate=${departureDate}&adults=${adults}`;
-      console.log('fetchurl: ' + fetchUrl);
+      setLoading(true);
+      const req = await axios.post(url, body, { signal });
 
-      if (returnDate) {
-        fetchUrl += `&returndate=${returnDate}`;
-      }
-      const response = await fetch(fetchUrl);
-      const body = await response.json();
-
-      if (response.ok) {
-        setData(body.data.data);
-        console.log(data);
-        // setFlightOffers(body.data.data);
+      if (req.data.status === "ok") {
         setLoading(false);
+        setData(req.data.data.data);
       }
     } catch (error) {
-      console.error('Error de comunicación', error);
+      console.error(error);
+      setError(error.response);
     }
   };
-  
 
-  useEffect(()=>{
-    console.log('useSearch');
-    search();
-  }, [filterState]);
-  
-
-  return [data, loading, override];
+  return { flightSearch, error, loading, data };
 };
 
 export default useSearch;

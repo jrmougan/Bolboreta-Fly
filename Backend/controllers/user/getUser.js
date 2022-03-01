@@ -1,21 +1,35 @@
- const getDB = require('../../database/getDB');
+const getDB = require('../../database/getDB');
 
 const getUser = async (req, res, next) => {
-    
-    let connection ;
+
+    let connection;
 
     try {
         connection = await getDB();
 
-        const {iduser} = req.params ;
+        const { iduser } = req.params;
         const idReqUser = req.userAuth.id;
+        let user;
 
-    
-        const [user] = await connection.query (`
+        if (!isNaN([iduser])) {
+            [user] = await connection.query(`
         SELECT id , name_user , lastname, lastname2, bio, address, email, password, avatar, birthdate, createDate, modifyDate FROM user WHERE id = ?
         `,
-        [iduser]
-        );
+                [iduser]
+            );
+
+        }
+        else {
+            [user] = await connection.query(`
+        SELECT id , name_user , lastname, lastname2, bio, address, email, password, avatar, birthdate, createDate, modifyDate FROM user WHERE email = ?
+        `,
+                [iduser]
+            );
+
+
+
+        }
+
 
         // objeto información genérica usuario(para que lo vea otro usuario)
 
@@ -25,10 +39,10 @@ const getUser = async (req, res, next) => {
         };
 
         // Si el usuario es el dueño de los datos.
-        if (user[0].id === idReqUser){
-            
+        if (user[0].id === idReqUser) {
+
             userInfo.name_user = user[0].name_user;
-            userInfo.lastname = user[0].lastname ;
+            userInfo.lastname = user[0].lastname;
             userInfo.bio = user[0].bio;
             userInfo.address = user[0].address;
             userInfo.email = user[0].email;
@@ -40,18 +54,18 @@ const getUser = async (req, res, next) => {
 
         }
 
-        res.send ({
+        res.send({
             status: 'ok',
             data: {
                 userInfo,
             },
 
         });
-        
+
     } catch (error) {
-        next (error);
-    }finally {
-        if(connection) connection.release();
+        next(error);
+    } finally {
+        if (connection) connection.release();
     }
 };
 
