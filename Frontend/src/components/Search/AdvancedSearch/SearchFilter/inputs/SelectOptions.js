@@ -15,8 +15,8 @@ export const SelectOptions = (props) => {
       >
         {props.scales.map((scale) => {
           return (
-            <option key={scale} value={scale}>
-              {scale}
+            <option key={scale[1]} value={scale[1]}>
+              {scale[0]}
             </option>
           );
         })}
