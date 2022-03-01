@@ -1,4 +1,5 @@
 import LoginUser from "../components/LoginUser/LoginUser";
+import LoginGoogle from '../components/LoginGoogle/LoginGoogle'
 
 const LoginScreen = () => {
   return (
@@ -7,6 +8,7 @@ const LoginScreen = () => {
       </h3>
       <h1> Inicia Sesión</h1>
       <LoginUser />
+      <LoginGoogle />
     </div>);
 
 };

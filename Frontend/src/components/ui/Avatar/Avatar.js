@@ -8,7 +8,10 @@ import { Link } from "react-router-dom";
 const Avatar = () => {
   const [token] = useContext(TokenContext);
 
-  const [user] = useUser(token);
+  const [user] = useUserProfile(token);
+
+  console.log(token);
+  console.log(user.userInfo);
 
   return (
     <section className="Avatar">

@@ -3,23 +3,20 @@ import "./style.css";
 import { AiOutlineCopyrightCircle } from "react-icons/ai";
 
 function Footer() {
-    return (
-        <footer id="App-footer">
-            <div>
-                <p> Política de privacidad </p>
-            </div>
-            <div>
-                <p> Política de cookies </p>
-            </div>
-            <div>
-                <p> Aviso legal </p>
-            </div>
-            <div>
-                2022 <AiOutlineCopyrightCircle /> Bolboreta Flight. Todos los derechos
-                reservados
-            </div>
-        </footer>
-    );
+  return (
+    <footer id="App-footer">
+      <div>
+        <a href="/privacidad"> Politica de Privacidad </a>
+      </div>
+      <div>
+        2022 <AiOutlineCopyrightCircle /> Bolboreta Flight. Todos los derechos
+        reservados
+      </div>
+      <div>
+        <a href="/terminosycondiciones"> Términos y Condiciones </a>
+      </div>
+    </footer>
+  );
 }
 
 export default Footer;
