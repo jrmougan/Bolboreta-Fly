@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 const Avatar = () => {
   const [token] = useContext(TokenContext);
 
-  const [user] = useUserProfile(token);
+  const [user] = useUser(token);
 
   console.log(token);
   console.log(user.userInfo);
