@@ -1,7 +1,13 @@
 .card-flight {
   padding: 0 10rem;
 }
+@media screen and (max-width: 900px) {
+  .card-flight {
+    padding: 0 2rem;
+  }
+}
 .hero-reserva {
+  position: relative;
   display: flex;
   flex-direction: column-reverse;
   padding: 4rem 1rem 1rem;
@@ -9,6 +15,17 @@
   background-image: url('/home/eduardo/Desktop/Bolboreta React/bolbo-components/src/images/santiago.webp');
   background-position: 60% 60%;
   background-size: 100%;
+
+  z-index: 1;
+}
+.background_cardFlight {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+
+  z-index: -1;
 }
 .hero-reserva h3 {
   font-size: 3rem;
