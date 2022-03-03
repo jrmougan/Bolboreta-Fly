@@ -1,3 +1,5 @@
+import { format } from 'date-fns';
+import { dateFormat } from '../../helpers/formatHelp';
 import useUnsplashImage from '../../hooks/useUnsplashImage';
 import { findAirportInfo } from '../StepperForm/InfoFlights/helpersFlight';
 
@@ -14,33 +16,33 @@ const Reserva = ({ reserva, busqueda }) => {
   const cityArrival = findAirportInfo(iataArrival, 'city');
   const cityDeparture = findAirportInfo(iataDeparture, 'city');
 
-  // Horario de salida
-  const departureTime =
-    departure_time === null ? 'departure_time' : departure_time;
+  // Fecha y hora de salida
+  const time = format(new Date(departure_time), 'HH:mm');
+  const date = dateFormat(departure_time);
+
+  console.log('departure_time', time);
 
   return (
-    <>
-      <article className='card-flight'>
-        <div className={`hero-reserva`}>
-          <img
-            alt='foto de ciudad'
-            src={srcPhoto}
-            className='background_cardFlight'
-          />
-          <p>
-            {' '}
-            {'Fecha: 1 de enero de 2020'} - {departureTime}
-          </p>
-          <h3>
-            {cityDeparture} - {cityArrival}
-          </h3>
-        </div>
-        <div className='lastbook-end'>
-          <h4>Felicidades ! Está todo listo para su viaje</h4>
-          <button className='btn btn-gestionar'>Gestionar Reserva</button>
-        </div>
-      </article>
-    </>
+    <article className='card-flight'>
+      <div className={`hero-reserva`}>
+        <img
+          alt='foto de ciudad'
+          src={srcPhoto}
+          className='background_cardFlight'
+        />
+        <p>
+          {' '}
+          {date} - {time}
+        </p>
+        <h3>
+          {cityDeparture} - {cityArrival}
+        </h3>
+      </div>
+      <div className='lastbook-end'>
+        <h4>Felicidades ! Está todo listo para su viaje</h4>
+        <button className='btn btn-gestionar'>Gestionar Reserva</button>
+      </div>
+    </article>
   );
 };
 

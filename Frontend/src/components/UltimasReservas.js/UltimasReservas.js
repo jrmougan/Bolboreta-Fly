@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './ultimasreservas.css';
 import { findAirportInfo } from '../StepperForm/InfoFlights/helpersFlight';
 import { useParams } from 'react-router-dom';
 import useGetBookings from '../../hooks/useGetBookings';
 import Reserva from './Reserva';
+import useUser from '../../hooks/user/useUser';
 
 export const UltimasReservas = () => {
   // Obtenemos el id mediante params
@@ -12,7 +13,7 @@ export const UltimasReservas = () => {
   const [allBookings] = useGetBookings(idUser);
 
   return (
-    <main>
+    <section id='allBookings_container'>
       <h2>Estos son tus últimos vuelos </h2>
 
       {allBookings.map((reserva, key) => {
@@ -21,16 +22,14 @@ export const UltimasReservas = () => {
         const cityArrival = findAirportInfo(iataArrival, 'city');
 
         return (
-          <div key={key}>
-            <Reserva
-              reservas={allBookings}
-              busqueda={cityArrival}
-              reserva={reserva}
-            />
-          </div>
+          <Reserva
+            reservas={allBookings}
+            busqueda={cityArrival}
+            reserva={reserva}
+          />
         );
       })}
-    </main>
+    </section>
   );
 };
 

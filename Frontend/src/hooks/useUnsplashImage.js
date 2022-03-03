@@ -13,13 +13,17 @@ const useUnsplashImage = (busqueda) => {
 
   useEffect(() => {
     api.search
-      .getPhotos({ query: busqueda, orientation: 'landscape', per_page: '1' })
+      .getPhotos({
+        query: busqueda + ' center',
+        orientation: 'landscape',
+        per_page: '2',
+      })
       .then((result) => {
         setPhotosResponse(result);
-        setIndividualPhoto(result.response.results[0].urls.regular);
+        setIndividualPhoto(result.response.results[1].urls.regular);
       })
       .catch(() => {
-        console.log('something went wrong!');
+        console.log('Algo no ha ido como esperabas');
       });
   }, []);
 
