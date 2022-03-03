@@ -1,21 +1,13 @@
-import { Link, Outlet } from "react-router-dom";
-import { InputLabel, Select, MenuItem } from "@mui/material";
-import {
-  FaPlaneDeparture,
-  FaPlaneArrival,
-  AiOutlineUser,
-  FaWpforms,
-  FaUserFriends,
-} from "react-icons/fa";
-import NavLinks from "../../NavLinks/NavLinks";
-import { ADULTS } from "../../StepperForm/InfoFlights/constantInfo";
+import { Link } from 'react-router-dom';
+
+import NavLinks from '../../NavLinks/NavLinks';
 import {
   InputAdults,
   InputDepartureDate,
   InputDestination,
   InputOrigin,
   InputReturnDate,
-} from "./Inputs";
+} from './Inputs';
 
 export const BasicSearch = ({
   search,
@@ -31,10 +23,10 @@ export const BasicSearch = ({
 }) => {
   let url = `/search?origin=${origin}&destination=${destination}&departureDate=${departureDate}&adults=${adults}`;
   return (
-    <section className="searchFlight">
+    <section className='searchFlight'>
       <NavLinks />
       <form onSubmit={search}>
-        <div className="inputsFlight">
+        <div className='inputsFlight'>
           <InputOrigin origin={origin} setOrigin={setOrigin} />
           <InputDestination
             destination={destination}
@@ -46,7 +38,7 @@ export const BasicSearch = ({
           />
           <InputAdults adults={adults} setAdults={setAdults} />
         </div>
-        <Link to={url} className="btn btn-search" type="submit">
+        <Link to={url} className='btn search-submit' type='submit'>
           Buscar
         </Link>
       </form>
@@ -69,11 +61,11 @@ export const RoundTrip = ({
 }) => {
   let url = `/search?origin=${origin}&destination=${destination}&departureDate=${departureDate}&returnDate=${returnDate}&adults=${adults}`;
   return (
-    <section className="searchFlight">
+    <section className='searchFlight'>
       <NavLinks />
       {
         <form onSubmit={search}>
-          <div className="inputsFlight">
+          <div className='inputsFlight'>
             <InputOrigin origin={origin} setOrigin={setOrigin} />
             <InputDestination
               destination={destination}
@@ -90,7 +82,7 @@ export const RoundTrip = ({
 
             <InputAdults adults={adults} setAdults={setAdults} />
           </div>
-          <Link to={url} className="btn btn-search" type="submit">
+          <Link to={url} className='btn btn-search' type='submit'>
             Buscar
           </Link>
         </form>
@@ -98,4 +90,3 @@ export const RoundTrip = ({
     </section>
   );
 };
-

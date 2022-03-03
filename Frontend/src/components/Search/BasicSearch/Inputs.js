@@ -14,7 +14,7 @@ const handleSubmit = (setter) => (e) => {
 
 export const InputOrigin = ({ origin, setOrigin }) => {
   return (
-    <div className='inputDiv'>
+    <div className='inputDiv grow-2'>
       <FaPlaneDeparture className='faplane_icon' />
       <input
         type='text'
@@ -30,7 +30,7 @@ export const InputOrigin = ({ origin, setOrigin }) => {
 
 export const InputDestination = ({ destination, setDestination }) => {
   return (
-    <div className='inputDiv'>
+    <div className='inputDiv grow-2'>
       <FaPlaneArrival className='faplane_icon' />
       <input
         type='text'
@@ -45,7 +45,7 @@ export const InputDestination = ({ destination, setDestination }) => {
 
 export const InputDepartureDate = ({ departureDate, setDepartureDate }) => {
   return (
-    <div className='inputDiv'>
+    <div className='inputDiv grow-1'>
       <FaWpforms className='faplane_icon' />
       <input
         type='date'
@@ -60,7 +60,7 @@ export const InputDepartureDate = ({ departureDate, setDepartureDate }) => {
 
 export const InputAdults = ({ adults, setAdults }) => {
   return (
-    <div className='inputDiv'>
+    <div className='inputDiv grow-1'>
       <FaUserFriends className='faplane_icon' />
       <select
         className='searchInput searchInput-2 adultsInput'
@@ -82,7 +82,7 @@ export const InputAdults = ({ adults, setAdults }) => {
 
 export const InputReturnDate = ({ returnDate, setReturndate }) => {
   return (
-    <div className='inputDiv'>
+    <div className='inputDiv grow-1'>
       <FaWpforms className='faplane_icon' />
       <input
         type='date'
