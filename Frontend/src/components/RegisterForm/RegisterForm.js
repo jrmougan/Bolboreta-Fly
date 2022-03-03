@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
-
-import './mainForm.css';
-
 import { TextField } from '@mui/material';
-
+import './style.css';
 import swal from 'sweetalert';
 
-const MainForm = () => {
+const RegisterForm = () => {
   const [nombre, setNombre] = useState('');
   const [primerApellido, setPrimerApellido] = useState('');
 
@@ -31,7 +28,6 @@ const MainForm = () => {
           body: JSON.stringify({
             name_user: nombre,
             lastname: primerApellido,
-
             email,
             password,
             confirmpassword: passwordRepeat,
@@ -196,4 +192,4 @@ const MainForm = () => {
   );
 };
 
-export default MainForm;
+export default RegisterForm;
