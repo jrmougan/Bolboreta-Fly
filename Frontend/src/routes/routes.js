@@ -36,8 +36,8 @@ const routes = [
     component: <ActiveUserScreen />,
   },
   {
-    name: 'lastBookings',
-    path: '/lastBookings',
+    name: 'getBookings',
+    path: '/user/:idUser/getBookings',
     component: <UltimasReservas />,
   },
   { name: 'loginuser', path: '/login', component: <LoginScreen /> },

@@ -5,6 +5,8 @@ import decodeTokenData from '../../helpers/decodeTokenData';
 import { createApi } from 'unsplash-js';
 import './ultimasreservas.css';
 import { findAirportInfo } from '../StepperForm/InfoFlights/helpersFlight';
+import { useParams } from 'react-router-dom';
+import useUnsplashImage from '../../hooks/useUnsplashImage';
 
 const ACCESS_KEY_UNSPLASH = process.env.REACT_APP_ACCESS_KEY_UNSPLASH;
 
@@ -17,25 +19,20 @@ const ACCESS_KEY_UNSPLASH = process.env.REACT_APP_ACCESS_KEY_UNSPLASH;
 const api = createApi({ accessKey: ACCESS_KEY_UNSPLASH });
 
 export const UltimasReservas = () => {
+  // Obtenemos el id mediante params
+  const { idUser } = useParams();
+
   // Obtenemos el id de usuario correspondiente a nuestro Token
   const [token] = useContext(TokenContext);
   const tokenId = decodeTokenData(token).id;
 
-  // All requests made with the client will be authenticated
-  findAirportInfo();
-
   // Donde agrupamos todas las reservas
   const [reservas, setReservas] = useState([]);
-
-  const [hola, setHola] = useState('');
-
-  // Usuario con 3 reservas
-  let userId = 2;
 
   // Recogemos las reservas
   const searchBookings = async () => {
     const res = await fetch(
-      `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/booking/${userId}/getBookings`
+      `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/booking/${idUser}/getBookings`
     );
     if (res.ok) {
       const body = await res.json();
@@ -43,22 +40,11 @@ export const UltimasReservas = () => {
       setReservas(bookings);
     }
   };
-  try {
-  } catch (error) {
-    console.error(error);
-  }
 
   // Imagen del aeropuerto
-
   useEffect(() => {
     searchBookings();
   }, []);
-
-  /* PEXELS INTENTOS */
-  const url =
-    'https://media.istockphoto.com/photos/paris-skyline-and-tour-eiffel-picture-id591833438?s=612x612';
-
-  let url2;
 
   return (
     <main>
@@ -74,7 +60,8 @@ export const UltimasReservas = () => {
             <Reserva
               reservas={reservas}
               searchBookings={searchBookings}
-              busqueda={cityArrival}
+              // busqueda={cityArrival}
+              busqueda={'Barcelona'}
               reserva={reserva}
             />
           </div>
@@ -85,43 +72,22 @@ export const UltimasReservas = () => {
 };
 
 const Reserva = ({ reservas, searchBookings, reserva, busqueda }) => {
-  const [data, setPhotosResponse] = useState(null);
-  const [individualPhoto, setIndividualPhoto] = useState();
+  // Llamamos a la api de Unsplash
+  const { srcPhoto } = useUnsplashImage(busqueda);
 
-  /* 
-##############################
-## DATOS RESERVA INDIVIDUAL ##
-##############################
-*/
+  // Datos de una reserva individual
   const iataArrival = reserva.bookingObject[0].arrival_code || 'SCQ';
   const iataDeparture = reserva.bookingObject[0].departure_code || 'AGP';
   const codeBooking = reserva.bookingObject[0].booking_code;
   const departure_time = reserva.bookingObject[0].departure_time || '15:30';
 
-  //  DATOS DE CADA RESERVA
+  //  Ciudades de salida y llegada
   const cityArrival = findAirportInfo(iataArrival, 'city');
   const cityDeparture = findAirportInfo(iataDeparture, 'city');
 
+  // Horario de salida
   const departureTime =
     departure_time === null ? 'departure_time' : departure_time;
-
-  /* 
-##########################
-## LLAMADA API UNSPLASH ##
-##########################
-*/
-
-  useEffect(() => {
-    api.search
-      .getPhotos({ query: busqueda, orientation: 'landscape', per_page: '1' })
-      .then((result) => {
-        setPhotosResponse(result);
-        setIndividualPhoto(result.response.results[0].urls.regular);
-      })
-      .catch(() => {
-        console.log('something went wrong!');
-      });
-  }, []);
 
   return (
     <>
@@ -129,7 +95,7 @@ const Reserva = ({ reservas, searchBookings, reserva, busqueda }) => {
         <div className={`hero-reserva`}>
           <img
             alt='foto de ciudad'
-            src={individualPhoto}
+            src={srcPhoto}
             className='background_cardFlight'
           />
           <p>
