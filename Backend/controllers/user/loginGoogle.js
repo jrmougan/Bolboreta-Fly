@@ -58,6 +58,8 @@ const loginGoogle = async (req, res, next) => {
 
     console.log(usergoogle)
 
+    //Creamos nuestro propio token para enviarselo a nuestros middelwares y al frontend
+
     const tokenInfo = {
         id: usergoogle[0].id,
         rol: usergoogle[0].rol,

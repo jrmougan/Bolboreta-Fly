@@ -1,57 +1,49 @@
-import { React, useContext, } from 'react';
-import './style.css'
-import swal from 'sweetalert';
-import { TokenContext } from '../../context/TokenContext';
-import decodeTokenData from '../../helpers/decodeTokenData';
-import { Link, Navigate } from 'react-router-dom';
+import { React, useContext } from "react";
+import "./style.css";
+import swal from "sweetalert";
+import { TokenContext } from "../../context/TokenContext";
+import decodeTokenData from "../../helpers/decodeTokenData";
+import { Link, Navigate } from "react-router-dom";
 
 const DeleteUsuario = () => {
+  const [token, setToken] = useContext(TokenContext);
+  const decodedToken = decodeTokenData(token);
 
-    const [token, setToken] = useContext(TokenContext);
-    const decodedToken = decodeTokenData(token);
+  const fetchDeleteuser = async (e) => {
+    e.preventDefault();
 
-    const fetchDeleteuser = async (e) => {
-        e.preventDefault();
+    const res = await fetch(
+      `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/user/${decodedToken?.id}/delete`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
 
-
-        const res = await fetch(`http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/user/${decodedToken?.id}/delete`,
-            {
-                method: 'DELETE',
-                headers: {
-                    Authorization: token,
-                }
-            }
-        );
-
-        if (res.ok) {
-            const body = await res.json();
-            setToken('');
-            swal(body.message, '', 'success');
-
-        } else {
-            const error = await res.json();
-            swal(error.message, '', 'warning');
-        };
-    };
-
-    if (!token) {
-        return <Navigate to='/' />
+    if (res.ok) {
+      const body = await res.json();
+      setToken("");
+      swal(body.message, "", "success");
+    } else {
+      const error = await res.json();
+      swal(error.message, "", "warning");
     }
+  };
 
-    return (
-        <div>
+  if (!token) {
+    return <Navigate to="/" />;
+  }
 
-            <button className='delete' onClick={fetchDeleteuser}> Eliminar Usuario </button>
-
-
-
-        </div>
-    )
-
-
-
-
-
-}
+  return (
+    <div>
+      <button className="delete" onClick={fetchDeleteuser}>
+        {" "}
+        Eliminar Usuario{" "}
+      </button>
+    </div>
+  );
+};
 
 export default DeleteUsuario;
