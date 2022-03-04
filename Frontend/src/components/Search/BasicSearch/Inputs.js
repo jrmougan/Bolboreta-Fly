@@ -6,6 +6,8 @@ import {
   FaWpforms,
   FaUserFriends,
 } from 'react-icons/fa';
+import React from 'react';
+import SearchRoot from '../../../page/SearchRoot';
 
 const handleSubmit = (setter) => (e) => {
   e.preventDefault();
@@ -15,15 +17,8 @@ const handleSubmit = (setter) => (e) => {
 export const InputOrigin = ({ origin, setOrigin }) => {
   return (
     <div className='inputDiv grow-2'>
-      <FaPlaneDeparture className='faplane_icon' />
-      <input
-        type='text'
-        className='searchInput searchInput-1'
-        id='origin'
-        value={origin}
-        onChange={handleSubmit(setOrigin)}
-        placeholder='Origen'
-      ></input>
+      <FaPlaneArrival className='faplane_icon' />
+      <SearchRoot setState={setOrigin} isOrigin={true} />
     </div>
   );
 };
@@ -32,13 +27,7 @@ export const InputDestination = ({ destination, setDestination }) => {
   return (
     <div className='inputDiv grow-2'>
       <FaPlaneArrival className='faplane_icon' />
-      <input
-        type='text'
-        className='searchInput searchInput-2'
-        placeholder='Destino'
-        value={destination}
-        onChange={handleSubmit(setDestination)}
-      ></input>
+      <SearchRoot setState={setDestination} />
     </div>
   );
 };
