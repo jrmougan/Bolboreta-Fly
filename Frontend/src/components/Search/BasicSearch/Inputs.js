@@ -12,11 +12,6 @@ import { DatePicker } from '@mui/lab';
 import { Autocomplete, TextField } from '@mui/material';
 import { format } from 'date-fns';
 
-const handleSubmit = (setter) => (e) => {
-  e.preventDefault();
-  setter(e.target.value);
-};
-
 export const InputOrigin = ({ origin, setOrigin }) => {
   return (
     <div className='inputDiv grow-2'>
@@ -52,7 +47,12 @@ export const InputDepartureDate = ({ departureDate, setDepartureDate }) => {
           }}
           renderInput={(params) => (
             <TextField
-              sx={{ background: 'white', width: '100%' }}
+              sx={{
+                background: 'white',
+                width: '100%',
+                marginLeft: ' .5rem',
+                marginTop: ' .5rem',
+              }}
               {...params}
             />
           )}
@@ -75,7 +75,15 @@ export const InputReturnDate = ({ returnDate, setReturndate }) => {
           setReturndate(format(newValue, 'yyyy-MM-dd'));
         }}
         renderInput={(params) => (
-          <TextField sx={{ background: 'white', width: '100%' }} {...params} />
+          <TextField
+            sx={{
+              background: 'white',
+              width: '100%',
+              marginLeft: ' .5rem',
+              marginTop: ' .5rem',
+            }}
+            {...params}
+          />
         )}
       ></DatePicker>
     </div>
@@ -96,7 +104,11 @@ export const InputAdults = ({ adults, setAdults }) => {
           <TextField
             {...params}
             label='Seleccione adultos'
-            sx={{ backgroundColor: 'white' }}
+            sx={{
+              backgroundColor: 'white',
+              marginLeft: ' .5rem',
+              marginTop: ' .5rem',
+            }}
           />
         )}
       />

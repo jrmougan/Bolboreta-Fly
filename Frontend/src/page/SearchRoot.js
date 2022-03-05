@@ -19,18 +19,17 @@ const SearchRoot = ({ setState, isOrigin }) => {
   const [loading, setLoading] = React.useState(false);
 
   React.useEffect(() => {
-    // Loader animation
     setLoading(true);
 
     /* 
        out - data del backend.
-       source - token for cancelation request.
+       source - token para cancelación de la request
     */
     const { out, source } = getAmadeusData(search);
 
     out
       .then((res) => {
-        // simple check to prevent error on client side.
+        // Así prevenimos error en el lado del Cliente
         if (!res.data.code) {
           setDataSource(res.data);
         }
@@ -41,7 +40,7 @@ const SearchRoot = ({ setState, isOrigin }) => {
         setLoading(false);
       });
 
-    // If we returning function from *useEffect* - then this func will execute, when component will unmount
+    // Cancelamos búsquedas
     return () => {
       source.cancel();
     };

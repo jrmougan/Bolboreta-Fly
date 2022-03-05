@@ -14,7 +14,6 @@ const SearchAutocomplete = (props) => {
   const { setState } = props;
   const { isOrigin } = props;
 
-  //   console.log('options', options);
   // Configure options format for proper displaying on the UI
   const names = options.map((i) => ({ type: i.subType, name: i.name }));
 
@@ -25,7 +24,6 @@ const SearchAutocomplete = (props) => {
     debounceLoadData(search);
   }, [search]);
 
-  // Same example as in *SearchRoot* component
   React.useEffect(() => {
     setLoading(true);
     const { out, source } = getAmadeusData({
@@ -36,8 +34,6 @@ const SearchAutocomplete = (props) => {
 
     out
       .then((res) => {
-        console.log('res', res);
-
         setOptions(res.data.data.data);
         const data = res.data.data.data;
 
@@ -55,22 +51,12 @@ const SearchAutocomplete = (props) => {
     };
   }, [keyword]);
 
-  const label = isOrigin ? 'Seleccione un origen' : 'Seleccione un destino';
-
-  /*    city && airport
-      ? 'City and Airports'
-      : city
-      ? 'City'
-      : airport
-      ? 'Airports'
-      : ''; */
+  const label = isOrigin ? 'Origen' : 'Destino';
 
   return (
-    // This is Material-UI component that also has it's own props
     <>
       <Autocomplete
         id='asynchronous-demo'
-        // style={{ width: 300, marginBottom: '1rem' }}
         sx={{ width: '100%' }}
         open={open}
         onOpen={() => {
@@ -79,11 +65,7 @@ const SearchAutocomplete = (props) => {
         onClose={() => {
           setOpen(false);
         }}
-        /*         getOptionSelected={(option, value) =>
-          option.name === value.name && option.type === value.type
-        } */
         onChange={(e, value) => {
-          console.log('Onchange Value', value);
           if (value && value.name) {
             props.setSearch((p) => ({ ...p, keyword: value.name, page: 0 }));
             setSearch(value.name);
@@ -102,7 +84,11 @@ const SearchAutocomplete = (props) => {
             <TextField
               label={label}
               fullWidth
-              sx={{ background: 'white' }}
+              sx={{
+                background: 'white',
+                marginLeft: ' .5rem',
+                marginTop: '.5rem',
+              }}
               onChange={(e) => {
                 e.preventDefault();
                 setSearch(e.target.value);
