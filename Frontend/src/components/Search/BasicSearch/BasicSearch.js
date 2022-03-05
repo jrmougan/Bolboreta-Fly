@@ -1,5 +1,6 @@
 import { LocalizationProvider } from '@mui/lab';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import { Tabs } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 import NavLinks from '../../NavLinks/NavLinks';

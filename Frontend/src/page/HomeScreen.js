@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../css/homescreen.css';
 import { BasicSearch } from '../components/Search/BasicSearch/BasicSearch';
+import FlightSearch from '../components/Search/FlightSearch.js/FlightSearch';
 
 const HomeScreen = () => {
   // Obtenemos los datos de los input para realizar la búsqueda
@@ -18,7 +19,7 @@ const HomeScreen = () => {
 
   return (
     <main className='searchEnvironment'>
-      <BasicSearch
+      <FlightSearch
         destination={destination}
         origin={origin}
         departureDate={departureDate}
@@ -31,6 +32,19 @@ const HomeScreen = () => {
         handleSubmit={handleSubmit}
         setReturndate={setReturndate}
       />
+      {/*       <BasicSearch
+        destination={destination}
+        origin={origin}
+        departureDate={departureDate}
+        returnDate={returnDate}
+        adults={adults}
+        setOrigin={setOrigin}
+        setDestination={setDestination}
+        setDepartureDate={setDepartureDate}
+        setAdults={setAdults}
+        handleSubmit={handleSubmit}
+        setReturndate={setReturndate}
+      /> */}
     </main>
   );
 };
