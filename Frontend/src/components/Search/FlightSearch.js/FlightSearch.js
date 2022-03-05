@@ -36,9 +36,10 @@ export const FlightSearch = ({
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <section className='searchFlight'>
         <Tabs withReturn={withReturn} setWithReturn={setWithReturn} />
-        <form onSubmit={search}>
+        <form onSubmit={search} className='search-form'>
           <div className='inputsFlight'>
             <InputOrigin origin={origin} setOrigin={setOrigin} />
+
             <InputDestination
               destination={destination}
               setDestination={setDestination}

@@ -28,7 +28,7 @@ input {
 
 .searchTabs {
   position: absolute;
-  top: -2.1rem;
+  top: -3rem;
   left: 0;
 }
 
@@ -56,6 +56,19 @@ input {
 
 .active {
   background-color: #023859;
+}
+/* 
+################
+## FORMULARIO ##
+################
+*/
+
+.search-form {
+  display: flex;
+  flex-direction: column;
+}
+.search-submit {
+  align-self: flex-end;
 }
 
 /* 
@@ -114,14 +127,9 @@ input {
 }
 .inputsFlight {
   display: flex;
-  /* flex-wrap: wrap; */
   justify-content: flex-end;
   padding-bottom: 2rem;
 }
-
-/* .inputsFlight input {
-  font-family: FontAwesome;
-} */
 
 .inputDiv {
   position: relative;
