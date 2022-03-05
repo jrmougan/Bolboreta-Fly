@@ -8,6 +8,9 @@ import {
 } from 'react-icons/fa';
 import React from 'react';
 import SearchRoot from '../../../page/SearchRoot';
+import { DatePicker } from '@mui/lab';
+import { Autocomplete, TextField } from '@mui/material';
+import { format } from 'date-fns';
 
 const handleSubmit = (setter) => (e) => {
   e.preventDefault();
@@ -24,6 +27,7 @@ export const InputOrigin = ({ origin, setOrigin }) => {
 };
 
 export const InputDestination = ({ destination, setDestination }) => {
+  console.log('destination', destination);
   return (
     <div className='inputDiv grow-2'>
       <FaPlaneArrival className='faplane_icon' />
@@ -33,25 +37,70 @@ export const InputDestination = ({ destination, setDestination }) => {
 };
 
 export const InputDepartureDate = ({ departureDate, setDepartureDate }) => {
+  console.log(departureDate);
   return (
     <div className='inputDiv grow-1'>
       <FaWpforms className='faplane_icon' />
-      <input
-        type='date'
-        className='searchInput searchInput-2'
-        placeholder='Fechas'
-        value={departureDate}
-        onChange={handleSubmit(setDepartureDate)}
-      ></input>
+      {
+        <DatePicker
+          className='datePicker '
+          label='Día de salida'
+          sx={{ backgroundColor: 'white', width: '100%' }}
+          value={departureDate}
+          onChange={(newValue) => {
+            setDepartureDate(format(newValue, 'yyyy-MM-dd'));
+          }}
+          renderInput={(params) => (
+            <TextField
+              sx={{ background: 'white', width: '100%' }}
+              {...params}
+            />
+          )}
+        ></DatePicker>
+      }
+    </div>
+  );
+};
+
+export const InputReturnDate = ({ returnDate, setReturndate }) => {
+  return (
+    <div className='inputDiv grow-1'>
+      <FaWpforms className='faplane_icon' />
+      <DatePicker
+        className='datePicker '
+        label='Día de llegada'
+        sx={{ backgroundColor: 'white', width: '100%' }}
+        value={returnDate}
+        onChange={(newValue) => {
+          setReturndate(format(newValue, 'yyyy-MM-dd'));
+        }}
+        renderInput={(params) => (
+          <TextField sx={{ background: 'white', width: '100%' }} {...params} />
+        )}
+      ></DatePicker>
     </div>
   );
 };
 
 export const InputAdults = ({ adults, setAdults }) => {
+  console.log('adults', adults);
   return (
     <div className='inputDiv grow-1'>
       <FaUserFriends className='faplane_icon' />
-      <select
+      <Autocomplete
+        sx={{ width: '100%' }}
+        options={ADULTS}
+        onChange={(e, newInput) => setAdults(newInput.value)}
+        value={ADULTS.value}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            label='Seleccione adultos'
+            sx={{ backgroundColor: 'white' }}
+          />
+        )}
+      />
+      {/*       <select
         className='searchInput searchInput-2 adultsInput'
         value={adults}
         onChange={handleSubmit(setAdults)}
@@ -64,22 +113,7 @@ export const InputAdults = ({ adults, setAdults }) => {
             </option>
           );
         })}
-      </select>
-    </div>
-  );
-};
-
-export const InputReturnDate = ({ returnDate, setReturndate }) => {
-  return (
-    <div className='inputDiv grow-1'>
-      <FaWpforms className='faplane_icon' />
-      <input
-        type='date'
-        className='searchInput searchInput-2'
-        placeholder='Fechas de vuelta'
-        value={returnDate}
-        onChange={handleSubmit(setReturndate)}
-      ></input>
+      </select> */}
     </div>
   );
 };

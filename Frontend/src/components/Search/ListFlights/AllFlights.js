@@ -6,10 +6,10 @@ const AllFlights = ({ flight }) => {
   const outboundItinerary = flight.itineraries[0];
   let roundtripItinerary;
 
-  if (isReturn === false) {
+  if (isReturn === true) {
     roundtripItinerary = flight.itineraries[1];
   }
-
+  console.log('flight', flight);
   return (
     <React.Fragment>
       <Flight itinerary={outboundItinerary} />

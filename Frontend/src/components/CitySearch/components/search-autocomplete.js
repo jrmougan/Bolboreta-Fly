@@ -70,7 +70,8 @@ const SearchAutocomplete = (props) => {
     <>
       <Autocomplete
         id='asynchronous-demo'
-        style={{ width: 300, marginBottom: '1rem' }}
+        // style={{ width: 300, marginBottom: '1rem' }}
+        sx={{ width: '100%' }}
         open={open}
         onOpen={() => {
           setOpen(true);
@@ -78,9 +79,9 @@ const SearchAutocomplete = (props) => {
         onClose={() => {
           setOpen(false);
         }}
-        getoptionselected={(option, value) =>
+        /*         getOptionSelected={(option, value) =>
           option.name === value.name && option.type === value.type
-        }
+        } */
         onChange={(e, value) => {
           console.log('Onchange Value', value);
           if (value && value.name) {

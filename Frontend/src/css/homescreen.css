@@ -193,3 +193,8 @@ input {
 .duration_listflights {
   font-size: 0.6rem;
 }
+
+/* DatePicker */
+.datePicker {
+  background-color: white;
+}
