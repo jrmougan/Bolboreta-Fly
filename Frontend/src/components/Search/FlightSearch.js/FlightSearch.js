@@ -2,7 +2,6 @@ import { LocalizationProvider } from '@mui/lab';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import NavLinks from '../../NavLinks/NavLinks';
 
 import {
   InputAdults,
