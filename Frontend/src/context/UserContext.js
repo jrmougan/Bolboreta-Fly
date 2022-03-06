@@ -11,6 +11,7 @@ const UserContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
 
   const fetchUserProfile = async () => {
+    console.log("user fetch");
     const res = await fetch(
       `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${
         process.env.REACT_APP_PUBLIC_PORT_BACKEND

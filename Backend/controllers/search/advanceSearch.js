@@ -31,8 +31,6 @@ const advanceSearch = async (req, res, next) => {
             sources,
         } = req.body;
 
-        //console.log(maxprice);
-
         //comprobamos que los viajeros mayores de 2 años no son mas de 9
         if (Number(numAdults) + Number(numChilds) > 9) {
             const error = new Error('No puedes insertar mas de 9 pasajeros');
@@ -128,9 +126,14 @@ const advanceSearch = async (req, res, next) => {
             },
             flightFilters: {
                 maxFlightTime,
-                CarrierRestrictions: { blacklistedInEUAllowed },
-                CabinRestriction: [{ cabin: travelClass }],
-                ConnectionRestiction: { maxNumberOfConnections: connections },
+                carrierRestrictions: { blacklistedInEUAllowed },
+                cabinRestrictions: [
+                    {
+                        cabin: [travelClass],
+                        originDestinationIds: [1],
+                    },
+                ],
+                connectionRestriction: { maxNumberOfConnections: connections },
             },
         };
 
@@ -143,8 +146,6 @@ const advanceSearch = async (req, res, next) => {
             sources: [sources],
             searchCriteria,
         };
-
-        console.log(searchCriteria);
 
         //lo pasamos a json
         const jsonBody = JSON.stringify(searchAdvancebody);
