@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { TokenContext } from "../../context/TokenContext";
-import useUserProfile from "../../hooks/useUserProfile";
+import { UserContext } from "../../context/UserContext";
 import decodeTokenData from "../../helpers/decodeTokenData";
 import "./style.css";
 import LogOut from "../LoginGoogle/LogOutGoogle";
@@ -9,7 +9,7 @@ import LogOut from "../LoginGoogle/LogOutGoogle";
 const PerfilUsuario = (e) => {
   const [token, setToken] = useContext(TokenContext);
 
-  const [user] = useUserProfile(token);
+  const [user, setUser] = useContext(UserContext);
 
   const decodedToken = decodeTokenData(token);
 
@@ -37,6 +37,7 @@ const PerfilUsuario = (e) => {
           className="cerrar"
           onClick={() => {
             setToken("");
+            setUser({});
           }}
         >
           {" "}
