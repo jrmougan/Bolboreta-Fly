@@ -28,11 +28,15 @@ const returnDateToFormat = new Date(
 const goingDate = dateFormat(goingDateToFormat);
 const returnDate = dateFormat(returnDateToFormat);
 
-const RateChoice = ({ rateCharge, setRateCharge }) => {
+const RateChoice = ({ rateCharge, setRateCharge, isReturn }) => {
   return (
     <div className='rateChoicePage'>
       <ChooseARate rateCharge={rateCharge} setRateCharge={setRateCharge} />
-      <MyTrip goingDate={goingDate} returnDate={returnDate} />
+      <MyTrip
+        goingDate={goingDate}
+        returnDate={returnDate}
+        isReturn={isReturn}
+      />
     </div>
   );
 };
