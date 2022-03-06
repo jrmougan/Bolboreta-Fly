@@ -7,7 +7,7 @@ import "./style.css";
 
 const EditAvatar = () => {
   const [token] = useContext(TokenContext);
-  const [user] = useContext(UserContext);
+  const [user, setUser, fetchUserProfile] = useContext(UserContext);
   const decodedToken = decodeTokenData(token);
   const [avatar, setAvatar] = useState(user.userInfo?.avatar);
 
@@ -35,6 +35,7 @@ const EditAvatar = () => {
       const error = await res.json();
       swal(error.message);
     }
+    fetchUserProfile();
   };
   const handleAvatar = (e) => {
     console.log(e);
