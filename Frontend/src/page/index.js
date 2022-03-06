@@ -1,3 +1,4 @@
+
 import AdvancedSearchScreen from './AdvancedSearchScreen';
 import HomeScreen from './HomeScreen';
 import LoginScreen from './LoginScreen';
@@ -12,6 +13,8 @@ import ActiveUserScreen from './ActiveUser';
 import PrivacidadScreen from './PrivacidadScreen';
 import TerminosScreen from './TerminosScreen';
 import getBookingsScreen from './getBookingsScreen';
+import StepFormScreen from "./StepFormScreen";
+
 
 export {
   AdvancedSearchScreen,
@@ -28,4 +31,5 @@ export {
   ActiveUserScreen,
   PrivacidadScreen,
   TerminosScreen,
+  StepFormScreen,
 };

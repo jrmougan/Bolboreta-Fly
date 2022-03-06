@@ -13,8 +13,12 @@ import {
   LoginScreen,
   PrivacidadScreen,
   TerminosScreen,
+StepFormScreen,
   getBookingsScreen,
 } from '../page';
+
+
+
 
 const routes = [
   { name: 'home', path: '/', component: <HomeScreen /> },
@@ -25,11 +29,13 @@ const routes = [
     path: '/search',
     component: <AdvancedSearchScreen />,
   },
+
   { name: 'user', path: '/user', component: <ProfileScreen /> },
   { name: 'editpass', path: '/user/:iduser/editpass', component: <EditPass /> },
   { name: 'resetpass', path: '/resetpass', component: <ResetPassScreen /> },
   { name: 'edit', path: '/user/:iduser/edit', component: <DatosUsuario /> },
   { name: 'return', path: '/return', component: <HomeRound /> },
+
   {
     name: 'activeuser',
     path: '/register/validate/:registration_code',

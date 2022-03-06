@@ -1,17 +1,13 @@
 import avataranonimo from "../../../logos/photo.svg";
 import "./style.css";
 import { useContext } from "react";
-import useUser from "../../../hooks/user/useUser";
-import { TokenContext } from "../../../context/TokenContext";
+import { UserContext } from "../../../context/UserContext";
+
 import { Link } from "react-router-dom";
 
 const Avatar = () => {
-  const [token] = useContext(TokenContext);
-
-  const [user] = useUser(token);
-
-  console.log(token);
-  console.log(user.userInfo);
+  const [user] = useContext(UserContext);
+  console.log(user);
 
   return (
     <section className="Avatar">
