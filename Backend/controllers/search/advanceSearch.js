@@ -127,12 +127,6 @@ const advanceSearch = async (req, res, next) => {
             flightFilters: {
                 maxFlightTime,
                 carrierRestrictions: { blacklistedInEUAllowed },
-                cabinRestrictions: [
-                    {
-                        cabin: [travelClass],
-                        originDestinationIds: [1],
-                    },
-                ],
                 connectionRestriction: { maxNumberOfConnections: connections },
             },
         };
