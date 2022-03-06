@@ -1,5 +1,5 @@
-import { FaPlane } from 'react-icons/fa';
-import { finalDurationFormat, hourFormat } from '../../../helpers/formatHelp';
+import { FaPlane } from "react-icons/fa";
+import { finalDurationFormat, hourFormat } from "../../../helpers/formatHelp";
 
 const Flight = ({ itinerary }) => {
   // Duraciones
@@ -16,7 +16,7 @@ const Flight = ({ itinerary }) => {
   // Horarios de salida y aterrizaje
   const departureTimeToFormat = new Date(itinerary.segments[0].departure.at);
   const arrivalTimeToFormat = new Date(
-    itinerary.segments[lastSegment].departure.at
+    itinerary.segments[lastSegment].arrival.at
   );
   // Horarios formateados
   const timeDeparture = hourFormat(departureTimeToFormat);
@@ -25,14 +25,14 @@ const Flight = ({ itinerary }) => {
   // Clase
 
   return (
-    <section className='flightItem'>
-      <p className='fareOption'>{'ECONOMY'} CLASS</p>
-      <div className='timeFlight'>
+    <section className="flightItem">
+      <p className="fareOption">{"ECONOMY"} CLASS</p>
+      <div className="timeFlight">
         <span>{timeDeparture}</span>
-        <div className='duration_listflights'>{duration}</div>
+        <div className="duration_listflights">{duration}</div>
         <span>{timeArrival}</span>
       </div>
-      <div className='origin_destination'>
+      <div className="origin_destination">
         <p>{iataOrigin}</p>
         <FaPlane />
         <p>{iataDestination}</p>
