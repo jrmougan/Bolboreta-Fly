@@ -2,7 +2,7 @@ const getDB = require('./getDB');
 const faker = require('faker/locale/es');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
-const airports = require('./airports.json');
+//const airports = require('./airports.json');
 
 const { format } = require('date-fns');
 
