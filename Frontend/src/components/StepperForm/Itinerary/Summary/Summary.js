@@ -13,13 +13,17 @@ import SubtitleInfo from './SubtitleInfo';
 
 const Summary = ({ itineraries }) => {
   // ¿Sólo ida?
-  const oneWay = itineraries.length === 1;
-  const isOneWay = oneWay ? 'Sólo Ida' : 'Ida y vuelta';
+  const isReturn = itineraries.length > 1;
+  const title = isReturn ? 'Ida y vuelta' : 'Solo ida';
 
   // Duración total vuelo IDA
   const totalDuration_outbound = finalDurationFormat(itineraries[0].duration);
+
+  let totalDuration_roundtrip;
   // Duración total vuelo VUELTA
-  const totalDuration_roundtrip = finalDurationFormat(itineraries[1].duration);
+  if (isReturn) {
+    totalDuration_roundtrip = finalDurationFormat(itineraries[1].duration);
+  }
 
   /* 
   ###################
@@ -28,27 +32,34 @@ const Summary = ({ itineraries }) => {
   */
 
   const segments_outbound = itineraries[0].segments;
-  const segments_roundtrip = itineraries[1].segments;
+  let segments_roundtrip;
+
+  if (isReturn) {
+    segments_roundtrip = itineraries[1].segments;
+  }
 
   return (
     <React.Fragment>
       <InfoContainer
-        isOneWay={isOneWay}
+        isOneWay={title}
         totalDuration_roundtrip={totalDuration_outbound}
       >
         {segments_outbound}
       </InfoContainer>
-      <InfoContainer
-        isOneWay={isOneWay}
-        totalDuration_roundtrip={totalDuration_roundtrip}
-      >
-        {segments_roundtrip}
-      </InfoContainer>
+
+      {isReturn && (
+        <InfoContainer
+          isOneWay={title}
+          totalDuration_roundtrip={totalDuration_roundtrip}
+        >
+          {segments_roundtrip}
+        </InfoContainer>
+      )}
     </React.Fragment>
   );
 };
 
-const InfoContainer = ({ children, isOneWay, totalDuration_roundtrip }) => {
+const InfoContainer = ({ children, totalDuration_roundtrip, isReturn }) => {
   let lastArrival;
   let nextDeparture;
   let vuelos2 = -1;
@@ -57,7 +68,7 @@ const InfoContainer = ({ children, isOneWay, totalDuration_roundtrip }) => {
     <article className='info_container'>
       <h1 className='title_info_container'>Itinerario: Vuelo</h1>
       <SubtitleInfo
-        isRoundtrip={isOneWay}
+        isRoundtrip={isReturn}
         totalDuration={totalDuration_roundtrip}
       />
       <Confirmation>Vuelo confirmado</Confirmation>

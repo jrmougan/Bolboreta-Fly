@@ -1,20 +1,20 @@
-import { Grid } from "@mui/material";
-import { useContext, useEffect, useState } from "react";
-import useSearch from "../../../hooks/useSearch.js";
-import { SearchFilter } from "./SearchFilter/SearchFilter.js";
-import "./styles.css";
-import { MoonLoader } from "react-spinners";
-import { ListFlights } from "../ListFlights/ListFlights";
-import axios from "axios";
+import { Grid } from '@mui/material';
+import { useContext, useEffect, useState } from 'react';
+import useSearch from '../../../hooks/useSearch.js';
+import { SearchFilter } from './SearchFilter/SearchFilter.js';
+import './styles.css';
+import { MoonLoader } from 'react-spinners';
+import { ListFlights } from '../ListFlights/ListFlights';
+import axios from 'axios';
 export const AdvancedSearch = (searchParams) => {
   const [search, setSearch] = useState(searchParams);
 
   // Extraemos los datos de la búsqueda
 
   const selectScales = [
-    ["Directo", 0],
-    ["1 escala", 1],
-    ["2 escalas", 2],
+    ['Directo', 0],
+    ['1 escala', 1],
+    ['2 escalas', 2],
   ];
 
   const [maxPrice, setMaxPrice] = useState(6000);
@@ -30,6 +30,7 @@ export const AdvancedSearch = (searchParams) => {
 
   const { flightSearch, loading, data } = useSearch();
 
+  console.log('Data en AdvanceSearch', data);
   //Efecto obtener búsqueda
 
   useEffect(() => {
@@ -57,7 +58,7 @@ export const AdvancedSearch = (searchParams) => {
       <Grid item xs={12}>
         headSearch
       </Grid>
-      <Grid item className="filter" xs={12} md={3}>
+      <Grid item className='filter' xs={12} md={3}>
         <SearchFilter
           scales={selectScales}
           filterState={[filter, setFilter]}

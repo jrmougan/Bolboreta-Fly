@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
-import { OfferPriceContext } from "../../../context/OfferPriceContext";
-import { useNavigate } from "react-router-dom";
-import InputButton from "./InputButton";
-import AllFlights from "./AllFlights";
+import React, { useContext } from 'react';
+import { OfferPriceContext } from '../../../context/OfferPriceContext';
+import { useNavigate } from 'react-router-dom';
+import InputButton from './InputButton';
+import AllFlights from './AllFlights';
 
 export const ListFlights = ({ data }) => {
   //Contexto booking
@@ -13,9 +13,10 @@ export const ListFlights = ({ data }) => {
     e.preventDefault();
     const bookingId = e.target.parentElement.parentElement.id;
     setFlightOffer(data[bookingId - 1]);
-    navigate("/step");
+    navigate('/step');
   };
 
+  console.log('Data en ListFlights', data);
   return (
     <section>
       {data.length > 0 &&
@@ -25,7 +26,7 @@ export const ListFlights = ({ data }) => {
           const currency = flight.price.currency;
 
           return (
-            <article key={id} id={id} className="resultCard">
+            <article key={id} id={id} className='resultCard'>
               <LeftCard>
                 <AllFlights flight={flight} />
               </LeftCard>
@@ -44,13 +45,13 @@ export const ListFlights = ({ data }) => {
 
 const LeftCard = ({ children, oneWay }) => {
   return (
-    <section className={`left-card card ${oneWay ? "" : "separation_card"}`}>
+    <section className={`left-card card ${oneWay ? '' : 'separation_card'}`}>
       {children}
     </section>
   );
 };
 const RightCard = ({ children }) => {
-  return <section className="right-card card">{children}</section>;
+  return <section className='right-card card'>{children}</section>;
 };
 const Price = ({ price, currency }) => {
   return (
