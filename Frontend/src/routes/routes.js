@@ -1,3 +1,4 @@
+import UltimasReservas from "../components/UltimasReservas.js/UltimasReservas";
 import {
   AdvancedSearchScreen,
   DatosUsuario,
@@ -13,6 +14,7 @@ import {
   PrivacidadScreen,
   TerminosScreen,
   StepFormScreen,
+  GetBookingsScreen,
 } from "../page";
 
 const routes = [
@@ -24,16 +26,22 @@ const routes = [
     path: "/search",
     component: <AdvancedSearchScreen />,
   },
+
   { name: "user", path: "/user", component: <ProfileScreen /> },
   { name: "editpass", path: "/user/:iduser/editpass", component: <EditPass /> },
-  { name: "step", path: "/step", component: <StepFormScreen /> },
   { name: "resetpass", path: "/resetpass", component: <ResetPassScreen /> },
   { name: "edit", path: "/user/:iduser/edit", component: <DatosUsuario /> },
-  { name: "return", path: "/return", component: <HomeRound /> },
+  { name: "step", path: "/step", component: <StepFormScreen /> },
+
   {
     name: "activeuser",
     path: "/register/validate/:registration_code",
     component: <ActiveUserScreen />,
+  },
+  {
+    name: "getBookings",
+    path: "/user/:idUser/getBookings",
+    component: <GetBookingsScreen />,
   },
   { name: "loginuser", path: "/login", component: <LoginScreen /> },
   { name: "privacidad", path: "/privacidad", component: <PrivacidadScreen /> },

@@ -1,66 +1,36 @@
-import React, { useEffect, useState } from 'react';
-import './ultimasReservas.css';
+import React, { useContext } from "react";
+import "./ultimasreservas.css";
+import { findAirportInfo } from "../StepperForm/InfoFlights/helpersFlight";
+import { useParams } from "react-router-dom";
+import useGetBookings from "../../hooks/useGetBookings";
+import Reserva from "./Reserva";
 
 export const UltimasReservas = () => {
-  const [reservas, setReservas] = useState([]);
-  try {
-    const searchBookings = async () => {
-      const userId = 1;
-      const res = await fetch(
-        `http://localhost:4000/booking/${userId}/getBookings`
-      );
+  // Obtenemos el id mediante params
+  const { idUser } = useParams();
+  // Obtenemos las reservas del usuario obtenido por params
+  const [allBookings] = useGetBookings(idUser);
 
-      if (res.ok) {
-        console.log(
-          'Se ha establecido conexión con el Backendy puede que con la base de datos'
+  return (
+    <section id="allBookings_container">
+      <h2>Estos son tus últimos vuelos </h2>
+
+      {allBookings.map((reserva, key) => {
+        // Averiguamos a qué ciudad va para conseguir la foto del Background
+        const iataArrival = reserva.bookingObject[0].arrival_code || "SCQ";
+        const cityArrival = findAirportInfo(iataArrival, "city");
+
+        return (
+          <Reserva
+            key={key}
+            reservas={allBookings}
+            busqueda={cityArrival}
+            reserva={reserva}
+          />
         );
-        const body = await res.json();
-        const bookingsBody = body.data.bookingObject;
-        setReservas(bookingsBody);
-      }
-    };
-  } catch (error) {
-    console.log(error);
-  }
-
-  return (
-    <main>
-      <h2>Estos son tus últimos vuelos</h2>
-
-      <Reserva reservas={reservas} />
-    </main>
+      })}
+    </section>
   );
 };
 
-const Reserva = ({ reservas }) => {
-  return (
-    <>
-      <article className='card-flight'>
-        <div className='hero-reserva'>
-          <p>{/* ${reservas.departure_time} */} Jueves, 30 Sep 2021</p>
-          <h3>
-            {/* ${reservas.departure_code} */}Madrid - Santiago
-            {/* ${reservas.arrival_code} */}
-          </h3>
-        </div>
-        <div className='lastbook-end'>
-          <h4>Felicidades ! Está todo listo para su viaje</h4>
-          <button className='btn btn-gestionar'>Gestionar Reserva</button>
-        </div>
-      </article>
-      <article className='card-flight'>
-        <div className='hero-reserva'>
-          <p>{/* ${reservas.departure_time} */} Jueves, 30 Sep 2021</p>
-          <h3>
-            {/* ${reservas.departure_code} */}Madrid - Santiago
-            {/* ${reservas.arrival_code} */}
-          </h3>
-        </div>
-        <div className='lastbook-end'>
-          <h4>Felicidades ! Está todo listo para su viaje</h4>
-          <button className='btn btn-gestionar'>Gestionar Reserva</button>
-        </div>
-      </article>
-    </>
-  );
-};
+export default UltimasReservas;

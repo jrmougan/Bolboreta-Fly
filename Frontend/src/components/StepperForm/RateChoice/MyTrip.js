@@ -6,7 +6,7 @@ import { findAirportInfo } from '../InfoFlights/helpersFlight';
 import FlightBox from './FlightBox';
 import TitleTrip from './TitleTrip';
 
-const MyTrip = () => {
+const MyTrip = ({ isReturn }) => {
   // Conseguimos el vuelo seleccionado a través del contexto
   const [flights] = useContext(OfferPriceContext);
 
@@ -63,114 +63,28 @@ const MyTrip = () => {
         howManyAdults={howManyAdults}
       />
 
-      <FlightBoxes isOneWay={isOneWay}>{flights}</FlightBoxes>
+      <FlightBoxes isReturn={isReturn} isOneWay={isOneWay}>
+        {flights}
+      </FlightBoxes>
     </div>
   );
 };
 
-const FlightBoxes = ({ children, oneWay }) => {
+const FlightBoxes = ({ children, oneWay, isReturn }) => {
   // Obtenemos el vuelo a través del children
   const flight = children;
 
-  /* 
-  ############
-  ## FECHAS ##
-  ############
-  */
-
-  const outboundFirstDay = flight.itineraries[0].segments[0].departure.at;
-  const roundtripFirstDay = flight.itineraries[1].segments[0].departure.at;
-
-  const outboundFirstDayFormatted = dateFormat(outboundFirstDay);
-  const roundtripFirstDayFormatted = dateFormat(roundtripFirstDay);
-
-  // Encontramos el último vuelo de los segmentos de Ida y Vuelta
-
-  const lastSegmentOutbound = Number(flight.itineraries[0].segments.length) - 1;
-  const lastSegmentRoundtrip =
-    Number(flight.itineraries[1].segments.length) - 1;
-
-  // Último vuelo de ida, hora de llegada
-  const outboundLastArrival =
-    flight.itineraries[0].segments[lastSegmentOutbound].arrival.at;
-
-  // Último vuelo de vuelta, hora de llegada
-  const roundtripLastArrival =
-    flight.itineraries[1].segments[lastSegmentRoundtrip].arrival.at;
-
-  /* 
-  ############
-  ## HORAS  ##
-  ############
-  */
-
-  const timeOutboundLastArrival = hourFormat(new Date(outboundLastArrival));
-  const roundtripArrivalLastTime = hourFormat(new Date(roundtripLastArrival));
-
-  const outboundDepartureTimeFirst = hourFormat(new Date(outboundFirstDay));
-  const roundtripDepartureTimeFirst = hourFormat(new Date(roundtripFirstDay));
-
-  /* 
-  #############################
-  ## CUIDADES Y AEROPUERTOS  ##
-  #############################
-  */
-
-  // IDA => Códigos IATA
-  const codeAirportDeparture_Outbound =
-    flight.itineraries[0].segments[0].departure.iataCode;
-
-  const codeAirportArrival_Outbound =
-    flight.itineraries[0].segments[lastSegmentOutbound].arrival.iataCode;
-
-  // VUELTA => Códigos IATA
-  const codeAirportDeparture_Roundtrip =
-    flight.itineraries[1].segments[0].departure.iataCode;
-
-  const codeAirportArrival_Roundtrip =
-    flight.itineraries[1].segments[lastSegmentRoundtrip].arrival.iataCode;
-
-  /* Ciudades IDA */
-  const cityDeparture_Outbound = findAirportInfo(
-    codeAirportDeparture_Outbound,
-    'city'
-  );
-  const cityArrival_Outbound = findAirportInfo(
-    codeAirportArrival_Outbound,
-    'city'
-  );
-
-  /* Ciudades VUELTA */
-  const cityDeparture_Roundtrip = findAirportInfo(
-    codeAirportDeparture_Roundtrip,
-    'city'
-  );
-  const cityArrival_Roundtrip = findAirportInfo(
-    codeAirportArrival_Roundtrip,
-    'city'
-  );
+  const outboundItinerary = flight.itineraries[0];
+  let roundtripItinerary;
+  if (isReturn) {
+    roundtripItinerary = flight.itineraries[1];
+  }
 
   return (
     <section>
-      <FlightBox
-        dayDeparture={outboundFirstDayFormatted}
-        timeDeparture={outboundDepartureTimeFirst}
-        timeArrival={timeOutboundLastArrival}
-        cityDeparture={cityDeparture_Outbound}
-        cityArrival={cityArrival_Outbound}
-        outbound={true}
-      />
+      <FlightBox itinerary={outboundItinerary} isReturn={false} />
 
-      {!oneWay && (
-        <FlightBox
-          dayDeparture={roundtripFirstDayFormatted}
-          timeDeparture={roundtripDepartureTimeFirst}
-          timeArrival={roundtripArrivalLastTime}
-          cityDeparture={cityDeparture_Roundtrip}
-          cityArrival={cityArrival_Roundtrip}
-          outbound={false}
-        />
-      )}
+      {isReturn && <FlightBox itinerary={roundtripItinerary} isReturn={true} />}
     </section>
   );
 };

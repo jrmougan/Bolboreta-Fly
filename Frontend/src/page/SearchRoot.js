@@ -1,10 +1,9 @@
 import React from 'react';
 import axios from 'axios';
-import SearchAutocomplete from '../api/testing-autocomplete/search-autocomplete';
+import SearchAutocomplete from '../components/CitySearch/components/search-autocomplete';
 import { getAmadeusData } from '../api/amadeus.api';
 
-// Main component
-const CitySearch = ({ setState }) => {
+const SearchRoot = ({ setState, isOrigin }) => {
   const [search, setSearch] = React.useState({
     keyword: 'a',
     city: true,
@@ -20,22 +19,19 @@ const CitySearch = ({ setState }) => {
   const [loading, setLoading] = React.useState(false);
 
   React.useEffect(() => {
-    // Turn on loader animation
     setLoading(true);
 
-    /* Getting data from amadeus api.
-       out - our data that coming from backend.
-       source - token for cancelation request.
+    /* 
+       out - data del backend.
+       source - token para cancelación de la request
     */
-
     const { out, source } = getAmadeusData(search);
 
     out
       .then((res) => {
-        // If we send too many request to the api per second - we will get an error and app will break
-        // Therefore we implemented simple check to prevent error on client side.
+        // Así prevenimos error en el lado del Cliente
         if (!res.data.code) {
-          setDataSource(res.data); // dispatching data to components state
+          setDataSource(res.data);
         }
         setLoading(false);
       })
@@ -44,17 +40,11 @@ const CitySearch = ({ setState }) => {
         setLoading(false);
       });
 
-    // If we returning function from *useEffect* - then this func will execute, when component will unmount
+    // Cancelamos búsquedas
     return () => {
       source.cancel();
     };
   }, [search]);
-
-  /* 
-  #########################
-  ## SEARCH AUTOCOMPLETE ##
-  #########################
-  */
 
   return (
     <div className='search-panel inputDiv'>
@@ -62,9 +52,10 @@ const CitySearch = ({ setState }) => {
         search={search}
         setSearch={setSearch}
         setState={setState}
+        isOrigin={isOrigin}
       />
     </div>
   );
 };
 
-export default CitySearch;
+export default SearchRoot;

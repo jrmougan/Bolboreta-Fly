@@ -1,7 +1,7 @@
-import MainForm from '../components/MainForm/MainForm';
+import RegisterForm from '../components/RegisterForm/RegisterForm';
 
 const RegisterScreen = () => {
-  return <MainForm />;
+  return <RegisterForm />;
 };
 
 export default RegisterScreen;

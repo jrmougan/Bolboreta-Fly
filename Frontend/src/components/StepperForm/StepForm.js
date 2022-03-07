@@ -19,6 +19,8 @@ const StepForm = () => {
   const [flightOffer] = useContext(OfferPriceContext);
   const { itineraries } = flightOffer;
 
+  const isReturn = flightOffer.itineraries.length > 1;
+
   // Precio total
   const initialPrice = Number(flightOffer.price.total);
   const [totalPrice, setTotalPrice] = useState(initialPrice);
@@ -60,6 +62,7 @@ const StepForm = () => {
           setRateCharge={setRateCharge}
           setTotalPrice={setTotalPrice}
           travelers={travelers}
+          isReturn={isReturn}
         />
       );
     } else if (page === 3) {
