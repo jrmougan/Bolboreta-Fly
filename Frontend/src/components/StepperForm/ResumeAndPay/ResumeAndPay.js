@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
-import { TokenContext } from '../../../context/TokenContext';
-import PaymentElection from './PaymentElection';
-import { OfferPriceContext } from '../../../context/OfferPriceContext';
-import FinalAcounting from './FinalAcounting';
-import FlightsResume from './FlightsResume/FlightsResume';
+import React, { useContext } from "react";
+import { TokenContext } from "../../../context/TokenContext";
+import PaymentElection from "./PaymentElection";
+import { OfferPriceContext } from "../../../context/OfferPriceContext";
+import FinalAcounting from "./FinalAcounting";
+import FlightsResume from "./FlightsResume/FlightsResume";
 
-const ResumeandPay = ({ rateCharge, travelers }) => {
+const ResumeandPay = ({ rateCharge, travelers, totalPrice }) => {
   // Contextos
   const [token] = useContext(TokenContext);
   const [flight] = useContext(OfferPriceContext);
@@ -28,7 +28,7 @@ const ResumeandPay = ({ rateCharge, travelers }) => {
       const res = await fetch(
         `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/booking/newBooking`,
         {
-          method: 'POST',
+          method: "POST",
           headers: {
             Authorization: token,
           },
@@ -45,7 +45,7 @@ const ResumeandPay = ({ rateCharge, travelers }) => {
   };
 
   return (
-    <section className='paymentConfirmationContainer'>
+    <section className="paymentConfirmationContainer">
       <PaymentElection />
 
       <PaymentConfirmation>
@@ -60,6 +60,6 @@ const ResumeandPay = ({ rateCharge, travelers }) => {
   );
 };
 const PaymentConfirmation = ({ children }) => {
-  return <div className='paymentConfirmation'>{children}</div>;
+  return <div className="paymentConfirmation">{children}</div>;
 };
 export default ResumeandPay;

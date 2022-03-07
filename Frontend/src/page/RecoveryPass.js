@@ -5,7 +5,7 @@ const RecoveryPass = () => {
   //obtienes datos (custom hooks ... )
 
   return (
-    <div>
+    <div className="RecoverypassPagina">
       <RecoverPass />
     </div>
   );

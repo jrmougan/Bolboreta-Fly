@@ -1,6 +1,5 @@
 .passengerForm,
-#getuser,
-.login {
+#getuser {
   display: flex;
   flex-direction: column;
   align-items: center;

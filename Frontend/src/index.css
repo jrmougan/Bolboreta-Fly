@@ -19,3 +19,17 @@ code {
 main {
   min-height: 82vh;
 }
+
+.loginpagina {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 100px;
+}
+
+.RecoverypassPagina {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 100px;
+}

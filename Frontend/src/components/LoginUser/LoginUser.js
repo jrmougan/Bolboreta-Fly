@@ -4,6 +4,7 @@ import "./style.css";
 import { useState, useContext, useEffect } from "react";
 import { TokenContext } from "../../context/TokenContext";
 import { UserContext } from "../../context/UserContext";
+import LoginGoogle from "../LoginGoogle/LoginGoogle";
 
 import swal from "sweetalert";
 
@@ -65,6 +66,7 @@ function LoginUser() {
       <section className="form_logueo">
         <form onSubmit={login} className="login">
           <TextField
+            style={{ width: "252px" }}
             id="usuario"
             label="E-mail"
             type="email"
@@ -85,7 +87,9 @@ function LoginUser() {
             Inicio de Sesión{" "}
           </button>
         </form>
-
+        <section className="googleboton">
+          <LoginGoogle />
+        </section>
         <section className="show">
           <button className="passshow" onClick={switchShown}>
             {" "}
