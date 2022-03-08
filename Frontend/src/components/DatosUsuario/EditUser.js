@@ -51,10 +51,10 @@ const EditUser = () => {
 
     if (res.ok) {
       const body = await res.json();
-      swal(body.message);
+      swal(body.message, "", "success");
     } else {
       const error = await res.json();
-      swal(error.message);
+      swal(error.message, "", "error");
     }
   };
   const handleBirthdate = (e) => {
@@ -135,7 +135,7 @@ const EditUser = () => {
         />
         <label htmlFor="bio"> Biografía </label>
         <TextField
-          style={{ width: "300px" }}
+          style={{ width: "270px" }}
           id="bio"
           name="bio"
           type="textarea"

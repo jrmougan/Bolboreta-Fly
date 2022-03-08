@@ -18,3 +18,10 @@
 .label_pass {
   margin-bottom: 10px;
 }
+
+.formularioeditpass {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

@@ -168,7 +168,7 @@ const RegisterForm = () => {
               Bio
             </label>
             <TextField
-              style={{ width: "300px" }}
+              style={{ width: "270px" }}
               type="textarea"
               value={bio}
               onChange={handleSubmit(setBio)}
