@@ -30,10 +30,10 @@ const EditAvatar = () => {
 
     if (res.ok) {
       const body = await res.json();
-      swal(body.message);
+      swal(body.message, "", "success");
     } else {
       const error = await res.json();
-      swal(error.message);
+      swal(error.message, "", "error");
     }
     fetchUserProfile();
   };

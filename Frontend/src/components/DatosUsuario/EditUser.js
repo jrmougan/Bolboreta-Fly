@@ -10,6 +10,7 @@ import avataranonimo from "../../logos/photo.svg";
 import DeleteUsuario from "../DeleteUsuariio/DeleteUsuario";
 
 import { format } from "date-fns";
+import { TextField } from "@mui/material";
 const EditUser = () => {
   const [token] = useContext(TokenContext);
   const [user] = useContext(UserContext);
@@ -77,7 +78,7 @@ const EditUser = () => {
         <EditAvatar />
         <h2> Datos de Usuario </h2>
         <label htmlFor="name"> Nombre </label>
-        <input
+        <TextField
           id="name"
           name="name"
           type="text"
@@ -88,7 +89,7 @@ const EditUser = () => {
           placeholder={user.userInfo?.name_user}
         />
         <label htmlFor="lastname"> Apellido </label>
-        <input
+        <TextField
           id="lastname"
           name="lastname"
           type="text"
@@ -99,7 +100,8 @@ const EditUser = () => {
           placeholder={user.userInfo?.lastname}
         />
         <label htmlFor="email"> Email </label>
-        <input
+        <TextField
+          style={{ width: "252px" }}
           id="email"
           name="email"
           type="email"
@@ -111,7 +113,7 @@ const EditUser = () => {
         />
         <label htmlFor="birthdate"> Fecha de Nacimiento </label>
         <input placeholder={user.userInfo?.birthdate} />
-        <input
+        <TextField
           id="birthdate"
           name="birthdate"
           type="date"
@@ -119,10 +121,10 @@ const EditUser = () => {
           onChange={handleBirthdate}
         />
         <label htmlFor="address"> Dirección </label>
-        <input
+        <TextField
+          style={{ width: "252px" }}
           id="address"
           name="address"
-          type="text"
           value={newaddress}
           onChange={(e) => {
             setNewaddress(e.target.value);
@@ -132,10 +134,11 @@ const EditUser = () => {
           }
         />
         <label htmlFor="bio"> Biografía </label>
-        <textarea
+        <TextField
+          style={{ width: "300px" }}
           id="bio"
           name="bio"
-          type="text"
+          type="textarea"
           value={newbio}
           onChange={(e) => {
             setNewbio(e.target.value);

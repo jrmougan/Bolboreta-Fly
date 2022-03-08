@@ -102,10 +102,7 @@ nav li {
   top: -1px;
   *overflow: hidden;
 }
-.textarea {
-  width: 20rem;
-  height: 6rem;
-}
+
 .input_birthday {
   width: 15.2rem;
 }

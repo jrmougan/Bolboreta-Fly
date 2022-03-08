@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { TextField } from "@mui/material";
 import "./style.css";
 import swal from "sweetalert";
+import { Highlight } from "@mui/icons-material";
 
 const RegisterForm = () => {
   const [nombre, setNombre] = useState("");
@@ -102,6 +103,7 @@ const RegisterForm = () => {
               E-mail
             </label>
             <TextField
+              style={{ width: "252px" }}
               type="text"
               id="email"
               value={email}
@@ -165,12 +167,14 @@ const RegisterForm = () => {
             <label htmlFor="bio" className="label-input">
               Bio
             </label>
-            <textarea
+            <TextField
+              style={{ width: "300px" }}
+              type="textarea"
               value={bio}
               onChange={handleSubmit(setBio)}
               id="bio"
               className="inputForm textarea"
-            ></textarea>
+            />
           </div>
           <label className="condicionesgenerales">
             <input
