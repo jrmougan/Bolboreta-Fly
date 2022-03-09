@@ -66,6 +66,14 @@ const {
 const { newBookingPassenger } = require('./controllers/passenger/index');
 const { is } = require('express/lib/request');
 
+/**
+ * #################################
+ * ##  Controladores Itinerarios  ##
+ * #################################
+ */
+
+const { retrieveItinerary } = require('./controllers/itinerary/index');
+
 // Middleware que deserializa un body en formato "raw".
 app.use(express.json());
 
@@ -107,6 +115,7 @@ app.get('/booking/:userId/getBookings', getBookings);
 app.get('/booking/:bookingId/getBooking', getBooking);
 app.post('/pricing', offerPrice);
 app.post('/seatmap', seatMap);
+app.get('/booking/retrieveBooking/:bookingCode', retrieveItinerary);
 
 /**
  * #########################
