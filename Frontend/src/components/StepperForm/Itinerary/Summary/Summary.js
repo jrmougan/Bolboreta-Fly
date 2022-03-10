@@ -2,89 +2,78 @@ import React from 'react';
 import {
   dateFormat,
   durationFormat,
-  finalDurationFormat,
   hourFormat,
 } from '../../../../helpers/formatHelp';
 import AirlineInfo from './AirlineInfo';
-
 import AirportInfo from './AirportInfo';
 import Confirmation from './Confirmation';
 import SubtitleInfo from './SubtitleInfo';
 
-const Summary = ({ itineraries }) => {
+const Summary = ({ itineraries, byRetrieving }) => {
   // ¿Sólo ida?
   const isReturn = itineraries.length > 1;
   const title = isReturn ? 'Ida y vuelta' : 'Solo ida';
 
-  // Duración total vuelo IDA
-  const totalDuration_outbound = finalDurationFormat(itineraries[0].duration);
-
-  let totalDuration_roundtrip;
-  // Duración total vuelo VUELTA
+  // Itinerarios
+  let secondItinerary;
+  const firstItinerary = itineraries[0];
   if (isReturn) {
-    totalDuration_roundtrip = finalDurationFormat(itineraries[1].duration);
-  }
-
-  /* 
-  ###################
-  ## INFO AIRLINES ##
-  ###################
-  */
-
-  const segments_outbound = itineraries[0].segments;
-  let segments_roundtrip;
-
-  if (isReturn) {
-    segments_roundtrip = itineraries[1].segments;
+    secondItinerary = itineraries[1];
   }
 
   return (
     <React.Fragment>
-      <InfoContainer
-        isOneWay={title}
-        totalDuration_roundtrip={totalDuration_outbound}
-      >
-        {segments_outbound}
-      </InfoContainer>
+      <InfoContainer isOneWay={title} segments={firstItinerary.segments} />
 
       {isReturn && (
         <InfoContainer
-          isOneWay={title}
-          totalDuration_roundtrip={totalDuration_roundtrip}
-        >
-          {segments_roundtrip}
-        </InfoContainer>
+          isReturn={isReturn}
+          segments={secondItinerary.segments}
+        />
       )}
     </React.Fragment>
   );
 };
 
-const InfoContainer = ({ children, totalDuration_roundtrip, isReturn }) => {
+export const InfoContainer = ({ segments, isReturn }) => {
+  /* 
+  ###############
+  ## DURATIONS ##
+  ###############
+  */
+  const firstItineraryDeparture = new Date(segments[0].departure.at).getTime();
+  const lastSegment = segments.length - 1;
+  const lastArrivalItinerary = new Date(
+    segments[lastSegment].arrival.at
+  ).getTime();
+
+  const itineraryDurationToFormat =
+    lastArrivalItinerary - firstItineraryDeparture;
+  const totalDuration = durationFormat(itineraryDurationToFormat);
+
+  // Variables para calcular las escalas
   let lastArrival;
   let nextDeparture;
-  let vuelos2 = -1;
-  let duracionEscala2;
+  let vuelos = -1;
+  let scaleDuration;
   return (
     <article className='info_container'>
       <h1 className='title_info_container'>Itinerario: Vuelo</h1>
-      <SubtitleInfo
-        isRoundtrip={isReturn}
-        totalDuration={totalDuration_roundtrip}
-      />
+      <SubtitleInfo isRoundtrip={isReturn} totalDuration={totalDuration} />
       <Confirmation>Vuelo confirmado</Confirmation>
 
-      {children.map((segment, key) => {
+      {segments.map((segment, key) => {
         const ultimaLlegada = new Date(segment.arrival.at);
         const siguienteSalida = new Date(segment.departure.at);
 
-        vuelos2++;
+        vuelos++;
 
-        if (vuelos2 > 0) {
+        if (vuelos > 0) {
           nextDeparture = siguienteSalida;
 
           let durationScale = nextDeparture.getTime() - lastArrival.getTime();
 
-          duracionEscala2 = durationFormat(durationScale);
+          scaleDuration = durationFormat(durationScale);
         }
         //  Recogemos la primera llegada antes que cualquier variable
         lastArrival = ultimaLlegada;
@@ -92,7 +81,7 @@ const InfoContainer = ({ children, totalDuration_roundtrip, isReturn }) => {
         return (
           <section id='segments_container' key={key}>
             <div className='flightPart'>
-              {vuelos2 > 0 && <ScaleSegment duration={duracionEscala2} />}
+              {vuelos > 0 && <ScaleSegment duration={scaleDuration} />}
               <Segment segment={segment} />
             </div>
           </section>
@@ -116,7 +105,7 @@ const Segment = ({ segment }) => {
     <div className='segment'>
       <AirportInfo time={firstTime} code={firstCode} date={firstDate} />
 
-      <AirlineInfo segment={segment} />
+      <AirlineInfo segment={segment} byRetrieving={true} />
 
       <AirportInfo time={secondTime} code={secondCode} date={secondDate} />
     </div>

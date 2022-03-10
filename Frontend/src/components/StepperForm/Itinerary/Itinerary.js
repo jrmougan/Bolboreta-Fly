@@ -23,7 +23,7 @@ const Itinerary = ({ emergencyData, itineraries, totalPrice }) => {
       <SeatAndBaggage seatChosen={0} superPassenger={null} />
       <InTripIncluded tripIncludes={tripIncludes} />
       <ContactInfo
-        infoMainContact={null}
+        infoMainContact={infoMainContact}
         totalPrice={totalPrice}
         emergencyData={emergencyData}
       />
