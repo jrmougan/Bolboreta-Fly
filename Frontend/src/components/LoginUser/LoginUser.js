@@ -23,7 +23,9 @@ function LoginUser() {
   const [token, setToken] = useContext(TokenContext);
 
   useEffect(() => {
-    fetchUserProfile();
+    if (token) {
+      fetchUserProfile();
+    }
   }, [token]);
 
   const login = async (e) => {
