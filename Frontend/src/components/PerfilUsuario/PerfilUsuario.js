@@ -32,19 +32,6 @@ const PerfilUsuario = (e) => {
         </Link>
       </div>
 
-      <Link to="/">
-        <button
-          className="cerrar"
-          onClick={() => {
-            setToken("");
-            setUser({});
-          }}
-        >
-          {" "}
-          Cerrar Sesión{" "}
-        </button>
-      </Link>
-
       <LogOut />
     </div>
   );

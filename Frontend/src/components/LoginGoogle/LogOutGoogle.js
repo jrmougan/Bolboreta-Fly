@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { GoogleLogout } from "react-google-login";
 import { Link } from "react-router-dom";
 import { TokenContext } from "../../context/TokenContext";
+import { UserContext } from "../../context/UserContext";
 import "./style.css";
 
 const clientId =
@@ -9,8 +10,11 @@ const clientId =
 
 function LogOut() {
   const [token, setToken] = useContext(TokenContext);
+  const [user, setUser] = useContext(UserContext);
+
   const onSuccess = () => {
     setToken("");
+    setUser({});
   };
 
   const onFailure = () => {
@@ -21,8 +25,9 @@ function LogOut() {
     <div className="logout">
       <Link to="/">
         <GoogleLogout
+          className="googleout"
           clientId={clientId}
-          buttonText="Cerrar sesion Google"
+          buttonText="Cerrar sesion"
           onLogoutSuccess={onSuccess}
           onFailure={onFailure}
         ></GoogleLogout>
