@@ -2,7 +2,7 @@ import "./style.css";
 
 const TerminosCondiciones = () => {
   return (
-    <div>
+    <div className="terminosycondiciones">
       <h1>Términos y condiciones </h1>
       <p>
         Bienvenidos a <strong> Bolbreta Flight </strong>! Estos términos y
@@ -20,37 +20,14 @@ const TerminosCondiciones = () => {
         material de Bolboreta Flight. Todos los derechos de propiedad
         intelectual están reservados. Puede acceder a esto desde Bolboreta
         Flight para su uso personal sujeto a las restricciones establecidas en
-        estos términos y condiciones. No debes: Copiar o republicar material de
-        Bolboreta Flight Vender, alquilar o sublicenciar material de Bolboreta
-        Flight Reproducir, duplicar o copiar material de Bolboreta Flight
-        Redistribuir contenido de Bolboreta Flight Este Acuerdo comenzará en la
-        fecha del mismo. Partes de este sitio web ofrecen a los usuarios la
-        oportunidad de publicar e intercambiar opiniones e información en
-        ciertas áreas del sitio web. Bolboreta Flight no filtra, edita, publica
-        o revisa los Comentarios antes de su presencia en el sitio web. Los
-        comentarios no reflejan los puntos de vista y opiniones de Bolboreta
-        Flight, sus agentes y/o afiliados. Los comentarios reflejan los puntos
-        de vista y las opiniones de la persona que publica sus puntos de vista y
-        opiniones. En la medida permitida por las leyes aplicables, Bolboreta
-        Flight no será responsable de los Comentarios ni de ninguna
-        responsabilidad, daño o gasto causado y/o sufrido como resultado de
-        cualquier uso y/o publicación y/o aparición de los Comentarios en este
-        sitio web. Bolboreta Flight se reserva el derecho de monitorear todos
-        los Comentarios y eliminar cualquier Comentario que pueda considerarse
-        inapropiado, ofensivo o que cause el incumplimiento de estos Términos y
-        Condiciones. Usted garantiza y declara que: Tiene derecho a publicar los
-        Comentarios en nuestro sitio web y tiene todas las licencias y
-        consentimientos necesarios para hacerlo; Los Comentarios no invaden
-        ningún derecho de propiedad intelectual, incluidos, entre otros,
-        derechos de autor, patentes o marcas registradas de terceros; Los
-        Comentarios no contienen ningún material difamatorio, calumnioso,
-        ofensivo, indecente o ilegal de otro modo, que es una invasión de la
-        privacidad. Los Comentarios no se utilizarán para solicitar o promover
-        negocios o costumbres o presentar actividades comerciales o actividades
-        ilegales. Por la presente, otorga a Bolboreta Flight una licencia no
-        exclusiva para usar, reproducir, editar y autorizar a otros a usar,
-        reproducir y editar cualquiera de sus Comentarios en cualquiera y todas
-        las formas, formatos o medios.
+        estos términos y condiciones. No debes:
+        <ul>
+          <li>Copiar o republicar material de Bolboreta Flight</li>
+          <li>Vender, alquilar o sublicenciar material de Bolboreta Flight</li>
+          <li> Reproducir, duplicar o copiar material de Bolboreta Flight</li>
+          <li> Redistribuir contenido de Bolboreta Flight</li>
+        </ul>
+        Este Acuerdo comenzará en la fecha del mismo.
       </p>
 
       <h3>Hipervínculos a nuestro contenido:</h3>

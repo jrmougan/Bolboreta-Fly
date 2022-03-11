@@ -48,7 +48,7 @@ function LoginUser() {
         setToken(body.data.token);
       } else {
         const error = await res.json();
-        swal(error.message);
+        swal(error.message, "", "warning");
       }
     } catch (message) {
       swal(message, "", "error");

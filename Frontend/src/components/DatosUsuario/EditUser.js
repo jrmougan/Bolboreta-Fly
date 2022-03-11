@@ -13,13 +13,15 @@ import { format } from "date-fns";
 import { TextField } from "@mui/material";
 const EditUser = () => {
   const [token] = useContext(TokenContext);
-  const [user] = useContext(UserContext);
+  const [user, setUser, fetchUserProfile] = useContext(UserContext);
   const decodedToken = decodeTokenData(token);
   const [newname, setNewname] = useState(user.userInfo?.name_user);
   const [newlastname, setLastname] = useState(user.userInfo?.lastname);
   const [newemail, setNewemail] = useState(user.userInfo?.email);
-  const [newbirthdate, setNewbirthdate] = useState(user.userInfo?.birthdate);
-  const [newaddress, setNewaddress] = useState(user.userInfo?.address);
+  const [newbirthdate, setNewbirthdate] = useState(
+    user.userInfo?.birthdate || ""
+  );
+  const [newaddress, setNewaddress] = useState(user.userInfo?.address || "");
   const [newbio, setNewbio] = useState(user.userInfo?.bio);
 
   console.log(decodedToken.id);
@@ -56,10 +58,14 @@ const EditUser = () => {
       const error = await res.json();
       swal(error.message, "", "error");
     }
+    fetchUserProfile();
   };
   const handleBirthdate = (e) => {
+    e.preventDefault();
+    console.log(e.target.value);
     setNewbirthdate(format(new Date(e.target.value), "yyyy-MM-dd"));
   };
+
   return (
     <div>
       <form type="submit" id="getuser" onSubmit={updateUser}>
@@ -79,6 +85,7 @@ const EditUser = () => {
         <h2> Datos de Usuario </h2>
         <label htmlFor="name"> Nombre </label>
         <TextField
+          placeholder={user.userInfo?.name_user}
           id="name"
           name="name"
           type="text"
@@ -86,7 +93,6 @@ const EditUser = () => {
           onChange={(e) => {
             setNewname(e.target.value);
           }}
-          placeholder={user.userInfo?.name_user}
         />
         <label htmlFor="lastname"> Apellido </label>
         <TextField
@@ -112,12 +118,14 @@ const EditUser = () => {
           placeholder={user.userInfo?.email}
         />
         <label htmlFor="birthdate"> Fecha de Nacimiento </label>
-        <input placeholder={user.userInfo?.birthdate} />
+        <input
+          placeholder={format(new Date(user.userInfo?.birthdate), "yyyy-MM-dd")}
+        />
         <TextField
           id="birthdate"
           name="birthdate"
           type="date"
-          value={newbirthdate}
+          value={format(new Date(newbirthdate), "yyyy-MM-dd")}
           onChange={handleBirthdate}
         />
         <label htmlFor="address"> Dirección </label>
