@@ -74,6 +74,13 @@ const { is } = require('express/lib/request');
 
 const { retrieveItinerary } = require('./controllers/itinerary/index');
 
+/**
+ * ############################
+ * ##  Controladores Vuelos  ##
+ * ############################
+ */
+const { getIdFlightOrder } = require('./controllers/flight/index');
+
 // Middleware que deserializa un body en formato "raw".
 app.use(express.json());
 
@@ -116,6 +123,7 @@ app.get('/booking/:bookingId/getBooking', getBooking);
 app.post('/pricing', offerPrice);
 app.post('/seatmap', seatMap);
 app.get('/booking/retrieveBooking/:bookingCode', retrieveItinerary);
+app.get('/booking/:bookingId/getIdFlightOrder', getIdFlightOrder);
 
 /**
  * #########################
