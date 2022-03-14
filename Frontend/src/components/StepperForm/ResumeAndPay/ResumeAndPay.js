@@ -19,11 +19,13 @@ const ResumeandPay = ({ rateCharge, travelers, totalPrice }) => {
 
   const flightOrder = {
     itinerary: flight,
-    travelers: [travelers],
+    travelers: travelers,
   };
+  console.log(flightOrder);
   // Petición Order Flight
   const orderFlight = async (e) => {
     e.preventDefault();
+    console.log(flightOrder);
     try {
       const res = await fetch(
         `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/booking/newBooking`,
@@ -31,8 +33,9 @@ const ResumeandPay = ({ rateCharge, travelers, totalPrice }) => {
           method: "POST",
           headers: {
             Authorization: token,
+            "Content-Type": "application/json",
           },
-          body: flightOrder,
+          body: JSON.stringify(flightOrder),
         }
       );
 

@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 
 const Avatar = () => {
   const [user] = useContext(UserContext);
-  console.log(user);
 
   return (
     <section className="Avatar">
