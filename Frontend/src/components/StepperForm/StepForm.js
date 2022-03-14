@@ -18,7 +18,7 @@ const StepForm = () => {
   */
   const [flightOffer] = useContext(OfferPriceContext);
   const { itineraries } = flightOffer;
-  console.log('Itineraries Stepper', itineraries);
+  console.log("Itineraries Stepper", itineraries);
 
   console.log("FlightOffer Stepper:");
   console.log(flightOffer);
@@ -55,7 +55,7 @@ const StepForm = () => {
         {
           documentType: "",
           number: "",
-          inssuanceDate: null,
+          issuanceDate: null,
           expiryDate: null,
           birthPlace: "",
           issuanceCountry: "ES",

@@ -54,6 +54,7 @@ const ButtonWrapper = ({ currency, showSpinner, totalPrice }) => {
         onApprove={function (data, actions) {
           return actions.order.capture().then(function () {
             // Your code here after capture the order
+            console.log("Pago confirmado");
           });
         }}
       />

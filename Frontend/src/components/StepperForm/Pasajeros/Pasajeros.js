@@ -91,10 +91,10 @@ const Pasajero = ({ traveler, setTraveler, handleAddPassenger, id }) => {
           />
           <DatePicker
             label="Fecha de expedición"
-            value={traveler[id - 1].documents[0].inssuanceDate}
+            value={traveler[id - 1].documents[0].issuanceDate}
             onChange={(newValue) => {
               const modTravel = [...traveler];
-              modTravel[id - 1].documents[0].inssuanceDate = format(
+              modTravel[id - 1].documents[0].issuanceDate = format(
                 newValue,
                 "yyyy-MM-dd"
               );

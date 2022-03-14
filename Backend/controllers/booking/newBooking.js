@@ -77,7 +77,7 @@ const newBooking = async (req, res, next) => {
             const expiryDate = traveler.documents[0].expiryDate;
             const nationality = traveler.documents[0].nationality;
             const issuanceCountry = traveler.documents[0].issuanceCountry;
-            const validityCountry = traveler.documents[0].validityCountry;
+            const validityCountry = traveler.documents[0].issuanceCountry;
             const birthplace = traveler.documents[0].birthPlace;
             const [insertPassenger] = await connection.query(
                 `INSERT INTO passenger 
