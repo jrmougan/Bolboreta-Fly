@@ -8,8 +8,12 @@ import { parse } from 'iso8601-duration';
 
 function durationFormat(duration) {
   let minutes = Math.floor((duration / (1000 * 60)) % 60),
-    hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+    hours = Math.floor((duration / (1000 * 60 * 60)) % 24),
+    days = Math.floor((duration / (1000 * 60 * 60 * 24)) % 365);
 
+  if (days) {
+    return `${days} día ${hours} horas ${minutes} minutos`;
+  }
   if (hours === 0) {
     return `${minutes} minutos`;
   } else if (minutes === 0) {

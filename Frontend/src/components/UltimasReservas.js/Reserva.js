@@ -1,9 +1,13 @@
 import { format } from 'date-fns';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { dateFormat } from '../../helpers/formatHelp';
 import useUnsplashImage from '../../hooks/useUnsplashImage';
 import { findAirportInfo } from '../StepperForm/InfoFlights/helpersFlight';
 
 const Reserva = ({ reserva, busqueda }) => {
+  const [flightId, setFlightId] = useState(null);
+
   // Llamamos a la api de Unsplash
   const { srcPhoto } = useUnsplashImage(busqueda);
 
@@ -20,7 +24,24 @@ const Reserva = ({ reserva, busqueda }) => {
   const time = format(new Date(departure_time), 'HH:mm');
   const date = dateFormat(departure_time);
 
-  console.log('departure_time', time);
+  const { bookingId } = reserva;
+
+  const getBookingCode = async () => {
+    try {
+      const res = await fetch(
+        `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/booking/${bookingId}/getIdFlightOrder`
+      );
+      console.log(res);
+      if (res.ok) {
+        const body = await res.json();
+        setFlightId(body.data[0][0].booking_code);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  console.log('BookingId', bookingId);
 
   return (
     <article className='card-flight'>
@@ -40,7 +61,10 @@ const Reserva = ({ reserva, busqueda }) => {
       </div>
       <div className='lastbook-end'>
         <h4>Felicidades ! Está todo listo para su viaje</h4>
-        <button className='btn btn-gestionar'>Gestionar Reserva</button>
+        <button className='btn btn-gestionar' onClick={getBookingCode}>
+          Gestionar Reserva
+        </button>
+        <Link to={`/${flightId}/itinerary`}>Ver itinerario</Link>
       </div>
     </article>
   );

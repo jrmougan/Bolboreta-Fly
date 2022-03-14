@@ -7,8 +7,7 @@ import Summary from './Summary/Summary';
 import { useState } from 'react';
 
 const Itinerary = ({ emergencyData, itineraries, totalPrice }) => {
-  const [seatChosen] = useState(0);
-  const [regularPassenger] = useState(null);
+  // Eliminar cuando no se necesite
 
   const infoMainContact = {
     name: 'Firulais García',
@@ -21,10 +20,7 @@ const Itinerary = ({ emergencyData, itineraries, totalPrice }) => {
   return (
     <section className='itinerary_container_end'>
       <Summary itineraries={itineraries} />
-      <SeatAndBaggage
-        seatChosen={seatChosen}
-        superPassenger={regularPassenger}
-      />
+      <SeatAndBaggage seatChosen={0} superPassenger={null} />
       <InTripIncluded tripIncludes={tripIncludes} />
       <ContactInfo
         infoMainContact={infoMainContact}
