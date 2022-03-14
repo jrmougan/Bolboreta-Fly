@@ -10,8 +10,6 @@ import Summary from '../components/StepperForm/Itinerary/Summary/Summary';
 import useGetFlightOrder from '../hooks/useGetFlightOrder';
 
 const ItineraryScreen = () => {
-  // const bookingCode = 'eJzTd9f3DgoMCfYCAAu9AoU%3D';
-
   const { bookingId } = useParams();
 
   console.log(bookingId);
@@ -23,11 +21,22 @@ const ItineraryScreen = () => {
   // me produce un problema de Re-Renderización
   let itineraries;
   let travelers;
+  let firstTraveler;
+  let totalPrice;
   if (loading === false) {
     itineraries = flightOrder.data.data.flightOffers[0].itineraries;
     travelers = flightOrder.data.data.travelers;
+    firstTraveler = travelers[0];
   }
 
+  // Ejemplo de infocontact
+
+  const exampleInfo = {
+    name: 'Edualdo',
+    email: 'edualdo@gmail.com',
+    phone: '664 567 544',
+    address: 'Sierra del Gialdo',
+  };
   return (
     <React.Fragment>
       {loading ? (
@@ -42,7 +51,8 @@ const ItineraryScreen = () => {
             travelers={travelers}
           />
           <InTripIncluded tripIncludes={tripIncludes} />
-          {/* <ContactInfo /> */}
+
+          <ContactInfo traveler={firstTraveler} />
         </React.Fragment>
       )}
     </React.Fragment>
