@@ -5,9 +5,7 @@ import { dateFormat } from '../../helpers/formatHelp';
 import useUnsplashImage from '../../hooks/useUnsplashImage';
 import { findAirportInfo } from '../StepperForm/InfoFlights/helpersFlight';
 
-const Reserva = ({ reserva, busqueda }) => {
-  const [flightId, setFlightId] = useState(null);
-
+const Reserva = ({ reserva, busqueda, code }) => {
   // Llamamos a la api de Unsplash
   const { srcPhoto } = useUnsplashImage(busqueda);
 
@@ -24,27 +22,34 @@ const Reserva = ({ reserva, busqueda }) => {
   const time = format(new Date(departure_time), 'HH:mm');
   const date = dateFormat(departure_time);
 
-  const { bookingId } = reserva;
-
-  const getBookingCode = async () => {
-    try {
-      const res = await fetch(
-        `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/booking/${bookingId}/getIdFlightOrder`
-      );
-      console.log(res);
-      if (res.ok) {
-        const body = await res.json();
-        setFlightId(body.data[0][0].booking_code);
-      }
-    } catch (error) {
-      console.error(error);
-    }
+  const Booking = () => {
+    return (
+      <article className='card-flight'>
+        <div className={`hero-reserva`}>
+          <img
+            alt='foto de ciudad'
+            src={srcPhoto}
+            className='background_cardFlight'
+          />
+          <p>
+            {' '}
+            {date} - {time}
+          </p>
+          <h3>
+            {cityDeparture} - {cityArrival}
+          </h3>
+        </div>
+        <div className='lastbook-end'>
+          <h4>Felicidades ! Está todo listo para su viaje</h4>
+          <Link to={`/${code}/itinerary`}>Ver itinerario</Link>
+        </div>
+      </article>
+    );
   };
-
-  console.log('BookingId', bookingId);
-
   return (
-    <article className='card-flight'>
+    <Booking />
+
+    /*     <article className='card-flight'>
       <div className={`hero-reserva`}>
         <img
           alt='foto de ciudad'
@@ -61,13 +66,15 @@ const Reserva = ({ reserva, busqueda }) => {
       </div>
       <div className='lastbook-end'>
         <h4>Felicidades ! Está todo listo para su viaje</h4>
-        <button className='btn btn-gestionar' onClick={getBookingCode}>
-          Gestionar Reserva
-        </button>
         <Link to={`/${flightId}/itinerary`}>Ver itinerario</Link>
       </div>
-    </article>
+    </article> */
   );
 };
 
+{
+  /*         <button className='btn btn-gestionar' onClick={getBookingCode}>
+  Gestionar Reserva
+</button> */
+}
 export default Reserva;

@@ -1,9 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import './ultimasreservas.css';
 import { findAirportInfo } from '../StepperForm/InfoFlights/helpersFlight';
 import { useParams } from 'react-router-dom';
 import useGetBookings from '../../hooks/useGetBookings';
 import Reserva from './Reserva';
+import useGetBookingCode from '../../hooks/useGetBookingCode';
 
 export const UltimasReservas = () => {
   // Obtenemos el id mediante params
@@ -20,12 +21,17 @@ export const UltimasReservas = () => {
         const iataArrival = reserva.bookingObject[0].arrival_code || 'SCQ';
         const cityArrival = findAirportInfo(iataArrival, 'city');
 
+        console.log('Código reserva', reserva.bookingObject[0].booking_code);
+
+        const booking_code = reserva.bookingObject[0].booking_code;
+
         return (
           <Reserva
             key={key}
             reservas={allBookings}
             busqueda={cityArrival}
             reserva={reserva}
+            code={booking_code}
           />
         );
       })}
