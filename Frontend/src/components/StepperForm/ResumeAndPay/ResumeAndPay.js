@@ -90,9 +90,9 @@ const ResumeandPay = ({ rateCharge, travelers, totalPrice }) => {
 
   return (
     <section className="paymentConfirmationContainer">
-      <PaymentElection />
+      <PaymentElection totalPrice={totalPrice} />
 
-      <PaymentConfirmation>
+      <PaymentConfirmation totalprice={totalPrice}>
         <FlightsResume itineraries={itineraries} airlineCode={airlineCode} />
         <FinalAcounting
           flight={flight}

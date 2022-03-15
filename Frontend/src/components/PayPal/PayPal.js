@@ -15,7 +15,8 @@ const ButtonWrapper = ({ currency, showSpinner, totalPrice }) => {
   // usePayPalScriptReducer can be use only inside children of PayPalScriptProviders
   // This is the main reason to wrap the PayPalButtons in a new component
   const [{ options, isPending }, dispatch] = usePayPalScriptReducer();
-  const amount = { totalPrice };
+  const amount = totalPrice;
+  console.log(amount);
   useEffect(() => {
     dispatch({
       type: "resetOptions",
@@ -62,7 +63,7 @@ const ButtonWrapper = ({ currency, showSpinner, totalPrice }) => {
   );
 };
 
-export default function PayPal() {
+export default function PayPal({ totalPrice }) {
   return (
     <div style={{ width: "90%", minHeight: "200px" }}>
       <PayPalScriptProvider
@@ -72,7 +73,11 @@ export default function PayPal() {
           currency: "EUR",
         }}
       >
-        <ButtonWrapper currency={currency} showSpinner={false} />
+        <ButtonWrapper
+          currency={currency}
+          showSpinner={false}
+          totalPrice={totalPrice}
+        />
       </PayPalScriptProvider>
     </div>
   );
