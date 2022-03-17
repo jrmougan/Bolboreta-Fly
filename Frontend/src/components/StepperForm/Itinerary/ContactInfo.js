@@ -1,28 +1,53 @@
 import { ImCreditCard, ImEnvelop, ImHome, ImPhone } from 'react-icons/im';
 
-const ContactInfo = ({ infoMainContact, totalPrice, emergencyData }) => {
+// Cambiar a PaymentInfo
+const ContactInfo = ({
+  infoMainContact,
+  totalPrice,
+  emergencyData,
+  traveler,
+}) => {
+  const exampleInfo = {
+    name: 'Edualdo',
+    email: 'edualdo@gmail.com',
+    phone: '664 567 544',
+    address: 'Sierra del Gialdo',
+    price: '500€',
+  };
+  let name, email, phone, address;
+
+  if (traveler) {
+    name = traveler.name.firstName;
+    email = traveler.contact.emailAddress;
+    phone =
+      traveler.contact.phones.countryCallingCode +
+      traveler.contact.phones.number;
+  }
+  console.log('traveler', traveler);
   return (
     <article className='info_container'>
-      <h1>Información de facturación</h1>
+      <h1>Información de Contacto</h1>
       <p className='bottom_line'>Contacto principal</p>
-      <h2>{emergencyData.name}</h2>
+      <h2>{name || exampleInfo.name}</h2>
       <div className='info_main_contact'>
         <span>
           {' '}
           <ImEnvelop className='icon-color ' />
-          {emergencyData.email}
+          {email || exampleInfo.email}
         </span>
         <span>
-          <ImPhone className='icon-color ' /> {emergencyData.phone}
+          <ImPhone className='icon-color ' /> {phone || exampleInfo.phone}
         </span>
         <span>
-          <ImHome className='icon-color ' /> {infoMainContact.address}
+          <ImHome className='icon-color ' /> {exampleInfo.address}
         </span>
-        <span>
+        {/*         <span>
           <ImCreditCard className='icon-color ' /> {infoMainContact.creditCard}
-        </span>
+        </span> */}
       </div>
-      <span className='totalPrice'>Total: {totalPrice} €</span>
+      <span className='totalPrice'>
+        Total: {totalPrice || exampleInfo.price} €
+      </span>
     </article>
   );
 };
