@@ -22,7 +22,9 @@ const Reserva = ({ reserva, busqueda, code }) => {
   const time = format(new Date(departure_time), 'HH:mm');
   const date = dateFormat(departure_time);
 
-  const Booking = () => {
+  console.log('Código Reserva en Reserva', code);
+  const Booking = ({ code }) => {
+    console.log('Codigo Reserva en Booking', code);
     return (
       <article className='card-flight'>
         <div className={`hero-reserva`}>
@@ -41,13 +43,15 @@ const Reserva = ({ reserva, busqueda, code }) => {
         </div>
         <div className='lastbook-end'>
           <h4>Felicidades ! Está todo listo para su viaje</h4>
-          <Link to={`/${code}/itinerary`}>Ver itinerario</Link>
+          <Link to={`/${code}/itinerary`} className='btn'>
+            Ver itinerario
+          </Link>
         </div>
       </article>
     );
   };
   return (
-    <Booking />
+    <Booking code={code} />
 
     /*     <article className='card-flight'>
       <div className={`hero-reserva`}>

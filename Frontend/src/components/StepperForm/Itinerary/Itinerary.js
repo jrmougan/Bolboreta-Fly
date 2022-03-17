@@ -4,29 +4,24 @@ import InTripIncluded from './InTripIncluded';
 import SeatAndBaggage from './SeatAndBaggage';
 import { tripIncludes } from '../InfoFlights/constantInfo';
 import Summary from './Summary/Summary';
-import { useState } from 'react';
+import { FaArrowLeft } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
-const Itinerary = ({ emergencyData, itineraries, totalPrice }) => {
-  // Eliminar cuando no se necesite
-
-  const infoMainContact = {
-    name: 'Firulais García',
-    email: ' fulanitocontrerasmansalva@gamil.com',
-    phone: ' +34 664 433 333',
-    address: 'Calle Nueva Perdicion',
-    creditCard: ' Visa / 4 / Euro&000',
-  };
-
+const Itinerary = ({ travelers, itineraries, totalPrice, firstTraveler }) => {
   return (
     <section className='itinerary_container_end'>
       <Summary itineraries={itineraries} />
-      <SeatAndBaggage seatChosen={0} superPassenger={null} />
-      <InTripIncluded tripIncludes={tripIncludes} />
-      <ContactInfo
-        infoMainContact={infoMainContact}
-        totalPrice={totalPrice}
-        emergencyData={emergencyData}
+      <SeatAndBaggage
+        seatChosen={0}
+        superPassenger={null}
+        travelers={travelers}
       />
+      <InTripIncluded tripIncludes={tripIncludes} />
+      <ContactInfo traveler={firstTraveler} totalPrice={totalPrice} />
+      <Link to='/user' className='btn btn-itinerary'>
+        {' '}
+        <FaArrowLeft className='arrow-left-icon' /> Ir a Datos de Usuario{' '}
+      </Link>
     </section>
   );
 };

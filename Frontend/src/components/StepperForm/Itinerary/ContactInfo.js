@@ -14,19 +14,29 @@ const ContactInfo = ({
     address: 'Sierra del Gialdo',
     price: '500€',
   };
+  let name, email, phone, address;
+
+  if (traveler) {
+    name = traveler.name.firstName;
+    email = traveler.contact.emailAddress;
+    phone =
+      traveler.contact.phones.countryCallingCode +
+      traveler.contact.phones.number;
+  }
+  console.log('traveler', traveler);
   return (
     <article className='info_container'>
       <h1>Información de Contacto</h1>
       <p className='bottom_line'>Contacto principal</p>
-      <h2>{exampleInfo.name}</h2>
+      <h2>{name || exampleInfo.name}</h2>
       <div className='info_main_contact'>
         <span>
           {' '}
           <ImEnvelop className='icon-color ' />
-          {exampleInfo.email}
+          {email || exampleInfo.email}
         </span>
         <span>
-          <ImPhone className='icon-color ' /> {exampleInfo.phone}
+          <ImPhone className='icon-color ' /> {phone || exampleInfo.phone}
         </span>
         <span>
           <ImHome className='icon-color ' /> {exampleInfo.address}
@@ -35,7 +45,9 @@ const ContactInfo = ({
           <ImCreditCard className='icon-color ' /> {infoMainContact.creditCard}
         </span> */}
       </div>
-      <span className='totalPrice'>Total: {exampleInfo.price} €</span>
+      <span className='totalPrice'>
+        Total: {totalPrice || exampleInfo.price} €
+      </span>
     </article>
   );
 };

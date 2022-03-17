@@ -21,6 +21,8 @@ export const UltimasReservas = () => {
         const iataArrival = reserva.bookingObject[0].arrival_code || 'SCQ';
         const cityArrival = findAirportInfo(iataArrival, 'city');
 
+        console.log('Reserva', reserva);
+
         console.log('Código reserva', reserva.bookingObject[0].booking_code);
 
         const booking_code = reserva.bookingObject[0].booking_code;
