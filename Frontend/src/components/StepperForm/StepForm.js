@@ -1,6 +1,5 @@
 import React, { useState, useContext } from "react";
 import { Stepper, Step, StepLabel, Button, Typography } from "@mui/material";
-import FormPassenger from "./FormaPassenger/FormPassenger";
 import BookingData from "./FormPassenger/BookingData.";
 import RateChoice from "./RateChoice/RateChoice";
 import ResumeAndPay from "./ResumeAndPay/ResumeAndPay";
