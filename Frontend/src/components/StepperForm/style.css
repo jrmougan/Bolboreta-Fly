@@ -23,6 +23,11 @@ body {
 ## STEPPER ##
 #############
 */
+@media screen and (min-width: 800px) {
+  .stepper_container {
+    padding-bottom: 3rem;
+  }
+}
 .button_steps {
   display: flex;
   justify-content: center;
@@ -33,13 +38,6 @@ body {
 ## PASSENGER INFO ##
 ####################
 */
-/* form {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-} */
 
 .passengeForm {
   display: flex;
@@ -56,32 +54,7 @@ body {
   color: white;
   margin-top: 10px;
 }
-/* .MuiFormControl-root {
-  margin-top: 15px !important;
-}
 
-.MuiTextField-root {
-  margin-top: 15px !important;
-}
-
-.MuiOutlinedInput-root {
-  width: 300px !important;
-}
-
-
-.MuiList-root {
-  align-items: center !important;
-  margin-left: 40px !important;
-}
-
-Muiinput-root {
-  margin-bottom: 15px;
-}
-
-
-.country {
-  width: 200px !important;
-} */
 .MuiPhoneNumber-flagButton {
   width: 50px !important;
 }
@@ -217,6 +190,7 @@ Muiinput-root {
 ## Itinerario final ##
 ######################
 */
+
 .flex-space {
   display: flex;
   justify-content: space-between;
@@ -319,6 +293,7 @@ Muiinput-root {
   flex-wrap: wrap;
   justify-content: space-around;
   padding: 1rem 0;
+  font-size: 1rem;
 }
 .aditional_info {
   position: relative;
@@ -334,11 +309,14 @@ Muiinput-root {
 }
 .icon_passenger {
   position: absolute;
-  left: -15%;
-  bottom: 70%;
+  left: -25px;
+  bottom: 50%;
+
+  font-size: 1.2em;
 }
 .icon-color {
   color: #3143e2;
+  margin-right: 5px;
 }
 @media screen and (max-width: 760px) {
   .itinerary_container_end {
@@ -394,6 +372,22 @@ Muiinput-root {
   z-index: 2;
 }
 
+/* Botón itinerario */
+
+.btn-itinerary {
+  border-radius: 5px;
+  font-size: 1.1rem;
+  text-decoration: none;
+}
+.arrow-left-icon {
+  display: inline-block;
+  margin-right: 3px;
+  padding-top: 3px;
+}
+.btn-itinerary:hover .arrow-left-icon {
+  transform: translateX(-50%);
+  transition: 350ms;
+}
 /* 
 ####################
 ## RESUMEN Y PAGO ##

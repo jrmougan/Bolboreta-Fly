@@ -119,14 +119,6 @@ const StepForm = () => {
           travelers={travelers}
         />
       );
-    } else {
-      return (
-        <Itinerary
-          emergencyData={emergencyData}
-          itineraries={itineraries}
-          totalPrice={totalPrice}
-        />
-      );
     }
   };
 
@@ -136,7 +128,6 @@ const StepForm = () => {
       "Datos de reserva",
       "Elección de tarifa",
       "Resumen y Pago",
-      "Itinerario",
     ];
   }
 
@@ -196,7 +187,7 @@ const StepForm = () => {
 
   return (
     <Container>
-      <div>
+      <div className="stepper_container">
         <Stepper activeStep={activeStep}>
           {steps.map((label, index) => {
             const stepProps = {};
