@@ -162,15 +162,45 @@ input {
 .btnFlight {
   text-decoration: none;
   display: inline;
-  margin-top: 2rem;
+  margin-top: 1rem;
   padding: 0.7rem 2rem;
+  color: white;
+}
+.btnFlight:hover {
+  opacity: 0.8;
 }
 
 .left-card {
+  position: relative;
   display: flex;
   flex-direction: column;
-  padding: 0 1.5rem;
+  padding: 0 1.5rem 0 4rem;
   flex-grow: 3;
+}
+.left-card:before {
+  content: '';
+  position: absolute;
+  height: 20%;
+  width: 13%;
+  top: 25%;
+  left: 5px;
+
+  transform: translateY(-25%);
+  border-radius: 40%;
+  background-color: #5d7ca6;
+}
+.left-card:after {
+  content: '';
+  position: absolute;
+  height: 20%;
+  width: 13%;
+  bottom: 25%;
+  left: 5px;
+
+  transform: translateY(25%);
+  border-radius: 40%;
+  background-color: white;
+  border: 0.1px solid black;
 }
 
 .separation_card {
@@ -183,16 +213,27 @@ input {
   text-align: center;
 }
 .right-card p {
-  margin-bottom: 2.5rem;
-  font-size: 2rem;
+  margin-top: 0.75rem;
+  font-size: 0.75rem;
+  color: #444;
 }
-
+.right-card span {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+.card_airline_logo {
+  font-size: 1rem;
+}
+span.card_airline_name {
+  font-size: 0.8rem;
+}
 .fareOption {
   font-size: 0.4rem;
 }
 .timeFlight {
   display: flex;
   justify-content: space-between;
+  font-size: 1.3rem;
 }
 .origin_destination {
   display: flex;
