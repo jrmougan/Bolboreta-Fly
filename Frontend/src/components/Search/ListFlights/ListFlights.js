@@ -34,8 +34,7 @@ export const ListFlights = ({ data }) => {
 
           return (
             <article key={id} id={id} className='resultCard'>
-              <GiButterfly className='butterfly b-1' />
-              <GiButterfly className='butterfly b-2' />
+              <ButterFlies />
               <LeftCard>
                 <AllFlights flight={flight} />
               </LeftCard>
@@ -54,7 +53,12 @@ export const ListFlights = ({ data }) => {
 };
 
 const ButterFlies = () => {
-  return <React.Fragment></React.Fragment>;
+  return (
+    <React.Fragment>
+      <GiButterfly className='butterfly b-1' />
+      <GiButterfly className='butterfly b-2' />
+    </React.Fragment>
+  );
 };
 
 const LeftCard = ({ children, oneWay }) => {
