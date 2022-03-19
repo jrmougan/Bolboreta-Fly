@@ -70,6 +70,9 @@ input {
 .search-submit {
   align-self: flex-end;
 }
+.btn {
+  text-decoration: none;
+}
 
 /* 
 ############
@@ -79,8 +82,12 @@ input {
 
 .datePicker {
   background-color: white;
+  color: green;
 }
 
+#mui-10-label {
+  color: #023859;
+}
 .searchInput {
   margin: 0.5rem 1rem;
   width: 100%;
