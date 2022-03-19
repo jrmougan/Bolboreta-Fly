@@ -7,6 +7,7 @@ import {
   findAirlineLogo,
   findAirlineName,
 } from '../../StepperForm/InfoFlights/helpersFlight';
+import { GiButterfly } from 'react-icons/gi';
 
 export const ListFlights = ({ data }) => {
   //Contexto booking
@@ -33,6 +34,8 @@ export const ListFlights = ({ data }) => {
 
           return (
             <article key={id} id={id} className='resultCard'>
+              <GiButterfly className='butterfly b-1' />
+              <GiButterfly className='butterfly b-2' />
               <LeftCard>
                 <AllFlights flight={flight} />
               </LeftCard>
@@ -48,6 +51,10 @@ export const ListFlights = ({ data }) => {
         })}
     </section>
   );
+};
+
+const ButterFlies = () => {
+  return <React.Fragment></React.Fragment>;
 };
 
 const LeftCard = ({ children, oneWay }) => {
