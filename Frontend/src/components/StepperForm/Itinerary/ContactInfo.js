@@ -6,6 +6,7 @@ const ContactInfo = ({
   totalPrice,
   emergencyData,
   traveler,
+  contacts,
 }) => {
   const exampleInfo = {
     name: 'Edualdo',
