@@ -28,7 +28,7 @@ input {
 
 .searchTabs {
   position: absolute;
-  top: -3rem;
+  top: -2.9rem;
   left: 0;
 }
 
@@ -73,7 +73,9 @@ input {
 .btn {
   text-decoration: none;
 }
-
+.btn:hover {
+  opacity: 0.8;
+}
 /* 
 ############
 ## INPUTS ##
