@@ -23,7 +23,7 @@ h2 {
 
 .guardarcambios {
   border: 1px solid;
-  background: #5d7ca6;
+  background: var(--button-color);
   font-size: medium;
   font-weight: bolder;
   align-items: center;

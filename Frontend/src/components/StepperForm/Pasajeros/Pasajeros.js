@@ -1,9 +1,8 @@
 import { DatePicker, LocalizationProvider } from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import { Autocomplete, MenuItem, TextField } from "@mui/material";
+import { Autocomplete, TextField } from "@mui/material";
 import { format } from "date-fns";
 
-import { useCallback } from "react";
 import "./pasajero.css";
 
 const Pasajero = ({ traveler, setTraveler, handleAddPassenger, id }) => {

@@ -4,6 +4,7 @@ import {
   PayPalButtons,
   usePayPalScriptReducer,
 } from "@paypal/react-paypal-js";
+import swal from "sweetalert";
 
 // This values are the props in the UI
 
@@ -11,7 +12,7 @@ const currency = "EUR";
 const style = { layout: "vertical" };
 
 // Custom component to wrap the PayPalButtons and handle currency changes
-const ButtonWrapper = ({ currency, showSpinner, totalPrice }) => {
+const ButtonWrapper = ({ currency, showSpinner, totalPrice, orderFlight }) => {
   // usePayPalScriptReducer can be use only inside children of PayPalScriptProviders
   // This is the main reason to wrap the PayPalButtons in a new component
   const [{ options, isPending }, dispatch] = usePayPalScriptReducer();
@@ -54,8 +55,11 @@ const ButtonWrapper = ({ currency, showSpinner, totalPrice }) => {
         }}
         onApprove={function (data, actions) {
           return actions.order.capture().then(function () {
-            // Your code here after capture the order
-            console.log("Pago confirmado");
+            swal(
+              "Su pago se ha realizado correctamente, pulse confirmar para ir a su reserva",
+              "",
+              "success"
+            );
           });
         }}
       />
@@ -63,7 +67,7 @@ const ButtonWrapper = ({ currency, showSpinner, totalPrice }) => {
   );
 };
 
-export default function PayPal({ totalPrice }) {
+export default function PayPal({ totalPrice, orderFlight }) {
   return (
     <div style={{ width: "90%", minHeight: "200px" }}>
       <PayPalScriptProvider
@@ -77,6 +81,7 @@ export default function PayPal({ totalPrice }) {
           currency={currency}
           showSpinner={false}
           totalPrice={totalPrice}
+          orderFlight={orderFlight}
         />
       </PayPalScriptProvider>
     </div>
