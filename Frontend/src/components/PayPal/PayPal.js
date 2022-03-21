@@ -60,6 +60,8 @@ const ButtonWrapper = ({ currency, showSpinner, totalPrice, orderFlight }) => {
               "",
               "success"
             );
+
+            orderFlight();
           });
         }}
       />
