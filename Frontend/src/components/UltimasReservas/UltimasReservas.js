@@ -16,7 +16,7 @@ export const UltimasReservas = () => {
     <section id='allBookings_container'>
       <h2>Estos son tus últimos vuelos </h2>
 
-      {allBookings.map((reserva, key) => {
+      {allBookings.reverse().map((reserva, key) => {
         // Averiguamos a qué ciudad va para conseguir la foto del Background
         const iataArrival = reserva.bookingObject[0].arrival_code || 'SCQ';
         const cityArrival = findAirportInfo(iataArrival, 'city');
