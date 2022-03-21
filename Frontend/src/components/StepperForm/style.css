@@ -296,7 +296,6 @@ body {
   font-size: 1rem;
 }
 .aditional_info {
-  position: relative;
   margin: 1rem 0;
   width: 40%;
 }
@@ -307,10 +306,13 @@ body {
 .aditional_info p {
   margin: 0;
 }
+.title_box_icon {
+  position: relative;
+}
 .icon_passenger {
   position: absolute;
-  left: -25px;
-  bottom: 50%;
+  left: -22px;
+  top: 5px;
 
   font-size: 1.2em;
 }

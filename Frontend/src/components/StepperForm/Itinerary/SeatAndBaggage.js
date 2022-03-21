@@ -40,39 +40,42 @@ const EachTravelerResume = ({ seatChosen, traveler, superPassenger }) => {
         {traveler.name.firstName} {traveler.name.lastName}
       </h2>
       <p className='bottom_line'>Adulto</p>
-      <div className='aditional_info_container'>
+      <section className='aditional_info_container'>
         <article className='aditional_info'>
-          <div>
+          <div className='title_box_icon'>
             <FaLuggageCart className='icon_passenger icon-color ' />
             <span>Maletas facturadas</span>
           </div>
           <p> 0 maletas </p>
         </article>
         <article className='aditional_info '>
-          <FaChair className='icon_passenger icon-color' />{' '}
-          <span>Asientos</span>
+          <div className='title_box_icon'>
+            <FaChair className='icon_passenger icon-color' />{' '}
+            <span>Asientos</span>
+          </div>
           <p>
             {seatChosen ? seatChosen : 'No se ha seleccionado ningún asiento'}{' '}
           </p>
         </article>
         <article className='aditional_info'>
-          {' '}
-          <FaCrown className='icon_passenger icon-color ' />
-          <span>Pasajero frecuente</span>
+          <div className='title_box_icon'>
+            <FaCrown className='icon_passenger icon-color ' />
+            <span>Pasajero frecuente</span>
+          </div>
           <p>
-            {' '}
             {superPassenger
               ? superPassenger
               : 'No se ha añadido código de pasajero frecuente'}{' '}
           </p>
         </article>
         <article className='aditional_info'>
-          {' '}
-          <FaHamburger className='icon_passenger icon-color ' />
-          <span>Selección de comida (solicitada a compañía aérea</span>
+          <div className='title_box_icon'>
+            <FaHamburger className='icon_passenger icon-color ' />
+            <span>Selección de comida (solicitada a compañía aérea)</span>
+          </div>
           <p>Estándar</p>
         </article>
-      </div>
+      </section>
     </React.Fragment>
   );
 };

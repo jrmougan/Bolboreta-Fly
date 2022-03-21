@@ -1,6 +1,6 @@
 const getDB = require('../../database/getDB');
 
-const getIdFlightOrder = async (req, res, next) => {
+const getFlightsIds = async (req, res, next) => {
     let connection;
 
     try {
@@ -8,18 +8,18 @@ const getIdFlightOrder = async (req, res, next) => {
 
         const { bookingId } = req.params;
 
-        const [booking_code] = await connection.query(
-            `SELECT booking.booking_code FROM booking WHERE booking.id=?;`,
+        const [flightsIds] = await connection.query(
+            `SELECT ternario.flight_id FROM passenger_rel_flight_rel_booking as ternario WHERE ternario.booking_id=?;`,
             [bookingId]
         );
 
         res.send({
             status: 'ok',
-            data: [booking_code],
+            data: [flightsIds],
         });
     } catch (error) {
         console.error(error);
     }
 };
 
-module.exports = getIdFlightOrder;
+module.exports = getFlightsIds;

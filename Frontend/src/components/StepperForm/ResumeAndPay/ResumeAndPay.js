@@ -1,9 +1,9 @@
-import React, { useContext, useEffect } from "react";
-import { TokenContext } from "../../../context/TokenContext";
-import PaymentElection from "./PaymentElection";
-import { OfferPriceContext } from "../../../context/OfferPriceContext";
-import FinalAcounting from "./FinalAcounting";
-import FlightsResume from "./FlightsResume/FlightsResume";
+import React, { useContext, useEffect } from 'react';
+import { TokenContext } from '../../../context/TokenContext';
+import PaymentElection from './PaymentElection';
+import { OfferPriceContext } from '../../../context/OfferPriceContext';
+import FinalAcounting from './FinalAcounting';
+import FlightsResume from './FlightsResume/FlightsResume';
 
 const ResumeandPay = ({ rateCharge, travelers, totalPrice }) => {
   // Contextos
@@ -14,7 +14,7 @@ const ResumeandPay = ({ rateCharge, travelers, totalPrice }) => {
   const offerPrice = async (flightOffer) => {
     const body = {
       data: {
-        type: "flight-offers-pricing",
+        type: 'flight-offers-pricing',
         flightOffers: [flightOffer],
       },
     };
@@ -22,10 +22,10 @@ const ResumeandPay = ({ rateCharge, travelers, totalPrice }) => {
       const res = await fetch(
         `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/pricing`,
         {
-          method: "POST",
+          method: 'POST',
           headers: {
             Authorization: token,
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify(body),
         }
@@ -54,13 +54,12 @@ const ResumeandPay = ({ rateCharge, travelers, totalPrice }) => {
     itinerary: flight,
     travelers: travelers,
   };
-  console.log(flightOrder);
+  console.log('FlightOrder', flightOrder);
 
   // Petición Order Flight
 
   useEffect(() => {
-    console.log("EFECTOooOO");
-    console.log("fdsafads");
+    console.log('EFECTO USEEFFECT CON FLIGHT');
   }, [flight]);
 
   const orderFlight = async (e) => {
@@ -71,10 +70,10 @@ const ResumeandPay = ({ rateCharge, travelers, totalPrice }) => {
       const res = await fetch(
         `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/booking/newBooking`,
         {
-          method: "POST",
+          method: 'POST',
           headers: {
             Authorization: token,
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify(flightOrder),
         }
@@ -89,7 +88,7 @@ const ResumeandPay = ({ rateCharge, travelers, totalPrice }) => {
   };
 
   return (
-    <section className="paymentConfirmationContainer">
+    <section className='paymentConfirmationContainer'>
       <PaymentElection totalPrice={totalPrice} />
 
       <PaymentConfirmation totalprice={totalPrice}>
@@ -104,6 +103,6 @@ const ResumeandPay = ({ rateCharge, travelers, totalPrice }) => {
   );
 };
 const PaymentConfirmation = ({ children }) => {
-  return <div className="paymentConfirmation">{children}</div>;
+  return <div className='paymentConfirmation'>{children}</div>;
 };
 export default ResumeandPay;

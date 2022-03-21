@@ -1,7 +1,15 @@
 import { ImCreditCard, ImEnvelop, ImHome, ImPhone } from 'react-icons/im';
 
 // Cambiar a PaymentInfo
-const ContactInfo = ({ totalPrice, traveler, contacts }) => {
+
+const ContactInfo = ({
+  infoMainContact,
+  totalPrice,
+  emergencyData,
+  traveler,
+  contacts,
+}) => {
+
   const exampleInfo = {
     name: 'Edualdo',
     email: 'edualdo@gmail.com',

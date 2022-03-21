@@ -28,7 +28,7 @@ input {
 
 .searchTabs {
   position: absolute;
-  top: -3rem;
+  top: -2.9rem;
   left: 0;
 }
 
@@ -70,13 +70,26 @@ input {
 .search-submit {
   align-self: flex-end;
 }
-
+.btn {
+  text-decoration: none;
+}
+.btn:hover {
+  opacity: 0.8;
+}
 /* 
 ############
 ## INPUTS ##
 ############
 */
 
+.datePicker {
+  background-color: white;
+  color: green;
+}
+
+#mui-10-label {
+  color: #023859;
+}
 .searchInput {
   margin: 0.5rem 1rem;
   width: 100%;
@@ -149,28 +162,64 @@ input {
 */
 
 .resultCard {
-  font-size: 0.8rem;
-  padding: 2rem 0rem;
-  width: 500px;
+  position: relative;
+  font-size: 0.5rem;
+
+  padding: 2em 0em;
+  max-width: 500px;
+  margin-inline: auto;
+  margin-top: 2em;
+
   background-color: #f7f6ff;
   display: flex;
-  margin-inline: auto;
-  margin-top: 2rem;
   border-radius: 5px;
   border: 1px solid black;
+  z-index: 1;
 }
+
 .btnFlight {
+  font-size: 1em;
   text-decoration: none;
   display: inline;
-  margin-top: 2rem;
-  padding: 0.7rem 2rem;
+  margin-top: 0.5rem;
+  padding: 0.7em 2em;
+  color: white;
+}
+.btnFlight:hover {
+  opacity: 0.8;
 }
 
 .left-card {
+  position: relative;
   display: flex;
   flex-direction: column;
-  padding: 0 1.5rem;
+  padding: 0 1.5em 0 4em;
   flex-grow: 3;
+}
+.left-card:before {
+  content: '';
+  position: absolute;
+  height: 20%;
+  width: 13%;
+  top: 25%;
+  left: 5px;
+
+  transform: translateY(-25%);
+  border-radius: 40%;
+  background-color: #5d7ca6;
+}
+.left-card:after {
+  content: '';
+  position: absolute;
+  height: 20%;
+  width: 13%;
+  bottom: 25%;
+  left: 5px;
+
+  transform: translateY(25%);
+  border-radius: 40%;
+  background-color: white;
+  border: 0.1px solid black;
 }
 
 .separation_card {
@@ -182,27 +231,72 @@ input {
   border-left: 1px solid black;
   text-align: center;
 }
-.right-card p {
-  margin-bottom: 2.5rem;
-  font-size: 2rem;
+.right-card img {
+  margin-top: 0.2em;
+  height: 5em;
 }
-
+.right-card p {
+  margin-top: 0.75em;
+  font-size: 0.75em;
+  color: #444;
+}
+.right-card span {
+  font-size: 1.4em;
+  font-weight: bold;
+  color: #023859;
+}
+.card_airline_logo {
+  font-size: 1em;
+}
+span.card_airline_name {
+  font-size: 0.8em;
+}
 .fareOption {
-  font-size: 0.4rem;
+  font-size: 0.5em;
 }
 .timeFlight {
   display: flex;
   justify-content: space-between;
+  /* font-size: 1.3rem; */
 }
 .origin_destination {
   display: flex;
   justify-content: space-between;
 }
 .duration_listflights {
-  font-size: 0.6rem;
+  font-size: 0.9em;
 }
+.butterfly {
+  position: absolute;
+  opacity: 0.1;
+  z-index: -1;
+}
+.b-1 {
+  height: 100%;
+  width: 100%;
+  top: 0;
+}
+.b-2 {
+  left: 20px;
+}
+/* 
+##################
+## MEDIA QUERYS ##
+##################
+*/
 
-/* DatePicker */
-.datePicker {
-  background-color: white;
+@media screen and (min-width: 550px) {
+  .resultCard {
+    font-size: 1rem;
+    padding: 2em 0rem;
+    max-width: 500px;
+    margin-inline: auto;
+    margin-top: 2em;
+  }
+  .duration_listflights {
+    font-size: 1em;
+  }
+  span.card_airline_name {
+    font-size: 1em;
+  }
 }
