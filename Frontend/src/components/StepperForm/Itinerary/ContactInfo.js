@@ -1,6 +1,7 @@
 import { ImCreditCard, ImEnvelop, ImHome, ImPhone } from 'react-icons/im';
 
 // Cambiar a PaymentInfo
+
 const ContactInfo = ({
   infoMainContact,
   totalPrice,
@@ -8,23 +9,30 @@ const ContactInfo = ({
   traveler,
   contacts,
 }) => {
+
   const exampleInfo = {
     name: 'Edualdo',
     email: 'edualdo@gmail.com',
     phone: '664 567 544',
-    address: 'Sierra del Gialdo',
+
     price: '500€',
   };
-  let name, email, phone, address;
+  let name, email, phone;
 
-  if (traveler) {
+  if (contacts.name.firstName) {
+    name = contacts.name.firstName;
+    email = contacts.emailAddress;
+    phone =
+      traveler.contact.phones.countryCallingCode +
+      traveler.contact.phones.number;
+  } else {
     name = traveler.name.firstName;
     email = traveler.contact.emailAddress;
     phone =
       traveler.contact.phones.countryCallingCode +
       traveler.contact.phones.number;
   }
-  console.log('traveler', traveler);
+
   return (
     <article className='info_container'>
       <h1>Información de Contacto</h1>
@@ -39,11 +47,8 @@ const ContactInfo = ({
         <span>
           <ImPhone className='icon-color ' /> {phone || exampleInfo.phone}
         </span>
-        <span>
-          <ImHome className='icon-color ' /> {exampleInfo.address}
-        </span>
         {/*         <span>
-          <ImCreditCard className='icon-color ' /> {infoMainContact.creditCard}
+          <ImHome className='icon-color ' /> {exampleInfo.address}
         </span> */}
       </div>
       <span className='totalPrice'>
