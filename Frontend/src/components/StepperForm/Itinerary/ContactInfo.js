@@ -9,7 +9,6 @@ const ContactInfo = ({
   traveler,
   contacts,
 }) => {
-
   const exampleInfo = {
     name: 'Edualdo',
     email: 'edualdo@gmail.com',
@@ -19,7 +18,7 @@ const ContactInfo = ({
   };
   let name, email, phone;
 
-  if (contacts.name.firstName) {
+  if (contacts?.name?.firstName) {
     name = contacts.name.firstName;
     email = contacts.emailAddress;
     phone =
