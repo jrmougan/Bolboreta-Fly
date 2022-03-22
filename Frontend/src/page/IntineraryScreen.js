@@ -7,6 +7,21 @@ import useGetFlightOrder from '../hooks/useGetFlightOrder';
 const ItineraryScreen = () => {
   const { bookingId } = useParams();
 
+  const getBookingCodeByBookingId = async (bookingId) => {
+    try {
+      const res = await fetch(
+        `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/booking/${bookingId}`
+      );
+
+      if (res.ok) {
+        const body = await res.json();
+        console.log('Body', body);
+      }
+    } catch (error) {
+      console.error('Ha habido un error', error);
+    }
+  };
+
   const [flightOrder, loading] = useGetFlightOrder(bookingId);
 
   // Si pongo la variable como ESTADO
@@ -36,6 +51,7 @@ const ItineraryScreen = () => {
           travelers={travelers}
           totalPrice={totalPrice}
           firstTraveler={firstTraveler}
+          getBookingCodeByBookingId={getBookingCodeByBookingId}
         />
       )}
     </React.Fragment>

@@ -1,3 +1,4 @@
+import ItineraryScreen2 from '../components/Prueba/pruebaItinerary';
 import {
   AdvancedSearchScreen,
   DatosUsuario,
@@ -33,9 +34,14 @@ const routes = [
   { name: 'step', path: '/step', component: <StepFormScreen /> },
   {
     name: 'itinerary',
+    path: '/:idBooking/itinerary',
+    component: <ItineraryScreen2 />,
+  },
+  /*   {
+    name: 'itinerary',
     path: '/:bookingId/itinerary',
     component: <ItineraryScreen />,
-  },
+  }, */
 
   {
     name: 'activeuser',
