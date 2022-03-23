@@ -1,10 +1,10 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { MoonLoader } from 'react-spinners';
-import Itinerary from '../components/StepperForm/Itinerary/Itinerary';
-import useGetFlightOrder from '../hooks/useGetFlightOrder';
+import Itinerary from '../StepperForm/Itinerary/Itinerary';
+import useGetFlightOrder from '../../hooks/useGetFlightOrder';
 
-const ItineraryScreen = () => {
+const PeviousItineraryScreen = () => {
   const { bookingId } = useParams();
 
   const getBookingCodeByBookingId = async (bookingId) => {
@@ -58,4 +58,4 @@ const ItineraryScreen = () => {
   );
 };
 
-export default ItineraryScreen;
+export default PeviousItineraryScreen;

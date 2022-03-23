@@ -9,10 +9,15 @@ const amadeus = new Amadeus({
 const retrieveItinerary = async (req, res, next) => {
     console.log(req);
     try {
+        console.log('REQ params', req.params);
         const { bookingCode } = req.params;
-        console.log(bookingCode);
+        console.log('BookingCode', bookingCode);
+        const code =
+            bookingCode.replace('=', '%3D') && bookingCode.replace('/', '%2F');
 
-        const { result } = await amadeus.booking.flightOrder(bookingCode).get();
+        console.log('Este es el código que intenta enviar', code);
+
+        const { result } = await amadeus.booking.flightOrder(code).get();
 
         res.send({
             status: 'ok',

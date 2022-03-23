@@ -1,4 +1,3 @@
-import ItineraryScreen2 from '../components/Prueba/pruebaItinerary';
 import {
   AdvancedSearchScreen,
   DatosUsuario,
@@ -15,7 +14,7 @@ import {
   StepFormScreen,
   GetBookingsScreen,
 } from '../page';
-import ItineraryScreen from '../page/IntineraryScreen';
+import ItineraryScreen from '../page/ItineraryScreen';
 
 const routes = [
   { name: 'home', path: '/', component: <HomeScreen /> },
@@ -35,14 +34,8 @@ const routes = [
   {
     name: 'itinerary',
     path: '/:idBooking/itinerary',
-    component: <ItineraryScreen2 />,
-  },
-  /*   {
-    name: 'itinerary',
-    path: '/:bookingId/itinerary',
     component: <ItineraryScreen />,
-  }, */
-
+  },
   {
     name: 'activeuser',
     path: '/register/validate/:registration_code',

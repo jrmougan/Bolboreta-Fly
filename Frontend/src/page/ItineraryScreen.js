@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { MoonLoader } from 'react-spinners';
-import Itinerary from '../StepperForm/Itinerary/Itinerary';
+import Itinerary from '../components/StepperForm/Itinerary/Itinerary';
 
-const ItineraryScreen2 = () => {
+const ItineraryScreen = () => {
   const { idBooking } = useParams();
 
   const [loading, setLoading] = useState(true);
@@ -81,4 +81,4 @@ const ItineraryScreen2 = () => {
   );
 };
 
-export default ItineraryScreen2;
+export default ItineraryScreen;
