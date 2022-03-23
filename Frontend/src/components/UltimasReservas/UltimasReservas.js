@@ -7,7 +7,6 @@ import Reserva from './Reserva';
 import useGetBookingCode from '../../hooks/useGetBookingCode';
 
 export const UltimasReservas = () => {
-  // Obtenemos el id mediante params
   const { idUser } = useParams();
   // Obtenemos las reservas del usuario obtenido por params
   const [allBookings] = useGetBookings(idUser);
@@ -20,12 +19,7 @@ export const UltimasReservas = () => {
         // Averiguamos a qué ciudad va para conseguir la foto del Background
         const iataArrival = reserva.bookingObject[0].arrival_code || 'SCQ';
         const cityArrival = findAirportInfo(iataArrival, 'city');
-
-        console.log('Reserva', reserva);
-
-        console.log('Código reserva', reserva.bookingObject[0].booking_code);
-
-        const booking_code = reserva.bookingObject[0].booking_code;
+        const { bookingId } = reserva;
 
         return (
           <Reserva
@@ -33,7 +27,7 @@ export const UltimasReservas = () => {
             reservas={allBookings}
             busqueda={cityArrival}
             reserva={reserva}
-            code={booking_code}
+            code={bookingId}
           />
         );
       })}

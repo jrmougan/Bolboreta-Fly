@@ -19,7 +19,7 @@ const ItineraryScreen2 = () => {
         const body = await res.json();
         const data = body.data[0][0].booking_code;
         setBookingCode(data);
-        console.log('Codigo 1', data);
+        console.log('Codigo', data);
       }
     } catch (error) {
       console.error('Falla en getBookingCode', error);
