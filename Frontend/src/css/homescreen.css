@@ -44,6 +44,7 @@ input {
   color: white;
   background-color: #5d7ca6;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .tab-1 {
