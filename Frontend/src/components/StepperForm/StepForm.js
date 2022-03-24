@@ -17,10 +17,6 @@ const StepForm = () => {
   */
   const [flightOffer] = useContext(OfferPriceContext);
   const { itineraries } = flightOffer;
-  console.log("Itineraries Stepper", itineraries);
-
-  console.log("FlightOffer Stepper:");
-  console.log(flightOffer);
 
   const isReturn = flightOffer.itineraries.length > 1;
 
