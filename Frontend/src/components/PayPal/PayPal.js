@@ -12,7 +12,7 @@ const currency = "EUR";
 const style = { layout: "vertical" };
 
 // Custom component to wrap the PayPalButtons and handle currency changes
-const ButtonWrapper = ({ currency, showSpinner, totalPrice, orderFlight }) => {
+const ButtonWrapper = ({ currency, showSpinner, totalPrice }) => {
   // usePayPalScriptReducer can be use only inside children of PayPalScriptProviders
   // This is the main reason to wrap the PayPalButtons in a new component
   const [{ options, isPending }, dispatch] = usePayPalScriptReducer();
@@ -56,11 +56,18 @@ const ButtonWrapper = ({ currency, showSpinner, totalPrice, orderFlight }) => {
         onApprove={function (data, actions) {
           return actions.order.capture().then(function () {
             swal(
-              "Su pago se ha realizado correctamente, pulse confirmar para ir a su reserva",
+              "Su pago se ha realizado correctamente, pulse ok para ir a su reserva",
               "",
               "success"
             );
           });
+        }}
+        onCancel={function (data) {
+          swal(
+            "Has cancelado el pago, no se realizará la reserva",
+            "",
+            "error"
+          );
         }}
       />
     </>
