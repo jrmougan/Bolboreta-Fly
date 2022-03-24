@@ -1,10 +1,13 @@
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import {
   PayPalScriptProvider,
   PayPalButtons,
   usePayPalScriptReducer,
 } from "@paypal/react-paypal-js";
 import swal from "sweetalert";
+import { TokenContext } from "../../context/TokenContext";
+import { OfferPriceContext } from "../../context/OfferPriceContext";
+import { Navigate } from "react-router-dom";
 
 // This values are the props in the UI
 
@@ -12,7 +15,16 @@ const currency = "EUR";
 const style = { layout: "vertical" };
 
 // Custom component to wrap the PayPalButtons and handle currency changes
-const ButtonWrapper = ({ currency, showSpinner, totalPrice, orderFlight }) => {
+const ButtonWrapper = ({
+  currency,
+  showSpinner,
+  totalPrice,
+  orderFlight,
+  travelers,
+}) => {
+  // Contextos
+  const [token] = useContext(TokenContext);
+  const [flight] = useContext(OfferPriceContext);
   // usePayPalScriptReducer can be use only inside children of PayPalScriptProviders
   // This is the main reason to wrap the PayPalButtons in a new component
   const [{ options, isPending }, dispatch] = usePayPalScriptReducer();
@@ -54,14 +66,20 @@ const ButtonWrapper = ({ currency, showSpinner, totalPrice, orderFlight }) => {
             });
         }}
         onApprove={function (data, actions) {
-          return actions.order.capture().then(function () {
-            swal(
-              "Su pago se ha realizado correctamente, pulse confirmar para ir a su reserva",
-              "",
-              "success"
-            );
-
-            orderFlight();
+          return actions.order.capture().then(async function () {
+            try {
+              await orderFlight(flight, token, travelers).then(function () {
+                swal(
+                  "Su pago se ha realizado correctamente, pulse confirmar para ir a su reserva",
+                  "",
+                  "success"
+                );
+              });
+            } catch (error) {
+              console.log(error);
+            } finally {
+              return <Navigate to="/"></Navigate>;
+            }
           });
         }}
       />
@@ -69,7 +87,7 @@ const ButtonWrapper = ({ currency, showSpinner, totalPrice, orderFlight }) => {
   );
 };
 
-export default function PayPal({ totalPrice, orderFlight }) {
+export default function PayPal({ totalPrice, orderFlight, travelers }) {
   return (
     <div style={{ width: "90%", minHeight: "200px" }}>
       <PayPalScriptProvider
@@ -84,6 +102,7 @@ export default function PayPal({ totalPrice, orderFlight }) {
           showSpinner={false}
           totalPrice={totalPrice}
           orderFlight={orderFlight}
+          travelers={travelers}
         />
       </PayPalScriptProvider>
     </div>

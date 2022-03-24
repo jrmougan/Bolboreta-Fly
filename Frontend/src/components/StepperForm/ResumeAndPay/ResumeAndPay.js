@@ -25,13 +25,11 @@ const offerPrice = async (flightOffer, token, travelers) => {
         body: JSON.stringify(body),
       }
     );
-
     const data = await res.json();
 
     if (res.ok) {
-      updatedOffer = data.data.data.flightOffers[0];
-      bookOffer(updatedOffer, token, travelers);
-      console.log("booking price ok");
+      updatedOffer = await data.data.data.flightOffers[0];
+      await bookOffer(updatedOffer, token, travelers);
     }
   } catch (error) {
     console.error(error);
@@ -43,6 +41,7 @@ const bookOffer = async (updatedFlightOrder, token, travelers) => {
     itinerary: updatedFlightOrder,
     travelers: travelers,
   };
+  console.log(flightOrder);
   try {
     const res = await fetch(
       `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/booking/newBooking`,
@@ -57,7 +56,9 @@ const bookOffer = async (updatedFlightOrder, token, travelers) => {
     );
 
     if (res.ok) {
-      console.log(res);
+      const data = await res.json();
+      console.log(data);
+
       console.log("Booking OK");
     }
   } catch (error) {
@@ -95,22 +96,17 @@ const ResumeandPay = ({ rateCharge, travelers, totalPrice }) => {
   //  Averiguamos el código de la aerolínea principal
   const airlineCode = flight.validatingAirlineCodes[0];
 
-  const orderFlight = async (e) => {
-    e.preventDefault();
-    offerPrice(flight, token, travelers);
-  };
-
   return (
     <section className="paymentConfirmationContainer">
-      <PaymentElection totalPrice={totalPrice} orderFlight={orderFlight} />
+      <PaymentElection
+        totalPrice={totalPrice}
+        orderFlight={offerPrice}
+        travelers={travelers}
+      />
 
-      <PaymentConfirmation totalprice={totalPrice}>
+      <PaymentConfirmation>
         <FlightsResume itineraries={itineraries} airlineCode={airlineCode} />
-        <FinalAcounting
-          flight={flight}
-          rateCharge={rateCharge}
-          orderFlight={orderFlight}
-        />
+        <FinalAcounting flight={flight} />
       </PaymentConfirmation>
     </section>
   );

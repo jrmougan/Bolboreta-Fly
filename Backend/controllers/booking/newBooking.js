@@ -162,7 +162,7 @@ const newBooking = async (req, res, next) => {
 
         res.send({
             status: 'ok',
-            data: result,
+            data: insertIdBooking,
         });
     } catch (error) {
         next(error);
