@@ -5,10 +5,18 @@
 }
 .inputs-passengers {
   margin: 2rem 0 2rem;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
 }
 .textfield-mui {
   margin-left: 3rem;
 }
 .btn-passenger {
   display: block;
+}
+
+.passengerForm
+  .MuiOutlinedInput-root.MuiInputBase-root.MuiInputBase-colorPrimary.MuiInputBase-formControl.MuiInputBase-adornedEnd.css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root {
+  justify-content: space-between;
 }

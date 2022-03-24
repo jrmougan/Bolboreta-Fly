@@ -65,24 +65,24 @@ const bookOffer = async (updatedFlightOrder, token, travelers) => {
   }
 };
 
-const seatMap = (updatedFlightOrder, token)=> {
-  const body {
-
+const seatMap = async (updatedFlightOrder, token) => {
+  const body = {
+    data: " ",
   };
   try {
-    const res = await fetch(`http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/seatmap`, {
-      method: "POST",
-      headers: {
-        Authorization: token,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(flightOrder),
-    })
-    
-  } catch (error) {
-    
-  }
-}
+    const res = await fetch(
+      `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/seatmap`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: token,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      }
+    );
+  } catch (error) {}
+};
 
 const ResumeandPay = ({ rateCharge, travelers, totalPrice }) => {
   // Contextos
