@@ -14,7 +14,7 @@ import {
   StepFormScreen,
   GetBookingsScreen,
 } from '../page';
-import ItineraryScreen from '../page/IntineraryScreen';
+import ItineraryScreen from '../page/ItineraryScreen';
 
 const routes = [
   { name: 'home', path: '/', component: <HomeScreen /> },
@@ -33,10 +33,9 @@ const routes = [
   { name: 'step', path: '/step', component: <StepFormScreen /> },
   {
     name: 'itinerary',
-    path: '/:bookingId/itinerary',
+    path: '/:idBooking/itinerary',
     component: <ItineraryScreen />,
   },
-
   {
     name: 'activeuser',
     path: '/register/validate/:registration_code',
