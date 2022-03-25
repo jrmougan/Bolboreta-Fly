@@ -2,12 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { MoonLoader } from 'react-spinners';
 import Itinerary from '../components/StepperForm/Itinerary/Itinerary';
+import { css } from '@emotion/react';
+
+const override = css`
+  display: block;
+  margin: 3rem auto;
+  border-color: red;
+`;
 
 const ItineraryScreen = () => {
   const { idBooking } = useParams();
 
   const [loading, setLoading] = useState(true);
-  const [bookingCode, setBookingCode] = useState(1);
+  const [bookingCode, setBookingCode] = useState(idBooking);
   const [flightOrder, setFlightOrder] = useState();
   const [flightDurations, setFlightDurations] = useState([]);
   const [flightCounter, setFlightCounter] = useState(0);
@@ -36,7 +43,7 @@ const ItineraryScreen = () => {
       if (res.ok) {
         const body = await res.json();
         setFlightOrder(body);
-        setLoading(false);
+        setLoading(true);
         console.log('Flight Order', body);
       }
     } catch (error) {
@@ -47,7 +54,6 @@ const ItineraryScreen = () => {
   useEffect(() => {
     getFlightOrderByBookingId();
   }, [bookingCode]);
-
   useEffect(() => {
     getBookingCode(idBooking);
   }, []);
@@ -66,7 +72,7 @@ const ItineraryScreen = () => {
 
       if (res.ok) {
         const body = await res.json();
-        const durations = body.data[0][0];
+        const durations = body.data[0];
         console.log('Todos los Ids de los vuelos', body);
         setFlightDurations([...flightDurations, durations]);
       }
@@ -97,7 +103,7 @@ const ItineraryScreen = () => {
   return (
     <React.Fragment>
       {loading ? (
-        <MoonLoader />
+        <MoonLoader className='rotator' css={override} />
       ) : (
         <Itinerary
           itineraries={itineraries}
