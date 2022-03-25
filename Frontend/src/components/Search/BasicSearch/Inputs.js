@@ -33,27 +33,32 @@ export const InputDestination = ({ destination, setDestination }) => {
 };
 
 export const InputDepartureDate = ({ departureDate, setDepartureDate }) => {
-  console.log(departureDate);
+  console.log('Departure', departureDate);
+
   return (
     <div className="inputDiv grow-1">
       <FaWpforms className="faplane_icon" />
       {
         <DatePicker
+          className='datePicker '
           minDate={Date.now()}
-          className="datePicker "
-          label="Día de salida"
-          sx={{ backgroundColor: "white", width: "100%" }}
+          label='Día de salida'
+          inputFormat='dd/MM/yyyy'
+          sx={{ backgroundColor: 'white', width: '100%' }}
           value={departureDate}
           onChange={(newValue) => {
-            setDepartureDate(format(newValue, "yyyy-MM-dd"));
+            if (newValue instanceof Date && !isNaN(newValue.valueOf())) {
+              setDepartureDate(format(newValue, 'yyyy-MM-dd'));
+            }
           }}
           renderInput={(params) => (
             <TextField
               sx={{
-                background: "white",
-                width: "100%",
-                marginLeft: " .5rem",
-                marginTop: " .5rem",
+                background: 'white',
+                width: '100%',
+                marginLeft: ' .5rem',
+                marginTop: ' .5rem',
+                borderRadius: '4px',
               }}
               {...params}
             />
@@ -74,21 +79,25 @@ export const InputReturnDate = ({
     <div className="inputDiv grow-1">
       <FaWpforms className="faplane_icon" />
       <DatePicker
+        inputFormat='dd/MM/yyyy'
+        className='datePicker '
         minDate={new Date(departureDate)}
-        className="datePicker "
-        label="Día de llegada"
-        sx={{ backgroundColor: "white", width: "100%" }}
+        label='Día de llegada'
+        sx={{ backgroundColor: 'white', width: '100%', borderRadius: '4px' }}
         value={returnDate}
         onChange={(newValue) => {
-          setReturndate(format(newValue, "yyyy-MM-dd"));
+          if (newValue instanceof Date && !isNaN(newValue.valueOf())) {
+            setReturndate(format(newValue, 'yyyy-MM-dd'));
+          }
         }}
         renderInput={(params) => (
           <TextField
             sx={{
-              background: "white",
-              width: "100%",
-              marginLeft: " .5rem",
-              marginTop: " .5rem",
+              background: 'white',
+              width: '100%',
+              marginLeft: ' .5rem',
+              marginTop: ' .5rem',
+              borderRadius: '4px',
             }}
             {...params}
           />
@@ -113,27 +122,15 @@ export const InputAdults = ({ adults, setAdults }) => {
             {...params}
             label="Seleccione adultos"
             sx={{
-              backgroundColor: "white",
-              marginLeft: " .5rem",
-              marginTop: " .5rem",
+              backgroundColor: 'white',
+              marginLeft: ' .5rem',
+              marginTop: ' .5rem',
+              borderRadius: '4px',
             }}
           />
         )}
       />
-      {/*       <select
-        className='searchInput searchInput-2 adultsInput'
-        value={adults}
-        onChange={handleSubmit(setAdults)}
-        placeholder='Adultos'
-      >
-        {ADULTS.map((adulto, key) => {
-          return (
-            <option value={adulto.value} key={key}>
-              {adulto.label}
-            </option>
-          );
-        })}
-      </select> */}
+ 
     </div>
   );
 };

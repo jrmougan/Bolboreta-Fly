@@ -9,6 +9,8 @@ const ItineraryScreen = () => {
   const [loading, setLoading] = useState(true);
   const [bookingCode, setBookingCode] = useState(1);
   const [flightOrder, setFlightOrder] = useState();
+  const [flightDurations, setFlightDurations] = useState([]);
+  const [flightCounter, setFlightCounter] = useState(0);
 
   const getBookingCode = async (id) => {
     try {
@@ -50,6 +52,33 @@ const ItineraryScreen = () => {
     getBookingCode(idBooking);
   }, []);
 
+  /* 
+  ############################
+  ##  OBTENER IDS DE VUELOS ##
+  ############################
+  */
+
+  const getAllFlightIds = async () => {
+    try {
+      const res = await fetch(
+        `http://localhost:4000/booking/${idBooking}/getFlightsIds`
+      );
+
+      if (res.ok) {
+        const body = await res.json();
+        const durations = body.data[0][0];
+        console.log('Todos los Ids de los vuelos', body);
+        setFlightDurations([...flightDurations, durations]);
+      }
+    } catch (error) {
+      console.error('Error en AllFlights', error);
+    }
+  };
+  console.log('Objeto con duraciones', flightDurations);
+  useEffect(() => {
+    getAllFlightIds();
+  }, [flightOrder]);
+
   // Si pongo la variable como ESTADO
   // me produce un problema de Re-Renderización
   let itineraries;
@@ -75,6 +104,8 @@ const ItineraryScreen = () => {
           travelers={travelers}
           totalPrice={totalPrice}
           firstTraveler={firstTraveler}
+          flightCounter={flightCounter}
+          flightDurations={flightDurations}
         />
       )}
     </React.Fragment>
