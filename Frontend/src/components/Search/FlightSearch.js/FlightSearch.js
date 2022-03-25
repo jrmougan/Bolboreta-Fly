@@ -1,7 +1,7 @@
-import { LocalizationProvider } from '@mui/lab';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { LocalizationProvider } from "@mui/lab";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 import {
   InputAdults,
@@ -9,8 +9,8 @@ import {
   InputDestination,
   InputOrigin,
   InputReturnDate,
-} from '../BasicSearch/Inputs';
-import Tabs from './Tab';
+} from "../BasicSearch/Inputs";
+import Tabs from "./Tab";
 
 export const FlightSearch = ({
   search,
@@ -34,10 +34,10 @@ export const FlightSearch = ({
   }
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
-      <section className='searchFlight'>
+      <section className="searchFlight">
         <Tabs withReturn={withReturn} setWithReturn={setWithReturn} />
-        <form onSubmit={search} className='search-form'>
-          <div className='inputsFlight'>
+        <form onSubmit={search} className="search-form">
+          <div className="inputsFlight">
             <InputOrigin origin={origin} setOrigin={setOrigin} />
 
             <InputDestination
@@ -51,6 +51,7 @@ export const FlightSearch = ({
 
             {withReturn && (
               <InputReturnDate
+                departureDate={departureDate}
                 returnDate={returnDate}
                 setReturndate={setReturndate}
               />
@@ -58,7 +59,7 @@ export const FlightSearch = ({
 
             <InputAdults adults={adults} setAdults={setAdults} />
           </div>
-          <Link to={url} className='btn search-submit' type='submit'>
+          <Link to={url} className="btn search-submit" type="submit">
             Buscar
           </Link>
         </form>

@@ -1,31 +1,32 @@
-import { ADULTS } from '../../StepperForm/InfoFlights/constantInfo';
+import { ADULTS } from "../../StepperForm/InfoFlights/constantInfo";
+import { frLocale } from "date-fns/locale/fr";
 
 import {
   FaPlaneDeparture,
   FaPlaneArrival,
   FaWpforms,
   FaUserFriends,
-} from 'react-icons/fa';
-import React from 'react';
-import SearchRoot from '../../../page/SearchRoot';
-import { DatePicker } from '@mui/lab';
-import { Autocomplete, TextField } from '@mui/material';
-import { format } from 'date-fns';
+} from "react-icons/fa";
+import React from "react";
+import SearchRoot from "../../../page/SearchRoot";
+import { DatePicker } from "@mui/lab";
+import { Autocomplete, TextField } from "@mui/material";
+import { format } from "date-fns";
 
 export const InputOrigin = ({ origin, setOrigin }) => {
   return (
-    <div className='inputDiv grow-2'>
-      <FaPlaneArrival className='faplane_icon' />
+    <div className="inputDiv grow-2">
+      <FaPlaneArrival className="faplane_icon" />
       <SearchRoot setState={setOrigin} isOrigin={true} />
     </div>
   );
 };
 
 export const InputDestination = ({ destination, setDestination }) => {
-  console.log('destination', destination);
+  console.log("destination", destination);
   return (
-    <div className='inputDiv grow-2'>
-      <FaPlaneArrival className='faplane_icon' />
+    <div className="inputDiv grow-2">
+      <FaPlaneArrival className="faplane_icon" />
       <SearchRoot setState={setDestination} />
     </div>
   );
@@ -35,11 +36,12 @@ export const InputDepartureDate = ({ departureDate, setDepartureDate }) => {
   console.log('Departure', departureDate);
 
   return (
-    <div className='inputDiv grow-1'>
-      <FaWpforms className='faplane_icon' />
+    <div className="inputDiv grow-1">
+      <FaWpforms className="faplane_icon" />
       {
         <DatePicker
           className='datePicker '
+          minDate={Date.now()}
           label='Día de salida'
           inputFormat='dd/MM/yyyy'
           sx={{ backgroundColor: 'white', width: '100%' }}
@@ -67,13 +69,19 @@ export const InputDepartureDate = ({ departureDate, setDepartureDate }) => {
   );
 };
 
-export const InputReturnDate = ({ returnDate, setReturndate }) => {
+export const InputReturnDate = ({
+  returnDate,
+  setReturndate,
+  departureDate,
+}) => {
+  console.log(departureDate);
   return (
-    <div className='inputDiv grow-1'>
-      <FaWpforms className='faplane_icon' />
+    <div className="inputDiv grow-1">
+      <FaWpforms className="faplane_icon" />
       <DatePicker
         inputFormat='dd/MM/yyyy'
         className='datePicker '
+        minDate={new Date(departureDate)}
         label='Día de llegada'
         sx={{ backgroundColor: 'white', width: '100%', borderRadius: '4px' }}
         value={returnDate}
@@ -100,19 +108,19 @@ export const InputReturnDate = ({ returnDate, setReturndate }) => {
 };
 
 export const InputAdults = ({ adults, setAdults }) => {
-  console.log('adults', adults);
+  console.log("adults", adults);
   return (
-    <div className='inputDiv grow-1'>
-      <FaUserFriends className='faplane_icon' />
+    <div className="inputDiv grow-1">
+      <FaUserFriends className="faplane_icon" />
       <Autocomplete
-        sx={{ width: '100%' }}
+        sx={{ width: "100%" }}
         options={ADULTS}
         onChange={(e, newInput) => setAdults(newInput.value)}
         value={ADULTS.value}
         renderInput={(params) => (
           <TextField
             {...params}
-            label='Seleccione adultos'
+            label="Seleccione adultos"
             sx={{
               backgroundColor: 'white',
               marginLeft: ' .5rem',
@@ -122,20 +130,7 @@ export const InputAdults = ({ adults, setAdults }) => {
           />
         )}
       />
-      {/*       <select
-        className='searchInput searchInput-2 adultsInput'
-        value={adults}
-        onChange={handleSubmit(setAdults)}
-        placeholder='Adultos'
-      >
-        {ADULTS.map((adulto, key) => {
-          return (
-            <option value={adulto.value} key={key}>
-              {adulto.label}
-            </option>
-          );
-        })}
-      </select> */}
+ 
     </div>
   );
 };
