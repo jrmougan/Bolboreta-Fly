@@ -1,13 +1,13 @@
-import React, { useState, useContext } from "react";
-import { Stepper, Step, StepLabel, Button, Typography } from "@mui/material";
-import BookingData from "./FormPassenger/BookingData.";
-import RateChoice from "./RateChoice/RateChoice";
-import ResumeAndPay from "./ResumeAndPay/ResumeAndPay";
-import { Container } from "@mui/material";
-import Itinerary from "../StepperForm/Itinerary/Itinerary";
-import { OfferPriceContext } from "../../context/OfferPriceContext";
-import Pasajero from "./Pasajeros/Pasajeros";
-import TodosPasajeros from "./Pasajeros/TodosPasajeros";
+import React, { useState, useContext } from 'react';
+import { Stepper, Step, StepLabel, Button, Typography } from '@mui/material';
+import BookingData from './FormPassenger/BookingData.';
+import RateChoice from './RateChoice/RateChoice';
+import ResumeAndPay from './ResumeAndPay/ResumeAndPay';
+import { Container } from '@mui/material';
+import Itinerary from '../StepperForm/Itinerary/Itinerary';
+import { OfferPriceContext } from '../../context/OfferPriceContext';
+import Pasajero from './Pasajeros/Pasajeros';
+import TodosPasajeros from './Pasajeros/TodosPasajeros';
 
 const StepForm = () => {
   /* 
@@ -41,32 +41,32 @@ const StepForm = () => {
     const travelerBody = {
       id: i + 1,
       name: {
-        firstName: "",
-        lastName: "",
+        firstName: '',
+        lastName: '',
       },
       dateOfBirth: null,
-      gender: "",
+      gender: '',
       documents: [
         {
-          documentType: "",
-          number: "",
+          documentType: '',
+          number: '',
           issuanceDate: null,
           expiryDate: null,
-          birthPlace: "",
-          issuanceCountry: "ES",
-          nacionality: "ES",
+          birthPlace: '',
+          issuanceCountry: 'ES',
+          nacionality: 'ES',
         },
       ],
       contact: {
-        purpose: "STANDARD",
+        purpose: 'STANDARD',
         phones: [
           {
-            deviceType: "",
-            countryCallingCode: "",
-            number: "",
+            deviceType: '',
+            countryCallingCode: '',
+            number: '',
           },
         ],
-        emailAddress: "",
+        emailAddress: '',
       },
     };
     allTravelers.push(travelerBody);
@@ -74,15 +74,21 @@ const StepForm = () => {
 
   const [travelers, setTravelers] = useState(allTravelers);
 
-  const [emergencyData, setEmergencyData] = useState({
-    name: "",
-    lastName: "",
-    email: "",
-    phone: "",
-  });
-
   const [rateCharge, setRateCharge] = useState(0);
 
+  let allAutoLabel = [];
+
+  for (let i = 0; i < numTravelers; i++) {
+    const body = {
+      gender: '',
+      docType: '',
+      telType: '',
+      countryCall: '',
+    };
+    allAutoLabel.push(body);
+  }
+  const [autoLabels, setAutoLabels] = useState(allAutoLabel);
+  console.log('AtoLabels', autoLabels);
   /* 
  #######################
  ## PASOS DEL STEPPER ##
@@ -92,7 +98,12 @@ const StepForm = () => {
   const getStepContent = (page) => {
     if (page === 0) {
       return (
-        <TodosPasajeros travelers={travelers} setTravelers={setTravelers} />
+        <TodosPasajeros
+          numTravelers={numTravelers}
+          travelers={travelers}
+          setTravelers={setTravelers}
+          labels={{ autoLabels, setAutoLabels }}
+        />
       );
     } else if (page === 1) {
       return <BookingData />;
@@ -120,10 +131,10 @@ const StepForm = () => {
 
   function getSteps() {
     return [
-      "Información de Pasajeros",
-      "Datos de reserva",
-      "Elección de tarifa",
-      "Resumen y Pago",
+      'Información de Pasajeros',
+      'Datos de reserva',
+      'Elección de tarifa',
+      'Resumen y Pago',
     ];
   }
 
@@ -165,7 +176,7 @@ const StepForm = () => {
   //  Salta al siguiente paso
   const handleSkip = () => {
     if (!isStepOptional(activeStep)) {
-      throw new Error("No puedes ir al paso siguiente sin completar el actual");
+      throw new Error('No puedes ir al paso siguiente sin completar el actual');
     }
     // Define el paso que va a estar activado
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -183,14 +194,14 @@ const StepForm = () => {
 
   return (
     <Container>
-      <div className="stepper_container">
+      <div className='stepper_container'>
         <Stepper activeStep={activeStep}>
           {steps.map((label, index) => {
             const stepProps = {};
             const labelProps = {};
             if (isStepOptional(index)) {
               labelProps.optional = (
-                <Typography variant="caption">Opcional</Typography>
+                <Typography variant='caption'>Opcional</Typography>
               );
             }
             if (isStepSkipped(index)) {
@@ -214,18 +225,18 @@ const StepForm = () => {
           ) : (
             <div>
               <div>{getStepContent(activeStep)}</div>
-              <div className="button_steps">
+              <div className='button_steps'>
                 <Button
                   disabled={activeStep === 0}
                   onClick={handleBack}
-                  color="primary"
+                  color='primary'
                 >
                   Atrás
                 </Button>
                 {isStepOptional(activeStep) && (
                   <Button
-                    variant="contained"
-                    color="primary"
+                    variant='contained'
+                    color='primary'
                     onClick={handleSkip}
                   >
                     Saltar
@@ -233,14 +244,14 @@ const StepForm = () => {
                 )}
 
                 <Button
-                  variant="contained"
-                  color="primary"
+                  variant='contained'
+                  color='primary'
                   onClick={handleNext}
                   sx={{
-                    fontSize: ".7rem",
+                    fontSize: '.7rem',
                   }}
                 >
-                  {activeStep === steps.length - 1 ? "Finalizar" : "Siguiente"}
+                  {activeStep === steps.length - 1 ? 'Finalizar' : 'Siguiente'}
                 </Button>
               </div>
             </div>
