@@ -10,7 +10,14 @@ const newBooking = async (req, res, next) => {
     let connection;
 
     try {
+        connection = await getDB();
+
         const id_user = req.userAuth.id;
+        //comprbar si el email existe
+        const [email_user] = await connection.query(
+            `SELECT email FROM user WHERE id = ?`,
+            [id_user]
+        );
         const { itinerary, travelers } = req.body;
 
         if (!itinerary || !travelers) {
@@ -155,7 +162,7 @@ const newBooking = async (req, res, next) => {
         Tu reserva con id <b>${bookingId}</b> ha sido confirmada
         `;
         await sendMail({
-            to: 'jrmougan@gmail.com',
+            to: email_user,
             subject: 'RESERVA CONFIRMADA',
             body: confirmbody,
         });
