@@ -1,31 +1,32 @@
-import { ADULTS } from '../../StepperForm/InfoFlights/constantInfo';
+import { ADULTS } from "../../StepperForm/InfoFlights/constantInfo";
+import { frLocale } from "date-fns/locale/fr";
 
 import {
   FaPlaneDeparture,
   FaPlaneArrival,
   FaWpforms,
   FaUserFriends,
-} from 'react-icons/fa';
-import React from 'react';
-import SearchRoot from '../../../page/SearchRoot';
-import { DatePicker } from '@mui/lab';
-import { Autocomplete, TextField } from '@mui/material';
-import { format } from 'date-fns';
+} from "react-icons/fa";
+import React from "react";
+import SearchRoot from "../../../page/SearchRoot";
+import { DatePicker } from "@mui/lab";
+import { Autocomplete, TextField } from "@mui/material";
+import { format } from "date-fns";
 
 export const InputOrigin = ({ origin, setOrigin }) => {
   return (
-    <div className='inputDiv grow-2'>
-      <FaPlaneArrival className='faplane_icon' />
+    <div className="inputDiv grow-2">
+      <FaPlaneArrival className="faplane_icon" />
       <SearchRoot setState={setOrigin} isOrigin={true} />
     </div>
   );
 };
 
 export const InputDestination = ({ destination, setDestination }) => {
-  console.log('destination', destination);
+  console.log("destination", destination);
   return (
-    <div className='inputDiv grow-2'>
-      <FaPlaneArrival className='faplane_icon' />
+    <div className="inputDiv grow-2">
+      <FaPlaneArrival className="faplane_icon" />
       <SearchRoot setState={setDestination} />
     </div>
   );
@@ -34,24 +35,25 @@ export const InputDestination = ({ destination, setDestination }) => {
 export const InputDepartureDate = ({ departureDate, setDepartureDate }) => {
   console.log(departureDate);
   return (
-    <div className='inputDiv grow-1'>
-      <FaWpforms className='faplane_icon' />
+    <div className="inputDiv grow-1">
+      <FaWpforms className="faplane_icon" />
       {
         <DatePicker
-          className='datePicker '
-          label='Día de salida'
-          sx={{ backgroundColor: 'white', width: '100%' }}
+          minDate={Date.now()}
+          className="datePicker "
+          label="Día de salida"
+          sx={{ backgroundColor: "white", width: "100%" }}
           value={departureDate}
           onChange={(newValue) => {
-            setDepartureDate(format(newValue, 'yyyy-MM-dd'));
+            setDepartureDate(format(newValue, "yyyy-MM-dd"));
           }}
           renderInput={(params) => (
             <TextField
               sx={{
-                background: 'white',
-                width: '100%',
-                marginLeft: ' .5rem',
-                marginTop: ' .5rem',
+                background: "white",
+                width: "100%",
+                marginLeft: " .5rem",
+                marginTop: " .5rem",
               }}
               {...params}
             />
@@ -62,25 +64,31 @@ export const InputDepartureDate = ({ departureDate, setDepartureDate }) => {
   );
 };
 
-export const InputReturnDate = ({ returnDate, setReturndate }) => {
+export const InputReturnDate = ({
+  returnDate,
+  setReturndate,
+  departureDate,
+}) => {
+  console.log(departureDate);
   return (
-    <div className='inputDiv grow-1'>
-      <FaWpforms className='faplane_icon' />
+    <div className="inputDiv grow-1">
+      <FaWpforms className="faplane_icon" />
       <DatePicker
-        className='datePicker '
-        label='Día de llegada'
-        sx={{ backgroundColor: 'white', width: '100%' }}
+        minDate={new Date(departureDate)}
+        className="datePicker "
+        label="Día de llegada"
+        sx={{ backgroundColor: "white", width: "100%" }}
         value={returnDate}
         onChange={(newValue) => {
-          setReturndate(format(newValue, 'yyyy-MM-dd'));
+          setReturndate(format(newValue, "yyyy-MM-dd"));
         }}
         renderInput={(params) => (
           <TextField
             sx={{
-              background: 'white',
-              width: '100%',
-              marginLeft: ' .5rem',
-              marginTop: ' .5rem',
+              background: "white",
+              width: "100%",
+              marginLeft: " .5rem",
+              marginTop: " .5rem",
             }}
             {...params}
           />
@@ -91,23 +99,23 @@ export const InputReturnDate = ({ returnDate, setReturndate }) => {
 };
 
 export const InputAdults = ({ adults, setAdults }) => {
-  console.log('adults', adults);
+  console.log("adults", adults);
   return (
-    <div className='inputDiv grow-1'>
-      <FaUserFriends className='faplane_icon' />
+    <div className="inputDiv grow-1">
+      <FaUserFriends className="faplane_icon" />
       <Autocomplete
-        sx={{ width: '100%' }}
+        sx={{ width: "100%" }}
         options={ADULTS}
         onChange={(e, newInput) => setAdults(newInput.value)}
         value={ADULTS.value}
         renderInput={(params) => (
           <TextField
             {...params}
-            label='Seleccione adultos'
+            label="Seleccione adultos"
             sx={{
-              backgroundColor: 'white',
-              marginLeft: ' .5rem',
-              marginTop: ' .5rem',
+              backgroundColor: "white",
+              marginLeft: " .5rem",
+              marginTop: " .5rem",
             }}
           />
         )}
