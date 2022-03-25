@@ -6,7 +6,7 @@ const sharp = require('sharp');
 const { ensureDir, unlink } = require('fs-extra');
 const uuid = require('uuid');
 
-const { SENDGRID_API_KEY, SENDGRID_FROM, PUBLIC_HOST_FRONT, UPLOAD_DIRECTORY } =
+const { SENDGRID_API_KEY, SENDGRID_FROM, PUBLIC_HOST, UPLOAD_DIRECTORY } =
     process.env;
 
 // ruta directorio donde guardar avatar
@@ -58,7 +58,7 @@ async function mailVerify(email, registration_code) {
     const bodyemail = `
         Para activar tu registro en Bolboreta Flight, 
         pulsa el link siguiente para verificar tu email:
-        <a href="${PUBLIC_HOST_FRONT}register/validate/${registration_code}"> Pulsa aqui </a>`;
+        <a href="${PUBLIC_HOST}register/validate/${registration_code}"> Pulsa aqui </a>`;
     await sendMail({
         to: email,
         subject: 'Activación registro de Bolboreta Flight',
@@ -72,11 +72,9 @@ async function savePhoto(image, maxwidth) {
     try {
         await ensureDir(uploadDir);
 
-
         const sharpImage = sharp(image.data);
 
         const infoImage = await sharpImage.metadata();
-
 
         // Todas las fotos/avatares van a tener un tamaño máximo.
         if (infoImage.width > maxwidth) {
@@ -96,7 +94,6 @@ async function savePhoto(image, maxwidth) {
         await sharpImage.toFile(imagePath);
 
         return imgName;
-
     } catch (_) {
         throw new Error('Error al procesar la imagen');
     }
@@ -106,7 +103,7 @@ async function savePhoto(image, maxwidth) {
 
 async function deletePhoto(photoname) {
     try {
-        if (!photoname.includes("http")) {
+        if (!photoname.includes('http')) {
             const photoPath = path.join(uploadDir, photoname);
 
             await unlink(photoPath);
@@ -118,7 +115,6 @@ async function deletePhoto(photoname) {
     }
 }
 
-
 module.exports = {
     hashedPassword,
     generateRandomString,
@@ -126,5 +122,4 @@ module.exports = {
     savePhoto,
     deletePhoto,
     sendMail,
-
 };
