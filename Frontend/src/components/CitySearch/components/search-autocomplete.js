@@ -88,6 +88,7 @@ const SearchAutocomplete = (props) => {
                 background: 'white',
                 marginLeft: ' .5rem',
                 marginTop: '.5rem',
+                borderRadius: '4px',
               }}
               onChange={(e) => {
                 e.preventDefault();

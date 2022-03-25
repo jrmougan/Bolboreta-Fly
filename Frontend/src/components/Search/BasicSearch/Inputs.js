@@ -32,7 +32,8 @@ export const InputDestination = ({ destination, setDestination }) => {
 };
 
 export const InputDepartureDate = ({ departureDate, setDepartureDate }) => {
-  console.log(departureDate);
+  console.log('Departure', departureDate);
+
   return (
     <div className='inputDiv grow-1'>
       <FaWpforms className='faplane_icon' />
@@ -40,10 +41,13 @@ export const InputDepartureDate = ({ departureDate, setDepartureDate }) => {
         <DatePicker
           className='datePicker '
           label='Día de salida'
+          inputFormat='dd/MM/yyyy'
           sx={{ backgroundColor: 'white', width: '100%' }}
           value={departureDate}
           onChange={(newValue) => {
-            setDepartureDate(format(newValue, 'yyyy-MM-dd'));
+            if (newValue instanceof Date && !isNaN(newValue.valueOf())) {
+              setDepartureDate(format(newValue, 'yyyy-MM-dd'));
+            }
           }}
           renderInput={(params) => (
             <TextField
@@ -52,6 +56,7 @@ export const InputDepartureDate = ({ departureDate, setDepartureDate }) => {
                 width: '100%',
                 marginLeft: ' .5rem',
                 marginTop: ' .5rem',
+                borderRadius: '4px',
               }}
               {...params}
             />
@@ -67,12 +72,15 @@ export const InputReturnDate = ({ returnDate, setReturndate }) => {
     <div className='inputDiv grow-1'>
       <FaWpforms className='faplane_icon' />
       <DatePicker
+        inputFormat='dd/MM/yyyy'
         className='datePicker '
         label='Día de llegada'
-        sx={{ backgroundColor: 'white', width: '100%' }}
+        sx={{ backgroundColor: 'white', width: '100%', borderRadius: '4px' }}
         value={returnDate}
         onChange={(newValue) => {
-          setReturndate(format(newValue, 'yyyy-MM-dd'));
+          if (newValue instanceof Date && !isNaN(newValue.valueOf())) {
+            setReturndate(format(newValue, 'yyyy-MM-dd'));
+          }
         }}
         renderInput={(params) => (
           <TextField
@@ -81,6 +89,7 @@ export const InputReturnDate = ({ returnDate, setReturndate }) => {
               width: '100%',
               marginLeft: ' .5rem',
               marginTop: ' .5rem',
+              borderRadius: '4px',
             }}
             {...params}
           />
@@ -108,6 +117,7 @@ export const InputAdults = ({ adults, setAdults }) => {
               backgroundColor: 'white',
               marginLeft: ' .5rem',
               marginTop: ' .5rem',
+              borderRadius: '4px',
             }}
           />
         )}

@@ -7,10 +7,21 @@ import Summary from './Summary/Summary';
 import { FaArrowLeft } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
-const Itinerary = ({ travelers, itineraries, totalPrice, firstTraveler }) => {
+const Itinerary = ({
+  travelers,
+  itineraries,
+  totalPrice,
+  firstTraveler,
+  flightCounter,
+  flightDurations,
+}) => {
   return (
     <section className='itinerary_container_end'>
-      <Summary itineraries={itineraries} />
+      <Summary
+        itineraries={itineraries}
+        flightCounter={flightCounter}
+        flightDurations={flightDurations}
+      />
       <SeatAndBaggage
         seatChosen={0}
         superPassenger={null}

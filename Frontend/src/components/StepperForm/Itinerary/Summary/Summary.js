@@ -9,7 +9,7 @@ import AirportInfo from './AirportInfo';
 import Confirmation from './Confirmation';
 import SubtitleInfo from './SubtitleInfo';
 
-const Summary = ({ itineraries, byRetrieving }) => {
+const Summary = ({ itineraries, flightDurations, flightCounter }) => {
   // ¿Sólo ida?
   const isReturn = itineraries.length > 1;
   const title = isReturn ? 'Ida y vuelta' : 'Solo ida';
@@ -23,19 +23,32 @@ const Summary = ({ itineraries, byRetrieving }) => {
 
   return (
     <React.Fragment>
-      <InfoContainer isOneWay={title} segments={firstItinerary.segments} />
+      <InfoContainer
+        isOneWay={title}
+        segments={firstItinerary.segments}
+        flightDurations={flightDurations}
+        flightCounter={flightCounter}
+      />
 
       {isReturn && (
         <InfoContainer
           isReturn={isReturn}
           segments={secondItinerary.segments}
+          flightDurations={flightDurations}
+          flightCounter={flightCounter}
         />
       )}
     </React.Fragment>
   );
 };
 
-export const InfoContainer = ({ segments, isReturn }) => {
+export const InfoContainer = ({
+  segments,
+  isReturn,
+  flightDurations,
+  flightCounter,
+}) => {
+  console.log('FlightDuration', flightDurations);
   /* 
   ###############
   ## DURATIONS ##
