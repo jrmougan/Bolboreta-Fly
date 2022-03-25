@@ -116,16 +116,9 @@ const EditUser = () => {
             placeholder={user.userInfo?.email}
           />
           <label htmlFor="birthdate"> Fecha de Nacimiento </label>
-          <input
-            placeholder={format(
-              new Date(user.userInfo?.birthdate),
-              "yyyy-MM-dd"
-            )}
-          />
           <div>
             <DatePicker
               className="datePicker "
-              label="Fecha de Nacimiento"
               inputFormat="dd/MM/yyyy"
               sx={{ backgroundColor: "white", width: "100%" }}
               value={newbirthdate}
