@@ -9,7 +9,7 @@ const getFlightsIds = async (req, res, next) => {
         const { bookingId } = req.params;
 
         const [flightsIds] = await connection.query(
-            `SELECT ternario.flight_id FROM passenger_rel_flight_rel_booking as ternario WHERE ternario.booking_id=?;`,
+            `SELECT ternario.flight_id, flight.duration FROM passenger_rel_flight_rel_booking as ternario LEFT JOIN flight ON ternario.flight_id=flight.id WHERE ternario.booking_id=?;`,
             [bookingId]
         );
 

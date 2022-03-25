@@ -6,11 +6,11 @@ const getFlightDuration = async (req, res, next) => {
     try {
         connection = await getDB();
 
-        const { flightId } = req.params;
+        const { idFlight } = req.params;
 
         const [duration] = await connection.query(
             `SELECT flight.duration FROM flight  WHERE flight.id=?;`,
-            [flightId]
+            [idFlight]
         );
 
         res.send({
