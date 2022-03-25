@@ -43,7 +43,7 @@ const ItineraryScreen = () => {
       if (res.ok) {
         const body = await res.json();
         setFlightOrder(body);
-        setLoading(true);
+        setLoading(false);
         console.log('Flight Order', body);
       }
     } catch (error) {
