@@ -1,5 +1,7 @@
 import "./style.css";
-
+import { DatePicker } from "@mui/lab";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import React, { useState, useContext } from "react";
 import decodeTokenData from "../../helpers/decodeTokenData";
 import { UserContext } from "../../context/UserContext";
@@ -60,106 +62,118 @@ const EditUser = () => {
     }
     fetchUserProfile();
   };
-  const handleBirthdate = (e) => {
-    e.preventDefault();
-    console.log(e.target.value);
-    setNewbirthdate(format(new Date(e.target.value), "yyyy-MM-dd"));
-  };
 
   return (
     <div>
-      <form type="submit" id="getuser" onSubmit={updateUser}>
-        {" "}
-        <div className="fotocontainer">
-          <img
-            className="fotousuario"
-            src={
-              user.userInfo?.avatar
-                ? `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/uploads/${user.userInfo?.avatar}`
-                : avataranonimo
-            }
-            alt={`Avatar de ${user.userInfo?.name_user}`}
-          />
-        </div>
-        <EditAvatar />
-        <h2> Datos de Usuario </h2>
-        <label htmlFor="name"> Nombre </label>
-        <TextField
-          placeholder={user.userInfo?.name_user}
-          id="name"
-          name="name"
-          type="text"
-          value={newname}
-          onChange={(e) => {
-            setNewname(e.target.value);
-          }}
-        />
-        <label htmlFor="lastname"> Apellido </label>
-        <TextField
-          id="lastname"
-          name="lastname"
-          type="text"
-          value={newlastname}
-          onChange={(e) => {
-            setLastname(e.target.value);
-          }}
-          placeholder={user.userInfo?.lastname}
-        />
-        <label htmlFor="email"> Email </label>
-        <TextField
-          style={{ width: "252px" }}
-          id="email"
-          name="email"
-          type="email"
-          value={newemail}
-          onChange={(e) => {
-            setNewemail(e.target.value);
-          }}
-          placeholder={user.userInfo?.email}
-        />
-        <label htmlFor="birthdate"> Fecha de Nacimiento </label>
-        <input
-          placeholder={format(new Date(user.userInfo?.birthdate), "yyyy-MM-dd")}
-        />
-        <TextField
-          id="birthdate"
-          name="birthdate"
-          type="date"
-          value={format(new Date(newbirthdate), "yyyy-MM-dd")}
-          onChange={handleBirthdate}
-        />
-        <label htmlFor="address"> Dirección </label>
-        <TextField
-          style={{ width: "252px" }}
-          id="address"
-          name="address"
-          value={newaddress}
-          onChange={(e) => {
-            setNewaddress(e.target.value);
-          }}
-          placeholder={
-            user.userInfo?.address ? user.userInfo?.address : "dirección"
-          }
-        />
-        <label htmlFor="bio"> Biografía </label>
-        <TextField
-          style={{ width: "270px" }}
-          id="bio"
-          name="bio"
-          type="textarea"
-          value={newbio}
-          onChange={(e) => {
-            setNewbio(e.target.value);
-          }}
-          placeholder={
-            user.userInfo?.bio ? user.userInfo?.bio : "Cuentanos algo de ti"
-          }
-        />
-        <button type="submit" className="guardarcambios">
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <form type="submit" id="getuser" onSubmit={updateUser}>
           {" "}
-          Guardar Cambios{" "}
-        </button>
-      </form>
+          <div className="fotocontainer">
+            <img
+              className="fotousuario"
+              src={
+                user.userInfo?.avatar
+                  ? `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/uploads/${user.userInfo?.avatar}`
+                  : avataranonimo
+              }
+              alt={`Avatar de ${user.userInfo?.name_user}`}
+            />
+          </div>
+          <EditAvatar />
+          <h2> Datos de Usuario </h2>
+          <label htmlFor="name"> Nombre </label>
+          <TextField
+            placeholder={user.userInfo?.name_user}
+            id="name"
+            name="name"
+            type="text"
+            value={newname}
+            onChange={(e) => {
+              setNewname(e.target.value);
+            }}
+          />
+          <label htmlFor="lastname"> Apellido </label>
+          <TextField
+            id="lastname"
+            name="lastname"
+            type="text"
+            value={newlastname}
+            onChange={(e) => {
+              setLastname(e.target.value);
+            }}
+            placeholder={user.userInfo?.lastname}
+          />
+          <label htmlFor="email"> Email </label>
+          <TextField
+            style={{ width: "252px" }}
+            id="email"
+            name="email"
+            type="email"
+            value={newemail}
+            onChange={(e) => {
+              setNewemail(e.target.value);
+            }}
+            placeholder={user.userInfo?.email}
+          />
+          <label htmlFor="birthdate"> Fecha de Nacimiento </label>
+          <div>
+            <DatePicker
+              className="datePicker "
+              inputFormat="dd/MM/yyyy"
+              sx={{ backgroundColor: "white", width: "100%" }}
+              value={newbirthdate}
+              onChange={(newValue) => {
+                if (newValue instanceof Date && !isNaN(newValue.valueOf())) {
+                  setNewbirthdate(format(newValue, "yyyy-MM-dd"));
+                }
+              }}
+              renderInput={(params) => (
+                <TextField
+                  sx={{
+                    background: "white",
+                    width: "100%",
+                    marginLeft: " .5rem",
+                    marginTop: " .5rem",
+                    borderRadius: "4px",
+                  }}
+                  {...params}
+                />
+              )}
+            ></DatePicker>{" "}
+          </div>
+          <label htmlFor="address"> Dirección </label>
+          <TextField
+            style={{ width: "252px" }}
+            id="address"
+            name="address"
+            value={newaddress}
+            onChange={(e) => {
+              setNewaddress(e.target.value);
+            }}
+            placeholder={
+              user.userInfo?.address ? user.userInfo?.address : "dirección"
+            }
+          />
+          <label htmlFor="bio"> Biografía </label>
+          <TextField
+            style={{ width: "270px" }}
+            id="bio"
+            name="bio"
+            type="textarea"
+            value={newbio}
+            onChange={(e) => {
+              setNewbio(e.target.value);
+            }}
+            placeholder={
+              user.userInfo?.bio ? user.userInfo?.bio : "Cuentanos algo de ti"
+            }
+          />
+          <button type="submit" className="guardarcambios">
+            {" "}
+            Guardar Cambios{" "}
+          </button>
+        </form>
+      </LocalizationProvider>
       <DeleteUsuario />
     </div>
   );

@@ -3,7 +3,7 @@ import "./style.css";
 import swal from "sweetalert";
 import { TokenContext } from "../../context/TokenContext";
 import decodeTokenData from "../../helpers/decodeTokenData";
-import { Link, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 const DeleteUsuario = () => {
   const [token, setToken] = useContext(TokenContext);
