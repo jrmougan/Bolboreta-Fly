@@ -111,6 +111,7 @@ const ItineraryScreen = () => {
           firstTraveler={firstTraveler}
           flightCounter={flightCounter}
           flightDurations={flightDurations}
+          idBooking={idBooking}
         />
       )}
     </React.Fragment>

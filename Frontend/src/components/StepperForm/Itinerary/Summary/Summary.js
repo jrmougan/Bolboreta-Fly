@@ -9,7 +9,12 @@ import AirportInfo from './AirportInfo';
 import Confirmation from './Confirmation';
 import SubtitleInfo from './SubtitleInfo';
 
-const Summary = ({ itineraries, flightDurations, flightCounter }) => {
+const Summary = ({
+  itineraries,
+  flightDurations,
+  flightCounter,
+  idBooking,
+}) => {
   // ¿Sólo ida?
   const isReturn = itineraries.length > 1;
   const title = isReturn ? 'Ida y vuelta' : 'Solo ida';
@@ -28,6 +33,7 @@ const Summary = ({ itineraries, flightDurations, flightCounter }) => {
         segments={firstItinerary.segments}
         flightDurations={flightDurations}
         flightCounter={flightCounter}
+        idBooking={idBooking}
       />
 
       {isReturn && (
@@ -36,6 +42,7 @@ const Summary = ({ itineraries, flightDurations, flightCounter }) => {
           segments={secondItinerary.segments}
           flightDurations={flightDurations}
           flightCounter={flightCounter}
+          idBooking={idBooking}
         />
       )}
     </React.Fragment>
@@ -47,6 +54,7 @@ export const InfoContainer = ({
   isReturn,
   flightDurations,
   flightCounter,
+  idBooking,
 }) => {
   console.log('FlightDuration', flightDurations);
   /* 
@@ -95,7 +103,7 @@ export const InfoContainer = ({
           <section id='segments_container' key={key}>
             <div className='flightPart'>
               {vuelos > 0 && <ScaleSegment duration={scaleDuration} />}
-              <Segment segment={segment} />
+              <Segment segment={segment} idBooking={idBooking} />
             </div>
           </section>
         );
@@ -103,7 +111,7 @@ export const InfoContainer = ({
     </article>
   );
 };
-const Segment = ({ segment }) => {
+const Segment = ({ segment, idBooking }) => {
   // Códigos IATA de aeropuertos de salida y llegada
   const firstCode = segment.departure.iataCode;
   const secondCode = segment.arrival.iataCode;
@@ -118,7 +126,11 @@ const Segment = ({ segment }) => {
     <div className='segment'>
       <AirportInfo time={firstTime} code={firstCode} date={firstDate} />
 
-      <AirlineInfo segment={segment} byRetrieving={true} />
+      <AirlineInfo
+        segment={segment}
+        byRetrieving={true}
+        idBooking={idBooking}
+      />
 
       <AirportInfo time={secondTime} code={secondCode} date={secondDate} />
     </div>
