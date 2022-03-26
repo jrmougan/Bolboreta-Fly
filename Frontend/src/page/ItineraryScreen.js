@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { MoonLoader } from 'react-spinners';
-import Itinerary from '../components/StepperForm/Itinerary/Itinerary';
-import { css } from '@emotion/react';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { MoonLoader } from "react-spinners";
+import Itinerary from "../components/StepperForm/Itinerary/Itinerary";
+import { css } from "@emotion/react";
 
 const override = css`
   display: block;
@@ -20,6 +20,7 @@ const ItineraryScreen = () => {
   const [flightCounter, setFlightCounter] = useState(0);
 
   const getBookingCode = async (id) => {
+    console.log("getBookingCode", id);
     try {
       const res = await fetch(
         `http://localhost:4000/booking/${id}/getIdFlightOrder`
@@ -28,32 +29,30 @@ const ItineraryScreen = () => {
         const body = await res.json();
         const data = body.data[0][0].booking_code;
         setBookingCode(data);
-        console.log('Codigo', data);
+        console.log("Codigo fdsafsd", data);
+        await getFlightOrderByBookingId(data);
       }
     } catch (error) {
-      console.error('Falla en getBookingCode', error);
+      console.error("Falla en getBookingCode", error);
     }
   };
 
-  const getFlightOrderByBookingId = async () => {
+  const getFlightOrderByBookingId = async (id) => {
     try {
       const res = await fetch(
-        `http://localhost:4000/booking/retrieveBooking/${bookingCode}`
+        `http://localhost:4000/booking/retrieveBooking/${id}`
       );
       if (res.ok) {
         const body = await res.json();
         setFlightOrder(body);
         setLoading(false);
-        console.log('Flight Order', body);
+        console.log("Flight Order", body);
       }
     } catch (error) {
-      console.error('Falla cuando queremos el Flight Order', error);
+      console.error("Falla cuando queremos el Flight Order", error);
     }
   };
 
-  useEffect(() => {
-    getFlightOrderByBookingId();
-  }, [bookingCode]);
   useEffect(() => {
     getBookingCode(idBooking);
   }, []);
@@ -73,14 +72,14 @@ const ItineraryScreen = () => {
       if (res.ok) {
         const body = await res.json();
         const durations = body.data[0];
-        console.log('Todos los Ids de los vuelos', body);
+        console.log("Todos los Ids de los vuelos", body);
         setFlightDurations([...flightDurations, durations]);
       }
     } catch (error) {
-      console.error('Error en AllFlights', error);
+      console.error("Error en AllFlights", error);
     }
   };
-  console.log('Objeto con duraciones', flightDurations);
+  console.log("Objeto con duraciones", flightDurations);
   useEffect(() => {
     getAllFlightIds();
   }, [flightOrder]);
@@ -103,7 +102,7 @@ const ItineraryScreen = () => {
   return (
     <React.Fragment>
       {loading ? (
-        <MoonLoader className='rotator' css={override} />
+        <MoonLoader className="rotator" css={override} />
       ) : (
         <Itinerary
           itineraries={itineraries}
