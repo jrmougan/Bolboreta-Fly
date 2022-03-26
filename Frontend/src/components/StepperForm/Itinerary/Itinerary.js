@@ -14,6 +14,7 @@ const Itinerary = ({
   firstTraveler,
   flightCounter,
   flightDurations,
+  idBooking,
 }) => {
   return (
     <section className='itinerary_container_end'>
@@ -21,6 +22,7 @@ const Itinerary = ({
         itineraries={itineraries}
         flightCounter={flightCounter}
         flightDurations={flightDurations}
+        idBooking={idBooking}
       />
       <SeatAndBaggage
         seatChosen={0}

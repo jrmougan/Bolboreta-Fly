@@ -55,9 +55,8 @@ export const AdvancedSearch = (searchParams) => {
 
   return (
     <Grid container spacing={2}>
-      <Grid item xs={12}>
-        headSearch
-      </Grid>
+      {/*       <Grid item xs={12}>
+      </Grid> */}
       <Grid item className='filter' xs={12} md={3}>
         <SearchFilter
           scales={selectScales}

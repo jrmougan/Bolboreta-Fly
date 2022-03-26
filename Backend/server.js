@@ -82,7 +82,7 @@ const { retrieveItinerary } = require('./controllers/itinerary/index');
 const {
     getIdFlightOrder,
     getFlightsIds,
-    getFlightId,
+    getFlightDurationByNumber,
     getFlightDuration,
 } = require('./controllers/flight/index');
 
@@ -130,7 +130,7 @@ app.post('/seatmap', seatMap);
 app.get('/booking/retrieveBooking/:bookingCode', retrieveItinerary);
 app.get('/booking/:bookingId/getIdFlightOrder', getIdFlightOrder);
 app.get('/booking/:bookingId/getFlightsIds', getFlightsIds);
-app.get('/flight/:bookingId/:flightNumber', getFlightId);
+app.get('/flight/:bookingId/:flightNumber', getFlightDurationByNumber);
 
 /**
  * #########################
