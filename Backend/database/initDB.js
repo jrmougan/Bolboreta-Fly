@@ -27,7 +27,6 @@ async function main() {
         await connection.query('DROP TABLE IF EXISTS search');
         await connection.query('DROP TABLE IF EXISTS user');
 
-
         await connection.query(`CREATE TABLE user(
             id INT PRIMARY KEY AUTO_INCREMENT,
             name_user VARCHAR(60) NOT NULL,
@@ -58,9 +57,7 @@ async function main() {
             departureDate DATE ,
             id_user INT NOT NULL,
             FOREIGN KEY (id_user) REFERENCES user(id)
-        );`
-
-        );
+        );`);
         console.log('tabla search creada');
 
         await connection.query(`CREATE TABLE booking (
@@ -74,7 +71,17 @@ async function main() {
             canceled BOOLEAN NOT NULL default(false),
             oneway BOOLEAN NOT NULL,
             id_user int NOT NULL,
-            FOREIGN KEY (id_user) REFERENCES user(id)
+            FOREIGN KEY (id_user) REFERENCES user(id),
+            departure_duration VARCHAR(50) NOT NULL,
+            return_duration VARCHAR(50),
+            name VARCHAR(50),
+            lastname VARCHAR(50),
+            documentype VARCHAR(25),
+            document VARCHAR(50),
+            address VARCHAR(255),
+            city VARCHAR(255),
+            country VARCHAR(255),
+            phone VARCHAR(12)
             );`);
 
         console.log('Tabla Booking Creada');
