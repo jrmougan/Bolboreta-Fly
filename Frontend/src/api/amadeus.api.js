@@ -15,7 +15,7 @@ export const getAmadeusData = (params) => {
   const source = CancelToken.source();
   // GET request with all params we need
   const out = axios.get(
-    `http://localhost:4000/citySearch?keyword=${searchQuery}&page=${page}&subType=${subTypeCheck}`,
+    `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/citySearch?keyword=${searchQuery}&page=${page}&subType=${subTypeCheck}`,
     {
       cancelToken: source.token,
     }

@@ -1,8 +1,8 @@
 import {
   durationFormat,
   finalDurationFormat,
-} from '../../../../helpers/formatHelp';
-import { AirlineLogo, findAirlineName } from '../../InfoFlights/helpersFlight';
+} from "../../../../helpers/formatHelp";
+import { AirlineLogo, findAirlineName } from "../../InfoFlights/helpersFlight";
 
 const AirlineInfo = ({ segment, byRetrieving, idBooking }) => {
   // Recogemos la información gracias al segmento que pasamos por props
@@ -26,11 +26,11 @@ const AirlineInfo = ({ segment, byRetrieving, idBooking }) => {
   const getDurationByNumberAndBooking = async () => {
     try {
       const res = await fetch(
-        `http://localhost:4000/flight/${idBooking}/${number}`
+        `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/flight/${idBooking}/${number}`
       );
       if (res.ok) {
         const body = await res.json();
-        console.log('Duración nueva', body.data[0][0].duration);
+        console.log("Duración nueva", body.data[0][0].duration);
         durationSegment = body.data[0][0].duration;
       }
     } catch (error) {}
@@ -41,16 +41,16 @@ const AirlineInfo = ({ segment, byRetrieving, idBooking }) => {
   }
 
   return (
-    <div className='airline_info'>
+    <div className="airline_info">
       <AirlineLogo airlineCode={carrierCode} />
-      <div className=''>
-        <p className='bold'>
+      <div className="">
+        <p className="bold">
           {name} - {numberOfFlight}
         </p>
         <span> Tipo de avión/vehículo: {aircraft} - Clase Turista</span>
       </div>
-      <div className='flight_duration_container'>
-        <p className='flight_duration'>{durationSegment}</p>
+      <div className="flight_duration_container">
+        <p className="flight_duration">{durationSegment}</p>
       </div>
     </div>
   );

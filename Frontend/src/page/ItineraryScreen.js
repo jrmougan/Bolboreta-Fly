@@ -14,7 +14,6 @@ const ItineraryScreen = () => {
   const { idBooking } = useParams();
 
   const [loading, setLoading] = useState(true);
-  const [bookingCode, setBookingCode] = useState(idBooking);
   const [flightOrder, setFlightOrder] = useState();
   const [flightDurations, setFlightDurations] = useState([]);
   const [flightCounter, setFlightCounter] = useState(0);
@@ -23,13 +22,12 @@ const ItineraryScreen = () => {
     console.log("getBookingCode", id);
     try {
       const res = await fetch(
-        `http://localhost:4000/booking/${id}/getIdFlightOrder`
+        `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/booking/${id}/getIdFlightOrder`
       );
       if (res.ok) {
         const body = await res.json();
         const data = body.data[0][0].booking_code;
-        setBookingCode(data);
-        console.log("Codigo fdsafsd", data);
+
         await getFlightOrderByBookingId(data);
       }
     } catch (error) {
@@ -40,13 +38,12 @@ const ItineraryScreen = () => {
   const getFlightOrderByBookingId = async (id) => {
     try {
       const res = await fetch(
-        `http://localhost:4000/booking/retrieveBooking/${id}`
+        `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/booking/retrieveBooking/${id}`
       );
       if (res.ok) {
         const body = await res.json();
         setFlightOrder(body);
         setLoading(false);
-        console.log("Flight Order", body);
       }
     } catch (error) {
       console.error("Falla cuando queremos el Flight Order", error);
@@ -66,7 +63,7 @@ const ItineraryScreen = () => {
   const getAllFlightIds = async () => {
     try {
       const res = await fetch(
-        `http://localhost:4000/booking/${idBooking}/getFlightsIds`
+        `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/booking/${idBooking}/getFlightsIds`
       );
 
       if (res.ok) {
