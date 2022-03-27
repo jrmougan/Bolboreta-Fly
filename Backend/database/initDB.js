@@ -72,7 +72,7 @@ async function main() {
             oneway BOOLEAN NOT NULL,
             id_user int NOT NULL,
             FOREIGN KEY (id_user) REFERENCES user(id),
-            departure_duration VARCHAR(50) NOT NULL,
+            departure_duration VARCHAR(50),
             return_duration VARCHAR(50),
             name VARCHAR(50),
             lastname VARCHAR(50),
