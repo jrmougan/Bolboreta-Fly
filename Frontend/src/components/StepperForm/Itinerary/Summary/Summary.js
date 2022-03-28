@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   dateFormat,
   durationFormat,
   hourFormat,
+  finalDurationFormat,
 } from "../../../../helpers/formatHelp";
 import AirlineInfo from "./AirlineInfo";
 import AirportInfo from "./AirportInfo";
@@ -69,7 +70,56 @@ export const InfoContainer = ({
 
   const itineraryDurationToFormat =
     lastArrivalItinerary - firstItineraryDeparture;
-  const totalDuration = durationFormat(itineraryDurationToFormat);
+  let totalDuration = durationFormat(itineraryDurationToFormat);
+
+  const getDurationByNumberAndBooking = async (idBooking, number) => {
+    var controller = new AbortController();
+    var signal = controller.signal;
+    try {
+      const res = await fetch(
+        `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/flight/${idBooking}/${number}`,
+        { signal }
+      );
+      if (res.ok) {
+        const body = await res.json();
+        const durationSegment = body.data[0][0].duration;
+        return body.data[0][0].duration;
+      }
+    } catch (error) {
+    } finally {
+      controller.abort();
+    }
+  };
+
+  const updatedSegments = segments.map(async (segment, key, itinerary) => {
+    const duration = await getDurationByNumberAndBooking(
+      idBooking,
+      segment.number
+    );
+    const update = await {
+      ...segment,
+      duration: duration,
+    };
+
+    return await update;
+  });
+
+  let segmentDuration = [];
+
+  Promise.all(updatedSegments).then((segment, key, itinerary) => {
+    let incremental;
+    let scaleDuration = 0;
+    if (key > 0) {
+      const flight1duration = 0;
+      const siguienteSalida = new Date(segment.departure.at).getTime();
+
+      //console.log(scaleDuration);
+    }
+    //setNewSegments([...newSegments, segment]);
+    //newSegments.push(segment);
+
+    console.log("segments", segment, "key", key);
+  });
 
   return (
     <article className="info_container">

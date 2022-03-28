@@ -46,7 +46,6 @@ const AirlineInfo = ({
       );
       if (res.ok) {
         const body = await res.json();
-        console.log("Duración nueva", body.data[0][0].duration);
         durationSegment = body.data[0][0].duration;
         setLoading(false);
         setDuration(finalDurationFormat(body.data[0][0].duration));
