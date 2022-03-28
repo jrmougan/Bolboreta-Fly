@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   dateFormat,
   durationFormat,
   hourFormat,
-} from '../../../../helpers/formatHelp';
-import AirlineInfo from './AirlineInfo';
-import AirportInfo from './AirportInfo';
-import Confirmation from './Confirmation';
-import SubtitleInfo from './SubtitleInfo';
+} from "../../../../helpers/formatHelp";
+import AirlineInfo from "./AirlineInfo";
+import AirportInfo from "./AirportInfo";
+import Confirmation from "./Confirmation";
+import SubtitleInfo from "./SubtitleInfo";
 
 const Summary = ({
   itineraries,
@@ -17,7 +17,7 @@ const Summary = ({
 }) => {
   // ¿Sólo ida?
   const isReturn = itineraries.length > 1;
-  const title = isReturn ? 'Ida y vuelta' : 'Solo ida';
+  const title = isReturn ? "Ida y vuelta" : "Solo ida";
 
   // Itinerarios
   let secondItinerary;
@@ -56,10 +56,6 @@ export const InfoContainer = ({
   flightCounter,
   idBooking,
 }) => {
-  console.log('FlightDuration', flightDurations);
-  const [itineraryDuration, setItineraryDuration] = useState(0);
-
-  console.log('Duración total del itinerario', itineraryDuration);
   /* 
   ###############
   ## DURATIONS ##
@@ -75,42 +71,31 @@ export const InfoContainer = ({
     lastArrivalItinerary - firstItineraryDeparture;
   const totalDuration = durationFormat(itineraryDurationToFormat);
 
-  // Variables para calcular las escalas
-  let lastArrival;
-  let nextDeparture;
-  let vuelos = -1;
-  let scaleDuration;
   return (
-    <article className='info_container'>
-      <h1 className='title_info_container'>Itinerario: Vuelo</h1>
-      <SubtitleInfo isRoundtrip={isReturn} totalDuration={itineraryDuration} />
+    <article className="info_container">
+      <h1 className="title_info_container">Itinerario: Vuelo</h1>
+      <SubtitleInfo isRoundtrip={isReturn} totalDuration={100} />
       <Confirmation>Vuelo confirmado</Confirmation>
 
-      {segments.map((segment, key) => {
-        const ultimaLlegada = new Date(segment.arrival.at);
-        const siguienteSalida = new Date(segment.departure.at);
-
-        vuelos++;
-
-        if (vuelos > 0) {
-          nextDeparture = siguienteSalida;
-
-          let durationScale = nextDeparture.getTime() - lastArrival.getTime();
-          setItineraryDuration(itineraryDuration + durationScale);
-          scaleDuration = durationFormat(durationScale);
+      {segments.map((segment, key, itinerary) => {
+        let scaleDuration;
+        if (key > 0) {
+          const ultimaLlegada = new Date(
+            itinerary[key - 1].arrival.at
+          ).getTime();
+          const siguienteSalida = new Date(segment.departure.at).getTime();
+          scaleDuration = durationFormat(siguienteSalida - ultimaLlegada);
+          console.log(scaleDuration);
         }
-        //  Recogemos la primera llegada antes que cualquier variable
-        lastArrival = ultimaLlegada;
 
         return (
-          <section id='segments_container' key={key}>
-            <div className='flightPart'>
-              {vuelos > 0 && <ScaleSegment duration={scaleDuration} />}
+          <section id="segments_container" key={key}>
+            <div className="flightPart">
+              {key - 1 >= 0 && <ScaleSegment duration={scaleDuration} />}
               <Segment
                 segment={segment}
                 idBooking={idBooking}
-                setItineraryDuration={setItineraryDuration}
-                itineraryDuration={itineraryDuration}
+                itineraryDuration={100}
               />
             </div>
           </section>
@@ -136,14 +121,13 @@ const Segment = ({
   const secondDate = dateFormat(new Date(segment.arrival.at));
 
   return (
-    <div className='segment'>
+    <div className="segment">
       <AirportInfo time={firstTime} code={firstCode} date={firstDate} />
 
       <AirlineInfo
         segment={segment}
         byRetrieving={true}
         idBooking={idBooking}
-        setItineraryDuration={setItineraryDuration}
         itineraryDuration={itineraryDuration}
       />
 
@@ -153,7 +137,7 @@ const Segment = ({
 };
 const ScaleSegment = ({ duration }) => {
   return (
-    <div className='segment_scale'>
+    <div className="segment_scale">
       <p>Pueden producirse cambios</p>
       <span>Duración de la escala: {duration}</span>
     </div>

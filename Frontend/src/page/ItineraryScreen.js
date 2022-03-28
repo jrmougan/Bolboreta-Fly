@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import Itinerary from '../components/StepperForm/Itinerary/Itinerary';
-import { MoonLoader } from 'react-spinners';
-import { css } from '@emotion/react';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import Itinerary from "../components/StepperForm/Itinerary/Itinerary";
+import { MoonLoader } from "react-spinners";
+import { css } from "@emotion/react";
 
 const override = css`
   display: block;
@@ -19,10 +19,13 @@ const ItineraryScreen = () => {
   const [flightCounter, setFlightCounter] = useState(0);
 
   const getBookingCode = async (id) => {
-    console.log('getBookingCode', id);
+    console.log("getBookingCode", id);
+    var controller = new AbortController();
+    var signal = controller.signal;
     try {
       const res = await fetch(
-        `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/booking/${id}/getIdFlightOrder`
+        `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/booking/${id}/getIdFlightOrder`,
+        { signal }
       );
       if (res.ok) {
         const body = await res.json();
@@ -31,14 +34,19 @@ const ItineraryScreen = () => {
         await getFlightOrderByBookingId(data);
       }
     } catch (error) {
-      console.error('Falla en getBookingCode', error);
+      console.error("Falla en getBookingCode", error);
+    } finally {
+      controller.abort();
     }
   };
 
   const getFlightOrderByBookingId = async (id) => {
+    var controller = new AbortController();
+    var signal = controller.signal;
     try {
       const res = await fetch(
-        `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/booking/retrieveBooking/${id}`
+        `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/booking/retrieveBooking/${id}`,
+        { signal }
       );
       if (res.ok) {
         const body = await res.json();
@@ -46,7 +54,9 @@ const ItineraryScreen = () => {
         setLoading(false);
       }
     } catch (error) {
-      console.error('Falla cuando queremos el Flight Order', error);
+      console.error("Falla cuando queremos el Flight Order", error);
+    } finally {
+      controller.abort();
     }
   };
 
@@ -99,7 +109,7 @@ const ItineraryScreen = () => {
   return (
     <React.Fragment>
       {loading ? (
-        <MoonLoader className='rotator' css={override} />
+        <MoonLoader className="rotator" css={override} />
       ) : (
         <Itinerary
           itineraries={itineraries}
