@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { MoonLoader } from "react-spinners";
-import Itinerary from "../components/StepperForm/Itinerary/Itinerary";
-import { css } from "@emotion/react";
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import Itinerary from '../components/StepperForm/Itinerary/Itinerary';
+import { MoonLoader } from 'react-spinners';
+import { css } from '@emotion/react';
 
 const override = css`
   display: block;
@@ -19,7 +19,7 @@ const ItineraryScreen = () => {
   const [flightCounter, setFlightCounter] = useState(0);
 
   const getBookingCode = async (id) => {
-    console.log("getBookingCode", id);
+    console.log('getBookingCode', id);
     try {
       const res = await fetch(
         `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/booking/${id}/getIdFlightOrder`
@@ -31,7 +31,7 @@ const ItineraryScreen = () => {
         await getFlightOrderByBookingId(data);
       }
     } catch (error) {
-      console.error("Falla en getBookingCode", error);
+      console.error('Falla en getBookingCode', error);
     }
   };
 
@@ -46,7 +46,7 @@ const ItineraryScreen = () => {
         setLoading(false);
       }
     } catch (error) {
-      console.error("Falla cuando queremos el Flight Order", error);
+      console.error('Falla cuando queremos el Flight Order', error);
     }
   };
 
@@ -60,7 +60,7 @@ const ItineraryScreen = () => {
   ############################
   */
 
-  const getAllFlightIds = async () => {
+  /*   const getAllFlightIds = async () => {
     try {
       const res = await fetch(
         `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/booking/${idBooking}/getFlightsIds`
@@ -69,17 +69,17 @@ const ItineraryScreen = () => {
       if (res.ok) {
         const body = await res.json();
         const durations = body.data[0];
-        console.log("Todos los Ids de los vuelos", body);
+        console.log('Todos los Ids de los vuelos', body);
         setFlightDurations([...flightDurations, durations]);
       }
     } catch (error) {
-      console.error("Error en AllFlights", error);
+      console.error('Error en AllFlights', error);
     }
   };
-  console.log("Objeto con duraciones", flightDurations);
+  console.log('Objeto con duraciones', flightDurations);
   useEffect(() => {
     getAllFlightIds();
-  }, [flightOrder]);
+  }, [flightOrder]); */
 
   // Si pongo la variable como ESTADO
   // me produce un problema de Re-Renderización
@@ -99,7 +99,7 @@ const ItineraryScreen = () => {
   return (
     <React.Fragment>
       {loading ? (
-        <MoonLoader className="rotator" css={override} />
+        <MoonLoader className='rotator' css={override} />
       ) : (
         <Itinerary
           itineraries={itineraries}

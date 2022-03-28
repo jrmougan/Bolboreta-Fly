@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   dateFormat,
   durationFormat,
@@ -57,6 +57,9 @@ export const InfoContainer = ({
   idBooking,
 }) => {
   console.log('FlightDuration', flightDurations);
+  const [itineraryDuration, setItineraryDuration] = useState(0);
+
+  console.log('Duración total del itinerario', itineraryDuration);
   /* 
   ###############
   ## DURATIONS ##
@@ -80,7 +83,7 @@ export const InfoContainer = ({
   return (
     <article className='info_container'>
       <h1 className='title_info_container'>Itinerario: Vuelo</h1>
-      <SubtitleInfo isRoundtrip={isReturn} totalDuration={totalDuration} />
+      <SubtitleInfo isRoundtrip={isReturn} totalDuration={itineraryDuration} />
       <Confirmation>Vuelo confirmado</Confirmation>
 
       {segments.map((segment, key) => {
@@ -93,7 +96,7 @@ export const InfoContainer = ({
           nextDeparture = siguienteSalida;
 
           let durationScale = nextDeparture.getTime() - lastArrival.getTime();
-
+          setItineraryDuration(itineraryDuration + durationScale);
           scaleDuration = durationFormat(durationScale);
         }
         //  Recogemos la primera llegada antes que cualquier variable
@@ -103,7 +106,12 @@ export const InfoContainer = ({
           <section id='segments_container' key={key}>
             <div className='flightPart'>
               {vuelos > 0 && <ScaleSegment duration={scaleDuration} />}
-              <Segment segment={segment} idBooking={idBooking} />
+              <Segment
+                segment={segment}
+                idBooking={idBooking}
+                setItineraryDuration={setItineraryDuration}
+                itineraryDuration={itineraryDuration}
+              />
             </div>
           </section>
         );
@@ -111,7 +119,12 @@ export const InfoContainer = ({
     </article>
   );
 };
-const Segment = ({ segment, idBooking }) => {
+const Segment = ({
+  segment,
+  idBooking,
+  setItineraryDuration,
+  itineraryDuration,
+}) => {
   // Códigos IATA de aeropuertos de salida y llegada
   const firstCode = segment.departure.iataCode;
   const secondCode = segment.arrival.iataCode;
@@ -130,6 +143,8 @@ const Segment = ({ segment, idBooking }) => {
         segment={segment}
         byRetrieving={true}
         idBooking={idBooking}
+        setItineraryDuration={setItineraryDuration}
+        itineraryDuration={itineraryDuration}
       />
 
       <AirportInfo time={secondTime} code={secondCode} date={secondDate} />
