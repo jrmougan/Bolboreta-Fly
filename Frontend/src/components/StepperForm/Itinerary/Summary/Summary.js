@@ -1,9 +1,9 @@
+import { parse, toSeconds } from "iso8601-duration";
 import React, { useEffect, useState } from "react";
 import {
   dateFormat,
   durationFormat,
   hourFormat,
-  finalDurationFormat,
 } from "../../../../helpers/formatHelp";
 import AirlineInfo from "./AirlineInfo";
 import AirportInfo from "./AirportInfo";
@@ -50,13 +50,7 @@ const Summary = ({
   );
 };
 
-export const InfoContainer = ({
-  segments,
-  isReturn,
-  flightDurations,
-  flightCounter,
-  idBooking,
-}) => {
+export const InfoContainer = ({ segments, isReturn, idBooking }) => {
   /* 
   ###############
   ## DURATIONS ##
@@ -91,40 +85,34 @@ export const InfoContainer = ({
     }
   };
 
-  const updatedSegments = segments.map(async (segment, key, itinerary) => {
-    const duration = await getDurationByNumberAndBooking(
-      idBooking,
-      segment.number
-    );
-    const update = await {
-      ...segment,
-      duration: duration,
-    };
+  const [itineraryDuration, setItineraryDuration] = useState(0);
 
-    return await update;
-  });
+  useEffect(() => {
+    let mapTotalDuration = 0;
+    segments.map((segment, key, itinerary) => {
+      getDurationByNumberAndBooking(idBooking, segment.number).then(
+        (duration) => {
+          const dur = toSeconds(parse(duration)) * 1000;
 
-  let segmentDuration = [];
-
-  Promise.all(updatedSegments).then((segment, key, itinerary) => {
-    let incremental;
-    let scaleDuration = 0;
-    if (key > 0) {
-      const flight1duration = 0;
-      const siguienteSalida = new Date(segment.departure.at).getTime();
-
-      //console.log(scaleDuration);
-    }
-    //setNewSegments([...newSegments, segment]);
-    //newSegments.push(segment);
-
-    console.log("segments", segment, "key", key);
-  });
+          mapTotalDuration += dur;
+          if (key > 0) {
+            const ultimaLlegada = new Date(
+              itinerary[key - 1].arrival.at
+            ).getTime();
+            const siguienteSalida = new Date(segment.departure.at).getTime();
+            const diferencia = siguienteSalida - ultimaLlegada;
+            mapTotalDuration += diferencia;
+          }
+          setItineraryDuration(mapTotalDuration);
+        }
+      );
+    });
+  }, [segments]);
 
   return (
     <article className="info_container">
       <h1 className="title_info_container">Itinerario: Vuelo</h1>
-      <SubtitleInfo isRoundtrip={isReturn} totalDuration={100} />
+      <SubtitleInfo isRoundtrip={isReturn} totalDuration={itineraryDuration} />
       <Confirmation>Vuelo confirmado</Confirmation>
 
       {segments.map((segment, key, itinerary) => {
@@ -135,7 +123,6 @@ export const InfoContainer = ({
           ).getTime();
           const siguienteSalida = new Date(segment.departure.at).getTime();
           scaleDuration = durationFormat(siguienteSalida - ultimaLlegada);
-          console.log(scaleDuration);
         }
 
         return (
@@ -154,12 +141,7 @@ export const InfoContainer = ({
     </article>
   );
 };
-const Segment = ({
-  segment,
-  idBooking,
-  setItineraryDuration,
-  itineraryDuration,
-}) => {
+const Segment = ({ segment, idBooking, itineraryDuration }) => {
   // Códigos IATA de aeropuertos de salida y llegada
   const firstCode = segment.departure.iataCode;
   const secondCode = segment.arrival.iataCode;
