@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import '../css/homescreen.css';
-import FlightSearch from '../components/Search/FlightSearch.js/FlightSearch';
+import React, { useState } from "react";
+import "../css/homescreen.css";
+import { FlightSearch } from "../components/Search/FlightSearch.js/FlightSearch";
 
 const HomeScreen = () => {
   // Obtenemos los datos de los input para realizar la búsqueda
-  const [origin, setOrigin] = useState('');
-  const [destination, setDestination] = useState('');
-  const [departureDate, setDepartureDate] = useState('');
-  const [returnDate, setReturndate] = useState('');
+  const [origin, setOrigin] = useState("");
+  const [destination, setDestination] = useState("");
+  const [departureDate, setDepartureDate] = useState("");
+  const [returnDate, setReturndate] = useState("");
   const [adults, setAdults] = useState(1);
 
   // Función para modificar el valor de cada variable
@@ -17,7 +17,7 @@ const HomeScreen = () => {
   };
 
   return (
-    <main className='searchEnvironment'>
+    <main className="searchEnvironment">
       <FlightSearch
         destination={destination}
         origin={origin}

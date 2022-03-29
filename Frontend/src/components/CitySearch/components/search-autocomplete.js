@@ -1,21 +1,25 @@
-import React, { useCallback, useEffect } from 'react';
-import axios from 'axios';
-import { debounce } from 'lodash';
-import { Autocomplete, CircularProgress, TextField } from '@mui/material';
-import { getAmadeusData } from '../../../api/amadeus.api';
+import React, { useCallback, useEffect } from "react";
+import axios from "axios";
+import { debounce } from "lodash";
+import { Autocomplete, CircularProgress, TextField } from "@mui/material";
+import { getAmadeusData } from "../../../api/amadeus.api";
 
 const SearchAutocomplete = (props) => {
   const [open, setOpen] = React.useState(false);
   const [options, setOptions] = React.useState([]);
-  const [search, setSearch] = React.useState('');
-  const [keyword, setKeyword] = React.useState('');
+  const [search, setSearch] = React.useState("");
+  const [keyword, setKeyword] = React.useState("");
   const [loading, setLoading] = React.useState(false);
 
   const { setState } = props;
   const { isOrigin } = props;
 
   // Configure options format for proper displaying on the UI
-  const names = options.map((i) => ({ type: i.subType, name: i.name }));
+  const names = options.map((i) => ({
+    id: i.id,
+    type: i.subType,
+    name: i.name + `(${i.subType}, ${i.id}, ${i.detailedName})`,
+  }));
 
   // Debounce func prevents extra unwanted keystrokes, when user triggers input events
   const debounceLoadData = useCallback(debounce(setKeyword, 1000), []);
@@ -34,6 +38,7 @@ const SearchAutocomplete = (props) => {
 
     out
       .then((res) => {
+        console.log(res);
         setOptions(res.data.data.data);
         const data = res.data.data.data;
 
@@ -51,13 +56,13 @@ const SearchAutocomplete = (props) => {
     };
   }, [keyword]);
 
-  const label = isOrigin ? 'Origen' : 'Destino';
+  const label = isOrigin ? "Origen" : "Destino";
 
   return (
     <>
       <Autocomplete
-        id='asynchronous-demo'
-        sx={{ width: '100%' }}
+        id="asynchronous-demo"
+        sx={{ width: "100%" }}
         open={open}
         onOpen={() => {
           setOpen(true);
@@ -71,8 +76,8 @@ const SearchAutocomplete = (props) => {
             setSearch(value.name);
             return;
           }
-          setSearch('');
-          props.setSearch((p) => ({ ...p, keyword: 'a', page: 0 }));
+          setSearch("");
+          props.setSearch((p) => ({ ...p, keyword: "a", page: 0 }));
         }}
         getOptionLabel={(option) => {
           return option.name;
@@ -85,16 +90,16 @@ const SearchAutocomplete = (props) => {
               label={label}
               fullWidth
               sx={{
-                background: 'white',
-                marginLeft: ' .5rem',
-                marginTop: '.5rem',
-                borderRadius: '4px',
+                background: "white",
+                marginLeft: " .5rem",
+                marginTop: ".5rem",
+                borderRadius: "4px",
               }}
               onChange={(e) => {
                 e.preventDefault();
                 setSearch(e.target.value);
               }}
-              variant='outlined'
+              variant="outlined"
               inputProps={{
                 ...params.inputProps,
                 value: search,
@@ -104,7 +109,7 @@ const SearchAutocomplete = (props) => {
                 endAdornment: (
                   <React.Fragment>
                     {loading ? (
-                      <CircularProgress color='inherit' size={20} />
+                      <CircularProgress color="inherit" size={20} />
                     ) : null}
                     {params.InputProps.endAdornment}
                   </React.Fragment>
