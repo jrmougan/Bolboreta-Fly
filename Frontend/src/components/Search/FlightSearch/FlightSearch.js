@@ -47,7 +47,7 @@ const FlightSearch = ({
           setReturndate={setReturndate}
           url={url}
           adults={adults}
-          setAdutls={setAdults}
+          setAdults={setAdults}
           withReturn={withReturn}
           search={search}
         />
