@@ -1,70 +1,93 @@
-# Getting Started with Create React App
+# Proyecto final Bootcamp en **HACK A BOSS**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Eduardo Sancho Foreman
+Marta Padin Gomez
+Jesus Romeo Mougan
 
-## Available Scripts
+<br />
+<p align="center">
+  <a href="https://github.com/othneildrew/Best-README-Template">
+    <img src="logos/logo2.svg" alt="Logo" width="150" height="150">
+  </a>
+  <h3 align="center">Bolboreta Flight</h3>
+  
+</p>
+<br />
 
-In the project directory, you can run:
+## Acerca del proyecto
 
-### `npm start`
+![Product Name Screen Shot][potalbolboreta]
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Bolboreta Flight es un planificador de vuelos, donde puedes encontrar el vuelo que quieras en tiempo real.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Tecnologías utilizadas
 
-### `npm test`
+- **BACKEND** - Node.js <img src="images/logoNode.svg" alt="Logo" width="30">
+- **FRONTEND** - React.js <img src="images/logoReact.svg" alt="Logo" width="30">
+- **BASE DE DATOS** - MySQL <img src="images/logomysql.png" alt="Logo" width="30">
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Comenzando
 
-### `npm run build`
+### Instalación
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Clona el repositorio
+   ```sh
+   git clone
+   ```
+2. Instala los paquetes NPM para el servidor
+   ```sh
+   cd backend
+   npm install
+   ```
+3. Instala los paquetes NPM para el cliente
+   ```sh
+   cd frontend
+   npm install
+   ```
+4. Inicializa la base de datos:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```sh
+   cd servidor/bbdd/
+   node initDB.js
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+5. En el .env del servidor necesitarás generar las siguientes credenciales:
+   MYSQL_HOST=
+   MYSQL_USER=
+   MYSQL_PASSWORD=
+   MYSQL_DATABASE=
+   SENDGRID_API_KEY=<a href= "https://sendgrid.com/">Click aquí para generar</a> <br/>
+   SENDGRID_FROM=**Correo desde el que envías el mail** <br/>
+   SECRET=
+   UPLOAD_DIRECTORY=static/uploads
+   PUBLIC_HOST=http://localhost:4000/
+   PORT=4000
+   AMADEUS_ID=<a href= "https://developers.amadeus.com/">Click aquí para generar</a> <br/>
+   AMADEUS_SECRET=<a href= "https://developers.amadeus.com/">Click aquí para generar</a> <br/>
+   APP_GOOGLE_CLIENT_ID=<a href= "https://developers.google.com/identity/protocols/oauth2">Click aquí para generar</a> <br/>
 
-### `npm run eject`
+6. En el .env del servidor necesitarás generar las siguientes credenciales:
+   REACT_APP_PUBLIC_HOST_BACKEND=localhost
+   REACT_APP_PUBLIC_PORT_BACKEND=4000
+   REACT_APP_PAYPAL_CLIENTID=<a href= "https://developer.paypal.com/developer/accounts/">Click aquí para generar</a> <br/>
+   PORT=4001
+   REACT_APP_ACCESS_KEY_UNSPLASH=
+   SECRET_KEY_UNSPLASH=
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Uso
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Si quieres realizar un pago mediante Paypal usando tarjeta puedes introducir una de estas dos para validar con éxito, la fecha de caducidad debe ser posterior a la actual:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- **MASTERCARD** 2223000048400011
+- **VISA** 4012888888881881
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+![Product Name Screen Shot][potalbolboreta]
 
-## Learn More
+## Licencia
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Distribuido bajo licencia del MIT.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+<!-- Recursos para el Readme-->
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+[portalbolboreta]: screenShot/portadaBolboreta.png
+[payment-screenshot]: images/payment.png
