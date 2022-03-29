@@ -7,7 +7,7 @@ Jesus Romeo Mougan <br/>
 <br />
 <p align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="../../frontend/src/logos/logo2.svg" alt="Logo" width="150" height="150">
+    <img src="images/logo2.svg" alt="Logo" width="150" height="150">
   </a>
   <h3 align="center">Bolboreta Flight</h3>
   
@@ -55,7 +55,6 @@ Bolboreta Flight es un planificador de vuelos, donde puedes encontrar el vuelo q
 
    SENDGRID_API_KEY=<a href= "https://sendgrid.com/">Click aquí para generar</a> <br/>
    SENDGRID_FROM=**Correo desde el que envías el mail** <br/>
-
    UPLOAD_DIRECTORY=static/uploads <br/>
    PUBLIC_HOST=http://localhost:4000/ <br/>
    PORT=4000 <br/>
@@ -74,9 +73,6 @@ Bolboreta Flight es un planificador de vuelos, donde puedes encontrar el vuelo q
 ## Uso
 
 Si quieres realizar un pago mediante Paypal usando tarjeta puedes introducir una de estas dos para validar con éxito, la fecha de caducidad debe ser posterior a la actual:
-
-- **MASTERCARD** 2223000048400011
-- **VISA** 4012888888881881
 
 ![Product Name Screen Shot][potalbolboreta]
 
