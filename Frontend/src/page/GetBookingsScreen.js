@@ -1,4 +1,4 @@
-import UltimasReservas from '../components/UltimasReservas/UltimasReservas';
+import UltimasReservas from "../components/UltimasReservas/UltimasReservas";
 
 const GetBookingsScreen = () => {
   return <UltimasReservas />;

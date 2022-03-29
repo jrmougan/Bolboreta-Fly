@@ -1,13 +1,11 @@
 import { Grid } from "@mui/material";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import useSearch from "../../../hooks/useSearch.js";
 import { SearchFilter } from "./SearchFilter/SearchFilter.js";
 import "./styles.css";
 import { MoonLoader } from "react-spinners";
 import { ListFlights } from "../ListFlights/ListFlights";
-import { getCityByID } from "../../../api/amadeus.api";
 
-import axios from "axios";
 import { findAirportInfo } from "../../StepperForm/InfoFlights/helpersFlight.js";
 export const AdvancedSearch = (searchParams) => {
   const [search, setSearch] = useState(searchParams);
@@ -33,7 +31,6 @@ export const AdvancedSearch = (searchParams) => {
 
   const { flightSearch, loading, data } = useSearch();
 
-  console.log("Data en AdvanceSearch", data);
   //Efecto obtener búsqueda
 
   useEffect(() => {
@@ -50,7 +47,7 @@ export const AdvancedSearch = (searchParams) => {
 
   let url = "";
   let withReturn = "";
-  console.log(search);
+
   // Obtenemos los datos de los input para realizar la búsqueda
   const [origin, setOrigin] = useState(search.origin);
   const [destination, setDestination] = useState(search.destination);

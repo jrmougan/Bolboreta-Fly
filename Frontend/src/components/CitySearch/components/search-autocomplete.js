@@ -18,7 +18,7 @@ const SearchAutocomplete = (props) => {
   const names = options.map((i) => ({
     id: i.id,
     type: i.subType,
-    name: i.name + `(${i.subType}, ${i.id}, ${i.detailedName})`,
+    name: i.name,
   }));
 
   // Debounce func prevents extra unwanted keystrokes, when user triggers input events
@@ -38,7 +38,6 @@ const SearchAutocomplete = (props) => {
 
     out
       .then((res) => {
-        console.log(res);
         setOptions(res.data.data.data);
         const data = res.data.data.data;
 

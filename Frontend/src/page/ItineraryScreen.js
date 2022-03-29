@@ -19,7 +19,6 @@ const ItineraryScreen = () => {
   const [flightCounter, setFlightCounter] = useState(0);
 
   const getBookingCode = async (id) => {
-    console.log("getBookingCode", id);
     var controller = new AbortController();
     var signal = controller.signal;
     try {
@@ -64,35 +63,6 @@ const ItineraryScreen = () => {
     getBookingCode(idBooking);
   }, []);
 
-  /* 
-  ############################
-  ##  OBTENER IDS DE VUELOS ##
-  ############################
-  */
-
-  /*   const getAllFlightIds = async () => {
-    try {
-      const res = await fetch(
-        `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/booking/${idBooking}/getFlightsIds`
-      );
-
-      if (res.ok) {
-        const body = await res.json();
-        const durations = body.data[0];
-        console.log('Todos los Ids de los vuelos', body);
-        setFlightDurations([...flightDurations, durations]);
-      }
-    } catch (error) {
-      console.error('Error en AllFlights', error);
-    }
-  };
-  console.log('Objeto con duraciones', flightDurations);
-  useEffect(() => {
-    getAllFlightIds();
-  }, [flightOrder]); */
-
-  // Si pongo la variable como ESTADO
-  // me produce un problema de Re-Renderización
   let itineraries;
   let travelers;
   let firstTraveler;

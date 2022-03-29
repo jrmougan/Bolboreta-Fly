@@ -22,7 +22,7 @@ const citySearch = async (req, res, next) => {
         } else {
             const { result } = await amadeus.referenceData.locations.get({
                 keyword: keyword,
-                subType: 'AIRPORT',
+                subType: 'CITY',
                 view: 'LIGHT',
             });
 

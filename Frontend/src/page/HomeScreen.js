@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../css/homescreen.css";
-import { FlightSearch } from "../components/Search/FlightSearch.js/FlightSearch";
+import { FlightSearch } from "../components/Search/FlightSearch/FlightSearch";
 
 const HomeScreen = () => {
   // Obtenemos los datos de los input para realizar la búsqueda

@@ -9,7 +9,7 @@ import {
   InputDestination,
   InputOrigin,
   InputReturnDate,
-} from "../BasicSearch/Inputs";
+} from "./Inputs";
 import Tabs from "./Tab";
 
 const FlightSearch = ({

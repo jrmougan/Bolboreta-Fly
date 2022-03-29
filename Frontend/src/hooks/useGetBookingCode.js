@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from "react";
 
 const useGetBookingCode = async (bookingId) => {
   const [flightId, setFlightId] = useState();
@@ -10,7 +10,6 @@ const useGetBookingCode = async (bookingId) => {
       const res = await fetch(
         `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/booking/${bookingId}/getIdFlightOrder`
       );
-      console.log(res);
       if (res.ok) {
         const body = await res.json();
         setFlightId(body.data[0][0].booking_code);

@@ -29,7 +29,6 @@ export const ListFlights = ({ data }) => {
     }
   };
 
-  console.log("Data en ListFlights", data);
   return (
     <section>
       {data.length > 0 &&
@@ -38,7 +37,6 @@ export const ListFlights = ({ data }) => {
           const price = flight.price.total;
           const currency = flight.price.currency;
           const code = flight.validatingAirlineCodes[0];
-          console.log("flight", flight.validatingAirlineCodes[0]);
 
           return (
             <article key={id} id={id} className="resultCard">

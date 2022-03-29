@@ -1,12 +1,6 @@
 import { ADULTS } from "../../StepperForm/InfoFlights/constantInfo";
-import { frLocale } from "date-fns/locale/fr";
 
-import {
-  FaPlaneDeparture,
-  FaPlaneArrival,
-  FaWpforms,
-  FaUserFriends,
-} from "react-icons/fa";
+import { FaPlaneArrival, FaWpforms, FaUserFriends } from "react-icons/fa";
 import React from "react";
 import SearchRoot from "../../../page/SearchRoot";
 import { DatePicker } from "@mui/lab";
@@ -23,7 +17,6 @@ export const InputOrigin = ({ origin, setOrigin }) => {
 };
 
 export const InputDestination = ({ destination, setDestination }) => {
-  console.log("destination", destination);
   return (
     <div className="inputDiv grow-2">
       <FaPlaneArrival className="faplane_icon" />
@@ -33,32 +26,30 @@ export const InputDestination = ({ destination, setDestination }) => {
 };
 
 export const InputDepartureDate = ({ departureDate, setDepartureDate }) => {
-  console.log('Departure', departureDate);
-
   return (
     <div className="inputDiv grow-1">
       <FaWpforms className="faplane_icon" />
       {
         <DatePicker
-          className='datePicker '
+          className="datePicker "
           minDate={Date.now()}
-          label='Día de salida'
-          inputFormat='dd/MM/yyyy'
-          sx={{ backgroundColor: 'white', width: '100%' }}
+          label="Día de salida"
+          inputFormat="dd/MM/yyyy"
+          sx={{ backgroundColor: "white", width: "100%" }}
           value={departureDate}
           onChange={(newValue) => {
             if (newValue instanceof Date && !isNaN(newValue.valueOf())) {
-              setDepartureDate(format(newValue, 'yyyy-MM-dd'));
+              setDepartureDate(format(newValue, "yyyy-MM-dd"));
             }
           }}
           renderInput={(params) => (
             <TextField
               sx={{
-                background: 'white',
-                width: '100%',
-                marginLeft: ' .5rem',
-                marginTop: ' .5rem',
-                borderRadius: '4px',
+                background: "white",
+                width: "100%",
+                marginLeft: " .5rem",
+                marginTop: " .5rem",
+                borderRadius: "4px",
               }}
               {...params}
             />
@@ -74,30 +65,29 @@ export const InputReturnDate = ({
   setReturndate,
   departureDate,
 }) => {
-  console.log(departureDate);
   return (
     <div className="inputDiv grow-1">
       <FaWpforms className="faplane_icon" />
       <DatePicker
-        inputFormat='dd/MM/yyyy'
-        className='datePicker '
+        inputFormat="dd/MM/yyyy"
+        className="datePicker "
         minDate={new Date(departureDate)}
-        label='Día de llegada'
-        sx={{ backgroundColor: 'white', width: '100%', borderRadius: '4px' }}
+        label="Día de llegada"
+        sx={{ backgroundColor: "white", width: "100%", borderRadius: "4px" }}
         value={returnDate}
         onChange={(newValue) => {
           if (newValue instanceof Date && !isNaN(newValue.valueOf())) {
-            setReturndate(format(newValue, 'yyyy-MM-dd'));
+            setReturndate(format(newValue, "yyyy-MM-dd"));
           }
         }}
         renderInput={(params) => (
           <TextField
             sx={{
-              background: 'white',
-              width: '100%',
-              marginLeft: ' .5rem',
-              marginTop: ' .5rem',
-              borderRadius: '4px',
+              background: "white",
+              width: "100%",
+              marginLeft: " .5rem",
+              marginTop: " .5rem",
+              borderRadius: "4px",
             }}
             {...params}
           />
@@ -108,7 +98,6 @@ export const InputReturnDate = ({
 };
 
 export const InputAdults = ({ adults, setAdults }) => {
-  console.log("adults", adults);
   return (
     <div className="inputDiv grow-1">
       <FaUserFriends className="faplane_icon" />
@@ -122,15 +111,14 @@ export const InputAdults = ({ adults, setAdults }) => {
             {...params}
             label="Seleccione adultos"
             sx={{
-              backgroundColor: 'white',
-              marginLeft: ' .5rem',
-              marginTop: ' .5rem',
-              borderRadius: '4px',
+              backgroundColor: "white",
+              marginLeft: " .5rem",
+              marginTop: " .5rem",
+              borderRadius: "4px",
             }}
           />
         )}
       />
- 
     </div>
   );
 };

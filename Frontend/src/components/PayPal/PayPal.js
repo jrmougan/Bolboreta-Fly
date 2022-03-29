@@ -1,18 +1,18 @@
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext } from "react";
 import {
   PayPalScriptProvider,
   PayPalButtons,
   usePayPalScriptReducer,
-} from '@paypal/react-paypal-js';
-import swal from 'sweetalert';
-import { TokenContext } from '../../context/TokenContext';
-import { OfferPriceContext } from '../../context/OfferPriceContext';
-import { Navigate, useNavigate } from 'react-router-dom';
+} from "@paypal/react-paypal-js";
+import swal from "sweetalert";
+import { TokenContext } from "../../context/TokenContext";
+import { OfferPriceContext } from "../../context/OfferPriceContext";
+import { useNavigate } from "react-router-dom";
 
 // This values are the props in the UI
 
-const currency = 'EUR';
-const style = { layout: 'vertical' };
+const currency = "EUR";
+const style = { layout: "vertical" };
 
 // Custom component to wrap the PayPalButtons and handle currency changes
 
@@ -33,10 +33,9 @@ const ButtonWrapper = ({
   // This is the main reason to wrap the PayPalButtons in a new component
   const [{ options, isPending }, dispatch] = usePayPalScriptReducer();
   const amount = totalPrice;
-  console.log(amount);
   useEffect(() => {
     dispatch({
-      type: 'resetOptions',
+      type: "resetOptions",
       value: {
         ...options,
         currency: currency,
@@ -46,7 +45,7 @@ const ButtonWrapper = ({
 
   return (
     <>
-      {showSpinner && isPending && <div className='spinner' />}
+      {showSpinner && isPending && <div className="spinner" />}
       <PayPalButtons
         style={style}
         disabled={false}
@@ -76,25 +75,22 @@ const ButtonWrapper = ({
               await orderFlight(flight, token, travelers).then(function (data) {
                 insertId = data;
                 swal(
-                  'Su pago se ha realizado correctamente, pulse confirmar para ir a su reserva',
-                  '',
-                  'success'
+                  "Su pago se ha realizado correctamente, pulse confirmar para ir a su reserva",
+                  "",
+                  "success"
                 );
               });
-              console.log('InserrID paypal', insertId);
             } catch (error) {
-              console.log(error);
             } finally {
-              console.log('Redirección');
               navigate(`/${insertId}/itinerary`);
             }
           });
         }}
         onCancel={function (data) {
           swal(
-            'Has cancelado el pago, no se realizará la reserva',
-            '',
-            'error'
+            "Has cancelado el pago, no se realizará la reserva",
+            "",
+            "error"
           );
         }}
       />
@@ -104,12 +100,12 @@ const ButtonWrapper = ({
 
 export default function PayPal({ totalPrice, orderFlight, travelers }) {
   return (
-    <div style={{ width: '90%', minHeight: '200px' }}>
+    <div style={{ width: "90%", minHeight: "200px" }}>
       <PayPalScriptProvider
         options={{
-          'client-id': 'test',
-          components: 'buttons',
-          currency: 'EUR',
+          "client-id": "test",
+          components: "buttons",
+          currency: "EUR",
         }}
       >
         <ButtonWrapper

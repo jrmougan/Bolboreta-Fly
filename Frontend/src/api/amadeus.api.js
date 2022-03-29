@@ -3,7 +3,6 @@ const CancelToken = axios.CancelToken;
 
 // This function allow you to make GET request to backend with params we need
 export const getAmadeusData = (params) => {
-  console.log("AMADEUS API");
   // Destructuring params
   const { keyword = "", page = 0, city = true, airport = true } = params;
   // Checking for proper subType
@@ -24,7 +23,6 @@ export const getAmadeusData = (params) => {
 };
 
 export const getCityByID = (id) => {
-  console.log("AMADEUS API");
   // Destructuring params
 
   const source = CancelToken.source();
