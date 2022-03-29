@@ -22,3 +22,18 @@ export const getAmadeusData = (params) => {
   );
   return { out, source };
 };
+
+export const getCityByID = (id) => {
+  console.log("AMADEUS API");
+  // Destructuring params
+
+  const source = CancelToken.source();
+  // GET request with all params we need
+  const out = axios.get(
+    `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/citySearch?id=${id}`,
+    {
+      cancelToken: source.token,
+    }
+  );
+  return { out, source };
+};

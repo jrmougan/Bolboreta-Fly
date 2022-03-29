@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { MoonLoader } from "react-spinners";
 import Itinerary from "../components/StepperForm/Itinerary/Itinerary";
+import { MoonLoader } from "react-spinners";
 import { css } from "@emotion/react";
 
 const override = css`
@@ -20,9 +20,12 @@ const ItineraryScreen = () => {
 
   const getBookingCode = async (id) => {
     console.log("getBookingCode", id);
+    var controller = new AbortController();
+    var signal = controller.signal;
     try {
       const res = await fetch(
-        `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/booking/${id}/getIdFlightOrder`
+        `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/booking/${id}/getIdFlightOrder`,
+        { signal }
       );
       if (res.ok) {
         const body = await res.json();
@@ -32,13 +35,18 @@ const ItineraryScreen = () => {
       }
     } catch (error) {
       console.error("Falla en getBookingCode", error);
+    } finally {
+      controller.abort();
     }
   };
 
   const getFlightOrderByBookingId = async (id) => {
+    var controller = new AbortController();
+    var signal = controller.signal;
     try {
       const res = await fetch(
-        `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/booking/retrieveBooking/${id}`
+        `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/booking/retrieveBooking/${id}`,
+        { signal }
       );
       if (res.ok) {
         const body = await res.json();
@@ -47,6 +55,8 @@ const ItineraryScreen = () => {
       }
     } catch (error) {
       console.error("Falla cuando queremos el Flight Order", error);
+    } finally {
+      controller.abort();
     }
   };
 
@@ -60,7 +70,7 @@ const ItineraryScreen = () => {
   ############################
   */
 
-  const getAllFlightIds = async () => {
+  /*   const getAllFlightIds = async () => {
     try {
       const res = await fetch(
         `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/booking/${idBooking}/getFlightsIds`
@@ -69,17 +79,17 @@ const ItineraryScreen = () => {
       if (res.ok) {
         const body = await res.json();
         const durations = body.data[0];
-        console.log("Todos los Ids de los vuelos", body);
+        console.log('Todos los Ids de los vuelos', body);
         setFlightDurations([...flightDurations, durations]);
       }
     } catch (error) {
-      console.error("Error en AllFlights", error);
+      console.error('Error en AllFlights', error);
     }
   };
-  console.log("Objeto con duraciones", flightDurations);
+  console.log('Objeto con duraciones', flightDurations);
   useEffect(() => {
     getAllFlightIds();
-  }, [flightOrder]);
+  }, [flightOrder]); */
 
   // Si pongo la variable como ESTADO
   // me produce un problema de Re-Renderización

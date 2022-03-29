@@ -8,17 +8,29 @@ const amadeus = new Amadeus({
 
 const citySearch = async (req, res, next) => {
     try {
-        const { keyword } = req.query;
+        const { keyword, id } = req.query;
 
-        const { result } = await amadeus.referenceData.locations.get({
-            keyword: keyword,
-            subType: 'CITY',
-            view: 'LIGHT',
-        });
-        res.send({
-            status: 'ok',
-            data: result,
-        });
+        let result;
+
+        if (id) {
+            console.log(id);
+            const { result } = await amadeus.referenceData.location(id).get();
+            res.send({
+                status: 'ok',
+                data: result,
+            });
+        } else {
+            const { result } = await amadeus.referenceData.locations.get({
+                keyword: keyword,
+                subType: 'AIRPORT',
+                view: 'LIGHT',
+            });
+
+            res.send({
+                status: 'ok',
+                data: result,
+            });
+        }
     } catch (error) {
         next(error);
     }
