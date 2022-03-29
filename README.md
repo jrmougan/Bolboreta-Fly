@@ -1,4 +1,4 @@
-# Proyecto final Bootcamp en **HACK A BOSS**
+# Proyecto final Bootcamp **HACK A BOSS**
 
 Eduardo Sancho Foreman <br/>
 Marta Padin Gomez <br/>
@@ -52,27 +52,24 @@ Bolboreta Flight es un planificador de vuelos, donde puedes encontrar el vuelo q
 ```
 
 5. En el .env del servidor necesitarás generar las siguientes credenciales:
-   MYSQL_HOST=
-   MYSQL_USER=
-   MYSQL_PASSWORD=
-   MYSQL_DATABASE=
+
    SENDGRID_API_KEY=<a href= "https://sendgrid.com/">Click aquí para generar</a> <br/>
    SENDGRID_FROM=**Correo desde el que envías el mail** <br/>
-   SECRET=
-   UPLOAD_DIRECTORY=static/uploads
-   PUBLIC_HOST=http://localhost:4000/
-   PORT=4000
+
+   UPLOAD_DIRECTORY=static/uploads <br/>
+   PUBLIC_HOST=http://localhost:4000/ <br/>
+   PORT=4000 <br/>
    AMADEUS_ID=<a href= "https://developers.amadeus.com/">Click aquí para generar</a> <br/>
    AMADEUS_SECRET=<a href= "https://developers.amadeus.com/">Click aquí para generar</a> <br/>
    APP_GOOGLE_CLIENT_ID=<a href= "https://developers.google.com/identity/protocols/oauth2">Click aquí para generar</a> <br/>
 
 6. En el .env del servidor necesitarás generar las siguientes credenciales:
-   REACT_APP_PUBLIC_HOST_BACKEND=localhost
-   REACT_APP_PUBLIC_PORT_BACKEND=4000
+   REACT_APP_PUBLIC_HOST_BACKEND=localhost <br/>
+   REACT_APP_PUBLIC_PORT_BACKEND=4000 <br/>
    REACT_APP_PAYPAL_CLIENTID=<a href= "https://developer.paypal.com/developer/accounts/">Click aquí para generar</a> <br/>
-   PORT=4001
-   REACT_APP_ACCESS_KEY_UNSPLASH=
-   SECRET_KEY_UNSPLASH=
+   PORT=4001<br/>
+   REACT_APP_ACCESS_KEY_UNSPLASH= <br/>
+   SECRET_KEY_UNSPLASH= <br/>
 
 ## Uso
 
