@@ -1,8 +1,8 @@
 # Proyecto final Bootcamp en **HACK A BOSS**
 
-Eduardo Sancho Foreman </br>
-Marta Padin Gomez
-Jesus Romeo Mougan
+Eduardo Sancho Foreman <br/>
+Marta Padin Gomez <br/>
+Jesus Romeo Mougan <br/>
 
 <br />
 <p align="center">
