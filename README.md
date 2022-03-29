@@ -16,7 +16,7 @@ Jesus Romeo Mougan <br/>
 
 ## Acerca del proyecto
 
-![Product Name Screen Shot][potalbolboreta]
+<img src='images/portadaBolboreta.png'>
 
 Bolboreta Flight es un planificador de vuelos, donde puedes encontrar el vuelo que quieras en tiempo real.
 
