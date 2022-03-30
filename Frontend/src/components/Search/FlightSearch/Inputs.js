@@ -7,25 +7,29 @@ import { DatePicker } from "@mui/lab";
 import { Autocomplete, TextField } from "@mui/material";
 import { format } from "date-fns";
 
-export const InputOrigin = ({ origin, setOrigin }) => {
+export const InputOrigin = ({ origin, setOrigin, errors }) => {
   return (
     <div className="inputDiv grow-2">
       <FaPlaneArrival className="faplane_icon" />
-      <SearchRoot setState={setOrigin} isOrigin={true} />
+      <SearchRoot setState={setOrigin} isOrigin={true} errors={errors} />
     </div>
   );
 };
 
-export const InputDestination = ({ destination, setDestination }) => {
+export const InputDestination = ({ destination, setDestination, errors }) => {
   return (
     <div className="inputDiv grow-2">
       <FaPlaneArrival className="faplane_icon" />
-      <SearchRoot setState={setDestination} />
+      <SearchRoot setState={setDestination} errors={errors} />
     </div>
   );
 };
 
-export const InputDepartureDate = ({ departureDate, setDepartureDate }) => {
+export const InputDepartureDate = ({
+  departureDate,
+  setDepartureDate,
+  errors,
+}) => {
   return (
     <div className="inputDiv grow-1">
       <FaWpforms className="faplane_icon" />
@@ -44,6 +48,8 @@ export const InputDepartureDate = ({ departureDate, setDepartureDate }) => {
           }}
           renderInput={(params) => (
             <TextField
+              error={errors?.departureDate ? true : false}
+              helperText={errors?.departureDate}
               sx={{
                 background: "white",
                 width: "100%",
@@ -64,6 +70,7 @@ export const InputReturnDate = ({
   returnDate,
   setReturndate,
   departureDate,
+  errors,
 }) => {
   return (
     <div className="inputDiv grow-1">
@@ -82,6 +89,8 @@ export const InputReturnDate = ({
         }}
         renderInput={(params) => (
           <TextField
+            error={errors?.returnDate ? true : false}
+            helperText={errors?.returnDate}
             sx={{
               background: "white",
               width: "100%",
@@ -97,7 +106,7 @@ export const InputReturnDate = ({
   );
 };
 
-export const InputAdults = ({ adults, setAdults }) => {
+export const InputAdults = ({ adults, setAdults, errors }) => {
   return (
     <div className="inputDiv grow-1">
       <FaUserFriends className="faplane_icon" />
@@ -109,6 +118,8 @@ export const InputAdults = ({ adults, setAdults }) => {
         renderInput={(params) => (
           <TextField
             {...params}
+            error={errors?.adults ? true : false}
+            helperText={errors?.adults}
             label="Seleccione adultos"
             sx={{
               backgroundColor: "white",

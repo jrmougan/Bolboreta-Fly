@@ -8,7 +8,7 @@ const HomeScreen = () => {
   const [destination, setDestination] = useState("");
   const [departureDate, setDepartureDate] = useState("");
   const [returnDate, setReturndate] = useState("");
-  const [adults, setAdults] = useState(1);
+  const [adults, setAdults] = useState("");
 
   // Función para modificar el valor de cada variable
   const handleSubmit = (setter) => (e) => {
