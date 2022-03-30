@@ -1,13 +1,12 @@
-import React, { useState, useContext } from "react";
-import { Stepper, Step, StepLabel, Button, Typography } from "@mui/material";
-import BookingData from "./FormPassenger/BookingData";
-import RateChoice from "./RateChoice/RateChoice";
-import ResumeAndPay from "./ResumeAndPay/ResumeAndPay";
-import { Container } from "@mui/material";
+import React, { useState, useContext } from 'react';
+import { Stepper, Step, StepLabel, Button, Typography } from '@mui/material';
+import BookingData from './FormPassenger/BookingData';
+import ResumeAndPay from './ResumeAndPay/ResumeAndPay';
+import { Container } from '@mui/material';
 
-import { OfferPriceContext } from "../../context/OfferPriceContext";
+import { OfferPriceContext } from '../../context/OfferPriceContext';
 
-import TodosPasajeros from "./Pasajeros/TodosPasajeros";
+import TodosPasajeros from './Pasajeros/TodosPasajeros';
 
 const StepForm = () => {
   /* 
@@ -40,32 +39,32 @@ const StepForm = () => {
     const travelerBody = {
       id: i + 1,
       name: {
-        firstName: "",
-        lastName: "",
+        firstName: '',
+        lastName: '',
       },
       dateOfBirth: null,
-      gender: "",
+      gender: '',
       documents: [
         {
-          documentType: "",
-          number: "",
+          documentType: '',
+          number: '',
           issuanceDate: null,
           expiryDate: null,
-          birthPlace: "",
-          issuanceCountry: "ES",
-          nacionality: "ES",
+          birthPlace: '',
+          issuanceCountry: 'ES',
+          nacionality: 'ES',
         },
       ],
       contact: {
-        purpose: "STANDARD",
+        purpose: 'STANDARD',
         phones: [
           {
-            deviceType: "",
-            countryCallingCode: "",
-            number: "",
+            deviceType: '',
+            countryCallingCode: '',
+            number: '',
           },
         ],
-        emailAddress: "",
+        emailAddress: '',
       },
     };
     allTravelers.push(travelerBody);
@@ -79,10 +78,10 @@ const StepForm = () => {
 
   for (let i = 0; i < numTravelers; i++) {
     const body = {
-      gender: "",
-      docType: "",
-      telType: "",
-      countryCall: "",
+      gender: '',
+      docType: '',
+      telType: '',
+      countryCall: '',
     };
     allAutoLabel.push(body);
   }
@@ -108,16 +107,6 @@ const StepForm = () => {
       return <BookingData />;
     } else if (page === 2) {
       return (
-        <RateChoice
-          rateCharge={rateCharge}
-          setRateCharge={setRateCharge}
-          setTotalPrice={setTotalPrice}
-          travelers={travelers}
-          isReturn={isReturn}
-        />
-      );
-    } else if (page === 3) {
-      return (
         <ResumeAndPay
           rateCharge={rateCharge}
           setRateCharge={setRateCharge}
@@ -129,12 +118,7 @@ const StepForm = () => {
   };
 
   function getSteps() {
-    return [
-      "Información de Pasajeros",
-      "Datos de reserva",
-      "Elección de tarifa",
-      "Resumen y Pago",
-    ];
+    return ['Información de Pasajeros', 'Datos de reserva', 'Resumen y Pago'];
   }
 
   /* 
@@ -149,7 +133,7 @@ const StepForm = () => {
   // Elegimos la elección de asiento como un paso opcional (Paso 3)
 
   const isStepOptional = (step) => {
-    return step === 3;
+    return step === 6;
   };
 
   const isStepSkipped = (step) => {
@@ -175,7 +159,7 @@ const StepForm = () => {
   //  Salta al siguiente paso
   const handleSkip = () => {
     if (!isStepOptional(activeStep)) {
-      throw new Error("No puedes ir al paso siguiente sin completar el actual");
+      throw new Error('No puedes ir al paso siguiente sin completar el actual');
     }
     // Define el paso que va a estar activado
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -193,14 +177,14 @@ const StepForm = () => {
 
   return (
     <Container>
-      <div className="stepper_container">
+      <div className='stepper_container'>
         <Stepper activeStep={activeStep}>
           {steps.map((label, index) => {
             const stepProps = {};
             const labelProps = {};
             if (isStepOptional(index)) {
               labelProps.optional = (
-                <Typography variant="caption">Opcional</Typography>
+                <Typography variant='caption'>Opcional</Typography>
               );
             }
             if (isStepSkipped(index)) {
@@ -224,34 +208,37 @@ const StepForm = () => {
           ) : (
             <div>
               <div>{getStepContent(activeStep)}</div>
-              <div className="button_steps">
+              <div className='button_steps'>
                 <Button
                   disabled={activeStep === 0}
                   onClick={handleBack}
-                  color="primary"
+                  color='primary'
                 >
                   Atrás
                 </Button>
                 {isStepOptional(activeStep) && (
                   <Button
-                    variant="contained"
-                    color="primary"
+                    variant='contained'
+                    color='primary'
                     onClick={handleSkip}
                   >
                     Saltar
                   </Button>
                 )}
-
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleNext}
-                  sx={{
-                    fontSize: ".7rem",
-                  }}
-                >
-                  {activeStep === steps.length - 1 ? "Finalizar" : "Siguiente"}
-                </Button>
+                {activeStep === steps.length - 1 ? (
+                  ''
+                ) : (
+                  <Button
+                    variant='contained'
+                    color='primary'
+                    onClick={handleNext}
+                    sx={{
+                      fontSize: '.7rem',
+                    }}
+                  >
+                    Siguiente
+                  </Button>
+                )}
               </div>
             </div>
           )}

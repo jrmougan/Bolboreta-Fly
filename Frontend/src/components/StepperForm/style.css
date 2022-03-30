@@ -32,7 +32,9 @@ body {
   display: flex;
   justify-content: center;
 }
-
+.disable {
+  display: none;
+}
 /*
 ####################
 ## PASSENGER INFO ##
