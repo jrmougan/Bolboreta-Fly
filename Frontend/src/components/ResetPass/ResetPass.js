@@ -3,6 +3,11 @@ import { React, useEffect, useState } from "react";
 import swal from "sweetalert";
 import "./style.css";
 
+// Constante(variable) para que todos los inputs tengan el mismo ancho y color
+
+const style = { width: "350px" };
+const fondo = { background: "white" };
+
 const ResetPass = () => {
   const [recovercode, setRecovercode] = useState("");
   const [newpassword, setNewpassword] = useState("");
@@ -46,6 +51,8 @@ const ResetPass = () => {
             Introduzca aqui el código que le hemos mandado a su email{" "}
           </label>
           <TextField
+            style={style}
+            sx={fondo}
             id="recovercode"
             name="recovercode"
             type="text"
@@ -61,6 +68,8 @@ const ResetPass = () => {
             Introduce aqui tu nueva contraseña{" "}
           </label>
           <TextField
+            style={style}
+            sx={fondo}
             id="newpassword"
             name="newpassword"
             type={shown ? "text" : "password"}

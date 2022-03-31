@@ -1,5 +1,5 @@
 input {
-  font-family: FontAwesome, 'Open Sans', Verdana, sans-serif;
+  font-family: FontAwesome, "Open Sans", Verdana, sans-serif;
 }
 
 a:hover,
@@ -8,7 +8,6 @@ button {
 }
 
 .searchEnvironment {
-  background-color: #f7f6ff;
   padding: 3rem 0.5rem;
 }
 
@@ -211,7 +210,7 @@ button {
   max-width: 250px;
 }
 .left-card:before {
-  content: '';
+  content: "";
   position: absolute;
   height: 20%;
   width: 13%;
@@ -223,7 +222,7 @@ button {
   background-color: #5d7ca6;
 }
 .left-card:after {
-  content: '';
+  content: "";
   position: absolute;
   height: 20%;
   width: 13%;

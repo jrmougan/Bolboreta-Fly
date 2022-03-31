@@ -1,8 +1,12 @@
 import "./style.css";
 import React, { useEffect, useState } from "react";
-
 import swal from "sweetalert";
 import { TextField } from "@mui/material";
+
+// Constante(variable) para que todos los inputs tengan el mismo ancho y color
+
+const style = { width: "350px" };
+const fondo = { background: "white" };
 
 const RecoverPass = () => {
   const [email, setEmail] = useState();
@@ -43,7 +47,8 @@ const RecoverPass = () => {
         </label>
 
         <TextField
-          style={{ width: "252px" }}
+          sx={fondo}
+          style={style}
           id="email"
           label="E-mail"
           type="email"

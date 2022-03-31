@@ -7,6 +7,11 @@ import { Link } from "react-router-dom";
 import "./style.css";
 import { TextField } from "@mui/material";
 
+// Constante(variable) para que todos los inputs tengan el mismo ancho y color.
+
+const style = { width: "350px" };
+const fondo = { background: "white" };
+
 const EditPassForm = () => {
   const [oldpassword, setOldPass] = useState("");
   const [newpassword, setNewPass] = useState("");
@@ -63,6 +68,8 @@ const EditPassForm = () => {
             Contraseña actual{" "}
           </label>
           <TextField
+            sx={fondo}
+            style={style}
             id="oldpass"
             name="oldpass"
             type={shown ? "text" : "password"}
@@ -78,6 +85,8 @@ const EditPassForm = () => {
             Escriba contraseña nueva{" "}
           </label>
           <TextField
+            sx={fondo}
+            style={style}
             id="newpass"
             name="newpass"
             type={shown ? "text" : "password"}
@@ -93,6 +102,8 @@ const EditPassForm = () => {
             Repite contraseña nueva{" "}
           </label>
           <TextField
+            sx={fondo}
+            style={style}
             id="repetpass"
             name="repetpass"
             type={shown ? "text" : "password"}
