@@ -207,12 +207,6 @@ button {
   flex-grow: 3;
 }
 
-@media screen and (max-width: 550px) {
-  .left-card {
-    padding: 0 3rem;
-    font-size: 0.7rem;
-  }
-}
 .flightItem {
   max-width: 250px;
 }
@@ -240,6 +234,16 @@ button {
   border-radius: 40%;
   background-color: white;
   border: 0.1px solid black;
+}
+@media screen and (max-width: 550px) {
+  .left-card {
+    padding: 0 0 0 3rem;
+    font-size: 0.7rem;
+  }
+  .left-card:before,
+  .left-card:after {
+    width: 8%;
+  }
 }
 
 .separation_card {
