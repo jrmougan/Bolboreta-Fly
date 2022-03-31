@@ -72,9 +72,24 @@ Bolboreta Flight es un planificador de vuelos, donde puedes encontrar el vuelo q
 
 ## Uso
 
-Si quieres realizar un pago mediante Paypal usando tarjeta puedes introducir una de estas dos para validar con éxito, la fecha de caducidad debe ser posterior a la actual:
+Si quieres realizar el pago mediante Paypal usa está cuenta:
 
-![Product Name Screen Shot][potalbolboreta]
+Email: sb-skyun12912253@personal.example.com <br/>
+Password: 123456789<br/>
+
+Si quieres realizar un pago mediante Paypal usando tarjeta puedes introducir una de estas dos :
+
+Cambiar direccion a España!! </br>
+
+Número de targeta: 4020026466711226 <br/>
+Fecha de Caducidad: 11/2023 </br>
+CVV: 026 </br>
+
+---
+
+Número de targeta: 4020024943226215 <br/>
+Fecha de Caducidad: 07/2026</br>
+CVV: 878 </br>
 
 ## Licencia
 
