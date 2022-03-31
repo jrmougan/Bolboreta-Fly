@@ -139,9 +139,9 @@ button {
   display: none;
 }
 .btn {
-  background: #5d7ca6;
-  color: #eee;
-  padding: 1rem 1.5rem;
+  background: #5d7ca6 !important;
+  color: #eee !important;
+  padding: 1rem 1.5rem !important;
   border: none;
 }
 .inputsFlight {

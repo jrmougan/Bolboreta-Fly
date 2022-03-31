@@ -1,7 +1,9 @@
 import { LocalizationProvider } from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { es } from "date-fns/locale";
+import { Button } from "@mui/material";
 
 import {
   InputAdults,
@@ -11,6 +13,7 @@ import {
   InputReturnDate,
 } from "./Inputs";
 import Tabs from "./Tab";
+import swal from "sweetalert";
 
 const FlightSearch = ({
   search,
@@ -33,7 +36,7 @@ const FlightSearch = ({
     url += `&returnDate=${returnDate}`;
   }
   return (
-    <LocalizationProvider dateAdapter={AdapterDateFns}>
+    <LocalizationProvider dateAdapter={AdapterDateFns} locale={es}>
       <section className="searchFlight">
         <Tabs withReturn={withReturn} setWithReturn={setWithReturn} />
         <InputSearch
@@ -69,20 +72,71 @@ const InputSearch = ({
   adults,
   setAdults,
   withReturn,
-  search,
 }) => {
+  const navigate = useNavigate();
+
+  const [formErrors, setFormErrors] = useState({});
+  const [validateFlag, setValidateFlag] = useState(false);
+
+  const validateInputs = (inputs, errors) => {
+    const [formErrors, setFormErrors] = errors;
+    let errorObject = {};
+    for (const input in inputs) {
+      if (inputs[input]?.length === 0 || inputs[input] === null) {
+        errorObject[input] = "Campo vacío";
+      } else if (inputs[input] === "invalidDate") {
+        errorObject[input] = "Fecha inválida";
+      }
+    }
+
+    //Si es solo ida borramos error en returnDate
+    if (!withReturn) {
+      delete errorObject.returnDate;
+    }
+    setFormErrors(errorObject);
+  };
+
+  useEffect(() => {
+    setValidateFlag(false);
+    if (validateFlag) {
+      if (Object.keys(formErrors).length === 0) {
+        navigate(url);
+      } else {
+        //Timeout para que desparezcan los errores
+        setTimeout(() => {
+          setFormErrors({});
+        }, 2000);
+      }
+    }
+  }, [validateFlag]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    validateInputs(
+      { origin, destination, departureDate, returnDate, adults, withReturn },
+      [formErrors, setFormErrors]
+    );
+
+    setValidateFlag(true);
+  };
   return (
-    <form onSubmit={search} className="search-form">
+    <form onSubmit={handleSubmit} className="search-form">
       <div className="inputsFlight">
-        <InputOrigin origin={origin} setOrigin={setOrigin} />
+        <InputOrigin
+          origin={origin}
+          setOrigin={setOrigin}
+          errors={formErrors}
+        />
 
         <InputDestination
           destination={destination}
           setDestination={setDestination}
+          errors={formErrors}
         />
         <InputDepartureDate
           departureDate={departureDate}
           setDepartureDate={setDepartureDate}
+          errors={formErrors}
         />
 
         {withReturn && (
@@ -90,14 +144,19 @@ const InputSearch = ({
             departureDate={departureDate}
             returnDate={returnDate}
             setReturndate={setReturndate}
+            errors={formErrors}
           />
         )}
 
-        <InputAdults adults={adults} setAdults={setAdults} />
+        <InputAdults
+          adults={adults}
+          setAdults={setAdults}
+          errors={formErrors}
+        />
       </div>
-      <Link to={url} className="btn search-submit" type="submit">
+      <Button className="btn search-submit" type="submit" url={url}>
         Buscar
-      </Link>
+      </Button>
     </form>
   );
 };
