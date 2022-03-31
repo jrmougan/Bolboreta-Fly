@@ -1,6 +1,6 @@
 import { LocalizationProvider } from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { es } from "date-fns/locale";
 import { Button } from "@mui/material";
@@ -76,14 +76,16 @@ const InputSearch = ({
   const navigate = useNavigate();
 
   const [formErrors, setFormErrors] = useState({});
+  const [validateFlag, setValidateFlag] = useState(false);
 
   const validateInputs = (inputs, errors) => {
-    console.log(inputs);
     const [formErrors, setFormErrors] = errors;
     let errorObject = {};
     for (const input in inputs) {
-      if (inputs[input].length === 0) {
+      if (inputs[input]?.length === 0 || inputs[input] === null) {
         errorObject[input] = "Campo vacío";
+      } else if (inputs[input] === "invalidDate") {
+        errorObject[input] = "Fecha inválida";
       }
     }
 
@@ -92,8 +94,22 @@ const InputSearch = ({
       delete errorObject.returnDate;
     }
     setFormErrors(errorObject);
-    console.log(errorObject);
   };
+
+  useEffect(() => {
+    setValidateFlag(false);
+    if (validateFlag) {
+      if (Object.keys(formErrors).length === 0) {
+        navigate(url);
+      } else {
+        //Timeout para que desparezcan los errores
+        setTimeout(() => {
+          setFormErrors({});
+        }, 2000);
+      }
+    }
+  }, [validateFlag]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     validateInputs(
@@ -101,15 +117,7 @@ const InputSearch = ({
       [formErrors, setFormErrors]
     );
 
-    if (formErrors.length == 0) {
-      navigate(url);
-    } else {
-      swal("Cumplimenta todo los campos", " ", "error");
-    }
-    //Timeout para que desparezcan los errores
-    setTimeout(() => {
-      setFormErrors({});
-    }, 2000);
+    setValidateFlag(true);
   };
   return (
     <form onSubmit={handleSubmit} className="search-form">

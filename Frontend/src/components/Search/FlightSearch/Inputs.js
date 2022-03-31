@@ -115,6 +115,7 @@ export const InputAdults = ({ adults, setAdults, errors }) => {
         options={ADULTS}
         onChange={(e, newInput) => setAdults(newInput.value)}
         value={ADULTS.value}
+        disableClearable
         renderInput={(params) => (
           <TextField
             {...params}
