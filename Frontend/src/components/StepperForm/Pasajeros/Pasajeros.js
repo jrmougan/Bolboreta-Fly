@@ -2,212 +2,191 @@ import { DatePicker, LocalizationProvider } from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import { Autocomplete, TextField } from "@mui/material";
 import { format, sub } from "date-fns";
-
+import { useFormikContext, useField } from "formik";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import InputLabel from "@mui/material/InputLabel";
 import "./pasajero.css";
+import FormControl from "@mui/material/FormControl";
+const Pasajero = (props) => {
+  const { id, travelers, handleChange } = props;
+  const { setFieldValue } = useFormikContext();
 
-const Pasajero = ({
-  traveler,
-  setTraveler,
-  handleAddPassenger,
-  id,
-  numTravelers,
-  labels,
-}) => {
-  const { autoLabels, setAutoLabels } = labels;
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <h2 style={{ textAlign: "center" }}>Pasajero {id}</h2>
-      <form
-        className="passengerForm"
-        style={{ display: "flex", flexDirection: "column", flexWrap: "wrap" }}
-        onSubmit={handleAddPassenger}
-      >
-        <div className="inputs-passengers">
-          <TextField
-            id="nombre-required"
-            label="Nombre"
-            value={traveler[id - 1].name.firstName}
-            onChange={(e) => {
-              const modTravel = [...traveler];
-              modTravel[id - 1].name.firstName = e.target.value;
-              setTraveler(modTravel);
-            }}
-            className="textfield"
-          />
-          <TextField
-            id="apellido-required"
-            label="Apellido"
-            value={traveler[id - 1].name.lastName}
-            className="textfield-mui"
-            onChange={(e) => {
-              const modTravel = [...traveler];
-              modTravel[id - 1].name.lastName = e.target.value;
-              setTraveler(modTravel);
-            }}
-          />
 
-          <DatePicker
-            label="Fecha de cumpleaños"
-            value={traveler[id - 1].dateOfBirth}
-            inputFormat="dd/MM/yyyy"
-            maxDate={sub(Date.now(), {
-              years: 18,
+      <div className="inputs-passengers">
+        <TextField
+          id="nombre-required"
+          name={`travelers[${id - 1}].name.firstName`}
+          label="Nombre"
+          value={travelers[id - 1].name.firstName}
+          className="textfield"
+          onChange={handleChange}
+        />
+        <TextField
+          id="apellido-required"
+          label="Apellido"
+          name={`travelers[${id - 1}].name.lastName`}
+          value={travelers[id - 1].name.lastName}
+          onChange={handleChange}
+          className="textfield-mui"
+        />
+
+        <DatePicker
+          label="Fecha de cumpleaños"
+          name={`travelers[${id - 1}].dateOfBirth`}
+          value={travelers[id - 1].dateOfBirth}
+          onChange={(value) =>
+            setFieldValue(`travelers[${id - 1}].dateOfBirth`, value)
+          }
+          inputFormat="dd/MM/yyyy"
+          maxDate={sub(Date.now(), {
+            years: 18,
+          })}
+          renderInput={(params) => <TextField {...params} />}
+          sx={{ marginLeft: "4rem" }}
+        />
+        <FormControl fullWidth>
+          <InputLabel id="genero">Genero</InputLabel>
+          <Select
+            labelId="genero"
+            value={travelers[id - 1].gender}
+            name={`travelers[${id - 1}].gender`}
+            onChange={handleChange}
+            label="Genero"
+          >
+            {gender.map(({ value, label }) => {
+              return (
+                <MenuItem key={value} value={value}>
+                  {label}
+                </MenuItem>
+              );
             })}
-            onChange={(newValue) => {
-              if (newValue instanceof Date && !isNaN(newValue.valueOf())) {
-                const modTravel = [...traveler];
-                modTravel[id - 1].dateOfBirth = format(newValue, "yyyy-MM-dd");
-                setTraveler(modTravel);
-              }
-            }}
-            renderInput={(params) => <TextField {...params} />}
-            sx={{ marginLeft: "4rem" }}
-          />
-          <Autocomplete
-            id="genero"
-            options={gender}
-            sx={{ width: 300 }}
-            onChange={(e, newinputvalue) => {
-              const modTravel = [...traveler];
-              modTravel[id - 1].gender = newinputvalue.value;
-              const modLabels = [...autoLabels];
-              modLabels[id - 1].gender = newinputvalue.label;
-              setAutoLabels(modLabels);
-              setTraveler(modTravel);
-            }}
-            value={autoLabels[id - 1].gender}
-            renderInput={(params) => <TextField {...params} label="Género" />}
-          ></Autocomplete>
-          <Autocomplete
-            id="typeDocument"
-            options={documents}
-            sx={{ width: 300 }}
-            onChange={(e, newinputvalue) => {
-              const modTravel = [...traveler];
-              modTravel[id - 1].documents[0].documentType = newinputvalue.value;
-              setTraveler(modTravel);
+          </Select>
+        </FormControl>
 
-              const modLabels = [...autoLabels];
-              modLabels[id - 1].docType = newinputvalue.label;
-              setAutoLabels(modLabels);
-            }}
-            value={autoLabels[id - 1].docType}
-            renderInput={(params) => (
-              <TextField {...params} label="Tipo de documento" />
-            )}
-          ></Autocomplete>
-          <TextField
-            id="number-required"
-            label="Número de identidad"
-            value={traveler[id - 1].documents[0].number}
-            className="textfield-mui"
-            onChange={(e) => {
-              const modTravel = [...traveler];
-              modTravel[id - 1].documents[0].number = e.target.value;
-              setTraveler(modTravel);
-            }}
-          />
-          <DatePicker
-            label="Fecha de expedición"
-            value={traveler[id - 1].documents[0].issuanceDate}
-            inputFormat="dd/MM/yyyy"
-            maxDate={Date.now()}
-            onChange={(newValue) => {
-              if (newValue instanceof Date && !isNaN(newValue.valueOf())) {
-                const modTravel = [...traveler];
-                modTravel[id - 1].documents[0].issuanceDate = format(
-                  newValue,
-                  "yyyy-MM-dd"
-                );
-                setTraveler(modTravel);
-              }
-            }}
-            renderInput={(params) => <TextField {...params} />}
-            sx={{ marginLeft: "4rem" }}
-          />
-          <DatePicker
-            label="Fecha de expiración"
-            value={traveler[id - 1].documents[0].expiryDate}
-            minDate={Date.now()}
-            inputFormat="dd/MM/yyyy"
-            onChange={(newValue) => {
-              if (newValue instanceof Date && !isNaN(newValue.valueOf())) {
-                const modTravel = [...traveler];
-                modTravel[id - 1].documents[0].expiryDate = format(
-                  newValue,
-                  "yyyy-MM-dd"
-                );
-                setTraveler(modTravel);
-              }
-            }}
-            renderInput={(params) => <TextField {...params} />}
-            sx={{ marginLeft: "4rem" }}
-          />
+        <FormControl fullWidth>
+          <InputLabel id="typeDoc">Tipo de documento</InputLabel>
+          <Select
+            labelId="typeDoc"
+            value={travelers[id - 1].documents[0].documentType}
+            name={`travelers[${id - 1}].documents[0].documentType`}
+            onChange={handleChange}
+            label="Genero"
+          >
+            {documents.map(({ value, label }) => {
+              return (
+                <MenuItem key={value} value={value}>
+                  {label}
+                </MenuItem>
+              );
+            })}
+          </Select>
+        </FormControl>
 
-          <Autocomplete
-            id="typePhone"
-            options={typePhone}
-            sx={{ width: 300 }}
-            onChange={(e, newinputvalue) => {
-              const modTravel = [...traveler];
-              modTravel[id - 1].contact.phones[0].deviceType =
-                newinputvalue.value;
-              setTraveler(modTravel);
+        <TextField
+          id="number"
+          label="Número de identidad"
+          name={`travelers[${id - 1}].documents[0].number`}
+          value={travelers[id - 1].documents[0].number}
+          className="textfield-mui"
+          onChange={handleChange}
+        />
 
-              const modLabels = [...autoLabels];
-              modLabels[id - 1].telType = newinputvalue.label;
-              setAutoLabels(modLabels);
-            }}
-            value={autoLabels[id - 1].telType}
-            renderInput={(params) => (
-              <TextField {...params} label="Tipo de teléfono" />
-            )}
-          ></Autocomplete>
-          <Autocomplete
-            id="contryCallingCode"
-            options={countries}
-            sx={{ width: 300 }}
-            onChange={(e, newinputvalue) => {
-              const modTravel = [...traveler];
-              modTravel[id - 1].contact.phones[0].countryCallingCode =
-                newinputvalue.phone;
-              setTraveler(modTravel);
+        <DatePicker
+          label="Fecha de expedición"
+          name={`travelers[${id - 1}].documents[0].issuanceDate`}
+          value={travelers[id - 1].documents[0].issuanceDate}
+          onChange={(value) =>
+            setFieldValue(
+              `travelers[${id - 1}].documents[0].issuanceDate`,
+              value
+            )
+          }
+          inputFormat="dd/MM/yyyy"
+          maxDate={Date.now()}
+          renderInput={(params) => <TextField {...params} />}
+          sx={{ marginLeft: "4rem" }}
+        />
 
-              const modLabels = [...autoLabels];
-              modLabels[id - 1].countryCall = newinputvalue.label
-                ? newinputvalue.label
-                : "ESPAÑA";
-              setAutoLabels(modLabels);
-            }}
-            value={autoLabels[id - 1].countryCall}
-            renderInput={(params) => (
-              <TextField {...params} label="Prefijo país" />
-            )}
-          ></Autocomplete>
-          <TextField
-            id="number-required"
-            label="Número de contacto"
-            value={traveler[id - 1].contact.phones[0].number}
-            className="textfield-mui"
-            onChange={(e) => {
-              const modTravel = [...traveler];
-              traveler[id - 1].contact.phones[0].number = e.target.value;
-              setTraveler(modTravel);
-            }}
-          />
-          <TextField
-            id="emial-required"
-            label="Email"
-            value={traveler[id - 1].contact.emaiAddress}
-            className="textfield-mui"
-            onChange={(e) => {
-              const modTravel = [...traveler];
-              modTravel[id - 1].contact.emailAddress = e.target.value;
-              setTraveler(modTravel);
-            }}
-          />
-        </div>
-      </form>
+        <DatePicker
+          label="Fecha de expiración"
+          name={`travelers[${id - 1}].documents[0].expiryDate`}
+          value={travelers[id - 1].documents[0].expiryDate}
+          onChange={(value) =>
+            setFieldValue(`travelers[${id - 1}].documents[0].expiryDate`, value)
+          }
+          inputFormat="dd/MM/yyyy"
+          minDate={Date.now()}
+          renderInput={(params) => <TextField {...params} />}
+          sx={{ marginLeft: "4rem" }}
+        />
+
+        <FormControl fullWidth>
+          <InputLabel id="typePhone">Tipo de teléfono</InputLabel>
+          <Select
+            labelId="typePhone"
+            value={travelers[id - 1].contact.phones[0].deviceType}
+            name={`travelers[${id - 1}].contact.phones[0].deviceType`}
+            onChange={handleChange}
+            label="Tipo de teléfono"
+          >
+            {typePhone.map(({ value, label }) => {
+              return (
+                <MenuItem key={value} value={value}>
+                  {label}
+                </MenuItem>
+              );
+            })}
+          </Select>
+        </FormControl>
+
+        <Autocomplete
+          id="contryCallingCode"
+          options={countries}
+          sx={{ width: 300 }}
+          value={travelers[id - 1].contact.phones[0].countryCallingCode}
+          name={`travelers[${id - 1}].contact.phones[0].countryCallingCode`}
+          renderInput={(params) => (
+            <TextField {...params} label="Prefijo país" />
+          )}
+          onChange={(e, value) => {
+            setFieldValue(
+              `travelers[${id - 1}].contact.phones[0].countryCallingCode`,
+              value?.phone ? value.phone : ""
+            );
+          }}
+        ></Autocomplete>
+
+        <TextField
+          id="tel"
+          label="Número de contacto"
+          value={travelers[id - 1].contact.phones[0].number}
+          name={`travelers[${id - 1}].contact.phones[0].number`}
+          className="textfield-mui"
+          onChange={handleChange}
+        />
+
+        <TextField
+          id="email"
+          label="Email"
+          value={travelers[id - 1].contact.emailAddress}
+          name={`travelers[${id - 1}].contact.emailAddress`}
+          className="textfield-mui"
+          onChange={handleChange}
+        />
+
+        {/*
+
+        <TextField
+          id="emial-required"
+          label="Email"
+          value={0}
+          className="textfield-mui"
+        /> */}
+      </div>
     </LocalizationProvider>
   );
 };
@@ -215,7 +194,7 @@ const Pasajero = ({
 const gender = [
   { label: "Mujer", value: "FEMALE" },
   { label: "Hombre", value: "MALE" },
-  { label: "Otr@s", value: "" },
+  { label: "Otr@s", value: "OTHER" },
 ];
 const countries = [
   { code: "AD", label: "Andorra", phone: "+376" },

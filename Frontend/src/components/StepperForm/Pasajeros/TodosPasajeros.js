@@ -1,7 +1,8 @@
 import Pasajero from "./Pasajeros";
 
-const TodosPasajeros = ({ travelers, setTravelers, numTravelers, labels }) => {
-  const handleAddPassenger = () => {};
+const TodosPasajeros = ({ values, handleChange }) => {
+  const { travelers } = values;
+  console.log(travelers);
   return (
     <div className="FormularioPasajero">
       <section className="Titulo">
@@ -12,11 +13,9 @@ const TodosPasajeros = ({ travelers, setTravelers, numTravelers, labels }) => {
             <Pasajero
               key={traveler.id}
               id={traveler.id}
-              traveler={travelers}
-              setTraveler={setTravelers}
-              handleAddPassenger={handleAddPassenger}
-              numTravelers={numTravelers}
-              labels={labels}
+              labels={1}
+              travelers={travelers}
+              handleChange={handleChange}
             />
           );
         })}

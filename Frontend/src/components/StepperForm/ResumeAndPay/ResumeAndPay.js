@@ -86,7 +86,7 @@ const seatMap = async (updatedFlightOrder, token) => {
   } catch (error) {}
 };
 
-const ResumeandPay = ({ rateCharge, travelers, totalPrice }) => {
+const ResumeandPay = ({ rateCharge, totalPrice }) => {
   // Contextos
   const [token] = useContext(TokenContext);
   const [flight, setFlight] = useContext(OfferPriceContext);
@@ -99,11 +99,7 @@ const ResumeandPay = ({ rateCharge, travelers, totalPrice }) => {
 
   return (
     <section className="paymentConfirmationContainer">
-      <PaymentElection
-        totalPrice={totalPrice}
-        orderFlight={offerPrice}
-        travelers={travelers}
-      />
+      <PaymentElection totalPrice={totalPrice} orderFlight={offerPrice} />
 
       <PaymentConfirmation>
         <FlightsResume itineraries={itineraries} airlineCode={airlineCode} />
