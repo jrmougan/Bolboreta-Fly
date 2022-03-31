@@ -13,6 +13,9 @@ import DeleteUsuario from "../DeleteUsuariio/DeleteUsuario";
 
 import { format } from "date-fns";
 import { TextField } from "@mui/material";
+
+const style = { width: "350px" };
+
 const EditUser = () => {
   const [token] = useContext(TokenContext);
   const [user, setUser, fetchUserProfile] = useContext(UserContext);
@@ -83,6 +86,7 @@ const EditUser = () => {
           <h2> Datos de Usuario </h2>
           <label htmlFor="name"> Nombre </label>
           <TextField
+            style={style}
             placeholder={user.userInfo?.name_user}
             id="name"
             name="name"
@@ -94,6 +98,7 @@ const EditUser = () => {
           />
           <label htmlFor="lastname"> Apellido </label>
           <TextField
+            style={style}
             id="lastname"
             name="lastname"
             type="text"
@@ -105,7 +110,7 @@ const EditUser = () => {
           />
           <label htmlFor="email"> Email </label>
           <TextField
-            style={{ width: "252px" }}
+            style={style}
             id="email"
             name="email"
             type="email"
@@ -116,34 +121,30 @@ const EditUser = () => {
             placeholder={user.userInfo?.email}
           />
           <label htmlFor="birthdate"> Fecha de Nacimiento </label>
-          <div>
-            <DatePicker
-              className="datePicker "
-              inputFormat="dd/MM/yyyy"
-              sx={{ backgroundColor: "white", width: "100%" }}
-              value={newbirthdate}
-              onChange={(newValue) => {
-                if (newValue instanceof Date && !isNaN(newValue.valueOf())) {
-                  setNewbirthdate(format(newValue, "yyyy-MM-dd"));
-                }
-              }}
-              renderInput={(params) => (
-                <TextField
-                  sx={{
-                    background: "white",
-                    width: "100%",
-                    marginLeft: " .5rem",
-                    marginTop: " .5rem",
-                    borderRadius: "4px",
-                  }}
-                  {...params}
-                />
-              )}
-            ></DatePicker>{" "}
-          </div>
+          <DatePicker
+            className="datePicker "
+            inputFormat="dd/MM/yyyy"
+            sx={{ backgroundColor: "white", width: "100%" }}
+            value={newbirthdate}
+            onChange={(newValue) => {
+              if (newValue instanceof Date && !isNaN(newValue.valueOf())) {
+                setNewbirthdate(format(newValue, "yyyy-MM-dd"));
+              }
+            }}
+            renderInput={(params) => (
+              <TextField
+                sx={{
+                  background: "white",
+                  style,
+                  borderRadius: "4px",
+                }}
+                {...params}
+              />
+            )}
+          ></DatePicker>{" "}
           <label htmlFor="address"> Dirección </label>
           <TextField
-            style={{ width: "252px" }}
+            style={style}
             id="address"
             name="address"
             value={newaddress}
@@ -156,7 +157,7 @@ const EditUser = () => {
           />
           <label htmlFor="bio"> Biografía </label>
           <TextField
-            style={{ width: "270px" }}
+            style={style}
             id="bio"
             name="bio"
             type="textarea"
