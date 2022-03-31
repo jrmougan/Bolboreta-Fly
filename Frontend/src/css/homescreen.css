@@ -1,5 +1,5 @@
 input {
-  font-family: FontAwesome, "Open Sans", Verdana, sans-serif;
+  font-family: FontAwesome, 'Open Sans', Verdana, sans-serif;
 }
 
 a:hover,
@@ -9,7 +9,7 @@ button {
 
 .searchEnvironment {
   background-color: #f7f6ff;
-  padding: 10rem 3rem;
+  padding: 3rem 0.5rem;
 }
 
 .searchFlight {
@@ -25,7 +25,11 @@ button {
     max-width: 350px;
   }
 }
-
+@media screen and (min-width: 460px) {
+  .searchEnvironment {
+    padding: 10rem 3rem;
+  }
+}
 .searchInput {
   width: 100%;
   padding-left: 2rem;
@@ -202,8 +206,12 @@ button {
   padding: 0 1.5em 0 4em;
   flex-grow: 3;
 }
+
+.flightItem {
+  max-width: 250px;
+}
 .left-card:before {
-  content: "";
+  content: '';
   position: absolute;
   height: 20%;
   width: 13%;
@@ -215,7 +223,7 @@ button {
   background-color: #5d7ca6;
 }
 .left-card:after {
-  content: "";
+  content: '';
   position: absolute;
   height: 20%;
   width: 13%;
@@ -226,6 +234,16 @@ button {
   border-radius: 40%;
   background-color: white;
   border: 0.1px solid black;
+}
+@media screen and (max-width: 550px) {
+  .left-card {
+    padding: 0 0 0 3rem;
+    font-size: 0.7rem;
+  }
+  .left-card:before,
+  .left-card:after {
+    width: 8%;
+  }
 }
 
 .separation_card {
@@ -246,8 +264,9 @@ button {
   font-size: 0.75em;
   color: #444;
 }
+
 .right-card span {
-  font-size: 1.4em;
+  font-size: 1.9em;
   font-weight: bold;
   color: #023859;
 }
@@ -255,7 +274,7 @@ button {
   font-size: 1em;
 }
 span.card_airline_name {
-  font-size: 0.8em;
+  font-size: 1em;
 }
 .fareOption {
   font-size: 0.5em;
@@ -265,12 +284,18 @@ span.card_airline_name {
   justify-content: space-between;
   /* font-size: 1.3rem; */
 }
+.timeFlight span {
+  font-size: 1.5em;
+}
 .origin_destination {
   display: flex;
   justify-content: space-between;
 }
+.origin_destination p {
+  font-size: 1.5em;
+}
 .duration_listflights {
-  font-size: 0.9em;
+  font-size: 1.3em;
 }
 .butterfly {
   position: absolute;
@@ -285,6 +310,41 @@ span.card_airline_name {
 .b-2 {
   left: 20px;
 }
+
+/* 
+#################################
+## ADVANCED SEARCH FLIGHT INFO ##
+#################################
+*/
+
+.flight-info-container {
+  background-color: #5d7ca6;
+  max-width: 600px;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  margin-inline: auto;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+}
+
+@media screen and (min-width: 750px) {
+  .flight-info-container {
+    margin-bottom: 3.5rem;
+  }
+}
+
+.items-flight-info {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+.item-flight-info {
+  margin-right: 5px;
+  padding: 0.5rem;
+  color: rgb(255, 247, 247);
+}
+
 /* 
 ##################
 ## MEDIA QUERYS ##
@@ -304,5 +364,14 @@ span.card_airline_name {
   }
   span.card_airline_name {
     font-size: 1em;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .scales-flight {
+    display: block !important;
+    width: 200px !important;
+
+    margin: 0 auto !important;
   }
 }

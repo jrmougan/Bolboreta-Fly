@@ -4,6 +4,7 @@
 }
 
 .user_avatar {
+  height: 70px;
   margin-top: 10px;
   max-width: 100px;
   max-height: 100px;
@@ -11,5 +12,10 @@
 }
 
 .nombreusuario {
-  margin: 10px;
+  margin-inline: 5px;
+  color: #5d7ca6;
+  font-weight: bold;
+}
+.welcome {
+  padding: 20px 5px;
 }
