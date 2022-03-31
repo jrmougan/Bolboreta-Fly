@@ -1,15 +1,10 @@
 const { OAuth2Client } = require('google-auth-library');
 const getDB = require('../../database/getDB');
-const jwt = require('jsonwebtoken')
-
+const jwt = require('jsonwebtoken');
 
 const client = new OAuth2Client(process.env.APP_GOOGLE_CLIENT_ID);
 
-
 const loginGoogle = async (req, res, next) => {
-
-
-
     let connection;
 
     connection = await getDB();
@@ -18,11 +13,10 @@ const loginGoogle = async (req, res, next) => {
 
     const ticket = await client.verifyIdToken({
         idToken: token,
-        requireAudience: process.env.APP_GOOGLE_CLIENT_ID
+        requireAudience: process.env.APP_GOOGLE_CLIENT_ID,
     });
 
     const { given_name, email, family_name } = ticket.getPayload();
-
 
     const [user] = await connection.query(
         `SELECT id FROM user WHERE email = ?`,
@@ -38,15 +32,7 @@ const loginGoogle = async (req, res, next) => {
     if (user.length < 1) {
         await connection.query(
             `INSERT INTO  user (name_user, lastname, email , password, createDate , active  ) VALUES(?,?,?,?,?,?)`,
-            [
-                given_name,
-                family_name,
-                email,
-                email,
-                new Date(),
-                1,
-
-            ]
+            [given_name, family_name, email, email, new Date(), 1]
         );
     }
 
@@ -56,7 +42,7 @@ const loginGoogle = async (req, res, next) => {
         [email]
     );
 
-    console.log(usergoogle)
+    //Creamos nuestro propio token para enviarselo a nuestros middelwares y al frontend
 
     const tokenInfo = {
         id: usergoogle[0].id,
@@ -64,12 +50,12 @@ const loginGoogle = async (req, res, next) => {
         active: 1,
     };
 
-    const tokenGoogle = jwt.sign(tokenInfo, process.env.SECRET, { expiresIn: '10d' });
-
-
+    const tokenGoogle = jwt.sign(tokenInfo, process.env.SECRET, {
+        expiresIn: '10d',
+    });
 
     res.status(201);
     res.json(tokenGoogle);
-}
+};
 
 module.exports = loginGoogle;

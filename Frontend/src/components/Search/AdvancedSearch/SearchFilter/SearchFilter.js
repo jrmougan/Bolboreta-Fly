@@ -1,8 +1,8 @@
-import { Slider, Grid, Select, InputLabel } from "@mui/material";
-import { SelectOptions } from "./inputs/SelectOptions";
-import { SliderFilter } from "./inputs/SliderFilter";
-import { SliderRange } from "./inputs/SliderRange";
-import { useEffect, useState } from "react";
+import { Slider, Grid, Select, InputLabel } from '@mui/material';
+import { SelectOptions } from './inputs/SelectOptions';
+import { SliderFilter } from './inputs/SliderFilter';
+import { SliderRange } from './inputs/SliderRange';
+import { useEffect, useState } from 'react';
 
 export const SearchFilter = ({ scales, filterState, maxPrice }) => {
   const [filter, setFilter] = filterState;
@@ -10,7 +10,7 @@ export const SearchFilter = ({ scales, filterState, maxPrice }) => {
   //Manejadora evento
 
   const handleChange = (e, val) => {
-    console.log("Evento");
+    console.log('Evento');
     console.log(e);
     const name = e.target.name || e.path[0].childNodes[0].name;
 
@@ -25,32 +25,33 @@ export const SearchFilter = ({ scales, filterState, maxPrice }) => {
   //const handleSlider = (e, value, active) => {};
 
   return (
-    <Grid container spacing={2} flexDirection="column">
+    <Grid container spacing={2} flexDirection='column'>
       <SelectOptions
         item
         filterState={filterState}
         scales={scales}
         handleChange={handleChange}
-        label="Escalas"
-        name="scales"
+        label='Escalas'
+        name='scales'
+        className='scales-filter'
       />
 
       <SliderFilter
         item
         onChangeCommitted={handleChange}
-        name="duration"
+        name='duration'
         min={1}
         max={24}
-        label="Duracion"
+        label='Duracion'
       />
 
       <SliderFilter
         item
         onChangeCommitted={handleChange}
-        name="maxprice"
+        name='maxprice'
         min={1}
         max={maxPrice}
-        label="Precio"
+        label='Precio'
       />
     </Grid>
   );

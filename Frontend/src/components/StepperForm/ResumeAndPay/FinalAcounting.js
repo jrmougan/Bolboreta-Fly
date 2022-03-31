@@ -1,19 +1,17 @@
-const FinalAcounting = ({ flight, rateCharge, orderFlight }) => {
+const FinalAcounting = ({ flight }) => {
   const priceOptions = flight.price;
+
   const { base, currency, grandTotal } = priceOptions;
-  const precioTotal = Number(grandTotal);
-  const totalPrice = precioTotal + rateCharge;
-  const taxes = 0.21;
+
+  const taxes = grandTotal - base;
 
   return (
     <section className='finalCounting'>
-      <p>Subtotal {base} €</p>
-      <p>Elección de tarifa {rateCharge} €</p>
-      <p>Impuestos {taxes} €</p>
+      <p>Base {base} €</p>
+      <p>Impuestos {taxes.toFixed(2)} €</p>
       <p style={{ margin: '2rem', fontSize: '1.5rem' }}>
-        Total {totalPrice} {currency}
+        Total {grandTotal} {currency}
       </p>
-      <button onClick={orderFlight}>Confirmar y pagar</button>
     </section>
   );
 };

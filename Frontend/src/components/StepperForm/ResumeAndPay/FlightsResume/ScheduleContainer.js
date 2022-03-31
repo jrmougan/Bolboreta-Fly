@@ -1,14 +1,15 @@
-import {
-  finalDurationFormat,
-  hourFormat,
-} from '../../../../helpers/formatHelp';
+import { durationFormat, hourFormat } from '../../../../helpers/formatHelp';
 
 const ScheduleContainer = ({ itinerary }) => {
-  // Duración total
-  const totalDuration = finalDurationFormat(itinerary.duration);
-
   // Posición del último vuelo en el array segments
   const lastSegment = Number(itinerary.segments.length) - 1;
+
+  const timeDeparture = new Date(itinerary.segments[0].departure.at).getTime();
+  const timeArrival = new Date(
+    itinerary.segments[lastSegment].arrival.at
+  ).getTime();
+
+  const duration = durationFormat(timeArrival - timeDeparture);
 
   // Horarios de primera salida y última llegada
   const firstDeparture = hourFormat(
@@ -23,7 +24,7 @@ const ScheduleContainer = ({ itinerary }) => {
 
   return (
     <section className='schedule_container'>
-      <p>{totalDuration}</p>
+      <p>{duration}</p>
       <p>
         {firstDeparture} - {lastArrival}
       </p>

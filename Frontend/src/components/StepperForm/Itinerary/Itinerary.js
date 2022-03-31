@@ -4,33 +4,37 @@ import InTripIncluded from './InTripIncluded';
 import SeatAndBaggage from './SeatAndBaggage';
 import { tripIncludes } from '../InfoFlights/constantInfo';
 import Summary from './Summary/Summary';
-import { useState } from 'react';
+import { FaArrowLeft } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
-const Itinerary = ({ emergencyData, itineraries, totalPrice }) => {
-  const [seatChosen] = useState(0);
-  const [regularPassenger] = useState(null);
-
-  const infoMainContact = {
-    name: 'Firulais García',
-    email: ' fulanitocontrerasmansalva@gamil.com',
-    phone: ' +34 664 433 333',
-    address: 'Calle Nueva Perdicion',
-    creditCard: ' Visa / 4 / Euro&000',
-  };
-
+const Itinerary = ({
+  travelers,
+  itineraries,
+  totalPrice,
+  firstTraveler,
+  flightCounter,
+  flightDurations,
+  idBooking,
+}) => {
   return (
     <section className='itinerary_container_end'>
-      <Summary itineraries={itineraries} />
+      <Summary
+        itineraries={itineraries}
+        flightCounter={flightCounter}
+        flightDurations={flightDurations}
+        idBooking={idBooking}
+      />
       <SeatAndBaggage
-        seatChosen={seatChosen}
-        superPassenger={regularPassenger}
+        seatChosen={0}
+        superPassenger={null}
+        travelers={travelers}
       />
       <InTripIncluded tripIncludes={tripIncludes} />
-      <ContactInfo
-        infoMainContact={infoMainContact}
-        totalPrice={totalPrice}
-        emergencyData={emergencyData}
-      />
+      <ContactInfo traveler={firstTraveler} totalPrice={totalPrice} />
+      <Link to='/user' className='btn btn-itinerary'>
+        {' '}
+        <FaArrowLeft className='arrow-left-icon' /> Ir a Datos de Usuario{' '}
+      </Link>
     </section>
   );
 };

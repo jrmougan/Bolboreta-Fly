@@ -20,6 +20,7 @@ const offerPrice = async (req, res, next) => {
                 },
             })
         );
+        console.log(result);
 
         // Mostramos el resultado
         res.send({

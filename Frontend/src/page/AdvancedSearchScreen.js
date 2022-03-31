@@ -20,14 +20,6 @@ const AdvancedSearchScreen = () => {
 
   return (
     <Fragment>
-      <div>
-        <h1> Los parámetros son:</h1>
-        <p>Origen : {origen} </p>
-        <p>Destino : {destino} </p>
-        <p>Día de Salida : {diaSalida} </p>
-        <p>Día de llegada : {diaLlegada}</p>
-        <p>adultos : {adultos} </p>
-      </div>
       <AdvancedSearch search={search} />
     </Fragment>
   );

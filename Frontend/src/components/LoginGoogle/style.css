@@ -1,0 +1,10 @@
+.googleout {
+  border: solid 1px black;
+  background-color: orange !important;
+  font-weight: bolder;
+  color: black !important;
+  width: 170px;
+  height: 40px;
+  margin: 20px;
+  font-size: medium;
+}

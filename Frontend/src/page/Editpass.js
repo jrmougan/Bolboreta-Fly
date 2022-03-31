@@ -1,10 +1,7 @@
 import EditPassForm from "../components/EditPass/EditPass";
 
-
 const EditPass = () => {
-    return (
-        <EditPassForm />
-    )
-}
+  return <EditPassForm />;
+};
 
 export default EditPass;

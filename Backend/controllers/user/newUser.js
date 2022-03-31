@@ -15,8 +15,8 @@ const newUser = async (req, res, next) => {
         const {
             name_user,
             lastname,
-
-
+            bio,
+            birthdate,
             email,
             password,
             confirmpassword,
@@ -26,10 +26,11 @@ const newUser = async (req, res, next) => {
         if (
             !name_user ||
             !lastname ||
-
             !email ||
             !password ||
-            !confirmpassword
+            !confirmpassword ||
+            !birthdate ||
+            !bio
         ) {
             const error = new Error('Faltan campos por rellenar');
             error.httpStatus = 400;
@@ -60,17 +61,15 @@ const newUser = async (req, res, next) => {
         const registration_code = generateRandomString(40);
 
         await connection.query(
-            `INSERT INTO user(name_user, lastname,  email, password, rol, registration_code, createDate) VALUES (?,?,?,?,?,?,?)`,
+            `INSERT INTO user(name_user, lastname,  email, password, birthdate, bio, rol, registration_code, createDate) VALUES (?,?,?,?,?,?,?,?,?)`,
             [
                 name_user,
                 lastname,
-
-
                 email,
                 await hashedPassword(password, 10),
-
+                birthdate,
+                bio,
                 1,
-
                 registration_code,
                 new Date(),
             ]

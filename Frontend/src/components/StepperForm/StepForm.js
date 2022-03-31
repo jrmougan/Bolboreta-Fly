@@ -1,13 +1,11 @@
 import React, { useState, useContext } from 'react';
 import { Stepper, Step, StepLabel, Button, Typography } from '@mui/material';
-import FormPassenger from './FormaPassenger/FormPassenger';
-import BookingData from './FormPassenger/BookingData.';
-import RateChoice from './RateChoice/RateChoice';
+import BookingData from './FormPassenger/BookingData';
 import ResumeAndPay from './ResumeAndPay/ResumeAndPay';
 import { Container } from '@mui/material';
-import Itinerary from '../StepperForm/Itinerary/Itinerary';
+
 import { OfferPriceContext } from '../../context/OfferPriceContext';
-import Pasajero from './Pasajeros/Pasajeros';
+
 import TodosPasajeros from './Pasajeros/TodosPasajeros';
 
 const StepForm = () => {
@@ -17,7 +15,8 @@ const StepForm = () => {
   ##################################
   */
   const [flightOffer] = useContext(OfferPriceContext);
-  const { itineraries } = flightOffer;
+
+  const isReturn = flightOffer.itineraries.length > 1;
 
   // Precio total
   const initialPrice = Number(flightOffer.price.total);
@@ -29,16 +28,64 @@ const StepForm = () => {
   ##################################
   */
 
-  const [travelers, setTravelers] = useState([]);
+  //Num of passengers
 
-  const [emergencyData, setEmergencyData] = useState({
-    name: '',
-    lastName: '',
-    email: '',
-    phone: '',
-  });
+  const numTravelers = flightOffer.travelerPricings.length;
+
+  // Populate the travelers state with the number of travelers
+  let allTravelers = [];
+
+  for (let i = 0; i < numTravelers; i++) {
+    const travelerBody = {
+      id: i + 1,
+      name: {
+        firstName: '',
+        lastName: '',
+      },
+      dateOfBirth: null,
+      gender: '',
+      documents: [
+        {
+          documentType: '',
+          number: '',
+          issuanceDate: null,
+          expiryDate: null,
+          birthPlace: '',
+          issuanceCountry: 'ES',
+          nacionality: 'ES',
+        },
+      ],
+      contact: {
+        purpose: 'STANDARD',
+        phones: [
+          {
+            deviceType: '',
+            countryCallingCode: '',
+            number: '',
+          },
+        ],
+        emailAddress: '',
+      },
+    };
+    allTravelers.push(travelerBody);
+  }
+
+  const [travelers, setTravelers] = useState(allTravelers);
 
   const [rateCharge, setRateCharge] = useState(0);
+
+  let allAutoLabel = [];
+
+  for (let i = 0; i < numTravelers; i++) {
+    const body = {
+      gender: '',
+      docType: '',
+      telType: '',
+      countryCall: '',
+    };
+    allAutoLabel.push(body);
+  }
+  const [autoLabels, setAutoLabels] = useState(allAutoLabel);
 
   /* 
  #######################
@@ -49,20 +96,16 @@ const StepForm = () => {
   const getStepContent = (page) => {
     if (page === 0) {
       return (
-        <TodosPasajeros travelers={travelers} setTravelers={setTravelers} />
+        <TodosPasajeros
+          numTravelers={numTravelers}
+          travelers={travelers}
+          setTravelers={setTravelers}
+          labels={{ autoLabels, setAutoLabels }}
+        />
       );
     } else if (page === 1) {
       return <BookingData />;
     } else if (page === 2) {
-      return (
-        <RateChoice
-          rateCharge={rateCharge}
-          setRateCharge={setRateCharge}
-          setTotalPrice={setTotalPrice}
-          travelers={travelers}
-        />
-      );
-    } else if (page === 3) {
       return (
         <ResumeAndPay
           rateCharge={rateCharge}
@@ -71,25 +114,11 @@ const StepForm = () => {
           travelers={travelers}
         />
       );
-    } else {
-      return (
-        <Itinerary
-          emergencyData={emergencyData}
-          itineraries={itineraries}
-          totalPrice={totalPrice}
-        />
-      );
     }
   };
 
   function getSteps() {
-    return [
-      'Información de Pasajeros',
-      'Datos de reserva',
-      'Elección de tarifa',
-      'Resumen y Pago',
-      'Itinerario',
-    ];
+    return ['Información de Pasajeros', 'Datos de reserva', 'Resumen y Pago'];
   }
 
   /* 
@@ -104,7 +133,7 @@ const StepForm = () => {
   // Elegimos la elección de asiento como un paso opcional (Paso 3)
 
   const isStepOptional = (step) => {
-    return step === 3;
+    return step === 6;
   };
 
   const isStepSkipped = (step) => {
@@ -148,7 +177,7 @@ const StepForm = () => {
 
   return (
     <Container>
-      <div>
+      <div className='stepper_container'>
         <Stepper activeStep={activeStep}>
           {steps.map((label, index) => {
             const stepProps = {};
@@ -196,17 +225,20 @@ const StepForm = () => {
                     Saltar
                   </Button>
                 )}
-
-                <Button
-                  variant='contained'
-                  color='primary'
-                  onClick={handleNext}
-                  sx={{
-                    fontSize: '.7rem',
-                  }}
-                >
-                  {activeStep === steps.length - 1 ? 'Finalizar' : 'Siguiente'}
-                </Button>
+                {activeStep === steps.length - 1 ? (
+                  ''
+                ) : (
+                  <Button
+                    variant='contained'
+                    color='primary'
+                    onClick={handleNext}
+                    sx={{
+                      fontSize: '.7rem',
+                    }}
+                  >
+                    Siguiente
+                  </Button>
+                )}
               </div>
             </div>
           )}

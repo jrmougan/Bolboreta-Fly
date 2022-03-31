@@ -1,21 +1,22 @@
 import { DatePicker, LocalizationProvider } from '@mui/lab';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import { Autocomplete, MenuItem, TextField } from '@mui/material';
-import { format } from 'date-fns';
+import { Autocomplete, TextField } from '@mui/material';
+import { format, sub } from 'date-fns';
 
-import { useState } from 'react';
 import './pasajero.css';
 
 const Pasajero = ({
-  travelers,
-  setTravelers,
   traveler,
   setTraveler,
   handleAddPassenger,
+  id,
+  numTravelers,
+  labels,
 }) => {
+  const { autoLabels, setAutoLabels } = labels;
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
-      <h2 style={{ textAlign: 'center' }}> Otro pasajero</h2>
+      <h2 style={{ textAlign: 'center' }}>Pasajero {id}</h2>
       <form
         className='passengerForm'
         style={{ display: 'flex', flexDirection: 'column', flexWrap: 'wrap' }}
@@ -25,70 +26,72 @@ const Pasajero = ({
           <TextField
             id='nombre-required'
             label='Nombre'
-            value={traveler.name.firstName}
-            onChange={(e) =>
-              setTraveler({
-                ...traveler,
-                name: {
-                  firstName: e.target.value,
-                },
-              })
-            }
+            value={traveler[id - 1].name.firstName}
+            onChange={(e) => {
+              const modTravel = [...traveler];
+              modTravel[id - 1].name.firstName = e.target.value;
+              setTraveler(modTravel);
+            }}
             className='textfield'
           />
           <TextField
             id='apellido-required'
             label='Apellido'
-            value={traveler.name.lastName}
+            value={traveler[id - 1].name.lastName}
             className='textfield-mui'
-            onChange={(e) =>
-              setTraveler({
-                ...traveler,
-                name: {
-                  firstName: traveler.name.firstName,
-                  lastName: e.target.value,
-                },
-              })
-            }
+            onChange={(e) => {
+              const modTravel = [...traveler];
+              modTravel[id - 1].name.lastName = e.target.value;
+              setTraveler(modTravel);
+            }}
           />
 
           <DatePicker
             label='Fecha de cumpleaños'
-            value={traveler.dateOfBirth}
+            value={traveler[id - 1].dateOfBirth}
+            inputFormat='dd/MM/yyyy'
+            maxDate={sub(Date.now(), {
+              years: 18,
+            })}
             onChange={(newValue) => {
-              setTraveler({
-                ...traveler,
-                dateOfBirth: format(newValue, 'MM/dd/yyyy'),
-              });
+              if (newValue instanceof Date && !isNaN(newValue.valueOf())) {
+                const modTravel = [...traveler];
+                modTravel[id - 1].dateOfBirth = format(newValue, 'yyyy-MM-dd');
+                setTraveler(modTravel);
+              }
             }}
             renderInput={(params) => <TextField {...params} />}
             sx={{ marginLeft: '4rem' }}
           />
           <Autocomplete
-            id='pais'
+            id='genero'
             options={gender}
             sx={{ width: 300 }}
-            onChange={(e, newinputvalue) =>
-              setTraveler({ ...traveler, gender: newinputvalue.value })
-            }
-            value={gender.label}
+            onChange={(e, newinputvalue) => {
+              const modTravel = [...traveler];
+              modTravel[id - 1].gender = newinputvalue.value;
+              const modLabels = [...autoLabels];
+              modLabels[id - 1].gender = newinputvalue.label;
+              setAutoLabels(modLabels);
+              setTraveler(modTravel);
+            }}
+            value={autoLabels[id - 1].gender}
             renderInput={(params) => <TextField {...params} label='Género' />}
           ></Autocomplete>
           <Autocomplete
-            id='pais'
+            id='typeDocument'
             options={documents}
             sx={{ width: 300 }}
-            onChange={(e, newinputvalue) =>
-              setTraveler({
-                ...traveler,
-                documents: [
-                  {
-                    documentType: newinputvalue.value,
-                  },
-                ],
-              })
-            }
-            value={documents.label}
+            onChange={(e, newinputvalue) => {
+              const modTravel = [...traveler];
+              modTravel[id - 1].documents[0].documentType = newinputvalue.value;
+              setTraveler(modTravel);
+
+              const modLabels = [...autoLabels];
+              modLabels[id - 1].docType = newinputvalue.label;
+              setAutoLabels(modLabels);
+            }}
+            value={autoLabels[id - 1].docType}
             renderInput={(params) => (
               <TextField {...params} label='Tipo de documento' />
             )}
@@ -96,97 +99,87 @@ const Pasajero = ({
           <TextField
             id='number-required'
             label='Número de identidad'
-            value={traveler.documents[0].number}
+            value={traveler[id - 1].documents[0].number}
             className='textfield-mui'
-            onChange={(e) =>
-              setTraveler({
-                ...traveler,
-                documents: [
-                  {
-                    documentType: traveler.documents[0].documentType,
-                    number: e.target.value,
-                  },
-                ],
-              })
-            }
+            onChange={(e) => {
+              const modTravel = [...traveler];
+              modTravel[id - 1].documents[0].number = e.target.value;
+              setTraveler(modTravel);
+            }}
           />
           <DatePicker
             label='Fecha de expedición'
-            value={traveler.documents[0].inssuanceDate}
+            value={traveler[id - 1].documents[0].issuanceDate}
+            inputFormat='dd/MM/yyyy'
+            maxDate={Date.now()}
             onChange={(newValue) => {
-              setTraveler({
-                ...traveler,
-                documents: [
-                  {
-                    documentType: traveler.documents[0].documentType,
-                    number: traveler.documents[0].number,
-                    inssuanceDate: format(newValue, 'MM/dd/yyyy'),
-                  },
-                ],
-              });
+              if (newValue instanceof Date && !isNaN(newValue.valueOf())) {
+                const modTravel = [...traveler];
+                modTravel[id - 1].documents[0].issuanceDate = format(
+                  newValue,
+                  'yyyy-MM-dd'
+                );
+                setTraveler(modTravel);
+              }
             }}
             renderInput={(params) => <TextField {...params} />}
             sx={{ marginLeft: '4rem' }}
           />
           <DatePicker
             label='Fecha de expiración'
-            value={traveler.documents[0].expiryDate}
+            value={traveler[id - 1].documents[0].expiryDate}
+            minDate={Date.now()}
+            inputFormat='dd/MM/yyyy'
             onChange={(newValue) => {
-              setTraveler({
-                ...traveler,
-                documents: [
-                  {
-                    documentType: traveler.documents[0].documentType,
-                    number: traveler.documents[0].number,
-                    inssuanceDate: traveler.documents[0].inssuanceDate,
-                    expiryDate: format(newValue, 'MM/dd/yyyy'),
-                  },
-                ],
-              });
+              if (newValue instanceof Date && !isNaN(newValue.valueOf())) {
+                const modTravel = [...traveler];
+                modTravel[id - 1].documents[0].expiryDate = format(
+                  newValue,
+                  'yyyy-MM-dd'
+                );
+                setTraveler(modTravel);
+              }
             }}
             renderInput={(params) => <TextField {...params} />}
             sx={{ marginLeft: '4rem' }}
           />
 
           <Autocomplete
-            id='pais'
+            id='typePhone'
             options={typePhone}
             sx={{ width: 300 }}
             onChange={(e, newinputvalue) => {
-              setTraveler({
-                ...traveler,
-                contact: {
-                  phones: [
-                    {
-                      deviceType: newinputvalue.value,
-                    },
-                  ],
-                },
-              });
+              const modTravel = [...traveler];
+              modTravel[id - 1].contact.phones[0].deviceType =
+                newinputvalue.value;
+              setTraveler(modTravel);
+
+              const modLabels = [...autoLabels];
+              modLabels[id - 1].telType = newinputvalue.label;
+              setAutoLabels(modLabels);
             }}
-            value={typePhone.label}
+            value={autoLabels[id - 1].telType}
             renderInput={(params) => (
               <TextField {...params} label='Tipo de teléfono' />
             )}
           ></Autocomplete>
           <Autocomplete
-            id='pais'
+            id='contryCallingCode'
             options={countries}
             sx={{ width: 300 }}
             onChange={(e, newinputvalue) => {
-              setTraveler({
-                ...traveler,
-                contact: {
-                  phones: [
-                    {
-                      deviceType: traveler.contact.phones[0].deviceType,
-                      countryCallingCode: newinputvalue.phone,
-                    },
-                  ],
-                },
-              });
+              const modTravel = [...traveler];
+              modTravel[id - 1].contact.phones[0].countryCallingCode =
+                newinputvalue.phone;
+              setTraveler(modTravel);
+
+              const modLabels = [...autoLabels];
+              modLabels[id - 1].countryCall = newinputvalue.label
+                ? newinputvalue.label
+                : 'ESPAÑA';
+              setAutoLabels(modLabels);
             }}
-            value={countries.phone}
+            value={autoLabels[id - 1].countryCall}
             renderInput={(params) => (
               <TextField {...params} label='Prefijo país' />
             )}
@@ -194,56 +187,26 @@ const Pasajero = ({
           <TextField
             id='number-required'
             label='Número de contacto'
-            value={traveler.contact.phones[0].number}
+            value={traveler[id - 1].contact.phones[0].number}
             className='textfield-mui'
-            onChange={(e) =>
-              setTraveler({
-                ...traveler,
-                contact: {
-                  purpose: 'STARDARD',
-                  phones: [
-                    {
-                      deviceType: traveler.contact.phones[0].deviceType,
-                      countryCallingCode:
-                        traveler.contact.phones[0].countryCallingCode,
-                      number: e.target.value,
-                    },
-                  ],
-                },
-              })
-            }
+            onChange={(e) => {
+              const modTravel = [...traveler];
+              traveler[id - 1].contact.phones[0].number = e.target.value;
+              setTraveler(modTravel);
+            }}
           />
           <TextField
             id='emial-required'
             label='Email'
-            value={traveler.contact.emaiAddress}
+            value={traveler[id - 1].contact.emaiAddress}
             className='textfield-mui'
-            onChange={(e) =>
-              setTraveler({
-                ...traveler,
-                contact: {
-                  purpose: 'STARDARD',
-                  phones: [
-                    {
-                      deviceType: traveler.contact.phones[0].deviceType,
-                      countryCallingCode:
-                        traveler.contact.phones[0].countryCallingCode,
-                      number: traveler.contact.phones[0].number,
-                    },
-                  ],
-                  emailAddress: e.target.value,
-                },
-              })
-            }
+            onChange={(e) => {
+              const modTravel = [...traveler];
+              modTravel[id - 1].contact.emailAddress = e.target.value;
+              setTraveler(modTravel);
+            }}
           />
         </div>
-
-        <input
-          value='Añadir pasajero'
-          type='button'
-          onClick={handleAddPassenger}
-          className='btn-passenger'
-        ></input>
       </form>
     </LocalizationProvider>
   );
@@ -255,24 +218,24 @@ const gender = [
   { label: 'Otr@s', value: '' },
 ];
 const countries = [
-  { code: 'AD', label: 'Andorra', phone: '+376' },
-  { code: 'AE', label: 'United Arab Emirates', phone: '+971' },
-  { code: 'AF', label: 'Afghanistan', phone: '+93' },
-  { code: 'AG', label: 'Antigua and Barbuda', phone: '+1-268' },
-  { code: 'AI', label: 'Anguilla', phone: '+1-264' },
-  { code: 'AL', label: 'Albania', phone: '+355' },
-  { code: 'AM', label: 'Armenia', phone: '+374' },
-  { code: 'AO', label: 'Angola', phone: '+244' },
+  { code: 'AD', label: 'Andorra', phone: '376' },
+  { code: 'AE', label: 'United Arab Emirates', phone: '971' },
+  { code: 'AF', label: 'Afghanistan', phone: '93' },
+  { code: 'AG', label: 'Antigua and Barbuda', phone: '1268' },
+  { code: 'AI', label: 'Anguilla', phone: '1264' },
+  { code: 'AL', label: 'Albania', phone: '355' },
+  { code: 'AM', label: 'Armenia', phone: '374' },
+  { code: 'AO', label: 'Angola', phone: '244' },
   { code: 'AQ', label: 'Antarctica', phone: '672' },
   { code: 'AR', label: 'Argentina', phone: '54' },
-  { code: 'AS', label: 'American Samoa', phone: '1-684' },
+  { code: 'AS', label: 'American Samoa', phone: '1684' },
   { code: 'AT', label: 'Austria', phone: '43' },
   { code: 'AU', label: 'Australia', phone: '61', suggested: true },
   { code: 'AW', label: 'Aruba', phone: '297' },
   { code: 'AX', label: 'Alland Islands', phone: '358' },
   { code: 'AZ', label: 'Azerbaijan', phone: '994' },
   { code: 'BA', label: 'Bosnia and Herzegovina', phone: '387' },
-  { code: 'BB', label: 'Barbados', phone: '1-246' },
+  { code: 'BB', label: 'Barbados', phone: '1246' },
   { code: 'BD', label: 'Bangladesh', phone: '880' },
   { code: 'BE', label: 'Belgium', phone: '32' },
   { code: 'BF', label: 'Burkina Faso', phone: '226' },
@@ -281,11 +244,11 @@ const countries = [
   { code: 'BI', label: 'Burundi', phone: '257' },
   { code: 'BJ', label: 'Benin', phone: '229' },
   { code: 'BL', label: 'Saint Barthelemy', phone: '590' },
-  { code: 'BM', label: 'Bermuda', phone: '1-441' },
+  { code: 'BM', label: 'Bermuda', phone: '1441' },
   { code: 'BN', label: 'Brunei Darussalam', phone: '673' },
   { code: 'BO', label: 'Bolivia', phone: '591' },
   { code: 'BR', label: 'Brazil', phone: '55' },
-  { code: 'BS', label: 'Bahamas', phone: '1-242' },
+  { code: 'BS', label: 'Bahamas', phone: '1242' },
   { code: 'BT', label: 'Bhutan', phone: '975' },
   { code: 'BV', label: 'Bouvet Island', phone: '47' },
   { code: 'BW', label: 'Botswana', phone: '267' },
@@ -313,8 +276,8 @@ const countries = [
   { code: 'DE', label: 'Germany', phone: '49', suggested: true },
   { code: 'DJ', label: 'Djibouti', phone: '253' },
   { code: 'DK', label: 'Denmark', phone: '45' },
-  { code: 'DM', label: 'Dominica', phone: '1-767' },
-  { code: 'DO', label: 'Dominican Republic', phone: '1-809' },
+  { code: 'DM', label: 'Dominica', phone: '1767' },
+  { code: 'DO', label: 'Dominican Republic', phone: '1809' },
   { code: 'DZ', label: 'Algeria', phone: '213' },
   { code: 'EC', label: 'Ecuador', phone: '593' },
   { code: 'EE', label: 'Estonia', phone: '372' },
@@ -331,7 +294,7 @@ const countries = [
   { code: 'FR', label: 'France', phone: '33', suggested: true },
   { code: 'GA', label: 'Gabon', phone: '241' },
   { code: 'GB', label: 'United Kingdom', phone: '44' },
-  { code: 'GD', label: 'Grenada', phone: '1-473' },
+  { code: 'GD', label: 'Grenada', phone: '1473' },
   { code: 'GE', label: 'Georgia', phone: '995' },
   { code: 'GF', label: 'French Guiana', phone: '594' },
   { code: 'GG', label: 'Guernsey', phone: '44' },
@@ -349,7 +312,7 @@ const countries = [
     phone: '500',
   },
   { code: 'GT', label: 'Guatemala', phone: '502' },
-  { code: 'GU', label: 'Guam', phone: '1-671' },
+  { code: 'GU', label: 'Guam', phone: '1671' },
   { code: 'GW', label: 'Guinea-Bissau', phone: '245' },
   { code: 'GY', label: 'Guyana', phone: '592' },
   { code: 'HK', label: 'Hong Kong', phone: '852' },
@@ -369,7 +332,7 @@ const countries = [
   { code: 'IS', label: 'Iceland', phone: '354' },
   { code: 'IT', label: 'Italy', phone: '39' },
   { code: 'JE', label: 'Jersey', phone: '44' },
-  { code: 'JM', label: 'Jamaica', phone: '1-876' },
+  { code: 'JM', label: 'Jamaica', phone: '1876' },
   { code: 'JO', label: 'Jordan', phone: '962' },
   { code: 'JP', label: 'Japan', phone: '81', suggested: true },
   { code: 'KE', label: 'Kenya', phone: '254' },
@@ -377,7 +340,7 @@ const countries = [
   { code: 'KH', label: 'Cambodia', phone: '855' },
   { code: 'KI', label: 'Kiribati', phone: '686' },
   { code: 'KM', label: 'Comoros', phone: '269' },
-  { code: 'KN', label: 'Saint Kitts and Nevis', phone: '1-869' },
+  { code: 'KN', label: 'Saint Kitts and Nevis', phone: '1869' },
   {
     code: 'KP',
     label: "Korea, Democratic People's Republic of",
@@ -385,11 +348,11 @@ const countries = [
   },
   { code: 'KR', label: 'Korea, Republic of', phone: '82' },
   { code: 'KW', label: 'Kuwait', phone: '965' },
-  { code: 'KY', label: 'Cayman Islands', phone: '1-345' },
+  { code: 'KY', label: 'Cayman Islands', phone: '1345' },
   { code: 'KZ', label: 'Kazakhstan', phone: '7' },
   { code: 'LA', label: "Lao People's Democratic Republic", phone: '856' },
   { code: 'LB', label: 'Lebanon', phone: '961' },
-  { code: 'LC', label: 'Saint Lucia', phone: '1-758' },
+  { code: 'LC', label: 'Saint Lucia', phone: '1758' },
   { code: 'LI', label: 'Liechtenstein', phone: '423' },
   { code: 'LK', label: 'Sri Lanka', phone: '94' },
   { code: 'LR', label: 'Liberia', phone: '231' },
@@ -414,10 +377,10 @@ const countries = [
   { code: 'MM', label: 'Myanmar', phone: '95' },
   { code: 'MN', label: 'Mongolia', phone: '976' },
   { code: 'MO', label: 'Macao', phone: '853' },
-  { code: 'MP', label: 'Northern Mariana Islands', phone: '1-670' },
+  { code: 'MP', label: 'Northern Mariana Islands', phone: '1670' },
   { code: 'MQ', label: 'Martinique', phone: '596' },
   { code: 'MR', label: 'Mauritania', phone: '222' },
-  { code: 'MS', label: 'Montserrat', phone: '1-664' },
+  { code: 'MS', label: 'Montserrat', phone: '1664' },
   { code: 'MT', label: 'Malta', phone: '356' },
   { code: 'MU', label: 'Mauritius', phone: '230' },
   { code: 'MV', label: 'Maldives', phone: '960' },
@@ -476,10 +439,10 @@ const countries = [
   { code: 'SS', label: 'South Sudan', phone: '211' },
   { code: 'ST', label: 'Sao Tome and Principe', phone: '239' },
   { code: 'SV', label: 'El Salvador', phone: '503' },
-  { code: 'SX', label: 'Sint Maarten (Dutch part)', phone: '1-721' },
+  { code: 'SX', label: 'Sint Maarten (Dutch part)', phone: '1721' },
   { code: 'SY', label: 'Syrian Arab Republic', phone: '963' },
   { code: 'SZ', label: 'Swaziland', phone: '268' },
-  { code: 'TC', label: 'Turks and Caicos Islands', phone: '1-649' },
+  { code: 'TC', label: 'Turks and Caicos Islands', phone: '1649' },
   { code: 'TD', label: 'Chad', phone: '235' },
   { code: 'TF', label: 'French Southern Territories', phone: '262' },
   { code: 'TG', label: 'Togo', phone: '228' },
@@ -491,7 +454,7 @@ const countries = [
   { code: 'TN', label: 'Tunisia', phone: '216' },
   { code: 'TO', label: 'Tonga', phone: '676' },
   { code: 'TR', label: 'Turkey', phone: '90' },
-  { code: 'TT', label: 'Trinidad and Tobago', phone: '1-868' },
+  { code: 'TT', label: 'Trinidad and Tobago', phone: '1868' },
   { code: 'TV', label: 'Tuvalu', phone: '688' },
   { code: 'TW', label: 'Taiwan, Province of China', phone: '886' },
   { code: 'TZ', label: 'United Republic of Tanzania', phone: '255' },
@@ -501,10 +464,10 @@ const countries = [
   { code: 'UY', label: 'Uruguay', phone: '598' },
   { code: 'UZ', label: 'Uzbekistan', phone: '998' },
   { code: 'VA', label: 'Holy See (Vatican City State)', phone: '379' },
-  { code: 'VC', label: 'Saint Vincent and the Grenadines', phone: '1-784' },
+  { code: 'VC', label: 'Saint Vincent and the Grenadines', phone: '1784' },
   { code: 'VE', label: 'Venezuela', phone: '58' },
-  { code: 'VG', label: 'British Virgin Islands', phone: '1-284' },
-  { code: 'VI', label: 'US Virgin Islands', phone: '1-340' },
+  { code: 'VG', label: 'British Virgin Islands', phone: '1284' },
+  { code: 'VI', label: 'US Virgin Islands', phone: '1340' },
   { code: 'VN', label: 'Vietnam', phone: '84' },
   { code: 'VU', label: 'Vanuatu', phone: '678' },
   { code: 'WF', label: 'Wallis and Futuna', phone: '681' },
@@ -527,8 +490,8 @@ const documents = [
 
 //Tipos de Teléfono
 const typePhone = [
-  { label: 'Movil', value: 'Mobile' },
-  { label: 'Teléfono fijo', value: 'Landline' },
-  { label: 'Fax', value: 'Fax' },
+  { label: 'Movil', value: 'MOBILE' },
+  { label: 'Teléfono fijo', value: 'LANDLINE' },
+  { label: 'Fax', value: 'FAX' },
 ];
 export default Pasajero;

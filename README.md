@@ -1,84 +1,86 @@
-# Bolboreta-Fly
+# Proyecto final Bootcamp **HACK A BOSS**
 
-## Estructura del repositorio
+Eduardo Sancho Foreman <br/>
+Marta Padin Gomez <br/>
+Jesus Romeo Mougan <br/>
 
-    .
-    ├── Backend
-    ├── Frontend
-    └── README.md
+<br />
+<p align="center">
+  <a href="https://github.com/othneildrew/Best-README-Template">
+    <img src="images/logo2.svg" alt="Logo" width="150" height="150">
+  </a>
+  <h3 align="center">Bolboreta Flight</h3>
+  
+</p>
+<br />
 
-## Backend
+## Acerca del proyecto
 
-### BBDD
+<img src='images/portadaBolboreta.png'>
 
-- [x] Definir que datos queremos guardar
-- [x] Definir las Entidades
-- [x] Definir los campos de cada entidad
-- [x] Definir las relaciones de las entidades
-- [x] Diseñar las tablas en SQL
-- [x] Crear el Script SQL para generar la BBDD
-- [ ] Definir los datos maestros (Provincias, Localidades, ...)
-- [ ] Generar datos aleatorios con Faker mediante NodeJS
+Bolboreta Flight es un planificador de vuelos, donde puedes encontrar el vuelo que quieras en tiempo real.
 
-### Base del proyecto Backend
+### Tecnologías utilizadas
 
-- [x] Inicializar el proyecto npm
-- [ ] Configurar ESLINT/Prettier y definir el formato a utilizar
-- [ ] Crear la estructura (Controladores/Middlewares/server.js/helpers.js,...)
-- [ ] Crear las estructuras de comentarios para la organización de los archivos JS
-- [ ] Crear los Endpoints necesarios
+- **BACKEND** - Node.js <img src="images/logoNode.svg" alt="Logo" width="30">
+- **FRONTEND** - React.js <img src="images/logoReact.svg" alt="Logo" width="30">
+- **BASE DE DATOS** - MySQL <img src="images/logomysql.png" alt="Logo" width="30">
 
-### APIS Externas
+## Comenzando
 
-(TO-DO)
+### Instalación
 
-### Endpoints
+1. Clona el repositorio
+   ```sh
+   git clone
+   ```
+2. Instala los paquetes NPM para el servidor
+   ```sh
+   cd backend
+   npm install
+   ```
+3. Instala los paquetes NPM para el cliente
+   ```sh
+   cd frontend
+   npm install
+   ```
+4. Inicializa la base de datos:
 
-#### Usuario (Marta)
+```sh
+   cd servidor/bbdd/
+   node initDB.js
+```
 
-- [x] Crear un usuario ('post', /register)
-- [x] Modificar usuario ('put', /user/:userId/edit)
-- [x] Borrar usuario ('delete', /user/:userId/delete)
-- [x] Recuperar contraseña ('put', /user/:userID/recover)
-- [x] Activar usuario ('get', /user/activate/:userID/:activationCode)
-- [x] Login usuario ('post', /user/login)
+5. En el .env del servidor necesitarás generar las siguientes credenciales:
 
-#### Pasajero (Eduardo)
+   SENDGRID_API_KEY=<a href= "https://sendgrid.com/">Click aquí para generar</a> <br/>
+   SENDGRID_FROM=**Correo desde el que envías el mail** <br/>
+   UPLOAD_DIRECTORY=static/uploads <br/>
+   PUBLIC_HOST=http://localhost:4000/ <br/>
+   PORT=4000 <br/>
+   AMADEUS_ID=<a href= "https://developers.amadeus.com/">Click aquí para generar</a> <br/>
+   AMADEUS_SECRET=<a href= "https://developers.amadeus.com/">Click aquí para generar</a> <br/>
+   APP_GOOGLE_CLIENT_ID=<a href= "https://developers.google.com/identity/protocols/oauth2">Click aquí para generar</a> <br/>
 
-- [x] Añadir pasajero ('post', /booking/:bookingId/passenger/new)
-- [ ] Obtener pasajeros de reserva ('get', /booking/:bookingId/getAllPassanger)
-- [ ] Editar pasajero ('put', /booking/:bookingId/passenger/:idPassenger/edit)
-- [ ] Obtener datos pasajero ('get', /booking/:boookingId/passenger/:idPassenger/getPassengerData)
-- [ ] Borrar pasajero ('delete', /booking/:bookingId/passenger/:idPassenger/delete)
+6. En el .env del servidor necesitarás generar las siguientes credenciales:
+   REACT_APP_PUBLIC_HOST_BACKEND=localhost <br/>
+   REACT_APP_PUBLIC_PORT_BACKEND=4000 <br/>
+   REACT_APP_PAYPAL_CLIENTID=<a href= "https://developer.paypal.com/developer/accounts/">Click aquí para generar</a> <br/>
+   PORT=4001<br/>
+   REACT_APP_ACCESS_KEY_UNSPLASH= <br/>
+   SECRET_KEY_UNSPLASH= <br/>
 
-#### Reserva (Jesús)
+## Uso
 
-- [ ] Nueva reserva ('post', /booking/newBooking/itinerary/:idItinerary)
-- [ ] Obtener Reservas ('get' /booking/:bookingId/getBookings)
-- [ ] Obtener Datos Reserva ('get', /booking/:bookingId/getBooking)
+Si quieres realizar un pago mediante Paypal usando tarjeta puedes introducir una de estas dos para validar con éxito, la fecha de caducidad debe ser posterior a la actual:
 
-#### Itinerario
+![Product Name Screen Shot][potalbolboreta]
 
-- [ ] GuardarItinerario ()
+## Licencia
 
-#### Flight
+Distribuido bajo licencia del MIT.
 
-- [ ]
+<!-- Recursos para el Readme-->
 
-#### MIDDLEWARES
-
-- [ ] isAuth
-- [ ] userExist
-- [ ] canEditUser
-- [ ] canViewBooking
-
-....
--- TODO --
-
-### Validaciones de datos
-
-(TO-DO)
-
-## Frontend
-
-(TO-DO)
+[portalbolboreta]: screenShot/portadaBolboreta.png
+[payment-screenshot]: images/payment.png

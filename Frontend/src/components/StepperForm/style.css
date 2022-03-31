@@ -23,23 +23,23 @@ body {
 ## STEPPER ##
 #############
 */
+@media screen and (min-width: 800px) {
+  .stepper_container {
+    padding-bottom: 3rem;
+  }
+}
 .button_steps {
   display: flex;
   justify-content: center;
 }
-
+.disable {
+  display: none;
+}
 /*
 ####################
 ## PASSENGER INFO ##
 ####################
 */
-/* form {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-} */
 
 .passengeForm {
   display: flex;
@@ -56,35 +56,21 @@ body {
   color: white;
   margin-top: 10px;
 }
-/* .MuiFormControl-root {
-  margin-top: 15px !important;
-}
 
-.MuiTextField-root {
-  margin-top: 15px !important;
-}
-
-.MuiOutlinedInput-root {
-  width: 300px !important;
-}
-
-
-.MuiList-root {
-  align-items: center !important;
-  margin-left: 40px !important;
-}
-
-Muiinput-root {
-  margin-bottom: 15px;
-}
-
-
-.country {
-  width: 200px !important;
-} */
 .MuiPhoneNumber-flagButton {
   width: 50px !important;
 }
+
+.inputs-passengers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+@media screen and (max-width: 600) {
+  .inputs-passengers {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
 /* 
 #######################
 ## ELECIÓN DE TARIFA ##
@@ -217,13 +203,14 @@ Muiinput-root {
 ## Itinerario final ##
 ######################
 */
+
 .flex-space {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 .itinerary_container_end {
-  padding: 10rem 1rem 10rem;
+  padding: 5rem 1rem 10rem;
   min-height: 100vh;
   background: #f7f6ff;
 }
@@ -319,9 +306,9 @@ Muiinput-root {
   flex-wrap: wrap;
   justify-content: space-around;
   padding: 1rem 0;
+  font-size: 1rem;
 }
 .aditional_info {
-  position: relative;
   margin: 1rem 0;
   width: 40%;
 }
@@ -332,13 +319,19 @@ Muiinput-root {
 .aditional_info p {
   margin: 0;
 }
+.title_box_icon {
+  position: relative;
+}
 .icon_passenger {
   position: absolute;
-  left: -15%;
-  bottom: 70%;
+  left: -22px;
+  top: 5px;
+
+  font-size: 1.2em;
 }
 .icon-color {
   color: #3143e2;
+  margin-right: 5px;
 }
 @media screen and (max-width: 760px) {
   .itinerary_container_end {
@@ -394,6 +387,22 @@ Muiinput-root {
   z-index: 2;
 }
 
+/* Botón itinerario */
+
+.btn-itinerary {
+  border-radius: 5px;
+  font-size: 1.1rem;
+  text-decoration: none;
+}
+.arrow-left-icon {
+  display: inline-block;
+  margin-right: 3px;
+  padding-top: 3px;
+}
+.btn-itinerary:hover .arrow-left-icon {
+  transform: translateX(-50%);
+  transition: 350ms;
+}
 /* 
 ####################
 ## RESUMEN Y PAGO ##
@@ -443,6 +452,9 @@ Muiinput-root {
   .paymentConfirmationContainer {
     margin-top: 5rem;
     grid-template-columns: 70% 30%;
+  }
+  .finalCounting {
+    margin-right: 1rem;
   }
 }
 .flight_resume {
@@ -507,20 +519,4 @@ Muiinput-root {
 }
 .btn-stepper {
   padding: 1rem 2rem;
-}
-.columns_5 {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-}
-.columns_4 {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-}
-.columns_3 {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-}
-.columns_2 {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
 }

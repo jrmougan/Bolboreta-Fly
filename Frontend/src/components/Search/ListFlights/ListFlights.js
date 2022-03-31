@@ -1,19 +1,32 @@
-import React, { useContext } from "react";
-import { OfferPriceContext } from "../../../context/OfferPriceContext";
-import { useNavigate } from "react-router-dom";
-import InputButton from "./InputButton";
-import AllFlights from "./AllFlights";
+import React, { useContext } from 'react';
+import { OfferPriceContext } from '../../../context/OfferPriceContext';
+import { useNavigate } from 'react-router-dom';
+import InputButton from './InputButton';
+import AllFlights from './AllFlights';
+import {
+  findAirlineLogo,
+  findAirlineName,
+} from '../../StepperForm/InfoFlights/helpersFlight';
+import { GiButterfly } from 'react-icons/gi';
+import { TokenContext } from '../../../context/TokenContext';
+import swal from 'sweetalert';
 
 export const ListFlights = ({ data }) => {
   //Contexto booking
   const [flightOffer, setFlightOffer] = useContext(OfferPriceContext);
+  const [token, setToken] = useContext(TokenContext);
   let navigate = useNavigate();
 
   const handleBooking = (e) => {
     e.preventDefault();
     const bookingId = e.target.parentElement.parentElement.id;
     setFlightOffer(data[bookingId - 1]);
-    navigate("/step");
+    if (token) {
+      navigate('/step');
+    } else {
+      swal('Para poder reservar tiene que estar logueado', '', 'error');
+      navigate('/login');
+    }
   };
 
   return (
@@ -23,17 +36,18 @@ export const ListFlights = ({ data }) => {
           const id = flight.id;
           const price = flight.price.total;
           const currency = flight.price.currency;
+          const code = flight.validatingAirlineCodes[0];
 
           return (
-            <article key={id} id={id} className="resultCard">
+            <article key={id} id={id} className='resultCard'>
+              <ButterFlies />
               <LeftCard>
                 <AllFlights flight={flight} />
               </LeftCard>
               <RightCard>
                 <Price price={price} currency={currency} />
-                <InputButton handleSubmit={handleBooking}>
-                  Ir al vuelo
-                </InputButton>
+                <CardLogo code={code} />
+                <InputButton handleSubmit={handleBooking}>Reservar</InputButton>
               </RightCard>
             </article>
           );
@@ -42,20 +56,41 @@ export const ListFlights = ({ data }) => {
   );
 };
 
+const ButterFlies = () => {
+  return (
+    <React.Fragment>
+      <GiButterfly className='butterfly b-1' />
+      <GiButterfly className='butterfly b-2' />
+    </React.Fragment>
+  );
+};
+
 const LeftCard = ({ children, oneWay }) => {
   return (
-    <section className={`left-card card ${oneWay ? "" : "separation_card"}`}>
+    <section className={`left-card card ${oneWay ? '' : 'separation_card'}`}>
       {children}
     </section>
   );
 };
 const RightCard = ({ children }) => {
-  return <section className="right-card card">{children}</section>;
+  return <section className='right-card card'>{children}</section>;
 };
 const Price = ({ price, currency }) => {
   return (
-    <p>
+    <span className='price-right-card'>
       {price} {currency}
-    </p>
+    </span>
+  );
+};
+const CardLogo = ({ code }) => {
+  return (
+    <div className='card_airline_logo'>
+      {' '}
+      <p>
+        Operado por:{' '}
+        <span className='card_airline_name'>{findAirlineName(code)}</span>
+      </p>
+      {findAirlineLogo(code)}
+    </div>
   );
 };

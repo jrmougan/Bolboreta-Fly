@@ -8,8 +8,12 @@ import { parse } from 'iso8601-duration';
 
 function durationFormat(duration) {
   let minutes = Math.floor((duration / (1000 * 60)) % 60),
-    hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+    hours = Math.floor((duration / (1000 * 60 * 60)) % 24),
+    days = Math.floor((duration / (1000 * 60 * 60 * 24)) % 365);
 
+  if (days) {
+    return `${days} día ${hours} horas ${minutes} minutos`;
+  }
   if (hours === 0) {
     return `${minutes} minutos`;
   } else if (minutes === 0) {
@@ -17,17 +21,6 @@ function durationFormat(duration) {
   } else {
     return hours + ' horas y ' + minutes + ' minutos ';
   }
-}
-
-function msToTime(ms) {
-  let seconds = (ms / 1000).toFixed(1);
-  let minutes = (ms / (1000 * 60)).toFixed(1);
-  let hours = (ms / (1000 * 60 * 60)).toFixed(1);
-  let days = (ms / (1000 * 60 * 60 * 24)).toFixed(1);
-  if (seconds < 60) return seconds + ' Sec';
-  else if (minutes < 60) return minutes + ' Min';
-  else if (hours < 24) return hours + ' Hrs';
-  else return days + ' Days';
 }
 
 function finalDurationFormat(duration) {
@@ -89,10 +82,4 @@ function hourFormat(date) {
   return format(date, 'HH:mm');
 }
 
-export {
-  durationFormat,
-  dateFormat,
-  // writeDuration,
-  hourFormat,
-  finalDurationFormat,
-};
+export { durationFormat, dateFormat, hourFormat, finalDurationFormat };

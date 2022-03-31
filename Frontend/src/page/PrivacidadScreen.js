@@ -1,9 +1,7 @@
 import PoliticaPrivacidad from "../components/PoliticaPrivacidad/PoliticaPrivacidad";
 
 const PrivacidadScreen = () => {
-    return (
-        <PoliticaPrivacidad />
-    )
-}
+  return <PoliticaPrivacidad />;
+};
 
-export default PrivacidadScreen
+export default PrivacidadScreen;

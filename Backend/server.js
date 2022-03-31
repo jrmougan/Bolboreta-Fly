@@ -66,6 +66,26 @@ const {
 const { newBookingPassenger } = require('./controllers/passenger/index');
 const { is } = require('express/lib/request');
 
+/**
+ * #################################
+ * ##  Controladores Itinerarios  ##
+ * #################################
+ */
+
+const { retrieveItinerary } = require('./controllers/itinerary/index');
+
+/**
+ * ############################
+ * ##  Controladores Vuelos  ##
+ * ############################
+ */
+const {
+    getIdFlightOrder,
+    getFlightsIds,
+    getFlightDurationByNumber,
+    getFlightDuration,
+} = require('./controllers/flight/index');
+
 // Middleware que deserializa un body en formato "raw".
 app.use(express.json());
 
@@ -80,8 +100,6 @@ app.use(express.static('static'));
  * ########################
  */
 
-//Crear nuevo usuario
-
 app.post('/register', newUser);
 app.put('/user/:iduser/edit', userExists, isAuth, caneditUser, editUser);
 app.delete('/user/:iduser/delete', userExists, isAuth, caneditUser, deleteUser);
@@ -93,12 +111,14 @@ app.get('/user/:iduser', userExists, isAuth, getUser);
 app.post('/resetpass', resetPass);
 app.post('/user/:iduser/editpass', userExists, isAuth, caneditUser, editPass);
 app.post('/login_google', loginGoogle);
+
 /**
  * ########################
  * ## Endpoints reservas ##
  * ########################
  */
 
+app.get('/flight/:idFlight/duration', getFlightDuration);
 app.get('/search', newSearch);
 app.get('/citysearch', citySearch);
 app.post('/advancesearch', advanceSearch);
@@ -107,6 +127,10 @@ app.get('/booking/:userId/getBookings', getBookings);
 app.get('/booking/:bookingId/getBooking', getBooking);
 app.post('/pricing', offerPrice);
 app.post('/seatmap', seatMap);
+app.get('/booking/retrieveBooking/:bookingCode', retrieveItinerary);
+app.get('/booking/:bookingId/getIdFlightOrder', getIdFlightOrder);
+app.get('/booking/:bookingId/getFlightsIds', getFlightsIds);
+app.get('/flight/:bookingId/:flightNumber', getFlightDurationByNumber);
 
 /**
  * #########################
