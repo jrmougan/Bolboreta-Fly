@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { GoogleLogout } from "react-google-login";
 import { Link } from "react-router-dom";
+import swal from "sweetalert";
 import { TokenContext } from "../../context/TokenContext";
 import { UserContext } from "../../context/UserContext";
 import "./style.css";
@@ -18,7 +19,7 @@ function LogOut() {
   };
 
   const onFailure = () => {
-    console.log("fail");
+    swal("Hubo un error con el cierre de sesión", " ", "error");
   };
 
   return (

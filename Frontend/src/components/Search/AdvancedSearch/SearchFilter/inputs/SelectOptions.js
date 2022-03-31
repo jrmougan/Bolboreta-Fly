@@ -1,4 +1,4 @@
-import { Slider, Grid, Select, InputLabel } from "@mui/material";
+import { Slider, Grid, Select, InputLabel } from '@mui/material';
 
 export const SelectOptions = (props) => {
   return (
@@ -12,6 +12,7 @@ export const SelectOptions = (props) => {
           name: props.name,
           id: props.name,
         }}
+        className='scales-flight'
       >
         {props.scales.map((scale) => {
           return (

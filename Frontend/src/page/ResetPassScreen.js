@@ -1,9 +1,8 @@
-import React from 'react';
-import ResetPass from '../components/ResetPass/ResetPass';
+import React from "react";
+import ResetPass from "../components/ResetPass/ResetPass";
 
 const ResetPassScreen = () => {
+  return <ResetPass />;
+};
 
-    return <ResetPass />
-}
-
-export default ResetPassScreen
+export default ResetPassScreen;

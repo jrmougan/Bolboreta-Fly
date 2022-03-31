@@ -1,9 +1,7 @@
 import React from "react";
-import axios from "axios";
 import SearchAutocomplete from "../components/CitySearch/components/search-autocomplete";
-import { getAmadeusData } from "../api/amadeus.api";
 
-const SearchRoot = ({ setState, isOrigin }) => {
+const SearchRoot = ({ setState, isOrigin, errors }) => {
   const [search, setSearch] = React.useState({
     keyword: "",
     city: true,
@@ -25,6 +23,7 @@ const SearchRoot = ({ setState, isOrigin }) => {
         setSearch={setSearch}
         setState={setState}
         isOrigin={isOrigin}
+        errors={errors}
       />
     </div>
   );

@@ -26,13 +26,10 @@ const ResetPass = () => {
     );
 
     if (res.ok) {
-      console.log(res);
       const body = await res.json();
-      console.log(body);
       swal(body.message, "", "success");
     } else {
       const error = await res.json();
-      console.log(error);
       swal(error.message, "", "error");
     }
   };

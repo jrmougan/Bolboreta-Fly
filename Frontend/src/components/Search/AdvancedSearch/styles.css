@@ -2,3 +2,23 @@
   padding-left: 3em !important;
   padding-right: 3em !important;
 }
+
+.flightInfoSearch {
+  display: flex;
+  justify-content: center;
+}
+
+.flightInfoSearch > * {
+  background-color: #5d7ca6;
+  padding: 1em;
+}
+
+.flightInfoSearch > .airports > div > span:first-child,
+.flightInfoSearch > .dates > div > span:first-child {
+  font-weight: bold;
+}
+
+.flightInfoSearch > .dates > div,
+.flightInfoSearch > .airports > div {
+  margin-top: 1em;
+}

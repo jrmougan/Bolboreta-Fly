@@ -1,13 +1,14 @@
-import React from 'react';
+import { parse, toSeconds } from "iso8601-duration";
+import React, { useEffect, useState } from "react";
 import {
   dateFormat,
   durationFormat,
   hourFormat,
-} from '../../../../helpers/formatHelp';
-import AirlineInfo from './AirlineInfo';
-import AirportInfo from './AirportInfo';
-import Confirmation from './Confirmation';
-import SubtitleInfo from './SubtitleInfo';
+} from "../../../../helpers/formatHelp";
+import AirlineInfo from "./AirlineInfo";
+import AirportInfo from "./AirportInfo";
+import Confirmation from "./Confirmation";
+import SubtitleInfo from "./SubtitleInfo";
 
 const Summary = ({
   itineraries,
@@ -17,7 +18,7 @@ const Summary = ({
 }) => {
   // ¿Sólo ida?
   const isReturn = itineraries.length > 1;
-  const title = isReturn ? 'Ida y vuelta' : 'Solo ida';
+  const title = isReturn ? "Ida y vuelta" : "Solo ida";
 
   // Itinerarios
   let secondItinerary;
@@ -49,14 +50,7 @@ const Summary = ({
   );
 };
 
-export const InfoContainer = ({
-  segments,
-  isReturn,
-  flightDurations,
-  flightCounter,
-  idBooking,
-}) => {
-  console.log('FlightDuration', flightDurations);
+export const InfoContainer = ({ segments, isReturn, idBooking }) => {
   /* 
   ###############
   ## DURATIONS ##
@@ -70,40 +64,76 @@ export const InfoContainer = ({
 
   const itineraryDurationToFormat =
     lastArrivalItinerary - firstItineraryDeparture;
-  const totalDuration = durationFormat(itineraryDurationToFormat);
+  let totalDuration = durationFormat(itineraryDurationToFormat);
 
-  // Variables para calcular las escalas
-  let lastArrival;
-  let nextDeparture;
-  let vuelos = -1;
-  let scaleDuration;
+  const getDurationByNumberAndBooking = async (idBooking, number) => {
+    var controller = new AbortController();
+    var signal = controller.signal;
+    try {
+      const res = await fetch(
+        `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/flight/${idBooking}/${number}`,
+        { signal }
+      );
+      if (res.ok) {
+        const body = await res.json();
+        const durationSegment = body.data[0][0].duration;
+        return body.data[0][0].duration;
+      }
+    } catch (error) {
+    } finally {
+      controller.abort();
+    }
+  };
+
+  const [itineraryDuration, setItineraryDuration] = useState(0);
+
+  useEffect(() => {
+    let mapTotalDuration = 0;
+    segments.map((segment, key, itinerary) => {
+      getDurationByNumberAndBooking(idBooking, segment.number).then(
+        (duration) => {
+          const dur = toSeconds(parse(duration)) * 1000;
+
+          mapTotalDuration += dur;
+          if (key > 0) {
+            const ultimaLlegada = new Date(
+              itinerary[key - 1].arrival.at
+            ).getTime();
+            const siguienteSalida = new Date(segment.departure.at).getTime();
+            const diferencia = siguienteSalida - ultimaLlegada;
+            mapTotalDuration += diferencia;
+          }
+          setItineraryDuration(mapTotalDuration);
+        }
+      );
+    });
+  }, [segments]);
+
   return (
-    <article className='info_container'>
-      <h1 className='title_info_container'>Itinerario: Vuelo</h1>
-      <SubtitleInfo isRoundtrip={isReturn} totalDuration={totalDuration} />
+    <article className="info_container">
+      <h1 className="title_info_container">Itinerario: Vuelo</h1>
+      <SubtitleInfo isRoundtrip={isReturn} totalDuration={itineraryDuration} />
       <Confirmation>Vuelo confirmado</Confirmation>
 
-      {segments.map((segment, key) => {
-        const ultimaLlegada = new Date(segment.arrival.at);
-        const siguienteSalida = new Date(segment.departure.at);
-
-        vuelos++;
-
-        if (vuelos > 0) {
-          nextDeparture = siguienteSalida;
-
-          let durationScale = nextDeparture.getTime() - lastArrival.getTime();
-
-          scaleDuration = durationFormat(durationScale);
+      {segments.map((segment, key, itinerary) => {
+        let scaleDuration;
+        if (key > 0) {
+          const ultimaLlegada = new Date(
+            itinerary[key - 1].arrival.at
+          ).getTime();
+          const siguienteSalida = new Date(segment.departure.at).getTime();
+          scaleDuration = durationFormat(siguienteSalida - ultimaLlegada);
         }
-        //  Recogemos la primera llegada antes que cualquier variable
-        lastArrival = ultimaLlegada;
 
         return (
-          <section id='segments_container' key={key}>
-            <div className='flightPart'>
-              {vuelos > 0 && <ScaleSegment duration={scaleDuration} />}
-              <Segment segment={segment} idBooking={idBooking} />
+          <section id="segments_container" key={key}>
+            <div className="flightPart">
+              {key - 1 >= 0 && <ScaleSegment duration={scaleDuration} />}
+              <Segment
+                segment={segment}
+                idBooking={idBooking}
+                itineraryDuration={100}
+              />
             </div>
           </section>
         );
@@ -111,7 +141,7 @@ export const InfoContainer = ({
     </article>
   );
 };
-const Segment = ({ segment, idBooking }) => {
+const Segment = ({ segment, idBooking, itineraryDuration }) => {
   // Códigos IATA de aeropuertos de salida y llegada
   const firstCode = segment.departure.iataCode;
   const secondCode = segment.arrival.iataCode;
@@ -123,13 +153,14 @@ const Segment = ({ segment, idBooking }) => {
   const secondDate = dateFormat(new Date(segment.arrival.at));
 
   return (
-    <div className='segment'>
+    <div className="segment">
       <AirportInfo time={firstTime} code={firstCode} date={firstDate} />
 
       <AirlineInfo
         segment={segment}
         byRetrieving={true}
         idBooking={idBooking}
+        itineraryDuration={itineraryDuration}
       />
 
       <AirportInfo time={secondTime} code={secondCode} date={secondDate} />
@@ -138,7 +169,7 @@ const Segment = ({ segment, idBooking }) => {
 };
 const ScaleSegment = ({ duration }) => {
   return (
-    <div className='segment_scale'>
+    <div className="segment_scale">
       <p>Pueden producirse cambios</p>
       <span>Duración de la escala: {duration}</span>
     </div>

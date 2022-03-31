@@ -1,12 +1,11 @@
 import React, { useState, useContext } from 'react';
 import { Stepper, Step, StepLabel, Button, Typography } from '@mui/material';
-import BookingData from './FormPassenger/BookingData.';
-import RateChoice from './RateChoice/RateChoice';
+import BookingData from './FormPassenger/BookingData';
 import ResumeAndPay from './ResumeAndPay/ResumeAndPay';
 import { Container } from '@mui/material';
-import Itinerary from '../StepperForm/Itinerary/Itinerary';
+
 import { OfferPriceContext } from '../../context/OfferPriceContext';
-import Pasajero from './Pasajeros/Pasajeros';
+
 import TodosPasajeros from './Pasajeros/TodosPasajeros';
 
 const StepForm = () => {
@@ -16,7 +15,6 @@ const StepForm = () => {
   ##################################
   */
   const [flightOffer] = useContext(OfferPriceContext);
-  const { itineraries } = flightOffer;
 
   const isReturn = flightOffer.itineraries.length > 1;
 
@@ -88,7 +86,7 @@ const StepForm = () => {
     allAutoLabel.push(body);
   }
   const [autoLabels, setAutoLabels] = useState(allAutoLabel);
-  console.log('AtoLabels', autoLabels);
+
   /* 
  #######################
  ## PASOS DEL STEPPER ##
@@ -109,16 +107,6 @@ const StepForm = () => {
       return <BookingData />;
     } else if (page === 2) {
       return (
-        <RateChoice
-          rateCharge={rateCharge}
-          setRateCharge={setRateCharge}
-          setTotalPrice={setTotalPrice}
-          travelers={travelers}
-          isReturn={isReturn}
-        />
-      );
-    } else if (page === 3) {
-      return (
         <ResumeAndPay
           rateCharge={rateCharge}
           setRateCharge={setRateCharge}
@@ -130,12 +118,7 @@ const StepForm = () => {
   };
 
   function getSteps() {
-    return [
-      'Información de Pasajeros',
-      'Datos de reserva',
-      'Elección de tarifa',
-      'Resumen y Pago',
-    ];
+    return ['Información de Pasajeros', 'Datos de reserva', 'Resumen y Pago'];
   }
 
   /* 
@@ -150,7 +133,7 @@ const StepForm = () => {
   // Elegimos la elección de asiento como un paso opcional (Paso 3)
 
   const isStepOptional = (step) => {
-    return step === 3;
+    return step === 6;
   };
 
   const isStepSkipped = (step) => {
@@ -242,17 +225,20 @@ const StepForm = () => {
                     Saltar
                   </Button>
                 )}
-
-                <Button
-                  variant='contained'
-                  color='primary'
-                  onClick={handleNext}
-                  sx={{
-                    fontSize: '.7rem',
-                  }}
-                >
-                  {activeStep === steps.length - 1 ? 'Finalizar' : 'Siguiente'}
-                </Button>
+                {activeStep === steps.length - 1 ? (
+                  ''
+                ) : (
+                  <Button
+                    variant='contained'
+                    color='primary'
+                    onClick={handleNext}
+                    sx={{
+                      fontSize: '.7rem',
+                    }}
+                  >
+                    Siguiente
+                  </Button>
+                )}
               </div>
             </div>
           )}

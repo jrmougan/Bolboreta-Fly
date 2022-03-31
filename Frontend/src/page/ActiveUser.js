@@ -1,7 +1,7 @@
 import ActiveUser from "../components/ActiveUser/ActiveUse";
 
 const ActiveUserScreen = () => {
-    return <ActiveUser />
-}
+  return <ActiveUser />;
+};
 
 export default ActiveUserScreen;

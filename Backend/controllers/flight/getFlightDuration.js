@@ -19,6 +19,8 @@ const getFlightDuration = async (req, res, next) => {
         });
     } catch (error) {
         console.error(error);
+    } finally {
+        if (connection) connection.release();
     }
 };
 

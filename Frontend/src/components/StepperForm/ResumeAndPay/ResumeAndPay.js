@@ -1,9 +1,10 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { TokenContext } from "../../../context/TokenContext";
 import PaymentElection from "./PaymentElection";
 import { OfferPriceContext } from "../../../context/OfferPriceContext";
 import FinalAcounting from "./FinalAcounting";
 import FlightsResume from "./FlightsResume/FlightsResume";
+import swal from "sweetalert";
 
 const offerPrice = async (flightOffer, token, travelers) => {
   const body = {
@@ -32,8 +33,6 @@ const offerPrice = async (flightOffer, token, travelers) => {
 
       const insertId = await bookOffer(updatedOffer, token, travelers);
 
-      console.log("inserIdResume", insertId);
-
       return await insertId;
     }
   } catch (error) {
@@ -61,12 +60,10 @@ const bookOffer = async (updatedFlightOrder, token, travelers) => {
 
     if (res.ok) {
       const data = await res.json();
-      console.log("Booking OK");
-      console.log(data);
       return data.data;
     }
   } catch (error) {
-    console.error(error);
+    swal("No se ha podido realizar la reserva", " ", "error");
   }
 };
 

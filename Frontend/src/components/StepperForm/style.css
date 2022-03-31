@@ -32,7 +32,9 @@ body {
   display: flex;
   justify-content: center;
 }
-
+.disable {
+  display: none;
+}
 /*
 ####################
 ## PASSENGER INFO ##
@@ -58,6 +60,17 @@ body {
 .MuiPhoneNumber-flagButton {
   width: 50px !important;
 }
+
+.inputs-passengers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+@media screen and (max-width: 600) {
+  .inputs-passengers {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
 /* 
 #######################
 ## ELECIÓN DE TARIFA ##
@@ -440,6 +453,9 @@ body {
     margin-top: 5rem;
     grid-template-columns: 70% 30%;
   }
+  .finalCounting {
+    margin-right: 1rem;
+  }
 }
 .flight_resume {
   background-color: white;
@@ -503,20 +519,4 @@ body {
 }
 .btn-stepper {
   padding: 1rem 2rem;
-}
-.columns_5 {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-}
-.columns_4 {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-}
-.columns_3 {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-}
-.columns_2 {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
 }
