@@ -74,15 +74,20 @@ const ButtonWrapper = ({
             try {
               await orderFlight(flight, token, travelers).then(function (data) {
                 insertId = data;
-                swal(
-                  "Su pago se ha realizado correctamente, pulse confirmar para ir a su reserva",
-                  "",
-                  "success"
-                );
+                if (!isNaN(insertId)) {
+                  swal(
+                    "Su pago se ha realizado correctamente, pulse confirmar para ir a su reserva",
+                    "",
+                    "success"
+                  );
+                  navigate(`/${insertId}/itinerary`);
+                } else {
+                  swal("Hubo un problema al realizar su reserva", "", "error");
+                  navigate("/");
+                }
               });
             } catch (error) {
             } finally {
-              navigate(`/${insertId}/itinerary`);
             }
           });
         }}

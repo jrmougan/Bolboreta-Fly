@@ -49,7 +49,6 @@ const newBooking = async (req, res, next) => {
             connection = await getDB();
 
             // Insertamos la reserva en caso de que no exista
-            console.log(itinerary.itineraries);
 
             const [booking] = await connection.query(
                 'INSERT INTO booking (booking_code, creation_date, payment_method, complete, final_price, currency, canceled, oneway, id_user,departure_duration, return_duration) VALUES (?,?,?,?,?,?,?,?,?,?,?)',
@@ -184,7 +183,10 @@ const newBooking = async (req, res, next) => {
                 data: insertIdBooking,
             });
         }
-    } catch (error) {
+    } catch (e) {
+        const error = new Error();
+        error.httpStatus = 400;
+        error.message = e.description;
         next(error);
     } finally {
         if (connection) connection.release();
@@ -198,7 +200,6 @@ async function createRelation(
     flightObject,
     flightId
 ) {
-    //console.log(travelers);
     for (const traveler of travelers) {
         await connection.query(
             `INSERT INTO passenger_rel_flight_rel_booking 
