@@ -30,7 +30,6 @@ const advanceSearch = async (req, res, next) => {
             oneway,
             sources,
         } = req.body;
-        console.log(maxFlightTime);
 
         //comprobamos que los viajeros mayores de 2 años no son mas de 9
         if (Number(numAdults) + Number(numChilds) > 9) {
