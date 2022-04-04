@@ -122,10 +122,12 @@ const EditPassForm = () => {
           />{" "}
           Mostrar contraseña{" "}
         </label>
-        <button type="submit" className="cambiarpass">
-          {" "}
-          Cambiar contraseña{" "}
-        </button>
+        <Link to="/user">
+          <button type="submit" className="cambiarpass">
+            {" "}
+            Cambiar contraseña{" "}
+          </button>
+        </Link>
       </form>
     </div>
   );
