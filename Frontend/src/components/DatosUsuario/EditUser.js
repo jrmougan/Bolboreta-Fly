@@ -10,11 +10,15 @@ import swal from "sweetalert";
 import EditAvatar from "../EditAvatar/EditAvatar";
 import avataranonimo from "../../logos/photo.svg";
 import DeleteUsuario from "../DeleteUsuariio/DeleteUsuario";
+import { Link } from "react-router-dom";
 
 import { format } from "date-fns";
 import { TextField } from "@mui/material";
 
+// Constante(variable) para que todos los inputs tengan el mismo ancho y color
+
 const style = { width: "350px" };
+const fondo = { background: "white" };
 
 const EditUser = () => {
   const [token] = useContext(TokenContext);
@@ -29,7 +33,6 @@ const EditUser = () => {
   const [newaddress, setNewaddress] = useState(user.userInfo?.address || "");
   const [newbio, setNewbio] = useState(user.userInfo?.bio);
 
-  console.log(decodedToken.id);
   const updateUser = async (e) => {
     e.preventDefault();
 
@@ -86,6 +89,7 @@ const EditUser = () => {
           <h2> Datos de Usuario </h2>
           <label htmlFor="name"> Nombre </label>
           <TextField
+            sx={fondo}
             style={style}
             placeholder={user.userInfo?.name_user}
             id="name"
@@ -98,6 +102,7 @@ const EditUser = () => {
           />
           <label htmlFor="lastname"> Apellido </label>
           <TextField
+            sx={fondo}
             style={style}
             id="lastname"
             name="lastname"
@@ -110,6 +115,7 @@ const EditUser = () => {
           />
           <label htmlFor="email"> Email </label>
           <TextField
+            sx={fondo}
             style={style}
             id="email"
             name="email"
@@ -144,6 +150,7 @@ const EditUser = () => {
           ></DatePicker>{" "}
           <label htmlFor="address"> Dirección </label>
           <TextField
+            sx={fondo}
             style={style}
             id="address"
             name="address"
@@ -157,6 +164,7 @@ const EditUser = () => {
           />
           <label htmlFor="bio"> Biografía </label>
           <TextField
+            sx={fondo}
             style={style}
             id="bio"
             name="bio"
@@ -169,10 +177,11 @@ const EditUser = () => {
               user.userInfo?.bio ? user.userInfo?.bio : "Cuentanos algo de ti"
             }
           />
-          <button type="submit" className="guardarcambios">
-            {" "}
-            Guardar Cambios{" "}
-          </button>
+          <Link to="/user">
+            <button type="submit" className="guardarcambios">
+              Guardar Cambios{" "}
+            </button>
+          </Link>
         </form>
       </LocalizationProvider>
       <DeleteUsuario />

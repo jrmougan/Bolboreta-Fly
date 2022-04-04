@@ -1,5 +1,5 @@
 input {
-  font-family: FontAwesome, 'Open Sans', Verdana, sans-serif;
+  font-family: FontAwesome, "Open Sans", Verdana, sans-serif;
 }
 
 a:hover,
@@ -8,7 +8,6 @@ button {
 }
 
 .searchEnvironment {
-  background-color: #f7f6ff;
   padding: 3rem 0.5rem;
 }
 
@@ -211,10 +210,12 @@ button {
 .flightItem {
   max-width: 800px;
 }
+
 .svg-container {
   font-size: 1.2rem;
   position: relative;
 }
+
 
 .scales-flight {
   position: absolute;

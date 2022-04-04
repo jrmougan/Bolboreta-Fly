@@ -5,8 +5,12 @@ import { useState, useContext, useEffect } from "react";
 import { TokenContext } from "../../context/TokenContext";
 import { UserContext } from "../../context/UserContext";
 import LoginGoogle from "../LoginGoogle/LoginGoogle";
-
 import swal from "sweetalert";
+
+// Constante(variable) para que todos los inputs tengan el mismo ancho / color
+
+const style = { width: "350px" };
+const fondo = { background: "white" };
 
 function LoginUser() {
   const [user, setUser, fetchUserProfile] = useContext(UserContext);
@@ -67,16 +71,20 @@ function LoginUser() {
     <div className="formulario">
       <section className="form_logueo">
         <form onSubmit={login} className="login">
+          <label>E-mail</label>
           <TextField
-            style={{ width: "252px" }}
+            sx={fondo}
+            style={style}
             id="usuario"
             label="E-mail"
             type="email"
             value={email}
             onChange={handleEmail}
           />
-
+          <label>Contraseña</label>
           <TextField
+            sx={fondo}
+            style={style}
             id="password"
             label="Contraseña"
             type={shown ? "text" : "password"}

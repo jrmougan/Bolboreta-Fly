@@ -1,7 +1,13 @@
 import { TextField } from "@mui/material";
 import { React, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import swal from "sweetalert";
 import "./style.css";
+
+// Constante(variable) para que todos los inputs tengan el mismo ancho y color
+
+const style = { width: "350px" };
+const fondo = { background: "white" };
 
 const ResetPass = () => {
   const [recovercode, setRecovercode] = useState("");
@@ -38,7 +44,7 @@ const ResetPass = () => {
   const [shown, setShown] = useState(false);
   const switchShown = () => setShown(!shown);
   return (
-    <div className="reser_pass">
+    <div className="reseteo_pass">
       <form className="reset_pass" onSubmit={fetchresetpass}>
         <div className="input_container">
           <label htmlFor="recovercode">
@@ -46,6 +52,8 @@ const ResetPass = () => {
             Introduzca aqui el código que le hemos mandado a su email{" "}
           </label>
           <TextField
+            style={style}
+            sx={fondo}
             id="recovercode"
             name="recovercode"
             type="text"
@@ -61,6 +69,8 @@ const ResetPass = () => {
             Introduce aqui tu nueva contraseña{" "}
           </label>
           <TextField
+            style={style}
+            sx={fondo}
             id="newpassword"
             name="newpassword"
             type={shown ? "text" : "password"}
@@ -78,10 +88,12 @@ const ResetPass = () => {
             />{" "}
             Mostrar contraseña{" "}
           </label>
-          <button className="resetpass" type="submit">
-            {" "}
-            Resetear contraseña{" "}
-          </button>
+          <Link to="/login">
+            <button className="resetpass" type="submit">
+              {" "}
+              Resetear contraseña{" "}
+            </button>
+          </Link>
         </div>
       </form>
     </div>
