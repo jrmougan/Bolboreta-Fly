@@ -182,8 +182,9 @@ button {
   background-color: white;
   display: flex;
   border-radius: 5px;
-  border: 1px solid black;
+
   z-index: 1;
+  box-shadow: 1px 1px 10px rgba(51, 51, 51, 0.437);
 }
 
 .btnFlight {
@@ -216,8 +217,7 @@ button {
   position: relative;
 }
 
-
-.scales-flight {
+.resultCard .scales-flight {
   position: absolute;
   bottom: -18px;
   left: -30px;

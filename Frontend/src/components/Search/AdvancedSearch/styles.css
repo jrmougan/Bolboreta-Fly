@@ -3,6 +3,13 @@
   padding-right: 3em !important;
 }
 
+.filterContainer {
+  background-color: white;
+  box-shadow: 1px 1px 10px rgba(51, 49, 49, 0.399);
+  padding: 1em;
+  border-radius: 5px;
+}
+
 .flightInfoSearch {
   display: flex;
   justify-content: center;
@@ -21,4 +28,12 @@
 .flightInfoSearch > .dates > div,
 .flightInfoSearch > .airports > div {
   margin-top: 1em;
+}
+
+.scaleInput {
+  width: 100%;
+}
+
+.scaleInput > * {
+  width: 100%;
 }

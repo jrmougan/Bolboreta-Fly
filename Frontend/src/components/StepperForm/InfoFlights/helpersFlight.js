@@ -1,10 +1,10 @@
-import airlines from './airlines.json';
-import airports from './airports.json';
+import airlines from "./airlines.json";
+import airports from "./airports.json";
 
 const findAirlineLogo = (airlineCode) => {
   return (
     <img
-      alt='Airline company logo'
+      alt="Airline company logo"
       src={`https://images.kiwi.com/airlines/64/${airlineCode}.png`}
     />
   );
@@ -12,7 +12,7 @@ const findAirlineLogo = (airlineCode) => {
 const AirlineLogo = ({ airlineCode }) => {
   return (
     <img
-      alt='Airline company logo'
+      alt="Airline company logo"
       src={`https://images.kiwi.com/airlines/64/${airlineCode}.png`}
     />
   );
@@ -22,8 +22,13 @@ const findAirlineName = (airlineCode) => {
   const obj = airlines.find((airline) => {
     return airline.id === airlineCode;
   });
-  const name = obj.name;
-  return name;
+
+  if (obj) {
+    const name = obj.name;
+    return name;
+  } else {
+    return "default";
+  }
 };
 
 const findFlightNumber = ({ segment }) => {
@@ -35,17 +40,17 @@ const findFlightNumber = ({ segment }) => {
 };
 
 function findAirportInfo(iataCode, option) {
-  if (option === 'city') {
+  if (option === "city") {
     const airportFinded = airports.find((airport) => airport.code === iataCode);
-    const locationCity = airportFinded.location.split(',')[0];
+    const locationCity = airportFinded.location.split(",")[0];
     return locationCity;
   }
-  if (option === 'country') {
+  if (option === "country") {
     const airportFinded = airports.find((airport) => airport.code === iataCode);
-    const locationCountry = airportFinded.location.split(',')[1];
+    const locationCountry = airportFinded.location.split(",")[1];
     return locationCountry;
   }
-  if (option === 'airport') {
+  if (option === "airport") {
     const airportFinded = airports.find((airport) => airport.code === iataCode);
     const airportName = airportFinded.name;
     return airportName;

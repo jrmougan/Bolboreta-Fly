@@ -1,4 +1,5 @@
 .cloud-moving-1 {
+  z-index: -1;
   position: absolute;
   right: 0;
   font-size: 5rem;
@@ -9,6 +10,7 @@
   animation-iteration-count: infinite;
 }
 .cloud-moving-2 {
+  z-index: -1;
   position: absolute;
   right: 0;
   top: 15rem;
@@ -20,6 +22,7 @@
   animation-iteration-count: infinite;
 }
 .cloud-moving-3 {
+  z-index: -1;
   position: absolute;
   right: 0;
   top: 20rem;
@@ -32,6 +35,7 @@
 }
 
 .cloud-moving-4 {
+  z-index: -1;
   position: absolute;
   right: 0;
   top: 17rem;
@@ -44,6 +48,7 @@
 }
 
 .cloud-moving-4 {
+  z-index: -1;
   position: absolute;
   right: 0;
   top: 50rem;

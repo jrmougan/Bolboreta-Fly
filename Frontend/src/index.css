@@ -1,11 +1,10 @@
-
 * {
   font-family: roboto;
 }
 
 body {
   margin: 0;
- 
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   position: relative;
@@ -23,14 +22,14 @@ code {
   grid-template-rows: auto 1fr auto;
   min-height: 100vh;
   --button-color: #5d7ca6;
-  background-image: url("https://www.elagoradiario.com/wp-content/uploads/2019/07/estelas-de-los-aviones-1140x600.jpg");
+
   background-size: cover;
   background-repeat: no-repeat;
   background-position-x: center;
   background-position-y: center;
 }
 
-#generalMain {
+body {
   overflow-x: hidden;
 }
 @media screen and (max-width: 550px) {

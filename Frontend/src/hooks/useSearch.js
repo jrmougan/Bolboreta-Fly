@@ -10,7 +10,8 @@ const useSearch = () => {
     const signal = controller.signal;
     const { origin, destination, departureDate, returnDate, adults } =
       search.search;
-    const { maxprice, scales } = filter;
+    const { maxprice, scales, duration } = filter;
+
     let body;
 
     if (returnDate) {
@@ -30,6 +31,7 @@ const useSearch = () => {
         connections: Number(scales),
         oneway: 0,
         maxprice: maxprice,
+        maxFlightTime: duration * 10,
       };
     } else {
       body = {
@@ -47,6 +49,7 @@ const useSearch = () => {
         connections: Number(scales),
         oneway: 1,
         maxprice: maxprice,
+        maxFlightTime: duration * 10,
       };
     }
 
