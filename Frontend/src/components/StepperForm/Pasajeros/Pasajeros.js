@@ -1,4 +1,6 @@
 import { DatePicker, LocalizationProvider } from "@mui/lab";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import { Autocomplete, TextField } from "@mui/material";
 import { format, sub } from "date-fns";
@@ -17,175 +19,217 @@ const Pasajero = (props) => {
       <h2 style={{ textAlign: "center" }}>Pasajero {id}</h2>
 
       <div className="inputs-passengers">
-        <TextField
-          id="nombre-required"
-          name={`travelers[${id - 1}].name.firstName`}
-          label="Nombre"
-          value={travelers[id - 1].name.firstName}
-          className="textfield"
-          onChange={handleChange}
-        />
-        <TextField
-          id="apellido-required"
-          label="Apellido"
-          name={`travelers[${id - 1}].name.lastName`}
-          value={travelers[id - 1].name.lastName}
-          onChange={handleChange}
-          className="textfield-mui"
-        />
-
-        <DatePicker
-          label="Fecha de cumpleaños"
-          name={`travelers[${id - 1}].dateOfBirth`}
-          value={travelers[id - 1].dateOfBirth}
-          onChange={(value) =>
-            setFieldValue(`travelers[${id - 1}].dateOfBirth`, value)
-          }
-          inputFormat="dd/MM/yyyy"
-          maxDate={sub(Date.now(), {
-            years: 18,
-          })}
-          renderInput={(params) => <TextField {...params} />}
-          sx={{ marginLeft: "4rem" }}
-        />
-        <FormControl fullWidth>
-          <InputLabel id="genero">Genero</InputLabel>
-          <Select
-            labelId="genero"
-            value={travelers[id - 1].gender}
-            name={`travelers[${id - 1}].gender`}
-            onChange={handleChange}
-            label="Genero"
-          >
-            {gender.map(({ value, label }) => {
-              return (
-                <MenuItem key={value} value={value}>
-                  {label}
-                </MenuItem>
-              );
-            })}
-          </Select>
-        </FormControl>
-
-        <FormControl fullWidth>
-          <InputLabel id="typeDoc">Tipo de documento</InputLabel>
-          <Select
-            labelId="typeDoc"
-            value={travelers[id - 1].documents[0].documentType}
-            name={`travelers[${id - 1}].documents[0].documentType`}
-            onChange={handleChange}
-            label="Genero"
-          >
-            {documents.map(({ value, label }) => {
-              return (
-                <MenuItem key={value} value={value}>
-                  {label}
-                </MenuItem>
-              );
-            })}
-          </Select>
-        </FormControl>
-
-        <TextField
-          id="number"
-          label="Número de identidad"
-          name={`travelers[${id - 1}].documents[0].number`}
-          value={travelers[id - 1].documents[0].number}
-          className="textfield-mui"
-          onChange={handleChange}
-        />
-
-        <DatePicker
-          label="Fecha de expedición"
-          name={`travelers[${id - 1}].documents[0].issuanceDate`}
-          value={travelers[id - 1].documents[0].issuanceDate}
-          onChange={(value) =>
-            setFieldValue(
-              `travelers[${id - 1}].documents[0].issuanceDate`,
-              value
-            )
-          }
-          inputFormat="dd/MM/yyyy"
-          maxDate={Date.now()}
-          renderInput={(params) => <TextField {...params} />}
-          sx={{ marginLeft: "4rem" }}
-        />
-
-        <DatePicker
-          label="Fecha de expiración"
-          name={`travelers[${id - 1}].documents[0].expiryDate`}
-          value={travelers[id - 1].documents[0].expiryDate}
-          onChange={(value) =>
-            setFieldValue(`travelers[${id - 1}].documents[0].expiryDate`, value)
-          }
-          inputFormat="dd/MM/yyyy"
-          minDate={Date.now()}
-          renderInput={(params) => <TextField {...params} />}
-          sx={{ marginLeft: "4rem" }}
-        />
-
-        <FormControl fullWidth>
-          <InputLabel id="typePhone">Tipo de teléfono</InputLabel>
-          <Select
-            labelId="typePhone"
-            value={travelers[id - 1].contact.phones[0].deviceType}
-            name={`travelers[${id - 1}].contact.phones[0].deviceType`}
-            onChange={handleChange}
-            label="Tipo de teléfono"
-          >
-            {typePhone.map(({ value, label }) => {
-              return (
-                <MenuItem key={value} value={value}>
-                  {label}
-                </MenuItem>
-              );
-            })}
-          </Select>
-        </FormControl>
-
-        <Autocomplete
-          id="contryCallingCode"
-          options={countries}
-          sx={{ width: 300 }}
-          value={travelers[id - 1].contact.phones[0].countryCallingCode}
-          name={`travelers[${id - 1}].contact.phones[0].countryCallingCode`}
-          renderInput={(params) => (
-            <TextField {...params} label="Prefijo país" />
-          )}
-          onChange={(e, value) => {
-            setFieldValue(
-              `travelers[${id - 1}].contact.phones[0].countryCallingCode`,
-              value?.phone ? value.phone : ""
-            );
-          }}
-        ></Autocomplete>
-
-        <TextField
-          id="tel"
-          label="Número de contacto"
-          value={travelers[id - 1].contact.phones[0].number}
-          name={`travelers[${id - 1}].contact.phones[0].number`}
-          className="textfield-mui"
-          onChange={handleChange}
-        />
-
-        <TextField
-          id="email"
-          label="Email"
-          value={travelers[id - 1].contact.emailAddress}
-          name={`travelers[${id - 1}].contact.emailAddress`}
-          className="textfield-mui"
-          onChange={handleChange}
-        />
-
-        {/*
-
-        <TextField
-          id="emial-required"
-          label="Email"
-          value={0}
-          className="textfield-mui"
-        /> */}
+        <Grid container spacing={1} className="sectionForm">
+          <Grid item xs={12}>
+            <h1>Datos personales</h1>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              id="nombre-required"
+              name={`travelers[${id - 1}].name.firstName`}
+              label="Nombre"
+              value={travelers[id - 1].name.firstName}
+              className="input"
+              onChange={handleChange}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              id="apellido-required"
+              label="Apellido"
+              name={`travelers[${id - 1}].name.lastName`}
+              value={travelers[id - 1].name.lastName}
+              onChange={handleChange}
+              className="input"
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <DatePicker
+              label="Fecha de cumpleaños"
+              name={`travelers[${id - 1}].dateOfBirth`}
+              value={travelers[id - 1].dateOfBirth}
+              onChange={(value) =>
+                setFieldValue(`travelers[${id - 1}].dateOfBirth`, value)
+              }
+              inputFormat="dd/MM/yyyy"
+              maxDate={sub(Date.now(), {
+                years: 18,
+              })}
+              className="input"
+              renderInput={(params) => (
+                <TextField className="input" {...params} />
+              )}
+              sx={{ marginLeft: "4rem" }}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <FormControl fullWidth>
+              <InputLabel id="genero">Genero</InputLabel>
+              <Select
+                labelId="genero"
+                value={travelers[id - 1].gender}
+                name={`travelers[${id - 1}].gender`}
+                onChange={handleChange}
+                label="Genero"
+                className="input"
+              >
+                {gender.map(({ value, label }) => {
+                  return (
+                    <MenuItem key={value} value={value}>
+                      {label}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+          </Grid>
+        </Grid>
+        <Grid
+          container
+          rowSpacing={1}
+          columnSpacing={1}
+          className="sectionForm"
+        >
+          <Grid xs={12}>
+            <h1>Documento de identidad</h1>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <FormControl fullWidth>
+              <InputLabel id="typeDoc">Tipo de documento</InputLabel>
+              <Select
+                labelId="typeDoc"
+                value={travelers[id - 1].documents[0].documentType}
+                name={`travelers[${id - 1}].documents[0].documentType`}
+                onChange={handleChange}
+                label="Genero"
+                className="input"
+              >
+                {documents.map(({ value, label }) => {
+                  return (
+                    <MenuItem key={value} value={value}>
+                      {label}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              id="number"
+              label="Número de identidad"
+              name={`travelers[${id - 1}].documents[0].number`}
+              value={travelers[id - 1].documents[0].number}
+              className="input"
+              onChange={handleChange}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <DatePicker
+              label="Fecha de expedición"
+              name={`travelers[${id - 1}].documents[0].issuanceDate`}
+              value={travelers[id - 1].documents[0].issuanceDate}
+              onChange={(value) =>
+                setFieldValue(
+                  `travelers[${id - 1}].documents[0].issuanceDate`,
+                  value
+                )
+              }
+              inputFormat="dd/MM/yyyy"
+              maxDate={Date.now()}
+              className="input"
+              renderInput={(params) => (
+                <TextField className="input" {...params} />
+              )}
+              sx={{ marginLeft: "4rem" }}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <DatePicker
+              label="Fecha de expiración"
+              name={`travelers[${id - 1}].documents[0].expiryDate`}
+              value={travelers[id - 1].documents[0].expiryDate}
+              className="input"
+              onChange={(value) =>
+                setFieldValue(
+                  `travelers[${id - 1}].documents[0].expiryDate`,
+                  value
+                )
+              }
+              inputFormat="dd/MM/yyyy"
+              minDate={Date.now()}
+              renderInput={(params) => (
+                <TextField className="input" {...params} />
+              )}
+              sx={{ marginLeft: "4rem" }}
+            />
+          </Grid>
+        </Grid>
+        <Grid container spacing={1} className="sectionForm">
+          <Grid xs={12}>
+            <h1>Datos de contacto</h1>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <FormControl fullWidth>
+              <InputLabel id="typePhone">Tipo de teléfono</InputLabel>
+              <Select
+                labelId="typePhone"
+                value={travelers[id - 1].contact.phones[0].deviceType}
+                name={`travelers[${id - 1}].contact.phones[0].deviceType`}
+                onChange={handleChange}
+                label="Tipo de teléfono"
+                className="input"
+              >
+                {typePhone.map(({ value, label }) => {
+                  return (
+                    <MenuItem key={value} value={value}>
+                      {label}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Autocomplete
+              id="contryCallingCode"
+              options={countries}
+              className="input"
+              sx={{ width: 300 }}
+              value={travelers[id - 1].contact.phones[0].countryCallingCode}
+              name={`travelers[${id - 1}].contact.phones[0].countryCallingCode`}
+              renderInput={(params) => (
+                <TextField {...params} label="Prefijo país" />
+              )}
+              onChange={(e, value) => {
+                setFieldValue(
+                  `travelers[${id - 1}].contact.phones[0].countryCallingCode`,
+                  value?.phone ? value.phone : ""
+                );
+              }}
+            ></Autocomplete>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              id="tel"
+              label="Número de contacto"
+              value={travelers[id - 1].contact.phones[0].number}
+              name={`travelers[${id - 1}].contact.phones[0].number`}
+              className="input"
+              onChange={handleChange}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              id="email"
+              label="Email"
+              value={travelers[id - 1].contact.emailAddress}
+              name={`travelers[${id - 1}].contact.emailAddress`}
+              className="input"
+              onChange={handleChange}
+            />
+          </Grid>
+        </Grid>
       </div>
     </LocalizationProvider>
   );

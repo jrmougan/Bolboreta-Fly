@@ -11,6 +11,12 @@ import TodosPasajeros from "./Pasajeros/TodosPasajeros";
 const StepForm = () => {
   /* 
   ##################################
+  ## Funciones API de reserva ##
+  ##################################
+  */
+
+  /* 
+  ##################################
   ## Contexto reserva ##
   ##################################
   */
@@ -97,7 +103,7 @@ const StepForm = () => {
     } else if (page === 2) {
       return (
         <ResumeAndPay
-          props={props}
+          {...props}
           rateCharge={rateCharge}
           setRateCharge={setRateCharge}
           totalPrice={totalPrice}
