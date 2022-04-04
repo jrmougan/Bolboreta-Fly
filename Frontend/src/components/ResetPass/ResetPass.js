@@ -1,5 +1,6 @@
 import { TextField } from "@mui/material";
 import { React, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import swal from "sweetalert";
 import "./style.css";
 
@@ -43,7 +44,7 @@ const ResetPass = () => {
   const [shown, setShown] = useState(false);
   const switchShown = () => setShown(!shown);
   return (
-    <div className="reser_pass">
+    <div className="reseteo_pass">
       <form className="reset_pass" onSubmit={fetchresetpass}>
         <div className="input_container">
           <label htmlFor="recovercode">
@@ -87,10 +88,12 @@ const ResetPass = () => {
             />{" "}
             Mostrar contraseña{" "}
           </label>
-          <button className="resetpass" type="submit">
-            {" "}
-            Resetear contraseña{" "}
-          </button>
+          <Link to="/login">
+            <button className="resetpass" type="submit">
+              {" "}
+              Resetear contraseña{" "}
+            </button>
+          </Link>
         </div>
       </form>
     </div>
