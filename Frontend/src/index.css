@@ -30,6 +30,9 @@ code {
   background-position-y: center;
 }
 
+#generalMain {
+  overflow-x: hidden;
+}
 @media screen and (max-width: 550px) {
   #generalMain {
     padding: 2rem 0.2rem;
