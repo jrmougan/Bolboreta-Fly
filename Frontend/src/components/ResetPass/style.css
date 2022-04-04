@@ -1,11 +1,15 @@
-.reset_pass {
+.reseteo_pass {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
+
+
+
 .resetpass {
   border: 1px solid;
-  background: #5d7ca6;
+  background: var(--button-color);
   font-size: small;
   font-weight: bolder;
   align-items: center;
@@ -14,16 +18,9 @@
   color: white;
   margin-top: 10px;
 }
-.input_container {
-  display: flex;
-  flex-direction: column;
-  margin: 5px;
-  justify-content: center;
-  align-items: center;
-  width: fit-content;
-}
-input {
-  margin-top: 10px;
+
+label{
+  margin-bottom: 5px;
 }
 .showpass {
   font-size: x-small;

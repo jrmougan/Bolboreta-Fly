@@ -7,6 +7,11 @@ import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import { format } from "date-fns";
 
+// Constante(variable) para que todos los inputs tengan el mismo ancho y color
+
+const style = { width: "350px" };
+const fondo = { background: "white" };
+
 const RegisterForm = () => {
   const [nombre, setNombre] = useState("");
   const [primerApellido, setPrimerApellido] = useState("");
@@ -79,6 +84,8 @@ const RegisterForm = () => {
                 Nombre
               </label>
               <TextField
+                style={style}
+                sx={fondo}
                 id="nombre_input"
                 value={nombre}
                 className="inputForm"
@@ -93,6 +100,8 @@ const RegisterForm = () => {
                 Primer Apellido
               </label>
               <TextField
+                style={style}
+                sx={fondo}
                 id="primerApellido"
                 value={primerApellido}
                 className="inputForm"
@@ -107,7 +116,8 @@ const RegisterForm = () => {
                 E-mail
               </label>
               <TextField
-                style={{ width: "252px" }}
+                style={style}
+                sx={fondo}
                 type="text"
                 id="email"
                 value={email}
@@ -122,6 +132,8 @@ const RegisterForm = () => {
                 Contraseña
               </label>
               <TextField
+                style={style}
+                sx={fondo}
                 type={shown ? "text" : "password"}
                 id="password"
                 value={password}
@@ -136,6 +148,8 @@ const RegisterForm = () => {
                 Confirmar contraseña
               </label>
               <TextField
+                style={style}
+                sx={fondo}
                 type={shown ? "text" : "password"}
                 id="passwordRepeat"
                 value={passwordRepeat}
@@ -174,9 +188,6 @@ const RegisterForm = () => {
                     sx={{
                       background: "white",
                       width: "100%",
-                      marginLeft: " .5rem",
-                      marginTop: " .5rem",
-                      borderRadius: "4px",
                     }}
                     {...params}
                   />
@@ -188,7 +199,8 @@ const RegisterForm = () => {
                 Bio
               </label>
               <TextField
-                style={{ width: "270px" }}
+                style={style}
+                sx={fondo}
                 type="textarea"
                 value={bio}
                 onChange={handleSubmit(setBio)}

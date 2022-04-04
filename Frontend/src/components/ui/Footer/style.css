@@ -1,13 +1,13 @@
 #App-footer {
-  background-color: #e1e5ed;
   display: flex;
   justify-content: space-around;
   padding: 3rem 0;
+  font-weight: bolder;
 }
 
 #App-footer a {
   text-decoration: none;
-  color: #023859;
+  color: #020b59;
 }
 #App-footer p {
   text-align: center;
