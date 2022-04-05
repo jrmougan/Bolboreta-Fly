@@ -1,11 +1,9 @@
-import React from "react";
-import "./ultimasreservas.css";
-import { findAirportInfo } from "../StepperForm/InfoFlights/helpersFlight";
-import { useParams } from "react-router-dom";
-import useGetBookings from "../../hooks/useGetBookings";
-import Reserva from "./Reserva";
-import useGetBookingCode from "../../hooks/useGetBookingCode";
-import { formControlClasses } from "@mui/material";
+import React from 'react';
+import './ultimasreservas.css';
+import { findAirportInfo } from '../StepperForm/InfoFlights/helpersFlight';
+import { useParams } from 'react-router-dom';
+import useGetBookings from '../../hooks/useGetBookings';
+import Reserva from './Reserva';
 
 export const UltimasReservas = () => {
   const { idUser } = useParams();
@@ -13,13 +11,13 @@ export const UltimasReservas = () => {
   const [allBookings] = useGetBookings(idUser);
 
   return (
-    <section id="allBookings_container">
+    <section id='allBookings_container'>
       <h2>Estos son tus últimos vuelos </h2>
 
       {allBookings.reverse().map((reserva, key) => {
         // Averiguamos a qué ciudad va para conseguir la foto del Background
-        const iataArrival = reserva.bookingObject[0].arrival_code || "SCQ";
-        const cityArrival = findAirportInfo(iataArrival, "city");
+        const iataArrival = reserva.bookingObject[0].arrival_code || 'SCQ';
+        const cityArrival = findAirportInfo(iataArrival, 'city');
         const { bookingId } = reserva;
 
         return (
