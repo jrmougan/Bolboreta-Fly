@@ -10,9 +10,29 @@ import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import "./pasajero.css";
 import FormControl from "@mui/material/FormControl";
-const Pasajero = (props) => {
-  const { id, travelers, handleChange } = props;
+const Pasajero = ({
+  id,
+  travelers,
+  handleChange,
+  errors,
+  touched,
+  handleBlur,
+}) => {
   const { setFieldValue } = useFormikContext();
+  const travelerErrors = errors.travelers;
+  const travelerTouch = touched.travelers;
+  console.log("touched");
+  console.log(touched);
+  console.log("travelers");
+  console.log(travelers);
+  console.log("errors");
+  console.log(travelerErrors);
+
+  /* 
+  #################################
+  ## Errores ##
+  #################################
+  */
 
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -31,6 +51,22 @@ const Pasajero = (props) => {
               value={travelers[id - 1].name.firstName}
               className="input"
               onChange={handleChange}
+              onBlur={handleBlur}
+              error={
+                travelerErrors &&
+                travelerTouch &&
+                travelerTouch[id - 1].name?.firstName &&
+                travelerErrors[id - 1].name?.firstName &&
+                true
+              }
+              helperText={
+                travelerErrors &&
+                travelerTouch &&
+                travelerTouch[id - 1].name?.firstName &&
+                travelerErrors[id - 1].name?.firstName
+                  ? travelerErrors[id - 1].name.firstName
+                  : null
+              }
             />
           </Grid>
           <Grid item xs={12} md={6}>
@@ -41,12 +77,29 @@ const Pasajero = (props) => {
               value={travelers[id - 1].name.lastName}
               onChange={handleChange}
               className="input"
+              onBlur={handleBlur}
+              error={
+                travelerErrors &&
+                travelerTouch &&
+                travelerTouch[id - 1].name?.lastName &&
+                travelerErrors[id - 1].name?.lastName &&
+                true
+              }
+              helperText={
+                travelerErrors &&
+                travelerTouch &&
+                travelerTouch[id - 1].name?.lastName &&
+                travelerErrors[id - 1].name?.lastName
+                  ? travelerErrors[id - 1].name.lastName
+                  : null
+              }
             />
           </Grid>
           <Grid item xs={12} md={6}>
             <DatePicker
               label="Fecha de cumpleaños"
               name={`travelers[${id - 1}].dateOfBirth`}
+              onBlur={handleBlur}
               value={travelers[id - 1].dateOfBirth}
               onChange={(value) =>
                 setFieldValue(`travelers[${id - 1}].dateOfBirth`, value)
@@ -67,11 +120,19 @@ const Pasajero = (props) => {
               <InputLabel id="genero">Genero</InputLabel>
               <Select
                 labelId="genero"
+                onBlur={handleBlur}
                 value={travelers[id - 1].gender}
                 name={`travelers[${id - 1}].gender`}
                 onChange={handleChange}
                 label="Genero"
                 className="input"
+                error={
+                  travelerErrors &&
+                  travelerTouch &&
+                  travelerTouch[id - 1].gender &&
+                  travelerErrors[id - 1].gender &&
+                  true
+                }
               >
                 {gender.map(({ value, label }) => {
                   return (
@@ -98,11 +159,21 @@ const Pasajero = (props) => {
               <InputLabel id="typeDoc">Tipo de documento</InputLabel>
               <Select
                 labelId="typeDoc"
+                onBlur={handleBlur}
                 value={travelers[id - 1].documents[0].documentType}
                 name={`travelers[${id - 1}].documents[0].documentType`}
                 onChange={handleChange}
-                label="Genero"
+                label="Tipo de documento"
                 className="input"
+                error={
+                  travelerErrors &&
+                  travelerTouch &&
+                  travelerTouch[id - 1].documents &&
+                  travelerErrors[id - 1].documents &&
+                  travelerTouch[id - 1].documents[0].documentType &&
+                  travelerErrors[id - 1].documents[0].documentType &&
+                  true
+                }
               >
                 {documents.map(({ value, label }) => {
                   return (
@@ -117,16 +188,35 @@ const Pasajero = (props) => {
           <Grid item xs={12} md={6}>
             <TextField
               id="number"
+              onBlur={handleBlur}
               label="Número de identidad"
               name={`travelers[${id - 1}].documents[0].number`}
               value={travelers[id - 1].documents[0].number}
               className="input"
               onChange={handleChange}
+              error={
+                travelerErrors &&
+                travelerTouch &&
+                travelerTouch[id - 1].documents &&
+                travelerErrors[id - 1].documents &&
+                travelerTouch[id - 1].documents[0].number &&
+                travelerErrors[id - 1].documents[0].number &&
+                true
+              }
+              helperText={
+                travelerErrors &&
+                travelerTouch &&
+                travelerTouch[id - 1].documents &&
+                travelerErrors[id - 1].documents &&
+                travelerTouch[id - 1].documents[0].number &&
+                travelerErrors[id - 1].documents[0].number
+              }
             />
           </Grid>
           <Grid item xs={12} md={6}>
             <DatePicker
               label="Fecha de expedición"
+              onBlur={handleBlur}
               name={`travelers[${id - 1}].documents[0].issuanceDate`}
               value={travelers[id - 1].documents[0].issuanceDate}
               onChange={(value) =>
@@ -141,12 +231,22 @@ const Pasajero = (props) => {
               renderInput={(params) => (
                 <TextField className="input" {...params} />
               )}
+              error={
+                travelerErrors &&
+                travelerTouch &&
+                travelerTouch[id - 1].documents &&
+                travelerErrors[id - 1].documents &&
+                travelerTouch[id - 1].documents[0].issuanceDate &&
+                travelerErrors[id - 1].documents[0].issuanceDate &&
+                true
+              }
               sx={{ marginLeft: "4rem" }}
             />
           </Grid>
           <Grid item xs={12} md={6}>
             <DatePicker
               label="Fecha de expiración"
+              onBlur={handleBlur}
               name={`travelers[${id - 1}].documents[0].expiryDate`}
               value={travelers[id - 1].documents[0].expiryDate}
               className="input"
@@ -161,6 +261,15 @@ const Pasajero = (props) => {
               renderInput={(params) => (
                 <TextField className="input" {...params} />
               )}
+              error={
+                travelerErrors &&
+                travelerTouch &&
+                travelerTouch[id - 1].documents &&
+                travelerErrors[id - 1].documents &&
+                travelerTouch[id - 1].documents[0].expiryDate &&
+                travelerErrors[id - 1].documents[0].expiryDate &&
+                true
+              }
               sx={{ marginLeft: "4rem" }}
             />
           </Grid>
@@ -174,11 +283,23 @@ const Pasajero = (props) => {
               <InputLabel id="typePhone">Tipo de teléfono</InputLabel>
               <Select
                 labelId="typePhone"
+                onBlur={handleBlur}
                 value={travelers[id - 1].contact.phones[0].deviceType}
                 name={`travelers[${id - 1}].contact.phones[0].deviceType`}
                 onChange={handleChange}
                 label="Tipo de teléfono"
                 className="input"
+                error={
+                  travelerErrors &&
+                  travelerTouch &&
+                  travelerTouch[id - 1].contact &&
+                  travelerErrors[id - 1].contact &&
+                  travelerTouch[id - 1].contact?.phones[0] &&
+                  travelerErrors[id - 1].contact?.phones[0] &&
+                  travelerTouch[id - 1].contact.phones[0].deviceType &&
+                  travelerErrors[id - 1].contact.phones[0].deviceType &&
+                  true
+                }
               >
                 {typePhone.map(({ value, label }) => {
                   return (
@@ -196,6 +317,7 @@ const Pasajero = (props) => {
               options={countries}
               className="input"
               sx={{ width: 300 }}
+              onBlur={handleBlur}
               value={travelers[id - 1].contact.phones[0].countryCallingCode}
               name={`travelers[${id - 1}].contact.phones[0].countryCallingCode`}
               renderInput={(params) => (
@@ -212,6 +334,7 @@ const Pasajero = (props) => {
           <Grid item xs={12} md={6}>
             <TextField
               id="tel"
+              onBlur={handleBlur}
               label="Número de contacto"
               value={travelers[id - 1].contact.phones[0].number}
               name={`travelers[${id - 1}].contact.phones[0].number`}
@@ -223,6 +346,7 @@ const Pasajero = (props) => {
             <TextField
               id="email"
               label="Email"
+              onBlur={handleBlur}
               value={travelers[id - 1].contact.emailAddress}
               name={`travelers[${id - 1}].contact.emailAddress`}
               className="input"

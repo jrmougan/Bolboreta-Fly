@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+
 import { TextField } from "@mui/material";
 import "../style.css";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
+import { ErrorMessage } from "formik";
 const BookingData = (props) => {
   return (
     <div>
@@ -13,9 +15,8 @@ const BookingData = (props) => {
   );
 };
 
-const ContactData = ({ handleChange, values }) => {
+const ContactData = ({ handleChange, values, errors, handleBlur, touched }) => {
   const { contactData } = values;
-  console.log(contactData);
 
   return (
     <div className="bookingData">
@@ -26,6 +27,7 @@ const ContactData = ({ handleChange, values }) => {
 
       <div className="identification_form">
         <TextField
+          error={errors.contactData?.name ? true : false}
           sx={{ marginInline: "1rem", width: "30%", marginTop: "2rem" }}
           id="name"
           name={`contactData.name`}
@@ -34,6 +36,7 @@ const ContactData = ({ handleChange, values }) => {
           onChange={handleChange}
           className="passenger-input"
           margin="dense"
+          helperText={errors?.contactData?.name}
         />{" "}
         <TextField
           sx={{ marginInline: "1rem", width: "30%", marginTop: "2rem" }}

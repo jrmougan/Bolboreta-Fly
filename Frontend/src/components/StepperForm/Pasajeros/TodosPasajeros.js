@@ -1,8 +1,14 @@
 import Pasajero from "./Pasajeros";
 
-const TodosPasajeros = ({ values, handleChange }) => {
+const TodosPasajeros = ({
+  values,
+  handleChange,
+  errors,
+  touched,
+  handleBlur,
+}) => {
   const { travelers } = values;
-  console.log(travelers);
+
   return (
     <div className="FormularioPasajero">
       <section className="Titulo">
@@ -16,6 +22,9 @@ const TodosPasajeros = ({ values, handleChange }) => {
               labels={1}
               travelers={travelers}
               handleChange={handleChange}
+              errors={errors}
+              touched={touched}
+              handleBlur={handleBlur}
             />
           );
         })}

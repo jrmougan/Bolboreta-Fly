@@ -5,9 +5,10 @@ import ResumeAndPay from "./ResumeAndPay/ResumeAndPay";
 import { Container } from "@mui/material";
 import { Field, Form, Formik, FormikConfig, FormikValues } from "formik";
 import { OfferPriceContext } from "../../context/OfferPriceContext";
-
+import * as Yup from "yup";
 import TodosPasajeros from "./Pasajeros/TodosPasajeros";
-
+import { YearPicker } from "@mui/lab";
+import { sub } from "date-fns";
 const StepForm = () => {
   /* 
   ##################################
@@ -48,7 +49,9 @@ const StepForm = () => {
         firstName: "",
         lastName: "",
       },
-      dateOfBirth: Date.now(),
+      dateOfBirth: sub(Date.now(), {
+        years: 18,
+      }),
       gender: "",
       documents: [
         {
@@ -95,19 +98,29 @@ const StepForm = () => {
  #######################
  */
 
-  const getStepContent = (page, props) => {
+  const getStepContent = (page) => {
     if (page === 0) {
-      return <TodosPasajeros {...props} />;
+      return (
+        <FormikParent>
+          <TodosPasajeros />
+        </FormikParent>
+      );
     } else if (page === 1) {
-      return <BookingData {...props} />;
+      return (
+        <FormikParent>
+          <BookingData />
+        </FormikParent>
+      );
     } else if (page === 2) {
       return (
-        <ResumeAndPay
-          {...props}
-          rateCharge={rateCharge}
-          setRateCharge={setRateCharge}
-          totalPrice={totalPrice}
-        />
+        <FormikParent>
+          {" "}
+          <ResumeAndPay
+            rateCharge={rateCharge}
+            setRateCharge={setRateCharge}
+            totalPrice={totalPrice}
+          />
+        </FormikParent>
       );
     }
   };
@@ -170,6 +183,85 @@ const StepForm = () => {
     setActiveStep(0);
   };
 
+  /* 
+  #################################
+  ## COMPONENTE FORMIK ##
+  #################################
+  */
+
+  const FormikParent = (props) => {
+    const { children } = props;
+
+    /* 
+  #################################
+  ## VALIDACIÓN FORMIK YUP ##
+  #################################
+  */
+
+    const FormikValidation = Yup.object().shape({
+      travelers: Yup.array().of(
+        Yup.object().shape({
+          name: Yup.object().shape({
+            firstName: Yup.string()
+              .min(2, "Demasiado corto")
+              .max(15, "Demasiado largo")
+              .required("Obligatorio"),
+            lastName: Yup.string()
+              .min(2, "Demasiado corto")
+              .max(15, "Demasiado largo")
+              .required("Obligatorio"),
+          }),
+          dateOfBirth: Yup.date("Fecha no válida").required("Obligatorio"),
+          gender: Yup.string().required(),
+          documents: Yup.array().of(
+            Yup.object().shape({
+              documentType: Yup.string().required("Obligatorio"),
+              number: Yup.string().required("Obligatorio"),
+              issuanceDate: Yup.date("Fecha inválida"),
+            })
+          ),
+          contact: Yup.object().shape({
+            phones: Yup.array().of(
+              Yup.object().shape({
+                deviceType: Yup.string().required("Obligatorio"),
+              })
+            ),
+          }),
+        })
+      ),
+      contactData: Yup.object().shape({
+        name: Yup.string().min(4, "Demasiado corto").required("Obligatorio"),
+        lastName: Yup.string().required("Obligatorio"),
+        typeDoc: "",
+        doc: "",
+        address: "",
+        country: "",
+        city: "",
+        phone: "",
+      }),
+    });
+    return (
+      <Formik
+        initialValues={{
+          travelers: allTravelers,
+          contactData: contactData,
+        }}
+        onSubmit={(values) => {
+          console.log("Formulario Válido");
+          console.log(values);
+        }}
+        validationSchema={FormikValidation}
+      >
+        {(props) => (
+          <form onSubmit={props.handleSubmit}>
+            {React.cloneElement(children, { ...props })}
+            <Button type="submit">Boton</Button>
+          </form>
+        )}
+      </Formik>
+    );
+  };
+
   return (
     <Container>
       <div className="stepper_container">
@@ -202,25 +294,7 @@ const StepForm = () => {
             </div>
           ) : (
             <div>
-              <div>
-                {" "}
-                <Formik
-                  initialValues={{
-                    travelers: allTravelers,
-                    contactData: contactData,
-                  }}
-                  onSubmit={(values, actions) => {
-                    console.log(values);
-                  }}
-                >
-                  {(props) => (
-                    <form onSubmit={props.handleSubmit}>
-                      {getStepContent(activeStep, props)}
-                      <Button type="submit">Boton</Button>
-                    </form>
-                  )}
-                </Formik>
-              </div>
+              <div> {getStepContent(activeStep)}</div>
               <div className="button_steps">
                 <Button
                   disabled={activeStep === 0}
