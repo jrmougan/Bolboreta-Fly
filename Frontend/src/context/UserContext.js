@@ -1,7 +1,7 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { TokenContext } from "./TokenContext";
+import { createContext, useContext, useEffect, useState } from 'react';
+import { TokenContext } from './TokenContext';
 
-import decodeTokenData from "../helpers/decodeTokenData";
+import decodeTokenData from '../helpers/decodeTokenData';
 
 const UserContext = createContext();
 
@@ -12,9 +12,11 @@ const UserContextProvider = ({ children }) => {
 
   const fetchUserProfile = async () => {
     const res = await fetch(
-      `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${
-        process.env.REACT_APP_PUBLIC_PORT_BACKEND
-      }/user/${decodedToken.id ? decodedToken.id : decodedToken.email}`,
+      `${process.env.REACT_APP_PUBLIC_PROTOCOL}://${
+        process.env.REACT_APP_PUBLIC_HOST_BACKEND
+      }:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/user/${
+        decodedToken.id ? decodedToken.id : decodedToken.email
+      }`,
       {
         headers: {
           Authorization: token,
@@ -30,15 +32,15 @@ const UserContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if (token && token !== "") {
+    if (token && token !== '') {
       fetchUserProfile();
     }
   }, []);
 
   return (
     <UserContext.Provider value={[user, setUser, fetchUserProfile]}>
-      {" "}
-      {children}{" "}
+      {' '}
+      {children}{' '}
     </UserContext.Provider>
   );
 };
