@@ -1,26 +1,26 @@
-import React, { useState } from "react";
-import { TextField } from "@mui/material";
-import "./style.css";
-import swal from "sweetalert";
-import { DatePicker } from "@mui/lab";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import LocalizationProvider from "@mui/lab/LocalizationProvider";
-import { format } from "date-fns";
+import React, { useState } from 'react';
+import { TextField } from '@mui/material';
+import './style.css';
+import swal from 'sweetalert';
+import { DatePicker } from '@mui/lab';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import { format } from 'date-fns';
 
 // Constante(variable) para que todos los inputs tengan el mismo ancho y color
 
-const style = { width: "350px" };
-const fondo = { background: "white" };
+const style = { width: '350px' };
+const fondo = { background: 'white' };
 
 const RegisterForm = () => {
-  const [nombre, setNombre] = useState("");
-  const [primerApellido, setPrimerApellido] = useState("");
+  const [nombre, setNombre] = useState('');
+  const [primerApellido, setPrimerApellido] = useState('');
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordRepeat, setPasswordRepeat] = useState("");
-  const [birthdate, setBirthdate] = useState("birthdate", "1995/10/31");
-  const [bio, setBio] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordRepeat, setPasswordRepeat] = useState('');
+  const [birthdate, setBirthdate] = useState('birthdate', '1995/10/31');
+  const [bio, setBio] = useState('');
 
   const handleSubmit = (setter) => (e) => {
     e.preventDefault();
@@ -31,9 +31,9 @@ const RegisterForm = () => {
     e.preventDefault();
     try {
       const response = await fetch(
-        `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/register`,
+        `${process.env.REACT_APP_PUBLIC_PROTOCOL}://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/register`,
         {
-          method: "POST",
+          method: 'POST',
           body: JSON.stringify({
             name_user: nombre,
             lastname: primerApellido,
@@ -44,7 +44,7 @@ const RegisterForm = () => {
             birthdate: birthdate,
           }),
           headers: {
-            "Content-type": "application/json",
+            'Content-type': 'application/json',
           },
         }
       );
@@ -52,13 +52,13 @@ const RegisterForm = () => {
       if (response.ok) {
         const bodyReponse = await response.json();
 
-        swal(bodyReponse.message, "", "success");
+        swal(bodyReponse.message, '', 'success');
       } else {
         const error = await response.json();
-        swal(error.message, "", "error");
+        swal(error.message, '', 'error');
       }
     } catch (error) {
-      swal(error, "", "error");
+      swal(error, '', 'error');
     }
   };
   //checkbox para mostrar contraseña
@@ -70,156 +70,156 @@ const RegisterForm = () => {
   const switchChecked = () => setChecked(!checked);
 
   return (
-    <main className="flex-column register-form-container">
-      <div className="form-title-container">
-        <h1 className="form-title">
+    <main className='flex-column register-form-container'>
+      <div className='form-title-container'>
+        <h1 className='form-title'>
           Formulario de registro en Bolboreta Flight
         </h1>
       </div>
-      <div className="mainForm">
+      <div className='mainForm'>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <form onSubmit={register} className="form flex-column">
-            <div className="input_container">
-              <label htmlFor="nombre_input" className="label-input">
+          <form onSubmit={register} className='form flex-column'>
+            <div className='input_container'>
+              <label htmlFor='nombre_input' className='label-input'>
                 Nombre
               </label>
               <TextField
                 style={style}
                 sx={fondo}
-                id="nombre_input"
+                id='nombre_input'
                 value={nombre}
-                className="inputForm"
+                className='inputForm'
                 onChange={handleSubmit(setNombre)}
               >
                 Nombre
               </TextField>
             </div>
 
-            <div className="input_container">
-              <label htmlFor="primerApellido" className="label-input">
+            <div className='input_container'>
+              <label htmlFor='primerApellido' className='label-input'>
                 Primer Apellido
               </label>
               <TextField
                 style={style}
                 sx={fondo}
-                id="primerApellido"
+                id='primerApellido'
                 value={primerApellido}
-                className="inputForm"
+                className='inputForm'
                 onChange={handleSubmit(setPrimerApellido)}
-                margin="dense"
+                margin='dense'
               ></TextField>
             </div>
 
-            <div className="input_container">
-              <label htmlFor="email" className="label-input">
-                {" "}
+            <div className='input_container'>
+              <label htmlFor='email' className='label-input'>
+                {' '}
                 E-mail
               </label>
               <TextField
                 style={style}
                 sx={fondo}
-                type="text"
-                id="email"
+                type='text'
+                id='email'
                 value={email}
-                className="inputForm"
+                className='inputForm'
                 onChange={handleSubmit(setEmail)}
-                margin="dense"
+                margin='dense'
               ></TextField>
             </div>
-            <div className="input_container">
-              <label htmlFor="password" className="label-input">
-                {" "}
+            <div className='input_container'>
+              <label htmlFor='password' className='label-input'>
+                {' '}
                 Contraseña
               </label>
               <TextField
                 style={style}
                 sx={fondo}
-                type={shown ? "text" : "password"}
-                id="password"
+                type={shown ? 'text' : 'password'}
+                id='password'
                 value={password}
-                className="inputForm"
+                className='inputForm'
                 onChange={handleSubmit(setPassword)}
-                margin="dense"
+                margin='dense'
               ></TextField>
             </div>
-            <div className="input_container">
-              <label className="label-input" htmlFor="passwordRepeat">
-                {" "}
+            <div className='input_container'>
+              <label className='label-input' htmlFor='passwordRepeat'>
+                {' '}
                 Confirmar contraseña
               </label>
               <TextField
                 style={style}
                 sx={fondo}
-                type={shown ? "text" : "password"}
-                id="passwordRepeat"
+                type={shown ? 'text' : 'password'}
+                id='passwordRepeat'
                 value={passwordRepeat}
-                className="inputForm"
+                className='inputForm'
                 onChange={handleSubmit(setPasswordRepeat)}
-                margin="dense"
+                margin='dense'
               ></TextField>
             </div>
-            <label className="showpass">
-              {" "}
+            <label className='showpass'>
+              {' '}
               <input
-                type="checkbox"
-                name="newpassword"
+                type='checkbox'
+                name='newpassword'
                 onClick={switchShown}
-              />{" "}
-              Mostrar contraseña{" "}
+              />{' '}
+              Mostrar contraseña{' '}
             </label>
-            <div className="input_container">
-              <label htmlFor="birthday" className="label-input">
-                {" "}
+            <div className='input_container'>
+              <label htmlFor='birthday' className='label-input'>
+                {' '}
                 Fecha de Nacimiento
               </label>
               <DatePicker
-                className="datePicker "
-                label="Fecha de Nacimiento"
-                inputFormat="dd/MM/yyyy"
-                sx={{ backgroundColor: "white", width: "100%" }}
+                className='datePicker '
+                label='Fecha de Nacimiento'
+                inputFormat='dd/MM/yyyy'
+                sx={{ backgroundColor: 'white', width: '100%' }}
                 value={birthdate}
                 onChange={(newValue) => {
                   if (newValue instanceof Date && !isNaN(newValue.valueOf())) {
-                    setBirthdate(format(newValue, "yyyy-MM-dd"));
+                    setBirthdate(format(newValue, 'yyyy-MM-dd'));
                   }
                 }}
                 renderInput={(params) => (
                   <TextField
                     sx={{
-                      background: "white",
-                      width: "100%",
+                      background: 'white',
+                      width: '100%',
                     }}
                     {...params}
                   />
                 )}
-              ></DatePicker>{" "}
+              ></DatePicker>{' '}
             </div>
-            <div className="input_container">
-              <label htmlFor="bio" className="label-input">
+            <div className='input_container'>
+              <label htmlFor='bio' className='label-input'>
                 Bio
               </label>
               <TextField
                 style={style}
                 sx={fondo}
-                type="textarea"
+                type='textarea'
                 value={bio}
                 onChange={handleSubmit(setBio)}
-                id="bio"
-                className="inputForm textarea"
+                id='bio'
+                className='inputForm textarea'
               />
             </div>
-            <label className="condicionesgenerales">
+            <label className='condicionesgenerales'>
               <input
-                type="checkbox"
-                className="politica"
+                type='checkbox'
+                className='politica'
                 onChange={switchChecked}
               />
-              Estoy de acuerdo con la{" "}
-              <a href="/privacidad"> Política de Privacidad </a> y{" "}
-              <a href="/terminosycondiciones"> Términos y condiciones </a>
+              Estoy de acuerdo con la{' '}
+              <a href='/privacidad'> Política de Privacidad </a> y{' '}
+              <a href='/terminosycondiciones'> Términos y condiciones </a>
             </label>
 
-            <button type="submit" className="register-btn" disabled={!checked}>
+            <button type='submit' className='register-btn' disabled={!checked}>
               Enviar datos de Registro
             </button>
           </form>

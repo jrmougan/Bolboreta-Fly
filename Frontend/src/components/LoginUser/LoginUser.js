@@ -1,25 +1,25 @@
-import { TextField } from "@mui/material";
-import { Link, Navigate } from "react-router-dom";
-import "./style.css";
-import { useState, useContext, useEffect } from "react";
-import { TokenContext } from "../../context/TokenContext";
-import { UserContext } from "../../context/UserContext";
-import LoginGoogle from "../LoginGoogle/LoginGoogle";
-import swal from "sweetalert";
+import { TextField } from '@mui/material';
+import { Link, Navigate } from 'react-router-dom';
+import './style.css';
+import { useState, useContext, useEffect } from 'react';
+import { TokenContext } from '../../context/TokenContext';
+import { UserContext } from '../../context/UserContext';
+import LoginGoogle from '../LoginGoogle/LoginGoogle';
+import swal from 'sweetalert';
 
 // Constante(variable) para que todos los inputs tengan el mismo ancho / color
 
-const style = { width: "350px" };
-const fondo = { background: "white" };
+const style = { width: '350px' };
+const fondo = { background: 'white' };
 
 function LoginUser() {
   const [user, setUser, fetchUserProfile] = useContext(UserContext);
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
 
   const handleEmail = (e) => {
     setEmail(e.target.value);
   };
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState('');
   const handlePassword = (e) => {
     setPassword(e.target.value);
   };
@@ -36,11 +36,11 @@ function LoginUser() {
     e.preventDefault();
     try {
       const res = await fetch(
-        `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/login`,
+        `${process.env.REACT_APP_PUBLIC_PROTOCOL}://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/login`,
         {
-          method: "POST",
+          method: 'POST',
           headers: {
-            "Content-type": "application/json",
+            'Content-type': 'application/json',
           },
 
           body: JSON.stringify({ email, password }),
@@ -52,10 +52,10 @@ function LoginUser() {
         setToken(body.data.token);
       } else {
         const error = await res.json();
-        swal(error.message, "", "warning");
+        swal(error.message, '', 'warning');
       }
     } catch (message) {
-      swal(message, "", "error");
+      swal(message, '', 'error');
     }
   };
 
@@ -64,20 +64,20 @@ function LoginUser() {
   const switchShown = () => setShown(!shown);
 
   if (token) {
-    return <Navigate to="/" />;
+    return <Navigate to='/' />;
   }
 
   return (
-    <div className="formulario">
-      <section className="form_logueo">
-        <form onSubmit={login} className="login">
+    <div className='formulario'>
+      <section className='form_logueo'>
+        <form onSubmit={login} className='login'>
           <label>E-mail</label>
           <TextField
             sx={fondo}
             style={style}
-            id="usuario"
-            label="E-mail"
-            type="email"
+            id='usuario'
+            label='E-mail'
+            type='email'
             value={email}
             onChange={handleEmail}
           />
@@ -85,37 +85,37 @@ function LoginUser() {
           <TextField
             sx={fondo}
             style={style}
-            id="password"
-            label="Contraseña"
-            type={shown ? "text" : "password"}
+            id='password'
+            label='Contraseña'
+            type={shown ? 'text' : 'password'}
             value={password}
             onChange={handlePassword}
           />
 
-          <button className="sesion" type="submit">
-            {" "}
-            Inicio de Sesión{" "}
+          <button className='sesion' type='submit'>
+            {' '}
+            Inicio de Sesión{' '}
           </button>
         </form>
-        <section className="googleboton">
+        <section className='googleboton'>
           <LoginGoogle />
         </section>
-        <section className="show">
-          <button className="passshow" onClick={switchShown}>
-            {" "}
-            {shown ? "Ocultar contraseña" : "Mostrar contraseña"}{" "}
+        <section className='show'>
+          <button className='passshow' onClick={switchShown}>
+            {' '}
+            {shown ? 'Ocultar contraseña' : 'Mostrar contraseña'}{' '}
           </button>
-          <Link to="/recover">
-            <button className="pregunta" type="button">
-              ¿Has olvidado la contraseña?{" "}
+          <Link to='/recover'>
+            <button className='pregunta' type='button'>
+              ¿Has olvidado la contraseña?{' '}
             </button>
           </Link>
         </section>
 
-        <section className="registro">
-          <Link to="/register">
-            <button className="registerlogin" type="button">
-              REGISTRATE{" "}
+        <section className='registro'>
+          <Link to='/register'>
+            <button className='registerlogin' type='button'>
+              REGISTRATE{' '}
             </button>
           </Link>
         </section>
