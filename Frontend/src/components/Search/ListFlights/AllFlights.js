@@ -1,5 +1,5 @@
-import React from 'react';
-import Flight from './Flight';
+import React from "react";
+import Flight from "./Flight";
 
 const AllFlights = ({ flight }) => {
   const isReturn = flight.itineraries.length > 1 ? true : false;
@@ -7,7 +7,6 @@ const AllFlights = ({ flight }) => {
 
   const scalesOutbound = Number(flight.itineraries[0].segments.length - 1);
   let scalesRoundtrip;
-  console.log('Escalas primer itinerario', scalesOutbound);
 
   let roundtripItinerary;
 

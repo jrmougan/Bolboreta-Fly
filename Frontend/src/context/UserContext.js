@@ -1,7 +1,7 @@
-import { createContext, useContext, useEffect, useState } from 'react';
-import { TokenContext } from './TokenContext';
+import { createContext, useContext, useEffect, useState } from "react";
+import { TokenContext } from "./TokenContext";
 
-import decodeTokenData from '../helpers/decodeTokenData';
+import decodeTokenData from "../helpers/decodeTokenData";
 
 const UserContext = createContext();
 
@@ -27,20 +27,19 @@ const UserContextProvider = ({ children }) => {
       const body = await res.json();
       setUser(body.data);
     } else {
-      console.log(res);
     }
   };
 
   useEffect(() => {
-    if (token && token !== '') {
+    if (token && token !== "") {
       fetchUserProfile();
     }
   }, []);
 
   return (
     <UserContext.Provider value={[user, setUser, fetchUserProfile]}>
-      {' '}
-      {children}{' '}
+      {" "}
+      {children}{" "}
     </UserContext.Provider>
   );
 };

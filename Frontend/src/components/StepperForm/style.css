@@ -17,6 +17,13 @@ body {
 .bold {
   font-weight: bold;
 }
+.sectionForm > h1 {
+  text-align: center;
+}
+
+.sectionForm input {
+  padding-right: 2em;
+}
 
 /* 
 #############
@@ -230,7 +237,7 @@ body {
   align-items: center;
 }
 .subtitle_info_container::before {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 0;
@@ -366,7 +373,7 @@ body {
 }
 
 .bottom_line::before {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 0;
