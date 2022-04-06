@@ -9,8 +9,8 @@ const Reserva = ({ reserva, busqueda, code }) => {
   const { srcPhoto } = useUnsplashImage(busqueda);
 
   // Datos de una reserva individual
-  const iataArrival = reserva.bookingObject[0].arrival_code || 'SCQ';
   const iataDeparture = reserva.bookingObject[0].departure_code || 'AGP';
+  const iataArrival = reserva.bookingObject[0].destination_code || 'AGP';
   const departure_time = reserva.bookingObject[0].departure_time || '15:30';
 
   //  Ciudades de salida y llegada
