@@ -2,15 +2,16 @@ import React, { useState } from "react";
 import { TextField } from "@mui/material";
 import "../style.css";
 
-const BookingData = () => {
+const BookingData = (props) => {
   return (
     <div>
-      <ContactData />
+      <ContactData {...props} />
     </div>
   );
 };
 
-const ContactData = () => {
+const ContactData = ({ bookingData, setBookingData }) => {
+  console.log(bookingData);
   const [nameBooking, setNameBooking] = useState("");
   const [lastNameBooking, setLastNameBooking] = useState("");
   const [lastNameBooking2, setLastnameBooking2] = useState("");
@@ -28,6 +29,10 @@ const ContactData = () => {
     setter(e.target.value);
   };
 
+  const handleChange = (e) => {
+    setBookingData([...bookingData, (bookingData.name = e.target.value)]);
+  };
+
   return (
     <div className="bookingData">
       <h3 className="ter-clr">
@@ -41,8 +46,8 @@ const ContactData = () => {
             required
             id="Apellido-required"
             placeholder=" Nombre"
-            value={nameBooking}
-            onChange={handleSubmit(setNameBooking)}
+            value={bookingData.name}
+            onChange={handleChange()}
             className="passenger-input"
             margin="dense"
           />{" "}
@@ -50,7 +55,7 @@ const ContactData = () => {
             sx={{ marginInline: "1rem", width: "30%", marginTop: "2rem" }}
             required
             id="Apellido-required"
-            placeholder=" Primer Apellido"
+            placeholder="Primer Apellido"
             value={lastNameBooking}
             onChange={handleSubmit(setLastNameBooking)}
             className="passenger-input"
