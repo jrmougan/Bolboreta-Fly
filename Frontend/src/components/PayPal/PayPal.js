@@ -110,7 +110,12 @@ const ButtonWrapper = ({
   );
 };
 
-export default function PayPal({ totalPrice, orderFlight, travelers }) {
+export default function PayPal({
+  totalPrice,
+  orderFlight,
+  travelers,
+  bookingData,
+}) {
   return (
     <div style={{ width: "90%", minHeight: "200px" }}>
       <PayPalScriptProvider
@@ -126,6 +131,7 @@ export default function PayPal({ totalPrice, orderFlight, travelers }) {
           totalPrice={totalPrice}
           orderFlight={orderFlight}
           travelers={travelers}
+          bookingData={bookingData}
         />
       </PayPalScriptProvider>
     </div>

@@ -79,6 +79,7 @@ const bookOffer = async (updatedFlightOrder, token, travelers, bookingData) => {
 
 const ResumeandPay = ({ rateCharge, travelers, totalPrice, bookingData }) => {
   // Contextos
+
   const [token] = useContext(TokenContext);
   const [flight, setFlight] = useContext(OfferPriceContext);
 
