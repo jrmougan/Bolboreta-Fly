@@ -9,13 +9,14 @@
 .iniciosesion {
   border: 1px solid;
   background: #5d7ca6;
-  font-size: medium;
+  font-size: 1rem;
   font-weight: bolder;
   align-items: center;
   width: 170px;
-  height: 45px;
   color: white;
   margin-top: 10px;
+  padding: 0.5rem 0;
+  border-radius: 5px;
 }
 
 .App-header {
