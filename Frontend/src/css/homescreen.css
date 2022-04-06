@@ -1,5 +1,5 @@
 input {
-  font-family: FontAwesome, "Open Sans", Verdana, sans-serif;
+  font-family: FontAwesome, 'Open Sans', Verdana, sans-serif;
 }
 
 a:hover,
@@ -215,13 +215,14 @@ button {
 .svg-container {
   font-size: 1.2rem;
   position: relative;
+  width: 3em;
 }
 
 .resultCard .scales-flight {
   position: absolute;
-  bottom: -18px;
-  left: -30px;
-  font-size: 1em !important;
+  bottom: -10px;
+  left: -15px;
+  font-size: 0.7em !important;
 }
 
 @media screen and (max-width: 550px) {

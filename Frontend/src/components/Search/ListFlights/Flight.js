@@ -36,12 +36,13 @@ const Flight = ({ itinerary, scales }) => {
         <p>{iataOrigin}</p>
         <div className='svg-container'>
           <FaPlane />
+
           {scales ? (
-            <p className='scales-flight'>
+            <div className='scales-flight'>
               {' '}
               {scales}
               {scales > 1 ? ' escalas' : ' escala'}
-            </p>
+            </div>
           ) : (
             ''
           )}
