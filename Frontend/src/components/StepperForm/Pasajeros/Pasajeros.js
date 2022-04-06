@@ -1,6 +1,6 @@
 import { DatePicker, LocalizationProvider } from '@mui/lab';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import { Autocomplete, TextField } from '@mui/material';
+import { Autocomplete, Grid, TextField } from '@mui/material';
 import { format, sub } from 'date-fns';
 
 import './pasajero.css';
@@ -17,197 +17,251 @@ const Pasajero = ({
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <h2 style={{ textAlign: 'center' }}>Pasajero {id}</h2>
-      <form
-        className='passengerForm'
-        style={{ display: 'flex', flexDirection: 'column', flexWrap: 'wrap' }}
-        onSubmit={handleAddPassenger}
-      >
-        <div className='inputs-passengers'>
-          <TextField
-            id='nombre-required'
-            label='Nombre'
-            value={traveler[id - 1].name.firstName}
-            onChange={(e) => {
-              const modTravel = [...traveler];
-              modTravel[id - 1].name.firstName = e.target.value;
-              setTraveler(modTravel);
-            }}
-            className='textfield'
-          />
-          <TextField
-            id='apellido-required'
-            label='Apellido'
-            value={traveler[id - 1].name.lastName}
-            className='textfield-mui'
-            onChange={(e) => {
-              const modTravel = [...traveler];
-              modTravel[id - 1].name.lastName = e.target.value;
-              setTraveler(modTravel);
-            }}
-          />
+      <div className='inputs-passengers'>
+        <Grid container spacing={1} className='sectionForm'>
+          <Grid item xs={12}>
+            <h1>Datos personales</h1>
+          </Grid>
 
-          <DatePicker
-            label='Fecha de cumpleaños'
-            value={traveler[id - 1].dateOfBirth}
-            inputFormat='dd/MM/yyyy'
-            maxDate={sub(Date.now(), {
-              years: 18,
-            })}
-            onChange={(newValue) => {
-              if (newValue instanceof Date && !isNaN(newValue.valueOf())) {
+          <Grid item xs={12} md={6}>
+            <TextField
+              id='nombre-required'
+              label='Nombre'
+              value={traveler[id - 1].name.firstName}
+              onChange={(e) => {
                 const modTravel = [...traveler];
-                modTravel[id - 1].dateOfBirth = format(newValue, 'yyyy-MM-dd');
+                modTravel[id - 1].name.firstName = e.target.value;
                 setTraveler(modTravel);
-              }
-            }}
-            renderInput={(params) => <TextField {...params} />}
-            sx={{ marginLeft: '4rem' }}
-          />
-          <Autocomplete
-            id='genero'
-            options={gender}
-            sx={{ width: 300 }}
-            onChange={(e, newinputvalue) => {
-              const modTravel = [...traveler];
-              modTravel[id - 1].gender = newinputvalue.value;
-              const modLabels = [...autoLabels];
-              modLabels[id - 1].gender = newinputvalue.label;
-              setAutoLabels(modLabels);
-              setTraveler(modTravel);
-            }}
-            value={autoLabels[id - 1].gender}
-            renderInput={(params) => <TextField {...params} label='Género' />}
-          ></Autocomplete>
-          <Autocomplete
-            id='typeDocument'
-            options={documents}
-            sx={{ width: 300 }}
-            onChange={(e, newinputvalue) => {
-              const modTravel = [...traveler];
-              modTravel[id - 1].documents[0].documentType = newinputvalue.value;
-              setTraveler(modTravel);
-
-              const modLabels = [...autoLabels];
-              modLabels[id - 1].docType = newinputvalue.label;
-              setAutoLabels(modLabels);
-            }}
-            value={autoLabels[id - 1].docType}
-            renderInput={(params) => (
-              <TextField {...params} label='Tipo de documento' />
-            )}
-          ></Autocomplete>
-          <TextField
-            id='number-required'
-            label='Número de identidad'
-            value={traveler[id - 1].documents[0].number}
-            className='textfield-mui'
-            onChange={(e) => {
-              const modTravel = [...traveler];
-              modTravel[id - 1].documents[0].number = e.target.value;
-              setTraveler(modTravel);
-            }}
-          />
-          <DatePicker
-            label='Fecha de expedición'
-            value={traveler[id - 1].documents[0].issuanceDate}
-            inputFormat='dd/MM/yyyy'
-            maxDate={Date.now()}
-            onChange={(newValue) => {
-              if (newValue instanceof Date && !isNaN(newValue.valueOf())) {
+              }}
+              className='input'
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              id='apellido-required'
+              label='Apellido'
+              value={traveler[id - 1].name.lastName}
+              className='input'
+              onChange={(e) => {
                 const modTravel = [...traveler];
-                modTravel[id - 1].documents[0].issuanceDate = format(
-                  newValue,
-                  'yyyy-MM-dd'
-                );
+                modTravel[id - 1].name.lastName = e.target.value;
                 setTraveler(modTravel);
-              }
-            }}
-            renderInput={(params) => <TextField {...params} />}
-            sx={{ marginLeft: '4rem' }}
-          />
-          <DatePicker
-            label='Fecha de expiración'
-            value={traveler[id - 1].documents[0].expiryDate}
-            minDate={Date.now()}
-            inputFormat='dd/MM/yyyy'
-            onChange={(newValue) => {
-              if (newValue instanceof Date && !isNaN(newValue.valueOf())) {
+              }}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <DatePicker
+              label='Fecha de nacimiento'
+              value={traveler[id - 1].dateOfBirth}
+              inputFormat='dd/MM/yyyy'
+              maxDate={sub(Date.now(), {
+                years: 18,
+              })}
+              onChange={(newValue) => {
+                if (newValue instanceof Date && !isNaN(newValue.valueOf())) {
+                  const modTravel = [...traveler];
+                  modTravel[id - 1].dateOfBirth = format(
+                    newValue,
+                    'yyyy-MM-dd'
+                  );
+                  setTraveler(modTravel);
+                }
+              }}
+              renderInput={(params) => (
+                <TextField className='input' {...params} />
+              )}
+              sx={{ marginLeft: '4rem' }}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Autocomplete
+              id='genero'
+              options={gender}
+              onChange={(e, newinputvalue) => {
                 const modTravel = [...traveler];
-                modTravel[id - 1].documents[0].expiryDate = format(
-                  newValue,
-                  'yyyy-MM-dd'
-                );
+                modTravel[id - 1].gender = newinputvalue.value;
+                const modLabels = [...autoLabels];
+                modLabels[id - 1].gender = newinputvalue.label;
+                setAutoLabels(modLabels);
                 setTraveler(modTravel);
-              }
-            }}
-            renderInput={(params) => <TextField {...params} />}
-            sx={{ marginLeft: '4rem' }}
-          />
+              }}
+              value={autoLabels[id - 1].gender}
+              renderInput={(params) => (
+                <TextField className='input' {...params} label='Género' />
+              )}
+            ></Autocomplete>
+          </Grid>
+        </Grid>
+        <Grid
+          container
+          rowSpacing={1}
+          columnSpacing={1}
+          className='sectionForm'
+        >
+          <Grid xs={12} item>
+            <h1>Documento de identidad</h1>
+          </Grid>
 
-          <Autocomplete
-            id='typePhone'
-            options={typePhone}
-            sx={{ width: 300 }}
-            onChange={(e, newinputvalue) => {
-              const modTravel = [...traveler];
-              modTravel[id - 1].contact.phones[0].deviceType =
-                newinputvalue.value;
-              setTraveler(modTravel);
+          <Grid item xs={12} md={6}>
+            <Autocomplete
+              id='typeDocument'
+              options={documents}
+              onChange={(e, newinputvalue) => {
+                const modTravel = [...traveler];
+                modTravel[id - 1].documents[0].documentType =
+                  newinputvalue.value;
+                setTraveler(modTravel);
 
-              const modLabels = [...autoLabels];
-              modLabels[id - 1].telType = newinputvalue.label;
-              setAutoLabels(modLabels);
-            }}
-            value={autoLabels[id - 1].telType}
-            renderInput={(params) => (
-              <TextField {...params} label='Tipo de teléfono' />
-            )}
-          ></Autocomplete>
-          <Autocomplete
-            id='contryCallingCode'
-            options={countries}
-            sx={{ width: 300 }}
-            onChange={(e, newinputvalue) => {
-              const modTravel = [...traveler];
-              modTravel[id - 1].contact.phones[0].countryCallingCode =
-                newinputvalue.phone;
-              setTraveler(modTravel);
+                const modLabels = [...autoLabels];
+                modLabels[id - 1].docType = newinputvalue.label;
+                setAutoLabels(modLabels);
+              }}
+              value={autoLabels[id - 1].docType}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  className='input'
+                  label='Tipo de documento'
+                />
+              )}
+            ></Autocomplete>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              id='number-required'
+              label='Número de identidad'
+              value={traveler[id - 1].documents[0].number}
+              className='input'
+              onChange={(e) => {
+                const modTravel = [...traveler];
+                modTravel[id - 1].documents[0].number = e.target.value;
+                setTraveler(modTravel);
+              }}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <DatePicker
+              label='Fecha de expedición'
+              value={traveler[id - 1].documents[0].issuanceDate}
+              inputFormat='dd/MM/yyyy'
+              maxDate={Date.now()}
+              onChange={(newValue) => {
+                if (newValue instanceof Date && !isNaN(newValue.valueOf())) {
+                  const modTravel = [...traveler];
+                  modTravel[id - 1].documents[0].issuanceDate = format(
+                    newValue,
+                    'yyyy-MM-dd'
+                  );
+                  setTraveler(modTravel);
+                }
+              }}
+              renderInput={(params) => (
+                <TextField className='input' {...params} />
+              )}
+              sx={{ marginLeft: '4rem' }}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <DatePicker
+              label='Fecha de expiración'
+              value={traveler[id - 1].documents[0].expiryDate}
+              minDate={Date.now()}
+              inputFormat='dd/MM/yyyy'
+              onChange={(newValue) => {
+                if (newValue instanceof Date && !isNaN(newValue.valueOf())) {
+                  const modTravel = [...traveler];
+                  modTravel[id - 1].documents[0].expiryDate = format(
+                    newValue,
+                    'yyyy-MM-dd'
+                  );
+                  setTraveler(modTravel);
+                }
+              }}
+              renderInput={(params) => (
+                <TextField {...params} className='input' />
+              )}
+              sx={{ marginLeft: '4rem' }}
+            />
+          </Grid>
+        </Grid>
+        <Grid container spacing={1} className='sectionForm'>
+          <Grid xs={12}>
+            <h1>Datos de contacto</h1>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Autocomplete
+              id='typePhone'
+              options={typePhone}
+              onChange={(e, newinputvalue) => {
+                const modTravel = [...traveler];
+                modTravel[id - 1].contact.phones[0].deviceType =
+                  newinputvalue.value;
+                setTraveler(modTravel);
 
-              const modLabels = [...autoLabels];
-              modLabels[id - 1].countryCall = newinputvalue.label
-                ? newinputvalue.label
-                : 'ESPAÑA';
-              setAutoLabels(modLabels);
-            }}
-            value={autoLabels[id - 1].countryCall}
-            renderInput={(params) => (
-              <TextField {...params} label='Prefijo país' />
-            )}
-          ></Autocomplete>
-          <TextField
-            id='number-required'
-            label='Número de contacto'
-            value={traveler[id - 1].contact.phones[0].number}
-            className='textfield-mui'
-            onChange={(e) => {
-              const modTravel = [...traveler];
-              traveler[id - 1].contact.phones[0].number = e.target.value;
-              setTraveler(modTravel);
-            }}
-          />
-          <TextField
-            id='emial-required'
-            label='Email'
-            value={traveler[id - 1].contact.emaiAddress}
-            className='textfield-mui'
-            onChange={(e) => {
-              const modTravel = [...traveler];
-              modTravel[id - 1].contact.emailAddress = e.target.value;
-              setTraveler(modTravel);
-            }}
-          />
-        </div>
-      </form>
+                const modLabels = [...autoLabels];
+                modLabels[id - 1].telType = newinputvalue.label;
+                setAutoLabels(modLabels);
+              }}
+              value={autoLabels[id - 1].telType}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  className='input'
+                  label='Tipo de teléfono'
+                />
+              )}
+            ></Autocomplete>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Autocomplete
+              id='contryCallingCode'
+              options={countries}
+              onChange={(e, newinputvalue) => {
+                const modTravel = [...traveler];
+                modTravel[id - 1].contact.phones[0].countryCallingCode =
+                  newinputvalue.phone;
+                setTraveler(modTravel);
+
+                const modLabels = [...autoLabels];
+                modLabels[id - 1].countryCall = newinputvalue.label
+                  ? newinputvalue.label
+                  : 'ESPAÑA';
+                setAutoLabels(modLabels);
+              }}
+              value={autoLabels[id - 1].countryCall}
+              renderInput={(params) => (
+                <TextField {...params} className='input' label='Prefijo país' />
+              )}
+            ></Autocomplete>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              id='number-required'
+              label='Número de contacto'
+              value={traveler[id - 1].contact.phones[0].number}
+              className='input'
+              onChange={(e) => {
+                const modTravel = [...traveler];
+                traveler[id - 1].contact.phones[0].number = e.target.value;
+                setTraveler(modTravel);
+              }}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              id='emial-required'
+              label='Email'
+              value={traveler[id - 1].contact.emaiAddress}
+              className='input'
+              onChange={(e) => {
+                const modTravel = [...traveler];
+                modTravel[id - 1].contact.emailAddress = e.target.value;
+                setTraveler(modTravel);
+              }}
+            />
+          </Grid>
+        </Grid>
+      </div>
     </LocalizationProvider>
   );
 };

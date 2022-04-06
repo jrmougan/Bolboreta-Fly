@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   durationFormat,
   finalDurationFormat,
-} from "../../../../helpers/formatHelp";
-import { AirlineLogo, findAirlineName } from "../../InfoFlights/helpersFlight";
-import { MoonLoader } from "react-spinners";
-import { css } from "@emotion/react";
+} from '../../../../helpers/formatHelp';
+import { AirlineLogo, findAirlineName } from '../../InfoFlights/helpersFlight';
+import { MoonLoader } from 'react-spinners';
+import { css } from '@emotion/react';
 
-import { toSeconds, parse } from "iso8601-duration";
+import { toSeconds, parse } from 'iso8601-duration';
 
 const override = css`
   display: block;
@@ -41,7 +41,7 @@ const AirlineInfo = ({
     var signal = controller.signal;
     try {
       const res = await fetch(
-        `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/flight/${idBooking}/${number}`,
+        `${process.env.REACT_APP_PUBLIC_PROTOCOL}://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/flight/${idBooking}/${number}`,
         { signal }
       );
       if (res.ok) {
@@ -63,18 +63,18 @@ const AirlineInfo = ({
   return (
     <React.Fragment>
       {loading ? (
-        <MoonLoader className="rotator" css={override} />
+        <MoonLoader className='rotator' css={override} />
       ) : (
-        <div className="airline_info">
+        <div className='airline_info'>
           <AirlineLogo airlineCode={carrierCode} />
-          <div className="">
-            <p className="bold">
+          <div className=''>
+            <p className='bold'>
               {name} - {numberOfFlight}
             </p>
             <span> Tipo de avión/vehículo: {aircraft} - Clase Turista</span>
           </div>
-          <div className="flight_duration_container">
-            <p className="flight_duration">{duration}</p>
+          <div className='flight_duration_container'>
+            <p className='flight_duration'>{duration}</p>
           </div>
         </div>
       )}

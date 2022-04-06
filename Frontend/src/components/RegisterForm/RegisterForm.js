@@ -31,7 +31,7 @@ const RegisterForm = () => {
     e.preventDefault();
     try {
       const response = await fetch(
-        `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/register`,
+        `${process.env.REACT_APP_PUBLIC_PROTOCOL}://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/register`,
         {
           method: "POST",
           body: JSON.stringify({
@@ -174,7 +174,6 @@ const RegisterForm = () => {
               </label>
               <DatePicker
                 className="datePicker "
-                maxDate={Date.now()}
                 label="Fecha de Nacimiento"
                 inputFormat="dd/MM/yyyy"
                 sx={{ backgroundColor: "white", width: "100%" }}

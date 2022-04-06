@@ -61,16 +61,6 @@ body {
   width: 50px !important;
 }
 
-.inputs-passengers {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-@media screen and (max-width: 600) {
-  .inputs-passengers {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
 /* 
 #######################
 ## ELECIÓN DE TARIFA ##

@@ -1,14 +1,14 @@
-import { parse, toSeconds } from "iso8601-duration";
-import React, { useEffect, useState } from "react";
+import { parse, toSeconds } from 'iso8601-duration';
+import React, { useEffect, useState } from 'react';
 import {
   dateFormat,
   durationFormat,
   hourFormat,
-} from "../../../../helpers/formatHelp";
-import AirlineInfo from "./AirlineInfo";
-import AirportInfo from "./AirportInfo";
-import Confirmation from "./Confirmation";
-import SubtitleInfo from "./SubtitleInfo";
+} from '../../../../helpers/formatHelp';
+import AirlineInfo from './AirlineInfo';
+import AirportInfo from './AirportInfo';
+import Confirmation from './Confirmation';
+import SubtitleInfo from './SubtitleInfo';
 
 const Summary = ({
   itineraries,
@@ -18,7 +18,7 @@ const Summary = ({
 }) => {
   // ¿Sólo ida?
   const isReturn = itineraries.length > 1;
-  const title = isReturn ? "Ida y vuelta" : "Solo ida";
+  const title = isReturn ? 'Ida y vuelta' : 'Solo ida';
 
   // Itinerarios
   let secondItinerary;
@@ -71,7 +71,7 @@ export const InfoContainer = ({ segments, isReturn, idBooking }) => {
     var signal = controller.signal;
     try {
       const res = await fetch(
-        `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/flight/${idBooking}/${number}`,
+        `${process.env.REACT_APP_PUBLIC_PROTOCOL}://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/flight/${idBooking}/${number}`,
         { signal }
       );
       if (res.ok) {
@@ -110,8 +110,8 @@ export const InfoContainer = ({ segments, isReturn, idBooking }) => {
   }, [segments]);
 
   return (
-    <article className="info_container">
-      <h1 className="title_info_container">Itinerario: Vuelo</h1>
+    <article className='info_container'>
+      <h1 className='title_info_container'>Itinerario: Vuelo</h1>
       <SubtitleInfo isRoundtrip={isReturn} totalDuration={itineraryDuration} />
       <Confirmation>Vuelo confirmado</Confirmation>
 
@@ -126,8 +126,8 @@ export const InfoContainer = ({ segments, isReturn, idBooking }) => {
         }
 
         return (
-          <section id="segments_container" key={key}>
-            <div className="flightPart">
+          <section id='segments_container' key={key}>
+            <div className='flightPart'>
               {key - 1 >= 0 && <ScaleSegment duration={scaleDuration} />}
               <Segment
                 segment={segment}
@@ -153,7 +153,7 @@ const Segment = ({ segment, idBooking, itineraryDuration }) => {
   const secondDate = dateFormat(new Date(segment.arrival.at));
 
   return (
-    <div className="segment">
+    <div className='segment'>
       <AirportInfo time={firstTime} code={firstCode} date={firstDate} />
 
       <AirlineInfo
@@ -169,7 +169,7 @@ const Segment = ({ segment, idBooking, itineraryDuration }) => {
 };
 const ScaleSegment = ({ duration }) => {
   return (
-    <div className="segment_scale">
+    <div className='segment_scale'>
       <p>Pueden producirse cambios</p>
       <span>Duración de la escala: {duration}</span>
     </div>
