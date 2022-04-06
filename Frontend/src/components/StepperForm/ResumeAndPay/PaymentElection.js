@@ -7,8 +7,6 @@ const PaymentElection = ({
   travelers,
   bookingData,
 }) => {
-  console.log("pe");
-  console.log(bookingData);
   return (
     <div className="paymentElection">
       <h1 className="title_payment">Método de Pago</h1>
