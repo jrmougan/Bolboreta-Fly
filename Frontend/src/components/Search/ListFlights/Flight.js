@@ -40,7 +40,7 @@ const Flight = ({ itinerary, scales }) => {
             <p className='scales-flight'>
               {' '}
               {scales}
-              {scales > 1 ? 'escalas' : 'escala'}
+              {scales > 1 ? ' escalas' : ' escala'}
             </p>
           ) : (
             ''
