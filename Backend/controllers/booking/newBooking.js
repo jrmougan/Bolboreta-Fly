@@ -72,14 +72,14 @@ const newBooking = async (req, res, next) => {
                     itinerary.itineraries[1]?.duration,
                     departure_code,
                     destination_code,
-                    bookingData.name,
-                    bookingData.lastname,
-                    bookingData.typedoc,
-                    bookingData.document,
-                    bookingData.address,
-                    bookingData.city,
-                    bookingData.country,
-                    bookingData.phone,
+                    bookingData?.name || null,
+                    bookingData?.lastname || null,
+                    bookingData?.typedoc || null,
+                    bookingData?.document || null,
+                    bookingData?.address || null,
+                    bookingData?.city || null,
+                    bookingData?.country || null,
+                    bookingData?.phone || null,
                 ]
             );
             //Guardamos el id de insercción de la reserva

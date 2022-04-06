@@ -119,7 +119,7 @@ const StepForm = () => {
         />
       );
     } else if (page === 1) {
-      return <BookingData bookingData={{ bookingData, setBookingData }} />;
+      return <BookingData state={[bookingData, setBookingData]} />;
     } else if (page === 2) {
       return (
         <ResumeAndPay
@@ -127,6 +127,7 @@ const StepForm = () => {
           setRateCharge={setRateCharge}
           totalPrice={totalPrice}
           travelers={travelers}
+          bookingData={bookingData}
         />
       );
     }

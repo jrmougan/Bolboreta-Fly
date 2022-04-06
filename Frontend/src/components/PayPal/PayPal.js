@@ -22,6 +22,7 @@ const ButtonWrapper = ({
   totalPrice,
   orderFlight,
   travelers,
+  bookingData,
 }) => {
   let navigate = useNavigate();
 
@@ -72,20 +73,26 @@ const ButtonWrapper = ({
           return actions.order.capture().then(async function () {
             let insertId;
             try {
-              await orderFlight(flight, token, travelers).then(function (data) {
-                insertId = data;
-                if (!isNaN(insertId)) {
-                  swal(
-                    "Su pago se ha realizado correctamente, pulse confirmar para ir a su reserva",
-                    "",
-                    "success"
-                  );
-                  navigate(`/${insertId}/itinerary`);
-                } else {
-                  swal("Hubo un problema al realizar su reserva", "", "error");
-                  navigate("/");
+              await orderFlight(flight, token, travelers, bookingData).then(
+                function (data) {
+                  insertId = data;
+                  if (!isNaN(insertId)) {
+                    swal(
+                      "Su pago se ha realizado correctamente, pulse confirmar para ir a su reserva",
+                      "",
+                      "success"
+                    );
+                    navigate(`/${insertId}/itinerary`);
+                  } else {
+                    swal(
+                      "Hubo un problema al realizar su reserva",
+                      "",
+                      "error"
+                    );
+                    navigate("/");
+                  }
                 }
-              });
+              );
             } catch (error) {
             } finally {
             }

@@ -1,15 +1,15 @@
-import React, { useContext } from 'react';
-import { TokenContext } from '../../../context/TokenContext';
-import PaymentElection from './PaymentElection';
-import { OfferPriceContext } from '../../../context/OfferPriceContext';
-import FinalAcounting from './FinalAcounting';
-import FlightsResume from './FlightsResume/FlightsResume';
-import swal from 'sweetalert';
+import React, { useContext } from "react";
+import { TokenContext } from "../../../context/TokenContext";
+import PaymentElection from "./PaymentElection";
+import { OfferPriceContext } from "../../../context/OfferPriceContext";
+import FinalAcounting from "./FinalAcounting";
+import FlightsResume from "./FlightsResume/FlightsResume";
+import swal from "sweetalert";
 
-const offerPrice = async (flightOffer, token, travelers) => {
+const offerPrice = async (flightOffer, token, travelers, bookingData) => {
   const body = {
     data: {
-      type: 'flight-offers-pricing',
+      type: "flight-offers-pricing",
       flightOffers: [flightOffer],
     },
   };
@@ -18,10 +18,10 @@ const offerPrice = async (flightOffer, token, travelers) => {
     const res = await fetch(
       `${process.env.REACT_APP_PUBLIC_PROTOCOL}://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/pricing`,
       {
-        method: 'POST',
+        method: "POST",
         headers: {
           Authorization: token,
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(body),
       }
@@ -31,11 +31,16 @@ const offerPrice = async (flightOffer, token, travelers) => {
     if (res.ok) {
       updatedOffer = await data.data.data.flightOffers[0];
 
-      const insertId = await bookOffer(updatedOffer, token, travelers);
+      const insertId = await bookOffer(
+        updatedOffer,
+        token,
+        travelers,
+        bookingData
+      );
       if (!isNaN(insertId)) {
         return await insertId;
       } else {
-        return 'error';
+        return "error";
       }
     }
   } catch (error) {
@@ -43,19 +48,20 @@ const offerPrice = async (flightOffer, token, travelers) => {
   }
 };
 
-const bookOffer = async (updatedFlightOrder, token, travelers) => {
+const bookOffer = async (updatedFlightOrder, token, travelers, bookingData) => {
   const flightOrder = {
     itinerary: updatedFlightOrder,
     travelers: travelers,
+    bookingData: bookingData,
   };
   try {
     const res = await fetch(
       `${process.env.REACT_APP_PUBLIC_PROTOCOL}://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/booking/newBooking`,
       {
-        method: 'POST',
+        method: "POST",
         headers: {
           Authorization: token,
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(flightOrder),
       }
@@ -64,14 +70,14 @@ const bookOffer = async (updatedFlightOrder, token, travelers) => {
     if (res.ok) {
       return data.data;
     } else {
-      return 'error';
+      return "error";
     }
   } catch (error) {
-    swal('No se ha podido realizar la reserva', ' ', 'error');
+    swal("No se ha podido realizar la reserva", " ", "error");
   }
 };
 
-const ResumeandPay = ({ rateCharge, travelers, totalPrice }) => {
+const ResumeandPay = ({ rateCharge, travelers, totalPrice, bookingData }) => {
   // Contextos
   const [token] = useContext(TokenContext);
   const [flight, setFlight] = useContext(OfferPriceContext);
@@ -83,11 +89,12 @@ const ResumeandPay = ({ rateCharge, travelers, totalPrice }) => {
   const airlineCode = flight.validatingAirlineCodes[0];
 
   return (
-    <section className='paymentConfirmationContainer'>
+    <section className="paymentConfirmationContainer">
       <PaymentElection
         totalPrice={totalPrice}
         orderFlight={offerPrice}
         travelers={travelers}
+        bookingData={bookingData}
       />
 
       <PaymentConfirmation>
@@ -98,6 +105,6 @@ const ResumeandPay = ({ rateCharge, travelers, totalPrice }) => {
   );
 };
 const PaymentConfirmation = ({ children }) => {
-  return <div className='paymentConfirmation'>{children}</div>;
+  return <div className="paymentConfirmation">{children}</div>;
 };
 export default ResumeandPay;

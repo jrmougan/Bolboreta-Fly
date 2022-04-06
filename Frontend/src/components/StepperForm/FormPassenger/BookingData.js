@@ -10,7 +10,8 @@ const BookingData = (props) => {
   );
 };
 
-const ContactData = ({ bookingData, setBookingData }) => {
+const ContactData = ({ state }) => {
+  const [bookingData, setBookingData] = state;
   console.log(bookingData);
   const [nameBooking, setNameBooking] = useState("");
   const [lastNameBooking, setLastNameBooking] = useState("");
@@ -29,10 +30,6 @@ const ContactData = ({ bookingData, setBookingData }) => {
     setter(e.target.value);
   };
 
-  const handleChange = (e) => {
-    setBookingData([...bookingData, (bookingData.name = e.target.value)]);
-  };
-
   return (
     <div className="bookingData">
       <h3 className="ter-clr">
@@ -45,9 +42,13 @@ const ContactData = ({ bookingData, setBookingData }) => {
             sx={{ marginInline: "1rem", width: "30%", marginTop: "2rem" }}
             required
             id="Apellido-required"
-            placeholder=" Nombre"
+            placeholder="Nombre"
             value={bookingData.name}
-            onChange={handleChange()}
+            onChange={(e) => {
+              const modData = { ...bookingData };
+              modData.name = e.target.value;
+              setBookingData(modData);
+            }}
             className="passenger-input"
             margin="dense"
           />{" "}
@@ -55,19 +56,13 @@ const ContactData = ({ bookingData, setBookingData }) => {
             sx={{ marginInline: "1rem", width: "30%", marginTop: "2rem" }}
             required
             id="Apellido-required"
-            placeholder="Primer Apellido"
-            value={lastNameBooking}
-            onChange={handleSubmit(setLastNameBooking)}
-            className="passenger-input"
-            margin="dense"
-          />{" "}
-          <TextField
-            sx={{ marginInline: "1rem", width: "30%", marginTop: "2rem" }}
-            required
-            id="Apellido-required"
-            placeholder=" Segundo Apellido"
-            value={lastNameBooking2}
-            onChange={handleSubmit(setLastnameBooking2)}
+            placeholder=" Primer Apellido"
+            value={bookingData.lastname}
+            onChange={(e) => {
+              const modData = { ...bookingData };
+              modData.lastname = e.target.value;
+              setBookingData(modData);
+            }}
             className="passenger-input"
             margin="dense"
           />{" "}
@@ -76,8 +71,12 @@ const ContactData = ({ bookingData, setBookingData }) => {
             required
             id="Apellido-required"
             placeholder="DNI / NIF / CIF / NIE"
-            value={typedocumentBooking}
-            onChange={handleSubmit(setTypeDocumentBooking)}
+            value={bookingData.typedoc}
+            onChange={(e) => {
+              const modData = { ...bookingData };
+              modData.typedoc = e.target.value;
+              setBookingData(modData);
+            }}
             className="passenger-input"
             margin="dense"
           />
@@ -86,8 +85,12 @@ const ContactData = ({ bookingData, setBookingData }) => {
             required
             id="Apellido-required"
             placeholder="Introduzca aquí el número del documento"
-            value={documentBooking}
-            onChange={handleSubmit(setDocumentBooking)}
+            value={bookingData.document}
+            onChange={(e) => {
+              const modData = { ...bookingData };
+              modData.document = e.target.value;
+              setBookingData(modData);
+            }}
             className="passenger-input"
             margin="dense"
           />
@@ -99,8 +102,12 @@ const ContactData = ({ bookingData, setBookingData }) => {
             required
             id="Apellido-required"
             placeholder="Dirección"
-            value={addressBooking}
-            onChange={handleSubmit(setAddressBooking)}
+            value={bookingData.address}
+            onChange={(e) => {
+              const modData = { ...bookingData };
+              modData.address = e.target.value;
+              setBookingData(modData);
+            }}
             className="passenger-input"
             margin="dense"
           />{" "}
@@ -109,8 +116,12 @@ const ContactData = ({ bookingData, setBookingData }) => {
             required
             id="Country-required"
             placeholder="País"
-            value={countryBooking}
-            onChange={handleSubmit(setCountryBooking)}
+            value={bookingData.country}
+            onChange={(e) => {
+              const modData = { ...bookingData };
+              modData.country = e.target.value;
+              setBookingData(modData);
+            }}
             className="passenger-input"
             margin="dense"
           />{" "}
@@ -119,8 +130,12 @@ const ContactData = ({ bookingData, setBookingData }) => {
             required
             id="Apellido-required"
             placeholder="Ciudad"
-            value={cityBooking}
-            onChange={handleSubmit(setCityBooking)}
+            value={bookingData.city}
+            onChange={(e) => {
+              const modData = { ...bookingData };
+              modData.city = e.target.value;
+              setBookingData(modData);
+            }}
             className="passenger-input"
             margin="dense"
           />{" "}
@@ -129,8 +144,12 @@ const ContactData = ({ bookingData, setBookingData }) => {
             required
             id="Apellido-required"
             placeholder="Teléfono de contacto"
-            value={phoneBooking}
-            onChange={handleSubmit(setPhoneBooking)}
+            value={bookingData.phone}
+            onChange={(e) => {
+              const modData = { ...bookingData };
+              modData.phone = e.target.value;
+              setBookingData(modData);
+            }}
             className="passenger-input"
             margin="dense"
           />
