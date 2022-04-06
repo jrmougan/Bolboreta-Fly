@@ -174,6 +174,7 @@ const RegisterForm = () => {
               </label>
               <DatePicker
                 className="datePicker "
+                maxDate={Date.now()}
                 label="Fecha de Nacimiento"
                 inputFormat="dd/MM/yyyy"
                 sx={{ backgroundColor: "white", width: "100%" }}
