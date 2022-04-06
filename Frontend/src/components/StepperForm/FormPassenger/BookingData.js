@@ -21,7 +21,7 @@ const ContactData = ({ state }) => {
       </h3>
       <form className="form_user">
         <Grid container spacing={1} className="sectionForm">
-          <Grid xs={12}>
+          <Grid item xs={12}>
             <h1>Datos personales</h1>
           </Grid>
           <Grid item xs={12} md={6}>
@@ -95,7 +95,7 @@ const ContactData = ({ state }) => {
         </Grid>
 
         <Grid container spacing={1} className="sectionForm">
-          <Grid xs={12}>
+          <Grid item xs={12}>
             <h1>Datos de contacto</h1>
           </Grid>
           <Grid item xs={12} md={6}>

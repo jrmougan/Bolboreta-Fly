@@ -1,27 +1,20 @@
-import React, { useState } from 'react';
-import seatMapResponse from './seatmap';
-import '../style.css';
+import React, { useState } from "react";
+import seatMapResponse from "./seatmap";
+import "../style.css";
 
 const CreadorCuadrados = (a, b) => {
   let [aCounter, setACounter] = useState(0);
   let [bCounter, setBCounter] = useState(0);
 
   const seats = seatMapResponse.data[0].decks[0].seats;
-  console.log(seats);
+
   const number = seats[0].number;
   const coordinates = {
     x: seats[0].coordinates.x,
     y: seats[0].coordinates.y,
   };
   const status = seats[0].travelerPricing[0].seatAvailabilityStatus;
-  console.log(status);
 
-  console.log({
-    'Number =>': number,
-    'Coordinate x': coordinates.x,
-    'coordinate y': coordinates.y,
-    'Estado actual': status,
-  });
   /* seats.map((seat, key) => {
     const columnCount = 0;
 
@@ -44,7 +37,7 @@ const CreadorCuadrados = (a, b) => {
     if (counterColumn < yCoord) {
       counterColumn = counterColumn + 1;
     } else if (counterColumn > yCoord) {
-      console.log('Columnas', counterColumn);
+      console.log("Columnas", counterColumn);
     }
   }
 
@@ -54,9 +47,9 @@ const CreadorCuadrados = (a, b) => {
     <div className={`boxMaker columns_${counterColumn}`}>
       {seats.map((seat, key) => {
         const isAvailable =
-          seat.travelerPricing[0].seatAvailabilityStatus === 'AVAILABLE'
-            ? 'available'
-            : 'nonAvailable';
+          seat.travelerPricing[0].seatAvailabilityStatus === "AVAILABLE"
+            ? "available"
+            : "nonAvailable";
 
         return (
           <div key={key} className={`box ${isAvailable} `}>
@@ -71,7 +64,7 @@ const CreadorCuadrados = (a, b) => {
   );
 };
 const SeatChoice = () => {
-  return <div className='seats_panel'>{}</div>;
+  return <div className="seats_panel">{}</div>;
 };
 /* const prueba = () => {
   console.log(seats);
