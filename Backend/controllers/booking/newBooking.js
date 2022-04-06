@@ -18,7 +18,7 @@ const newBooking = async (req, res, next) => {
             `SELECT email FROM user WHERE id = ?`,
             [id_user]
         );
-        const { itinerary, travelers } = req.body;
+        const { itinerary, travelers, bookingData } = req.body;
 
         if (!itinerary || !travelers) {
             const error = new Error('Faltan campos');
@@ -45,13 +45,19 @@ const newBooking = async (req, res, next) => {
             const creation_date = data.associatedRecords[0].creationDate;
             const finalPrice = data.flightOffers[0].price.total;
             const currency = data.flightOffers[0].price.currency;
+            const departure_code =
+                itinerary.itineraries[0].segments[0].departure.iataCode;
+            const destination_code =
+                itinerary.itineraries[0].segments[
+                    itinerary.itineraries[0].segments.length - 1
+                ].arrival.iataCode;
 
             connection = await getDB();
 
             // Insertamos la reserva en caso de que no exista
 
             const [booking] = await connection.query(
-                'INSERT INTO booking (booking_code, creation_date, payment_method, complete, final_price, currency, canceled, oneway, id_user,departure_duration, return_duration) VALUES (?,?,?,?,?,?,?,?,?,?,?)',
+                'INSERT INTO booking (booking_code, creation_date, payment_method, complete, final_price, currency, canceled, oneway, id_user,departure_duration, return_duration, departure_code, destination_code, name, lastname, documentype, document, address, city, country, phone) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
                 [
                     bookingId,
                     creation_date,
@@ -64,6 +70,16 @@ const newBooking = async (req, res, next) => {
                     id_user,
                     itinerary.itineraries[0].duration,
                     itinerary.itineraries[1]?.duration,
+                    departure_code,
+                    destination_code,
+                    bookingData.name,
+                    bookingData.lastname,
+                    bookingData.typedoc,
+                    bookingData.document,
+                    bookingData.address,
+                    bookingData.city,
+                    bookingData.country,
+                    bookingData.phone,
                 ]
             );
             //Guardamos el id de insercción de la reserva
@@ -184,10 +200,12 @@ const newBooking = async (req, res, next) => {
             });
         }
     } catch (e) {
+        /*
         const error = new Error();
         error.httpStatus = 400;
         error.message = e.description;
-        next(error);
+        next(error);*/
+        next(e);
     } finally {
         if (connection) connection.release();
     }
