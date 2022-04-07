@@ -10,9 +10,6 @@ main {
   padding: 0;
   box-sizing: border-box;
 }
-main {
-  background-color: #f7f6ff;
-}
 
 nav {
   background-color: #f7f6ff;
@@ -40,9 +37,7 @@ nav li {
   justify-content: flex-end;
   align-items: center;
 }
-.inputForm {
-  background: #fff;
-}
+
 .form {
   position: relative;
   display: flex;

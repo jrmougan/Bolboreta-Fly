@@ -12,14 +12,10 @@ const clientId =
 
 function GoogleLoginButton() {
   const [token, setToken] = useContext(TokenContext);
-  console.log("token", token);
 
   const onSuccess = async (googleRes) => {
-    console.log(googleRes);
-    console.log(googleRes.tokenId);
-
     const res = await fetch(
-      `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/login_google`,
+      `${process.env.REACT_APP_PUBLIC_PROTOCOL}://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/login_google`,
       {
         method: "POST",
         headers: {
@@ -30,7 +26,6 @@ function GoogleLoginButton() {
     );
     if (res.ok) {
       const bodyToken = await res.json();
-      console.log(bodyToken);
       setToken(bodyToken);
     }
   };

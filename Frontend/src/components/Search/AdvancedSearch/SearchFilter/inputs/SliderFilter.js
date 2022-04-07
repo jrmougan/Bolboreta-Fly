@@ -9,6 +9,7 @@ export const SliderFilter = (props) => {
       <Grid item xs={12} justifyContent="center">
         <Slider
           valueLabelDisplay="auto"
+          valueLabelFormat={(value) => <div>{`${value} ${props.units}`}</div>}
           min={props.min}
           max={props.max}
           defaultValue={props.max}

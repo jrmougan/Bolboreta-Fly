@@ -15,11 +15,11 @@ function durationFormat(duration) {
     return `${days} día ${hours} horas ${minutes} minutos`;
   }
   if (hours === 0) {
-    return `${minutes} minutos`;
+    return `${minutes} min`;
   } else if (minutes === 0) {
     return `${hours} horas`;
   } else {
-    return hours + ' horas y ' + minutes + ' minutos ';
+    return hours + ' horas y ' + minutes + ' min ';
   }
 }
 
@@ -36,7 +36,7 @@ function finalDurationFormat(duration) {
   if (totalDigits.hours === 1) {
     return `${horas} hora ${minutos} min`;
   }
-  return `${horas} horas y ${minutos} minutos `;
+  return `${horas} horas y ${minutos} min `;
 }
 
 function dateFormat(date) {

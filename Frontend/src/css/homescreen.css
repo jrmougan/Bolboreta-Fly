@@ -8,7 +8,6 @@ button {
 }
 
 .searchEnvironment {
-  background-color: #f7f6ff;
   padding: 3rem 0.5rem;
 }
 
@@ -176,15 +175,16 @@ button {
   font-size: 0.5rem;
 
   padding: 2em 0em;
-  max-width: 500px;
+  max-width: 800px;
   margin-inline: auto;
   margin-top: 2em;
 
-  background-color: #f7f6ff;
+  background-color: white;
   display: flex;
   border-radius: 5px;
-  border: 1px solid black;
+
   z-index: 1;
+  box-shadow: 1px 1px 10px rgba(51, 51, 51, 0.437);
 }
 
 .btnFlight {
@@ -203,38 +203,28 @@ button {
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 0 1.5em 0 4em;
+
+  padding: 0 1.5em 0 1.5rem;
   flex-grow: 3;
 }
 
 .flightItem {
-  max-width: 250px;
+  max-width: 800px;
 }
-.left-card:before {
-  content: '';
-  position: absolute;
-  height: 20%;
-  width: 13%;
-  top: 25%;
-  left: 5px;
 
-  transform: translateY(-25%);
-  border-radius: 40%;
-  background-color: #5d7ca6;
+.svg-container {
+  font-size: 1.2rem;
+  position: relative;
+  width: 3em;
 }
-.left-card:after {
-  content: '';
-  position: absolute;
-  height: 20%;
-  width: 13%;
-  bottom: 25%;
-  left: 5px;
 
-  transform: translateY(25%);
-  border-radius: 40%;
-  background-color: white;
-  border: 0.1px solid black;
+.resultCard .scales-flight {
+  position: absolute;
+  bottom: -10px;
+  left: -15px;
+  font-size: 0.7em !important;
 }
+
 @media screen and (max-width: 550px) {
   .left-card {
     padding: 0 0 0 3rem;
@@ -355,7 +345,7 @@ span.card_airline_name {
   .resultCard {
     font-size: 1rem;
     padding: 2em 0rem;
-    max-width: 500px;
+    /* max-width: 500px; */
     margin-inline: auto;
     margin-top: 2em;
   }

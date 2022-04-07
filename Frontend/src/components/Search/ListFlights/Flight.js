@@ -1,7 +1,7 @@
-import { FaPlane } from "react-icons/fa";
-import { finalDurationFormat, hourFormat } from "../../../helpers/formatHelp";
+import { FaPlane } from 'react-icons/fa';
+import { finalDurationFormat, hourFormat } from '../../../helpers/formatHelp';
 
-const Flight = ({ itinerary }) => {
+const Flight = ({ itinerary, scales }) => {
   // Duraciones
   const flightDuration = itinerary.duration;
   const duration = finalDurationFormat(flightDuration);
@@ -25,16 +25,28 @@ const Flight = ({ itinerary }) => {
   // Clase
 
   return (
-    <section className="flightItem">
-      <p className="fareOption">{"ECONOMY"} CLASS</p>
-      <div className="timeFlight">
+    <section className='flightItem'>
+      <p className='fareOption'>{'ECONOMY'} CLASS</p>
+      <div className='timeFlight'>
         <span>{timeDeparture}</span>
-        <div className="duration_listflights">{duration}</div>
+        <div className='duration_listflights'>{duration}</div>
         <span>{timeArrival}</span>
       </div>
-      <div className="origin_destination">
+      <div className='origin_destination'>
         <p>{iataOrigin}</p>
-        <FaPlane />
+        <div className='svg-container'>
+          <FaPlane />
+
+          {scales ? (
+            <div className='scales-flight'>
+              {' '}
+              {scales}
+              {scales > 1 ? ' escalas' : ' escala'}
+            </div>
+          ) : (
+            ''
+          )}
+        </div>
         <p>{iataDestination}</p>
       </div>
     </section>

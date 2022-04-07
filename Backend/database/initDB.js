@@ -65,6 +65,8 @@ async function main() {
             booking_code VARCHAR(50) NOT NULL,
             creation_date DATE NOT NULL,
             payment_method TINYINT,
+            departure_code VARCHAR(50),
+            destination_code VARCHAR(50),
             complete BOOLEAN NOT NULL default(false),
             final_price FLOAT unsigned,
             currency CHAR(10),

@@ -22,6 +22,7 @@ const ButtonWrapper = ({
   totalPrice,
   orderFlight,
   travelers,
+  bookingData,
 }) => {
   let navigate = useNavigate();
 
@@ -72,17 +73,28 @@ const ButtonWrapper = ({
           return actions.order.capture().then(async function () {
             let insertId;
             try {
-              await orderFlight(flight, token, travelers).then(function (data) {
-                insertId = data;
-                swal(
-                  "Su pago se ha realizado correctamente, pulse confirmar para ir a su reserva",
-                  "",
-                  "success"
-                );
-              });
+              await orderFlight(flight, token, travelers, bookingData).then(
+                function (data) {
+                  insertId = data;
+                  if (!isNaN(insertId)) {
+                    swal(
+                      "Su pago se ha realizado correctamente, pulse confirmar para ir a su reserva",
+                      "",
+                      "success"
+                    );
+                    navigate(`/${insertId}/itinerary`);
+                  } else {
+                    swal(
+                      "Hubo un problema al realizar su reserva",
+                      "",
+                      "error"
+                    );
+                    navigate("/");
+                  }
+                }
+              );
             } catch (error) {
             } finally {
-              navigate(`/${insertId}/itinerary`);
             }
           });
         }}
@@ -98,7 +110,12 @@ const ButtonWrapper = ({
   );
 };
 
-export default function PayPal({ totalPrice, orderFlight, travelers }) {
+export default function PayPal({
+  totalPrice,
+  orderFlight,
+  travelers,
+  bookingData,
+}) {
   return (
     <div style={{ width: "90%", minHeight: "200px" }}>
       <PayPalScriptProvider
@@ -114,6 +131,7 @@ export default function PayPal({ totalPrice, orderFlight, travelers }) {
           totalPrice={totalPrice}
           orderFlight={orderFlight}
           travelers={travelers}
+          bookingData={bookingData}
         />
       </PayPalScriptProvider>
     </div>

@@ -1,31 +1,31 @@
-import { Grid } from '@mui/material';
-import React, { useEffect, useState } from 'react';
-import useSearch from '../../../hooks/useSearch.js';
-import { SearchFilter } from './SearchFilter/SearchFilter.js';
-import './styles.css';
-import { MoonLoader } from 'react-spinners';
-import { ListFlights } from '../ListFlights/ListFlights';
+import { Grid } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import useSearch from "../../../hooks/useSearch.js";
+import { SearchFilter } from "./SearchFilter/SearchFilter.js";
+import "./styles.css";
+import { MoonLoader } from "react-spinners";
+import { ListFlights } from "../ListFlights/ListFlights";
 
-import { findAirportInfo } from '../../StepperForm/InfoFlights/helpersFlight.js';
-import { Block } from '@mui/icons-material';
-import { dateFormat } from '../../../helpers/formatHelp.js';
+import { findAirportInfo } from "../../StepperForm/InfoFlights/helpersFlight.js";
+import { Block } from "@mui/icons-material";
+import { dateFormat } from "../../../helpers/formatHelp.js";
 export const AdvancedSearch = (searchParams) => {
   const [search, setSearch] = useState(searchParams);
 
   // Extraemos los datos de la búsqueda
 
   const selectScales = [
-    ['Directo', 0],
-    ['1 escala', 1],
-    ['2 escalas', 2],
+    ["2 escalas", 2],
+    ["1 escala", 1],
+    ["Directo", 0],
   ];
 
   const [maxPrice, setMaxPrice] = useState(6000);
 
   //Estado Filtro
   const [filter, setFilter] = useState({
-    scales: 0,
-    duration: 0,
+    scales: 2,
+    duration: 99,
     maxprice: null,
   });
 
@@ -47,8 +47,8 @@ export const AdvancedSearch = (searchParams) => {
   border-color: red;
 `;
 
-  let url = '';
-  let withReturn = '';
+  let url = "";
+  let withReturn = "";
 
   // Obtenemos los datos de los input para realizar la búsqueda
   const [origin, setOrigin] = useState(search.origin);
@@ -64,14 +64,14 @@ export const AdvancedSearch = (searchParams) => {
           <InfoSearch search={search} />
         </Grid>
       }
-      <Grid item className='filter' xs={12} md={3}>
+      <Grid item className="filter" xs={12} md={4}>
         <SearchFilter
           scales={selectScales}
           filterState={[filter, setFilter]}
           maxPrice={maxPrice}
         />
       </Grid>
-      <Grid item xs={12} md={9}>
+      <Grid item xs={12} md={8}>
         {loading ? <MoonLoader css={override} /> : <ListFlights data={data} />}
       </Grid>
     </Grid>
@@ -81,34 +81,34 @@ export const AdvancedSearch = (searchParams) => {
 const InfoSearch = ({ search }) => {
   const { origin, destination, departureDate, returnDate, adults } =
     search.search;
-  findAirportInfo(origin, 'city');
+  findAirportInfo(origin, "city");
 
   return (
     <React.Fragment>
-      <article className='flight-info-container'>
-        <div className='dates-flight-info items-flight-info'>
-          <p className='item-flight-info'>
-            <span className='bold'>Origen:</span>{' '}
-            {findAirportInfo(origin, 'city')}
+      <article className="flight-info-container">
+        <div className="dates-flight-info items-flight-info">
+          <p className="item-flight-info">
+            <span className="bold">Origen:</span>{" "}
+            {findAirportInfo(origin, "city")}
           </p>
-          <p className='item-flight-info'>
-            <span className='bold'>Destino:</span>{' '}
-            {findAirportInfo(destination, 'city')}
+          <p className="item-flight-info">
+            <span className="bold">Destino:</span>{" "}
+            {findAirportInfo(destination, "city")}
           </p>
         </div>
-        <div className='dates-flight-info items-flight-info'>
-          <p className='item-flight-info'>
-            <span className='bold'>Fecha Salida:</span> {departureDate}{' '}
+        <div className="dates-flight-info items-flight-info">
+          <p className="item-flight-info">
+            <span className="bold">Fecha Salida:</span> {departureDate}{" "}
           </p>
           {returnDate && (
-            <p className='item-flight-info'>
-              <span className='bold'>Fecha Vuelta:</span> {returnDate}{' '}
+            <p className="item-flight-info">
+              <span className="bold">Fecha Vuelta:</span> {returnDate}{" "}
             </p>
           )}
 
-          <p className='item-flight-info'>
-            <span className='bold'>Adultos:</span>
-            {adults}{' '}
+          <p className="item-flight-info">
+            <span className="bold">Adultos:</span>
+            {adults}{" "}
           </p>
         </div>
       </article>

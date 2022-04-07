@@ -1,0 +1,68 @@
+.cloud-moving-1 {
+  z-index: -1;
+  position: absolute;
+  right: 0;
+  font-size: 5rem;
+  animation-name: cloud-moving;
+  animation-duration: 20s;
+  color: #ccc;
+  animation-iteration-count: infinite;
+}
+.cloud-moving-2 {
+  z-index: -1;
+  position: absolute;
+  right: 0;
+  top: 15rem;
+  font-size: 15rem;
+  animation-name: cloud-moving;
+  animation-duration: 20s;
+  color: #ccc;
+  animation-iteration-count: infinite;
+}
+.cloud-moving-3 {
+  z-index: -1;
+  position: absolute;
+  right: 0;
+  top: 20rem;
+  font-size: 25rem;
+  animation-name: cloud-moving;
+  animation-duration: 15s;
+  color: #ccc;
+  animation-iteration-count: infinite;
+}
+
+.cloud-moving-4 {
+  z-index: -1;
+  position: absolute;
+  right: 0;
+  top: 17rem;
+  font-size: 10rem;
+  animation-name: cloud-moving;
+  animation-duration: 10s;
+  color: #ccc;
+  animation-iteration-count: infinite;
+}
+
+.cloud-moving-4 {
+  z-index: -1;
+  position: absolute;
+  right: 0;
+  top: 50rem;
+  font-size: 3rem;
+  animation-name: cloud-moving;
+  animation-duration: 25s;
+  color: #ccc;
+  animation-iteration-count: infinite;
+}
+@keyframes cloud-moving {
+  0% {
+    transform: translateX(1200px);
+  }
+
+  75% {
+    color: aliceblue;
+  }
+  100% {
+    transform: translateX(-2200px);
+  }
+}

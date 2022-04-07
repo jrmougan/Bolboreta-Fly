@@ -17,6 +17,13 @@ body {
 .bold {
   font-weight: bold;
 }
+.sectionForm > h1 {
+  text-align: center;
+}
+
+.sectionForm input {
+  padding-right: 2em;
+}
 
 /* 
 #############
@@ -59,16 +66,6 @@ body {
 
 .MuiPhoneNumber-flagButton {
   width: 50px !important;
-}
-
-.inputs-passengers {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-@media screen and (max-width: 600) {
-  .inputs-passengers {
-    grid-template-columns: 1fr 1fr;
-  }
 }
 
 /* 
@@ -240,7 +237,7 @@ body {
   align-items: center;
 }
 .subtitle_info_container::before {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 0;
@@ -376,7 +373,7 @@ body {
 }
 
 .bottom_line::before {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 0;

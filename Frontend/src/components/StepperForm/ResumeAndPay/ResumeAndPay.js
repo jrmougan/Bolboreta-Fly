@@ -6,7 +6,7 @@ import FinalAcounting from "./FinalAcounting";
 import FlightsResume from "./FlightsResume/FlightsResume";
 import swal from "sweetalert";
 
-const offerPrice = async (flightOffer, token, travelers) => {
+const offerPrice = async (flightOffer, token, travelers, bookingData) => {
   const body = {
     data: {
       type: "flight-offers-pricing",
@@ -16,7 +16,7 @@ const offerPrice = async (flightOffer, token, travelers) => {
   let updatedOffer;
   try {
     const res = await fetch(
-      `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/pricing`,
+      `${process.env.REACT_APP_PUBLIC_PROTOCOL}://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/pricing`,
       {
         method: "POST",
         headers: {
@@ -31,23 +31,32 @@ const offerPrice = async (flightOffer, token, travelers) => {
     if (res.ok) {
       updatedOffer = await data.data.data.flightOffers[0];
 
-      const insertId = await bookOffer(updatedOffer, token, travelers);
-
-      return await insertId;
+      const insertId = await bookOffer(
+        updatedOffer,
+        token,
+        travelers,
+        bookingData
+      );
+      if (!isNaN(insertId)) {
+        return await insertId;
+      } else {
+        return "error";
+      }
     }
   } catch (error) {
     console.error(error);
   }
 };
 
-const bookOffer = async (updatedFlightOrder, token, travelers) => {
+const bookOffer = async (updatedFlightOrder, token, travelers, bookingData) => {
   const flightOrder = {
     itinerary: updatedFlightOrder,
     travelers: travelers,
+    bookingData: bookingData,
   };
   try {
     const res = await fetch(
-      `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/booking/newBooking`,
+      `${process.env.REACT_APP_PUBLIC_PROTOCOL}://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/booking/newBooking`,
       {
         method: "POST",
         headers: {
@@ -57,37 +66,20 @@ const bookOffer = async (updatedFlightOrder, token, travelers) => {
         body: JSON.stringify(flightOrder),
       }
     );
-
+    const data = await res.json();
     if (res.ok) {
-      const data = await res.json();
       return data.data;
+    } else {
+      return "error";
     }
   } catch (error) {
     swal("No se ha podido realizar la reserva", " ", "error");
   }
 };
 
-const seatMap = async (updatedFlightOrder, token) => {
-  const body = {
-    data: " ",
-  };
-  try {
-    const res = await fetch(
-      `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/seatmap`,
-      {
-        method: "POST",
-        headers: {
-          Authorization: token,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      }
-    );
-  } catch (error) {}
-};
-
-const ResumeandPay = ({ rateCharge, travelers, totalPrice }) => {
+const ResumeandPay = ({ rateCharge, travelers, totalPrice, bookingData }) => {
   // Contextos
+
   const [token] = useContext(TokenContext);
   const [flight, setFlight] = useContext(OfferPriceContext);
 
@@ -103,6 +95,7 @@ const ResumeandPay = ({ rateCharge, travelers, totalPrice }) => {
         totalPrice={totalPrice}
         orderFlight={offerPrice}
         travelers={travelers}
+        bookingData={bookingData}
       />
 
       <PaymentConfirmation>

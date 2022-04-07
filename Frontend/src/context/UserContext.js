@@ -12,9 +12,11 @@ const UserContextProvider = ({ children }) => {
 
   const fetchUserProfile = async () => {
     const res = await fetch(
-      `http://${process.env.REACT_APP_PUBLIC_HOST_BACKEND}:${
-        process.env.REACT_APP_PUBLIC_PORT_BACKEND
-      }/user/${decodedToken.id ? decodedToken.id : decodedToken.email}`,
+      `${process.env.REACT_APP_PUBLIC_PROTOCOL}://${
+        process.env.REACT_APP_PUBLIC_HOST_BACKEND
+      }:${process.env.REACT_APP_PUBLIC_PORT_BACKEND}/user/${
+        decodedToken.id ? decodedToken.id : decodedToken.email
+      }`,
       {
         headers: {
           Authorization: token,
@@ -25,7 +27,6 @@ const UserContextProvider = ({ children }) => {
       const body = await res.json();
       setUser(body.data);
     } else {
-      console.log(res);
     }
   };
 

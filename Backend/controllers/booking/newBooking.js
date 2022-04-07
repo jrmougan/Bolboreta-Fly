@@ -9,6 +9,8 @@ const amadeus = new Amadeus({
 const newBooking = async (req, res, next) => {
     let connection;
 
+    const { PUBLIC_HOST_FRONT } = process.env;
+
     try {
         connection = await getDB();
 
@@ -18,7 +20,7 @@ const newBooking = async (req, res, next) => {
             `SELECT email FROM user WHERE id = ?`,
             [id_user]
         );
-        const { itinerary, travelers } = req.body;
+        const { itinerary, travelers, bookingData } = req.body;
 
         if (!itinerary || !travelers) {
             const error = new Error('Faltan campos');
@@ -45,14 +47,19 @@ const newBooking = async (req, res, next) => {
             const creation_date = data.associatedRecords[0].creationDate;
             const finalPrice = data.flightOffers[0].price.total;
             const currency = data.flightOffers[0].price.currency;
+            const departure_code =
+                itinerary.itineraries[0].segments[0].departure.iataCode;
+            const destination_code =
+                itinerary.itineraries[0].segments[
+                    itinerary.itineraries[0].segments.length - 1
+                ].arrival.iataCode;
 
             connection = await getDB();
 
             // Insertamos la reserva en caso de que no exista
-            console.log(itinerary.itineraries);
 
             const [booking] = await connection.query(
-                'INSERT INTO booking (booking_code, creation_date, payment_method, complete, final_price, currency, canceled, oneway, id_user,departure_duration, return_duration) VALUES (?,?,?,?,?,?,?,?,?,?,?)',
+                'INSERT INTO booking (booking_code, creation_date, payment_method, complete, final_price, currency, canceled, oneway, id_user,departure_duration, return_duration, departure_code, destination_code, name, lastname, documentype, document, address, city, country, phone) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
                 [
                     bookingId,
                     creation_date,
@@ -65,6 +72,16 @@ const newBooking = async (req, res, next) => {
                     id_user,
                     itinerary.itineraries[0].duration,
                     itinerary.itineraries[1]?.duration,
+                    departure_code,
+                    destination_code,
+                    bookingData?.name || null,
+                    bookingData?.lastname || null,
+                    bookingData?.typedoc || null,
+                    bookingData?.document || null,
+                    bookingData?.address || null,
+                    bookingData?.city || null,
+                    bookingData?.country || null,
+                    bookingData?.phone || null,
                 ]
             );
             //Guardamos el id de insercción de la reserva
@@ -171,7 +188,8 @@ const newBooking = async (req, res, next) => {
             }
             //Enviamos mail de confirmación de reserva
             const confirmbody = `
-        Tu reserva con id <b>${bookingId}</b> ha sido confirmada
+        Tu reserva con destino ha sido confirmada
+        <a href="${PUBLIC_HOST_FRONT}${insertIdBooking}/itinerary">Enlace a la reserva</a>
         `;
             await sendMail({
                 to: email_user,
@@ -184,8 +202,13 @@ const newBooking = async (req, res, next) => {
                 data: insertIdBooking,
             });
         }
-    } catch (error) {
-        next(error);
+    } catch (e) {
+        /*
+        const error = new Error();
+        error.httpStatus = 400;
+        error.message = e.description;
+        next(error);*/
+        next(e);
     } finally {
         if (connection) connection.release();
     }
@@ -198,7 +221,6 @@ async function createRelation(
     flightObject,
     flightId
 ) {
-    //console.log(travelers);
     for (const traveler of travelers) {
         await connection.query(
             `INSERT INTO passenger_rel_flight_rel_booking 

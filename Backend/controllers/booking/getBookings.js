@@ -10,7 +10,7 @@ const getBookings = async (req, res, next) => {
 
         const [bookings] = await connection.query(
             `
-            SELECT DISTINCT b.id_user as userid,f.id as flightid, b.id as bookingid, f.departure_code, f.arrival_code, b.booking_code, ternaria.departure_time, ternaria.arrival_time 
+            SELECT DISTINCT b.id_user as userid, b.id as bookingid, b.destination_code,b.departure_code, b.booking_code, ternaria.departure_time, ternaria.arrival_time 
             FROM booking b 
             LEFT JOIN passenger_rel_flight_rel_booking ternaria ON ternaria.booking_id = b.id 
             LEFT JOIN flight f ON f.id = ternaria.flight_id 
