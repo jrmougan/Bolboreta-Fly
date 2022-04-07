@@ -81,13 +81,13 @@ Si quieres realizar un pago mediante Paypal usando tarjeta puedes introducir una
 
 Cambiar direccion a España!! </br>
 
-Número de targeta: 4020026466711226 <br/>
+Número de tarjeta: 4020026466711226 <br/>
 Fecha de Caducidad: 11/2023 </br>
 CVV: 026 </br>
 
 ---
 
-Número de targeta: 4020024943226215 <br/>
+Número de tarjeta: 4020024943226215 <br/>
 Fecha de Caducidad: 07/2026</br>
 CVV: 878 </br>
 
