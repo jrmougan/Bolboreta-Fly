@@ -9,6 +9,8 @@ const amadeus = new Amadeus({
 const newBooking = async (req, res, next) => {
     let connection;
 
+    const { PUBLIC_HOST_FRONT } = process.env;
+
     try {
         connection = await getDB();
 
@@ -186,7 +188,8 @@ const newBooking = async (req, res, next) => {
             }
             //Enviamos mail de confirmación de reserva
             const confirmbody = `
-        Tu reserva con id <b>${bookingId}</b> ha sido confirmada
+        Tu reserva con destino ha sido confirmada
+        <a href="${PUBLIC_HOST_FRONT}${insertIdBooking}/itinerary">Enlace a la reserva</a>
         `;
             await sendMail({
                 to: email_user,
