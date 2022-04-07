@@ -37,3 +37,9 @@
 .scaleInput > * {
   width: 100%;
 }
+.filterContainer {
+  padding: 1rem 3rem 1.5rem;
+}
+.filterContainer h1 {
+  margin-bottom: 1rem;
+}

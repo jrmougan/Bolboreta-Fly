@@ -4,6 +4,7 @@ import swal from 'sweetalert';
 import { TokenContext } from '../../context/TokenContext';
 import decodeTokenData from '../../helpers/decodeTokenData';
 import { Navigate } from 'react-router-dom';
+import { FaTrash } from 'react-icons/fa';
 
 const DeleteUsuario = () => {
   const [token, setToken] = useContext(TokenContext);
@@ -37,10 +38,9 @@ const DeleteUsuario = () => {
   }
 
   return (
-    <div>
+    <div className='deleteUsuarioContainer'>
       <button className='delete' onClick={fetchDeleteuser}>
-        {' '}
-        Eliminar Usuario{' '}
+        <FaTrash /> Eliminar Usuario{' '}
       </button>
     </div>
   );

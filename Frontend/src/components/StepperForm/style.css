@@ -237,7 +237,7 @@ body {
   align-items: center;
 }
 .subtitle_info_container::before {
-  content: "";
+  content: '';
   position: absolute;
   bottom: 0;
   left: 0;
@@ -337,6 +337,10 @@ body {
   .aditional_info_container {
     font-size: 0.7rem;
   }
+  .cancelation_container p {
+    font-size: 0.8rem;
+    margin-bottom: 2rem;
+  }
 }
 
 /* 
@@ -373,7 +377,7 @@ body {
 }
 
 .bottom_line::before {
-  content: "";
+  content: '';
   position: absolute;
   bottom: 0;
   left: 0;

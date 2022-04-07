@@ -137,6 +137,7 @@ const EditUser = () => {
             inputFormat='dd/MM/yyyy'
             sx={{ backgroundColor: 'white', width: '100%' }}
             value={newbirthdate}
+            style={style}
             onChange={(newValue) => {
               if (newValue instanceof Date && !isNaN(newValue.valueOf())) {
                 setNewbirthdate(format(newValue, 'yyyy-MM-dd'));
@@ -144,6 +145,7 @@ const EditUser = () => {
             }}
             renderInput={(params) => (
               <TextField
+                style={style}
                 sx={{
                   background: 'white',
                   style,
@@ -159,6 +161,7 @@ const EditUser = () => {
             style={style}
             id='address'
             name='address'
+            label='Dirección'
             value={newaddress}
             onChange={(e) => {
               setNewaddress(e.target.value);
