@@ -3,7 +3,7 @@ import { React, useState, useContext, useEffect } from 'react';
 import swal from 'sweetalert';
 import { TokenContext } from '../../context/TokenContext';
 import decodeTokenData from '../../helpers/decodeTokenData';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './style.css';
 import { TextField } from '@mui/material';
 
@@ -20,6 +20,7 @@ const EditPassForm = () => {
   const decodedToken = decodeTokenData(token);
   const [doPassMatch, setDoPassMatch] = useState(false);
 
+  let navigate = useNavigate();
   //checkbox para mostrar contraseña
   const [shown, setShown] = useState(false);
   const switchShown = () => setShown(!shown);
@@ -49,6 +50,7 @@ const EditPassForm = () => {
     if (res.ok) {
       const body = await res.json();
       swal(body.message, '', 'success');
+      navigate('/');
     } else {
       const error = await res.json();
       console.log(error);
@@ -113,21 +115,22 @@ const EditPassForm = () => {
             }}
           />
         </div>
-        <label className='showpass'>
-          {' '}
-          <input
-            type='checkbox'
-            name='newpassword'
-            onClick={switchShown}
-          />{' '}
-          Mostrar contraseña{' '}
-        </label>
-        <Link to='/user'>
+        <div className='submitContainer'>
+          <label className='showpass'>
+            {' '}
+            <input
+              type='checkbox'
+              name='newpassword'
+              onClick={switchShown}
+            />{' '}
+            Mostrar contraseña{' '}
+          </label>
+
           <button type='submit' className='cambiarpass'>
             {' '}
             Cambiar contraseña{' '}
           </button>
-        </Link>
+        </div>
       </form>
     </div>
   );
