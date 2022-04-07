@@ -54,7 +54,7 @@ function GoogleLoginButton() {
     <Link to="/">
       <button onClick={signIn} className="googleboton">
         <img src={logogoogle} alt="google login" className="icon"></img>
-        <span className="googleboton"> Google</span>
+        <span className="googleboton">Inicia sesión con Google</span>
       </button>
     </Link>
   );

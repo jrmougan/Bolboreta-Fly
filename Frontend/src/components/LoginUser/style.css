@@ -5,11 +5,27 @@
   justify-content: center;
 }
 
+.loginpagina > .formulario {
+  display: flex;
+  justify-content: center;
+}
+
+.form_logueo {
+  padding: 3em;
+  background-color: white;
+  box-shadow: 1px 1px 5px #333;
+}
+
+.googleboton button {
+  border-radius: 0.25em;
+  background-color: white !important;
+  padding: 0.25em;
+}
+
 .googleboton {
   display: flex;
-  flex-direction: column;
-  height: 50px;
   align-items: center;
+  justify-content: center;
   margin: 0.2rem;
 }
 .icon {
@@ -38,12 +54,16 @@
   font-size: medium;
   font-weight: bolder;
   align-items: center;
-  width: 170px;
-  height: 40px;
+  padding: 1em 2em 1em 2em;
   color: white;
   margin-top: 10px;
   border-radius: 5px;
 }
+
+button.sesion {
+  display: flex;
+}
+
 .passshow {
   width: 100px;
   font-size: x-small;
@@ -58,7 +78,6 @@
 .pregunta {
   font-size: x-small;
   width: 150px;
-
   margin-top: 10px;
   background: var(--button-color);
   color: white;
@@ -69,6 +88,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.show > button,
+.show > a > button {
+  width: 9em;
+  padding: 0 1em 0 1em;
 }
 
 .registro {
