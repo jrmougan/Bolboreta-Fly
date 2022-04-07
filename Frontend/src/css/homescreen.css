@@ -1,5 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+
 input {
-  font-family: FontAwesome, 'Open Sans', Verdana, sans-serif;
+  font-family: FontAwesome, "Open Sans", Verdana, sans-serif;
+}
+
+.App-logo h2 {
+  font-size: 2.1em;
+  font-family: "Pacifico";
 }
 
 a:hover,
